@@ -3,18 +3,27 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Commands.ClimbManualControl;
+import frc.robot.Subsystems.Climb;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-
+/** Add your docs here. */
 public class RobotContainer {
-  public RobotContainer() {
-    configureBindings();
-  }
+    private CommandXboxController m_copilotController; 
+    public final Climb m_Climb = new Climb(this);
 
-  private void configureBindings() {}
+    public RobotContainer(){
+        // m_Climb.setDefaultCommand(null);
+        m_Climb.setDefaultCommand(new ClimbManualControl(m_Climb));
+        configureButtonBindings();
+    }
+    
+     public CommandXboxController getCopilotXboxController(){
+        return m_copilotController;
+     }
 
-  public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
-  }
+    private void configureButtonBindings(){
+        m_copilotController = new CommandXboxController(1);
+
+    }
 }
