@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -16,7 +15,7 @@ public class RobotContainer {
 
   public static CommandXboxController m_driverController = new CommandXboxController(0);
 
-  public static LED m_led = new LED(new AddressableLED(0), 100);
+  public static LED m_led = LED.getInstance();
 
   public RobotContainer() {
     configureBindings();

@@ -8,16 +8,16 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LED extends SubsystemBase {
-  /** Creates a new LED. */
-  private AddressableLED m_led;
+  
+  private static LED m_instance = null;
 
-  private AddressableLEDBuffer m_ledBuffer;
+  private static AddressableLED m_led;
 
-  private LEDState m_currentState;
+  private static AddressableLEDBuffer m_ledBuffer;
 
-  private int m_rainbowFirstPixelHue = 0;
+  private LEDState m_currentState = LEDState.OFF;
 
-  private boolean rainbow = false;
+  private static int m_rainbowFirstPixelHue = 0;
 
   public LED(AddressableLED led, int length) {
     m_led = led;
@@ -29,12 +29,17 @@ public class LED extends SubsystemBase {
     m_led.start();
   }
 
+  public static LED getInstance() {
+    if (m_instance == null) {
+      m_instance = new LED(new AddressableLED(0), 100);
+    }
+
+    return m_instance;
+  }
+
   public void setState(LEDState desiredState) {
     m_currentState = desiredState;
-    if (desiredState == LEDState.RAINBOW) {
-      rainbow = true;
-    } else {
-      rainbow = false;
+    if (desiredState.ledRunnable == null) {
       setRGB(desiredState.red, desiredState.green, desiredState.blue);
     }
   }
@@ -51,7 +56,7 @@ public class LED extends SubsystemBase {
     return m_currentState;
   }
 
-  private void rainbow() {
+  public static void rainbow() {
     // For every pixel
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
       // Calculate the hue - hue is easier for rainbows because the color
@@ -69,25 +74,31 @@ public class LED extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (rainbow) rainbow();
+    if (m_currentState.ledRunnable != null) {
+      m_currentState.ledRunnable.run();
+    }
   }
 
   public enum LEDState {
-    BLUE(0, 0, 255, "Blue"),
-    RED(255, 0, 0, "Red"),
-    GREEN(0, 255, 0, "Green"),
-    RAINBOW(0, 0, 0, "Rainbow");
+    OFF(0, 0, 0, "Off", null),
+    BLUE(0, 0, 255, "Blue", null),
+    RED(255, 0, 0, "Red", null),
+    GREEN(0, 255, 0, "Green", null),
+    RAINBOW(0, 0, 0, "Rainbow", LED::rainbow);
 
     public int red;
     public int green;
     public int blue;
+    public Runnable ledRunnable;
     public String name;
 
-    private LEDState(int red, int green, int blue, String name) {
+    private LEDState(int red, int green, int blue, String name, Runnable ledRunnable) {
       this.red = red;
       this.green = green;
       this.blue = blue;
+      this.ledRunnable = ledRunnable;
       this.name = name;
     }
   }
+
 }
