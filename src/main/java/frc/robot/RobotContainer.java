@@ -4,34 +4,29 @@
 
 package frc.robot;
 
-import com.ctre.phoenix6.hardware.Pigeon2;
-
+import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.RunLaunchMotors;
-import frc.robot.commands.SetLaunchVelocity;
-import frc.robot.subsystems.Launcher;
+import frc.robot.subsystems.LED;
+import frc.robot.subsystems.LED.LEDState;
 
 public class RobotContainer {
 
   public static CommandXboxController m_driverController = new CommandXboxController(0);
-  
-  public static Launcher m_launcher = new Launcher();
 
-  public static Pigeon2 m_pigeon = new Pigeon2(1, "rio");
+  public static LED m_led = new LED(new AddressableLED(0), 100);
 
   public RobotContainer() {
-    m_pigeon.setYaw(0);
     configureBindings();
   }
 
   private void configureBindings() {
-    m_driverController.a().whileTrue(new RunLaunchMotors(m_launcher, 3, 1.5));
-    m_driverController.b().whileTrue(new RunLaunchMotors(m_launcher, 6, 0));
-    m_driverController.x().whileTrue(new RunLaunchMotors(m_launcher, 9, 1.5));
-    m_driverController.y().whileTrue(new RunLaunchMotors(m_launcher, 12, 6));
-    m_driverController.leftBumper().whileTrue(new RunLaunchMotors(m_launcher, -3, -3));
+    m_driverController.a().onTrue(new InstantCommand(() -> m_led.setState(LEDState.BLUE)));
+    m_driverController.b().onTrue(new InstantCommand(() -> m_led.setState(LEDState.GREEN)));
+    m_driverController.x().onTrue(new InstantCommand(() -> m_led.setState(LEDState.RED)));
+    m_driverController.y().onTrue(new InstantCommand(() -> m_led.setState(LEDState.RAINBOW)));
   }
 
   public Command getAutonomousCommand() {
