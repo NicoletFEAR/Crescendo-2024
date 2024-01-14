@@ -4,6 +4,7 @@
 
 package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.Climb;
 
@@ -24,7 +25,12 @@ public class ClimbManualControl extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_Climb.updateCurrentPosition();
     m_Climb.manualControl();
+    m_Climb.drive();
+    SmartDashboard.putNumber("Current Position", m_Climb.currentPosition);
+    SmartDashboard.putNumber("Intended Position", m_Climb.getIntendedPosition());
+    SmartDashboard.putNumber("Drive", m_Climb.climbPID.calculate(m_Climb.currentPosition));
   }
 
   // Called once the command ends or is interrupted.

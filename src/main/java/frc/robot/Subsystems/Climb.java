@@ -22,12 +22,12 @@ public class Climb extends SubsystemBase {
   final double kp = 0.01;
   final double ki = 0.0;
   final double kd = 0.0; 
-  double currentPosition = 0.0;
+  public double currentPosition = 5.0;
   double maxRotations = 10.0;
   double minRotations = 0.0;
   double deadzone = 0.5;
     
-  PIDController climbPID;
+  public PIDController climbPID;
   RobotContainer robotContainer;
 
   final double maxVoltage = 2;
@@ -36,14 +36,15 @@ public class Climb extends SubsystemBase {
 
   /** Creates a new Climb. */
   public Climb(RobotContainer newRobotContainer) {
-    leftWinchMotor = new CANSparkMax(14, MotorType.kBrushless);
+    leftWinchMotor = new CANSparkMax(12, MotorType.kBrushless);
     //rightWinchMotor = new CANSparkMax(0, MotorType.kBrushless);
 
     leftWinchEncoder = leftWinchMotor.getEncoder();
     //rightWinchEncoder = rightWinchMotor.getEncoder();
+    leftWinchEncoder.setPosition(5);
 
     climbPID = new PIDController(kp, ki, kd);
-    climbPID.setTolerance(deadzone);
+    climbPID.setTolerance(0.0);
     setIntendedPosition(0.0);
 
     leftWinchEncoder.setPosition(0.0);
@@ -58,10 +59,6 @@ public class Climb extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    drive();
-    SmartDashboard.putNumber("Current Position", currentPosition);
-    SmartDashboard.putNumber("Intended Position", getIntendedPosition());
-    SmartDashboard.putNumber("Voltage", 2 * climbPID.calculate(currentPosition));
   }
 
   public void setIntendedPosition(double newPosition) {
@@ -81,7 +78,10 @@ public class Climb extends SubsystemBase {
   }
 
   public void manualControl(){
-    double deltaPosition = robotContainer.getCopilotXboxController().getLeftY();
+    double deltaPosition = -robotContainer.getCopilotXboxController().getLeftY();
+    if(Math.abs(deltaPosition) < 0.15){
+      deltaPosition = 0.0;
+    }
 
     if (currentPosition < maxRotations - deadzone && currentPosition > minRotations + deadzone){
       setIntendedPosition(getIntendedPosition() + deltaPosition);
@@ -97,10 +97,13 @@ public class Climb extends SubsystemBase {
       }
     }
   }
+
+  public void go(){
+    leftWinchMotor.set(0.1);
+  }
   
   public void drive(){
-    double voltage = maxVoltage * climbPID.calculate(currentPosition);
-    leftWinchMotor.setVoltage(voltage);
+    leftWinchMotor.set(climbPID.calculate(currentPosition));
   }
 
   public boolean atPosition(){
