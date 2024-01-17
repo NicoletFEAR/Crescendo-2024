@@ -6,5 +6,8 @@ package frc.robot;
 
 /** Add your docs here. */
 public final class Constants {
-    public static Integer flywheelMotorId = 14;
+    //Vortex
+    public static Integer wheelMotorId = 20;
+    //Neo
+    public static Integer swivelMotorId = 15;
 }

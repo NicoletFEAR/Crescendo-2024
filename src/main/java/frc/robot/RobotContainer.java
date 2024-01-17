@@ -11,31 +11,32 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import frc.robot.commands.IntakeNote;
-import frc.robot.subsystems.Intake;
+import frc.robot.commands.Drive;
+import frc.robot.subsystems.Swerve;
 
 //----------------------------------------------//
 
 public class RobotContainer {
   public static CommandXboxController m_driverController = new CommandXboxController(0);
 
-  private final Intake m_intakeSubsystem = new Intake();
-  public IntakeNote intakeNote = new IntakeNote(m_intakeSubsystem, 0.2);
+  private final Swerve m_swerveSubsystem = new Swerve();
+  public Drive drive = new Drive(m_swerveSubsystem, 0.2);
 
   public float multiplier = 1;
 
   public RobotContainer() {
-    m_intakeSubsystem.setDefaultCommand(new IntakeNote(m_intakeSubsystem, m_driverController.getRightY() * multiplier));
+    //m_swerveSubsystem.setDefaultCommand(new Drive(m_swerveSubsystem, m_driverController.getRightY() * multiplier));
+    m_swerveSubsystem.setDefaultCommand(new Drive(m_swerveSubsystem, 0.7));
     configureBindings();
   }
 
   private void configureBindings() {
     m_driverController.x().whileTrue(
-      new IntakeNote(m_intakeSubsystem, 0.2));
+      new Drive(m_swerveSubsystem, 1));
       
   }
 
   public Command getAutonomousCommand() {
-    return intakeNote;
+    return drive;
   }
 }

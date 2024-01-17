@@ -11,17 +11,17 @@ import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-public class Intake extends SubsystemBase {
+public class Swerve extends SubsystemBase {
 
-  final CANSparkMax flywheelMotor;
-  final CANSparkFlex otherMotor;
+  final CANSparkFlex wheelMotor;
+  final CANSparkMax swivelMotor;
 
   /** Creates a new Intake. */
-  public Intake() {
-    otherMotor = new CANSparkFlex(
-      17, MotorType.kBrushless);
-    flywheelMotor = new CANSparkMax(
-	    Constants.flywheelMotorId, MotorType.kBrushless);
+  public Swerve() {
+    wheelMotor = new CANSparkFlex(
+	    Constants.wheelMotorId, MotorType.kBrushless);
+    swivelMotor = new CANSparkMax(
+      Constants.swivelMotorId, MotorType.kBrushless);
   }
 
   @Override
@@ -30,7 +30,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void go(double power){
-    flywheelMotor.set(power);
-    otherMotor.set(power);
+    wheelMotor.set(power);
+    swivelMotor.set(power);
   }
 }
