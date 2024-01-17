@@ -30,7 +30,7 @@ public class Swerve extends SubsystemBase {
   }
 
   public void go(double power){
-    wheelMotor.set(power);
-    swivelMotor.set(power);
+    wheelMotor.set(-power);
+    swivelMotor.set(-power);
   }
 }
