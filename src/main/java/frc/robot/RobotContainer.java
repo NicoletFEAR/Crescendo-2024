@@ -10,10 +10,10 @@ import frc.robot.Subsystems.Climb;
 /** Add your docs here. */
 public class RobotContainer {
     private CommandXboxController m_copilotController; 
-    public final Climb m_Climb = new Climb();
+    public final Climb m_climb = new Climb();
 
     public RobotContainer(){
-        m_Climb.setDefaultCommand(new ClimbManualControl(m_Climb, m_copilotController));
+        m_climb.setDefaultCommand(new ClimbManualControl(m_climb, m_copilotController));
         configureButtonBindings();
     }
     
@@ -23,7 +23,7 @@ public class RobotContainer {
 
     private void configureButtonBindings(){
         m_copilotController = new CommandXboxController(1);
-        m_copilotController.a().onTrue(new ClimbSetpoint(m_Climb));
-        m_copilotController.y().onTrue(new ClimbTuckedInSetpoint(m_Climb));
+        m_copilotController.a().onTrue(new ClimbChainSetpoint(m_climb));
+        m_copilotController.y().onTrue(new ClimbTuckedInSetpoint(m_climb));
     }
 }
