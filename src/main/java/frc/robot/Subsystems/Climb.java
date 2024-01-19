@@ -12,101 +12,141 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class Climb extends SubsystemBase {
-  public static  CANSparkMax leftWinchMotor;
-  //public static  CANSparkMax rightWinchMotor;
+private final CANSparkMax leftWinchMotor;
+private final CANSparkMax rightWinchMotor;
 
-  public static RelativeEncoder leftWinchEncoder;
-  //public static RelativeEncoder rightWinchEncoder;
+private final RelativeEncoder leftWinchEncoder;
+private final RelativeEncoder rightWinchEncoder;
   
-  final double kp = 0.15;
-  final double ki = 0.0;
-  final double kd = 0.0;
+private double kp = 0.15;
+private double ki = 0.0;
+private double kd = 0.0;
 
-  public double currentPosition = 5.0;
-
-  double maxRotations = 10.0;
-  double minRotations = 0.0;
-  double deadzone = 0.5;
+private double maxClimbRotations = 10.0;
+private double minClimbRotations = 0.0;
+private double climbDeadzone = 0.5;
+private double climbSetpoint = 7.7;
     
-  public PIDController climbPID;
+private PIDController climbPID;
 
-  RobotContainer robotContainer;  
+RobotContainer robotContainer;  
 
   /** Creates a new Climb. */
   public Climb(RobotContainer newRobotContainer) {
-    leftWinchMotor = new CANSparkMax(11, MotorType.kBrushless);
-    //rightWinchMotor = new CANSparkMax(0, MotorType.kBrushless);
+    leftWinchMotor = new CANSparkMax(Constants.leftWristMotorID, MotorType.kBrushless);
+    rightWinchMotor = new CANSparkMax(Constants.leftWristMotorID, MotorType.kBrushless);
+    rightWinchMotor.follow(leftWinchMotor, true);
 
     leftWinchEncoder = leftWinchMotor.getEncoder();
-    //rightWinchEncoder = rightWinchMotor.getEncoder();
-    leftWinchEncoder.setPosition(5);
-    //rightWinchEncoder.setPosition(5);
-
+    rightWinchEncoder = rightWinchMotor.getEncoder();
+    leftWinchEncoder.setPosition(0);
+    rightWinchEncoder.setPosition(0);
 
     climbPID = new PIDController(kp, ki, kd);
-    climbPID.setTolerance(deadzone);
-    setIntendedPosition(5.0);
+    climbPID.setTolerance(climbDeadzone);
+    setIntendedPosition(0);
 
-    leftWinchEncoder.setPosition(5.0);
-    //rightWinchEncoder.setPosition(5.0);
-
-    //rightWinchMotor.follow(leftWinchMotor, true);
+    SmartDashboard.putNumber("kp", kp);
+    SmartDashboard.putNumber("ki", ki);
+    SmartDashboard.putNumber("kd", kd);
     
-    robotContainer = newRobotContainer;
+    SmartDashboard.putNumber("min rotations", minClimbRotations);
+    SmartDashboard.putNumber("max rotations", maxClimbRotations);
+    SmartDashboard.putNumber("deadzone", climbDeadzone);
+    SmartDashboard.putNumber("climb setpoint", climbSetPoint);
+
+    SmartDashboard.putNumber("inteded rotations", getIntendedPosition());
+    SmartDashboard.putNumber("current rotations", getCurrentPosition());
+    
+    SmartDashboard.putNumber("motor speed", climbPID.calculate(getCurrentPosition()));
+
+    SmartDashboard.putboolean("at position", atPosiion());
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    updateCurrentPosition();
-    drive();
+    SmartDashboard.putNumber("inteded rotations", getIntendedPosition());
+    SmartDashboard.putNumber("current rotations", getCurrentPosition());
+    
+    SmartDashboard.putNumber("motor speed", climbPID.calculate(getCurrentPosition());
+
+    climbPID.setP(SmartDashboard.getNumber("kp", kp));
+    climbPID.setI(SmartDashboard.getNumber("ki", ki));
+    climbPID.setD(SmartDashboard.getNumber("kd", kd));
+    climbPID.setTolerance(SmartDashboard.getNumber("deadzone", climbDeadzone));
+
+    // when limit switch is hit call zeroCurrentPosition() and zeroIntendedPosition()
+
   }
 
   public void setIntendedPosition(double newPosition) {
-    climbPID.setSetpoint(newPosition);
-  }
-
-  public void updateCurrentPosition(){
-    currentPosition = leftWinchEncoder.getPosition();
+    if(newPosition < maxClimbRotations && newPosition > minClimbRotations){
+      climbPID.setSetpoint(newPosition);
+    }
   }
 
   public double getIntendedPosition(){
     return climbPID.getSetpoint();
   }
 
+  public double getCurrentPosition(){
+    leftWinchEncoder.getPosition();
+  }
+
   public void zeroCurrentPosition(){
     currentPosition = 0.0;
   }
 
-  public void manualControl(){
-    double deltaPosition = -robotContainer.getCopilotXboxController().getLeftY();
+  public void zeroIntendedPosition(){
+    setIntendedPosition(0);
+  }
+
+  public double getClimbDeadzone(){
+    return climbDeadzone;
+  }
+
+  public double getClimbSetpoint(){
+    return climbSetpoint;
+  }
+
+  public void manualControl(value){
+    double deltaPosition = value;
+    
     if(Math.abs(deltaPosition) < 0.15){
       deltaPosition = 0.0;
+      // changing small inputs to zero stop stick drift from moving the climb mech
     }
 
-    if (currentPosition < maxRotations - deadzone && currentPosition > minRotations + deadzone){
+    if (currentPosition < maxClimbRotations && currentPosition > minClimbRotations){
       setIntendedPosition(getIntendedPosition() + deltaPosition);
+      // changes our intended position, smoothly moving the arm as long as it's within bounds
     }
-    else if (currentPosition < minRotations) {
-      if (deltaPosition > 0){
-         setIntendedPosition(getIntendedPosition() + deltaPosition);
+    else if (currentPosition < minClimbRotations) {
+      setIntendedPosition(minClimbRotations);
+      // moves the arm up if it is too low
+      
+      if(delta position > 0){
+        setIntendedPosition(getIntendedPosition() + deltaPosition);
+        // lets the copilot raise the arm if the arm is too low
       }
     }
-    else if (currentPosition > maxRotations) {
+    else if (currentPosition > maxClimbRotations) {
+      setIntendedPosition(minCLimbRotations);
+      // moves the arm down if it is too high
+      
       if (deltaPosition < 0){
         setIntendedPosition(getIntendedPosition() + deltaPosition);
+        // lets the copilot lower the arm if the arm is too high
       }
     }
   }
 
-  public void go(){
-    leftWinchMotor.set(0.1);
-  }
-  
-  public void drive(){
-    leftWinchMotor.set(climbPID.calculate(currentPosition));
+  public void drivePID(){
+    leftWinchMotor.set(climbPID.calculate(getcurrentPosition()));
   }
 
   public boolean atPosition(){
@@ -117,7 +157,7 @@ public class Climb extends SubsystemBase {
   } 
 
   public void stop(){
-    leftWinchMotor.setVoltage(0);
+    leftWinchMotor.set(0);
   }
 
 }
