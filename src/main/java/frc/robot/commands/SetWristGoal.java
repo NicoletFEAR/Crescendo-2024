@@ -10,12 +10,14 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class SetWristGoalFloorIntake extends InstantCommand {
+public class SetWristGoal extends InstantCommand {
 
   public Intake m_Intake;
+  int number;
 
-  public SetWristGoalFloorIntake(Intake newIntake) {
+  public SetWristGoal(Intake newIntake, int num) {
     m_Intake = newIntake;
+    number = num;
 
     addRequirements(newIntake);
   }
@@ -23,6 +25,6 @@ public class SetWristGoalFloorIntake extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Intake.setGoalRotation(0);
+    m_Intake.setGoalRotation(number);
   }
 }

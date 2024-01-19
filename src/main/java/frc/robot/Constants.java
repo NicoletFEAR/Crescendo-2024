@@ -11,7 +11,7 @@ public final class Constants {
     //Neo
     public static final Integer swivelMotorId = 15;
 
-    public static final Integer wristMotorId = 13;
+    public static final Integer wristMotorId = 11;
     public static final Integer rollerMotorId = 14;
 
     //17, 19, 20 swerve modulese work
