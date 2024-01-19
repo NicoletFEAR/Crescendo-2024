@@ -14,29 +14,31 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
+  //this iteration of intake code assumes the intake will be where we hold the note and we don't have a dedicated hold
+  
+  private boolean noteInIntake; // true if there is a note anywhere in the intake
+  private boolean noteHeld; // true if the note is securely held is the back of the intake
+  private boolean launching; // true if we are launching 
 
-  boolean noteInIntake;
-  boolean noteHeld;
+  private double wristFloorSetpoint = 5;
+  private double wristTrapSetpoint = 10;
+  private double wristAmpSetpoint = 15;
+  
+  private double minWristRotation = 0;
+  private double maxWristRotation = 20;
 
-  double intakeRotation;
-  double intakeGoalRotation;
-
-  public final double ampScoreRotation = 5;
-  public final double trapScoreRotation = 10;
-  public final double floorIntakeRotation = 15;
-  public final double minRotation = 0;
-  public final double maxRotation = 20;
+  private double wristDeadzone = 0.5;
 
   double kp = 0.1;
   double ki = 0;
   double kd = 0;
 
-  CANSparkMax wristMotor;
-  CANSparkMax rollerMotor;
+  private final CANSparkMax wristMotor;
+  private final CANSparkMax rollerMotor;
 
-  RelativeEncoder wristEncoder;
+  private final RelativeEncoder wristEncoder;
 
-  PIDController pid;
+  private final PIDController wristPID;
 
   /** Creates a new Intake. */
   public Intake() {
@@ -45,119 +47,156 @@ public class Intake extends SubsystemBase {
     noteInIntake = true;
 
     wristMotor = new CANSparkMax(Constants.wristMotorId, MotorType.kBrushless);
-    // rollerMotor = new CANSparkMax(Constants.rollerMotorId, MotorType.kBrushless);
+    rollerMotor = new CANSparkMax(Constants.rollerMotorId, MotorType.kBrushless);
 
     wristEncoder = wristMotor.getEncoder();
-    wristEncoder.setPosition(10);
+    wristEncoder.setPosition(0);
 
+    wristPID = new PIDController(kp, ki, kd);
+    wristPID.setSetpoint(0);
+    wristPID.setTolerance(wristDeadzone);
 
-    pid = new PIDController(kp, ki, kd);
-    pid.setSetpoint(10);
-    pid.setTolerance(0.5);
-
-    SmartDashboard.putNumber("kp", pid.getP());
-    SmartDashboard.putNumber("ki", pid.getI());
-    SmartDashboard.putNumber("kd", pid.getD());
+    SmartDashboard.putNumber("kp", wristPID.getP());
+    SmartDashboard.putNumber("ki", wristPID.getI());
+    SmartDashboard.putNumber("kd", wristPID.getD());
+    
+    SmartDashboard.putNumber("current wrist position", wristMotor.getPosition());
+    SmartDashboard.putNumber("intended wrist position", wristPID.getSetpoint());
+    SmartDashboard.putNumber("wrist motor speed", wristPID.calculate(wristMotor.getPosition()));
+    
+    SmartDashboard.putNumber("wrist floor intake setpoint", wristFloorSetpoint);
+    SmartDashboard.putNumber("wrist trap setpoint", wristTrapSetpoint);
+    SmartDashboard.putNumber("wrist amp setpoint", wristAmpSetpoint);
+    
+    SmartDashboard.putNumber("min wrist rotation", minWristRotation);
+    SmartDashboard.putNumber("max wrist rotation", maxWristRotation);
+    SmartDashboard.putNumber("wrist deadzone", wristDeadzone);
 
   }
 
   @Override
   public void periodic() {
     //This method will be called once per scheduler run
-    SmartDashboard.putNumber("Wrist Pos", wristEncoder.getPosition());
-    SmartDashboard.putNumber("Cureent Goal", pid.getSetpoint());
-    SmartDashboard.putNumber("Wrist Drive", pid.calculate(wristEncoder.getPosition()));
-    
-    
 
-    pid.setP(SmartDashboard.getNumber("kp", pid.getP()));
-    pid.setI(SmartDashboard.getNumber("ki", pid.getI()));
-    pid.setD(SmartDashboard.getNumber("kd", pid.getD()));
+    driveWrist();
 
-    // periodicNoteStuff(true);
+    wristPID.setP(SmartDashboard.getNumber("kp", wristPID.getP()));
+    wristPID.setI(SmartDashboard.getNumber("ki", wristPID.getI()));
+    wristPID.setD(SmartDashboard.getNumber("kd", wristPID.getD()));
+    wristPID.setTolerance(SmartDashboard.getNumber("wrist deadzone", wristDeadzone));
+
+    wristFloorSetpoint = SmartDashboard.getNumber("wrist floor intake setpoint", wristFloorSetpoint);
+    wristTrapSetpoint = SmartDashboard.getNumber("wrist trap setpoint", wristTrapSetpoint);
+    wristAmpSetpoint = SmartDashboard.getNumber("wrist amp setpoint", wristAmpSetpoint);
+
+    periodicNoteStuff(true);
   }
 
-  // public void periodicNoteStuff(boolean bool){
-  //   // boolean is just to prevent dead code issues
+  public void periodicNoteStuff(boolean bool){
+    //boolean is just to prevent dead code issues
 
-  //   if(! noteInIntake){
-  //     if(checkFrontBeamBreak()){
-  //       noteInIntake = true;
-  //     }
-  //   }
-  //   else{
-  //     if(noteHeld){
-  //       if(bool){
-  //         // button for launcher is pressed
-  //         // launch
-  //         launch();
-  //         noteHeld = false;
-  //         noteInIntake = false;
+    if(!noteInIntake){
+      if(checkFrontBeamBreak()){
+        noteInIntake = true;
+      }
+    }
+    else{
+      if(!noteHeld && !launching){
+        if(checkBackBeamBreak()){
+          noteHeld = true;
+        }
+      }
+    }
+  }
 
-  //       }
-  //       else if(true){
-  //         // button for outtake is pressed
-  //         // outtake
-  //         outtake();
-  //         noteHeld = false;
+  public void intake() {
+    rollerMotor.set(0.2);
+  }
 
-  //         if(checkFrontBeamBreak()){
-  //           noteInIntake = false;
-  //           // once the note is out the front we dont have it
-  //         }
-        
-  //       }
-        
-  //     }
-  //     else{
-  //       if(checkBackBeamBreak()){
-  //         noteHeld = true;
-  //         stop();
-  //       }
-  //     }
-  //   }
-  // }
+  public void stop() {
+    rollerMotor.set(0);
+  }
 
-  // public void intake() {
-  //   rollerMotor.set(0.2);
-  // }
-
-  // public void stop() {
-  //   rollerMotor.set(0);
-  // }
-
-  // public void launch() {
-  //   rollerMotor.set(0.7);
-  // }
+  public void moveToLaunch() {
+    rollerMotor.set(0.7);
+    noteInIntake = false;
+    noteHeld = false;
+  }
 
   public boolean checkFrontBeamBreak(){
-    // if front beam break is set off return true
+    //if front beam break is set off return true
     return true;
   }
 
   public boolean checkBackBeamBreak(){
-    // if back beam break is set off return true
+   // if back beam break is set off return true
     return true;
   }
 
-  // public void outtake() {
-  //   rollerMotor.set(-0.5);
-  // }
+  public double getWristFloorSetpoint(){
+    return wristFloorSetpoint;
+  }
 
-  public void setGoalRotation(int num) {
-    if(num == 1){
-      pid.setSetpoint(ampScoreRotation);
-    }
-    else if (num == 2){
-      pid.setSetpoint(trapScoreRotation);
-    }
-    else if (num == 3){
-      pid.setSetpoint(floorIntakeRotation);
-    }
+  public double getWristTrapSetpoint(){
+    return wristTrapSetpoint;
+  }
+  
+  public double getWristAmpSetpoint(){
+    return wristAmpSetpoint;
+  }
+
+  public void outtake() {
+    rollerMotor.set(-0.5);
+    noteHeld = false;
+    noteInIntake = false
+  }
+
+  public void setWristGoalRotation(double num) {
+    if(num < maxWristRotation && num > minWristRotation){
+      wristPID.setSetpoint(num);
   }
 
   public void driveWrist(){
     wristMotor.set(pid.calculate(wristEncoder.getPosition()));
   }
 
-}
+  public void wristManualControl(value){
+    double deltaPosition = value;
+    
+    if(Math.abs(deltaPosition) < 0.15){
+      deltaPosition = 0.0;
+      // changing small inputs to zero stop stick drift from moving the Wrist mech
+    }
+
+    if (getCurrentWristPosition() < maxWristRotation && getCurrentWristPosition() > minWristRotation){
+      setIntendedPosition(getIntendedPosition() + deltaPosition);
+      // changes our intended position, smoothly moving the arm as long as it's within bounds
+    }
+    else if (getCurrentWristPosition() < minWristRotation) {
+      setIntendedPosition(minWristRotation);
+      // moves the arm up if it is too low
+      
+      if(delta position > 0){
+        setIntendedPosition(getIntendedPosition() + deltaPosition);
+        // lets the copilot raise the arm if the arm is too low
+      }
+    }
+    else if (getCurrentWristPosition() > maxWristRotations) {
+      setIntendedPosition(minWristRotations);
+      // moves the arm down if it is too high
+      
+      if (deltaPosition < 0){
+        setIntendedPosition(getIntendedPosition() + deltaPosition);
+        // lets the copilot lower the arm if the arm is too high
+      }
+    }
+  }
+
+
+  public double getIntendedWristPosition(){
+    return wristPID.getSetPoint();
+  }
+    
+  public double getCurrentWristPosition(){}
+    return wristMotor.getPosition();
+  }
