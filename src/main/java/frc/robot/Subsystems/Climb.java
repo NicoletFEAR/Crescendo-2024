@@ -14,41 +14,42 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Climb extends SubsystemBase {
   public static  CANSparkMax leftWinchMotor;
-  public static  CANSparkMax rightWinchMotor;
+  //public static  CANSparkMax rightWinchMotor;
 
   public static RelativeEncoder leftWinchEncoder;
   //public static RelativeEncoder rightWinchEncoder;
   
-  final double kp = 0.01;
+  final double kp = 0.15;
   final double ki = 0.0;
-  final double kd = 0.0; 
+  final double kd = 0.0;
+
   public double currentPosition = 5.0;
+
   double maxRotations = 10.0;
   double minRotations = 0.0;
   double deadzone = 0.5;
     
   public PIDController climbPID;
-  RobotContainer robotContainer;
 
-  final double maxVoltage = 2;
-  
-
+  RobotContainer robotContainer;  
 
   /** Creates a new Climb. */
   public Climb(RobotContainer newRobotContainer) {
-    leftWinchMotor = new CANSparkMax(12, MotorType.kBrushless);
+    leftWinchMotor = new CANSparkMax(11, MotorType.kBrushless);
     //rightWinchMotor = new CANSparkMax(0, MotorType.kBrushless);
 
     leftWinchEncoder = leftWinchMotor.getEncoder();
     //rightWinchEncoder = rightWinchMotor.getEncoder();
     leftWinchEncoder.setPosition(5);
+    //rightWinchEncoder.setPosition(5);
+
 
     climbPID = new PIDController(kp, ki, kd);
-    climbPID.setTolerance(0.0);
-    setIntendedPosition(0.0);
+    climbPID.setTolerance(deadzone);
+    setIntendedPosition(5.0);
 
-    leftWinchEncoder.setPosition(0.0);
-    //rightWinchEncoder.setPosition(0.0);
+    leftWinchEncoder.setPosition(5.0);
+    //rightWinchEncoder.setPosition(5.0);
 
     //rightWinchMotor.follow(leftWinchMotor, true);
     
@@ -59,6 +60,8 @@ public class Climb extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    updateCurrentPosition();
+    drive();
   }
 
   public void setIntendedPosition(double newPosition) {
@@ -112,6 +115,7 @@ public class Climb extends SubsystemBase {
     }
     return false;
   } 
+
   public void stop(){
     leftWinchMotor.setVoltage(0);
   }

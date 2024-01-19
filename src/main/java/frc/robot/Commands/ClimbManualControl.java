@@ -25,9 +25,7 @@ public class ClimbManualControl extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Climb.updateCurrentPosition();
     m_Climb.manualControl();
-    m_Climb.drive();
     SmartDashboard.putNumber("Current Position", m_Climb.currentPosition);
     SmartDashboard.putNumber("Intended Position", m_Climb.getIntendedPosition());
     SmartDashboard.putNumber("Drive", m_Climb.climbPID.calculate(m_Climb.currentPosition));

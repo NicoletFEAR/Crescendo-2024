@@ -13,17 +13,15 @@ public class RobotContainer {
     public final Climb m_Climb = new Climb(this);
 
     public RobotContainer(){
-        // m_Climb.setDefaultCommand(null);
         m_Climb.setDefaultCommand(new ClimbManualControl(m_Climb));
         configureButtonBindings();
     }
     
-     public CommandXboxController getCopilotXboxController(){
+    public CommandXboxController getCopilotXboxController(){
         return m_copilotController;
-     }
+    }
 
     private void configureButtonBindings(){
         m_copilotController = new CommandXboxController(1);
-
     }
 }
