@@ -18,22 +18,22 @@ import frc.robot.subsystems.Intake;
 //----------------------------------------------//
 
 public class RobotContainer {
-  public static CommandXboxController m_driverController = new CommandXboxController(0);
+  public static CommandXboxController m_copilotController = new CommandXboxController(0);
 
   private final Intake m_intakeSubsystem = new Intake();
 
-  public float multiplier = 1;
-
   public RobotContainer() {
-    //m_swerveSubsystem.setDefaultCommand(new Drive(m_swerveSubsystem, m_driverController.getRightY() * multiplier));
-    m_intakeSubsystem.setDefaultCommand(new IntakeCommand(m_intakeSubsystem));
+    m_intakeSubsystem.setDefaultCommand(new IntakeCommand(m_intakeSubsystem, m_copilotController));
     configureBindings();
   }
 
   private void configureBindings() {
-    m_driverController.x().onTrue(new SetWristGoal(m_intakeSubsystem, 1));
-    m_driverController.a().onTrue(new SetWristGoal(m_intakeSubsystem, 2));
-    m_driverController.b().onTrue(new SetWristGoal(m_intakeSubsystem, 3));
+    m_copilotController.x().onTrue(new SetWristGoalToAmp(m_intakeSubsystem));
+    m_copilotController.a().onTrue(new SetWristGoalToFloor(m_intakeSubsystem));
+    m_copilotController.b().onTrue(new SetWristGoalToTrap(m_intakeSubsystem));
+
+    // add intake and outtake to triggers
+    // add move to launch to bumpers
   }
 
   public Command getAutonomousCommand() {
