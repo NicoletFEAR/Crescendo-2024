@@ -6,6 +6,6 @@ package frc.robot;
 
 /** Add your docs here. */
 public final class Constants {
-    public static final Integer leftWinchMotorID = 11;
-    public static final Integer rightWinchMotorID = 12;
+    public static final Integer leftClimbMotorID = 11;
+    public static final Integer rightClimbMotorID = 12;
 }
