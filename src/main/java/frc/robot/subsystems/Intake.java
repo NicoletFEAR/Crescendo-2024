@@ -18,7 +18,6 @@ public class Intake extends SubsystemBase {
   
   private boolean noteInIntake; // true if there is a note anywhere in the intake
   private boolean noteHeld; // true if the note is securely held is the back of the intake
-  private boolean launching; // true if we are launching 
 
   private double wristFloorSetpoint = 5;
   private double wristTrapSetpoint = 10;
@@ -101,7 +100,7 @@ public class Intake extends SubsystemBase {
       }
     }
     else{
-      if(!noteHeld && !launching){
+      if(!noteHeld){
         if(checkBackBeamBreak()){
           noteHeld = true;
         }
@@ -110,15 +109,15 @@ public class Intake extends SubsystemBase {
   }
 
   public void intake() {
-    rollerMotor.set(0.2);
+    rollerMotor.set(0.5);
   }
 
-  public void stop() {
+  public void stopWrist() {
     rollerMotor.set(0);
   }
 
-  public void moveToLaunch() {
-    rollerMotor.set(0.7);
+  public void moveNoteToLaunch() {
+    rollerMotor.set(0.5);
     noteInIntake = false;
     noteHeld = false;
   }
@@ -151,7 +150,7 @@ public class Intake extends SubsystemBase {
     noteInIntake = false
   }
 
-  public void setWristGoalRotation(double num) {
+  public void setIntendedWristPosition(double num) {
     if(num < maxWristRotation && num > minWristRotation){
       wristPID.setSetpoint(num);
   }
@@ -169,29 +168,28 @@ public class Intake extends SubsystemBase {
     }
 
     if (getCurrentWristPosition() < maxWristRotation && getCurrentWristPosition() > minWristRotation){
-      setIntendedPosition(getIntendedPosition() + deltaPosition);
+      setIntendedWristPosition(getIntendedWristPosition() + deltaPosition);
       // changes our intended position, smoothly moving the arm as long as it's within bounds
     }
     else if (getCurrentWristPosition() < minWristRotation) {
-      setIntendedPosition(minWristRotation);
+      setIntendedWristPosition(minWristRotation);
       // moves the arm up if it is too low
       
       if(delta position > 0){
-        setIntendedPosition(getIntendedPosition() + deltaPosition);
+        setIntendedWristPosition(getIntendedWristPosition() + deltaPosition);
         // lets the copilot raise the arm if the arm is too low
       }
     }
     else if (getCurrentWristPosition() > maxWristRotations) {
-      setIntendedPosition(minWristRotations);
+      setIntendedWristPosition(minWristRotations);
       // moves the arm down if it is too high
       
       if (deltaPosition < 0){
-        setIntendedPosition(getIntendedPosition() + deltaPosition);
+        setIntendedWristPosition(getIntendedWristPosition() + deltaPosition);
         // lets the copilot lower the arm if the arm is too high
       }
     }
   }
-
 
   public double getIntendedWristPosition(){
     return wristPID.getSetPoint();
@@ -199,4 +197,8 @@ public class Intake extends SubsystemBase {
     
   public double getCurrentWristPosition(){}
     return wristMotor.getPosition();
+  }
+
+  public boolean isNoteheld(){
+    return noteHeld;
   }
