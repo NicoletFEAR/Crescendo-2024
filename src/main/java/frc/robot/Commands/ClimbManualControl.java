@@ -11,10 +11,14 @@ import frc.robot.Subsystems.Climb;
 public class ClimbManualControl extends Command {
   /** Creates a new ClimbManualControl. */
   Climb m_Climb;
+  CommandXboxController m_copilotController; 
 
-  public ClimbManualControl(Climb newClimb) {
+
+  public ClimbManualControl(Climb newClimb, CommandXboxController newCopilotController) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Climb = newClimb;
+    m_copilotController = newCopilotController; 
+
     addRequirements(m_Climb);
   }
 
@@ -25,8 +29,9 @@ public class ClimbManualControl extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Climb.manualControl();
-    
+    m_Climb.manualControl(-m_copilotController.getLeftY());
+    // up on the stick gives a neative value so we flip its sign
+
     DrivePID();
   }
 
