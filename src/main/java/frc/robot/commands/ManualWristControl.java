@@ -10,13 +10,15 @@ import frc.robot.subsystems.Intake;
 
 public class IntakeCommand extends Command {
   private Intake m_intake;
+  private CommandXboxController m_copilotController;
 
   /** Creates a new Intake. */
-  public IntakeCommand(Intake intake) {
+  public IntakeCommand(Intake intake, CommandXboxController newCopilotController) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intake = intake;
+    m_copilotController = newCopilotController;
 
-    addRequirements(intake);
+    addRequirements(intake, m_copilotController);
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +28,7 @@ public class IntakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.manualWristControl();
+    m_intake.manualWristControl(m_copilotController.getLeftY());
   }
 
   // Called once the command ends or is interrupted.
