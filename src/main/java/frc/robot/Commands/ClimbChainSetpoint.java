@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.Climb;
 
-public class ClimbManualControl extends Command {
+public class ClimbManualControl extends InstantCommand {
   /** Creates a new ClimbManualControl. */
-  Climb m_Climb;
+  Climb m_limb;
 
   public ClimbManualControl(Climb newClimb) {
     // Use addRequirements() here to declare subsystem dependencies.
