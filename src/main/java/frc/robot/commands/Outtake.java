@@ -15,7 +15,6 @@ public class Outtake extends CommandBase {
   // should be running while button is held
   
   public Intake m_Intake;
-  boolean noteLeft;
 
   public SetWristGoal(Intake newIntake) {
     m_Intake = newIntake;
