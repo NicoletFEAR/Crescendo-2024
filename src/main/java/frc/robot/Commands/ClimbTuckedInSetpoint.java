@@ -10,19 +10,19 @@ import frc.robot.Subsystems.Climb;
 
 public class ClimbManualControl extends Command {
   /** Creates a new ClimbManualControl. */
-  Climb m_Climb;
+  Climb m_climb;
 
   public ClimbManualControl(Climb newClimb) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Climb = newClimb;
+    m_climb = newClimb;
     
-    addRequirements(m_Climb);
+    addRequirements(m_climb);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Climb.setIntendedPosition(0 + m_Climb.getClimbDeadzone);
+    m_Climb.setClimbIntendedPosition(0 + m_climb.getClimbDeadzone());
   }
 
   // Called once the command ends or is interrupted.
