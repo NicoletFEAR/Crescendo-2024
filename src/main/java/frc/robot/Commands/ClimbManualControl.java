@@ -26,9 +26,8 @@ public class ClimbManualControl extends Command {
   @Override
   public void execute() {
     m_Climb.manualControl();
-    SmartDashboard.putNumber("Current Position", m_Climb.currentPosition);
-    SmartDashboard.putNumber("Intended Position", m_Climb.getIntendedPosition());
-    SmartDashboard.putNumber("Drive", m_Climb.climbPID.calculate(m_Climb.currentPosition));
+    
+    DrivePID();
   }
 
   // Called once the command ends or is interrupted.
