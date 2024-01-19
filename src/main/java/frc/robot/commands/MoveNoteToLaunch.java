@@ -16,7 +16,7 @@ public class MoveNoteToLaunch extends CommandBase {
   
   public Intake m_Intake;
 
-  public SetWristGoal(Intake newIntake) {
+  public MoveNoteToLaunch(Intake newIntake) {
     m_Intake = newIntake;
 
     addRequirements(newIntake);
@@ -25,7 +25,7 @@ public class MoveNoteToLaunch extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Intake.moveToLaunch(){
+    m_Intake.moveNoteToLaunch(){
   }
   
    // Called every time the scheduler runs while the command is scheduled.
