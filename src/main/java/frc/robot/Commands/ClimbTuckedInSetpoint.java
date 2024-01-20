@@ -8,21 +8,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.Climb;
 
-public class ClimbManualControl extends Command {
+public class ClimbTuckedInSetpoint extends Command {
   /** Creates a new ClimbManualControl. */
-  Climb m_climb;
+  Climb m_Climb;
 
-  public ClimbManualControl(Climb newClimb) {
+  public ClimbTuckedInSetpoint(Climb newClimb) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_climb = newClimb;
+    m_Climb = newClimb;
     
-    addRequirements(m_climb);
+    addRequirements(m_Climb);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Climb.setClimbIntendedPosition(0 + m_climb.getClimbDeadzone());
+    m_Climb.setClimbIntendedPosition(0 + m_Climb.getClimbDeadzone());
   }
 
   // Called once the command ends or is interrupted.

@@ -6,13 +6,14 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Subsystems.Climb;
 
-public class ClimbManualControl extends InstantCommand {
+public class ClimbChainSetpoint extends InstantCommand {
   /** Creates a new ClimbManualControl. */
-  Climb m_limb;
+  Climb m_Climb;
 
-  public ClimbManualControl(Climb newClimb) {
+  public ClimbChainSetpoint(Climb newClimb) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Climb = newClimb;
     
@@ -22,7 +23,7 @@ public class ClimbManualControl extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Climb.setIntendedPosition(getClimbSetpoint);
+    m_Climb.setClimbIntendedPosition(m_Climb.getClimbChainSetpoint());
   }
 
   // Called once the command ends or is interrupted.

@@ -4,7 +4,9 @@
 
 package frc.robot;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Commands.ClimbChainSetpoint;
 import frc.robot.Commands.ClimbManualControl;
+import frc.robot.Commands.ClimbTuckedInSetpoint;
 import frc.robot.Subsystems.Climb;
 
 /** Add your docs here. */
@@ -13,8 +15,9 @@ public class RobotContainer {
     public final Climb m_climb = new Climb();
 
     public RobotContainer(){
-        m_climb.setDefaultCommand(new ClimbManualControl(m_climb, m_copilotController));
         configureButtonBindings();
+        m_climb.setDefaultCommand(new ClimbManualControl(m_climb, m_copilotController));
+
     }
     
     public CommandXboxController getCopilotXboxController(){
