@@ -10,11 +10,16 @@ import frc.robot.Constants;
 
 
 import com.revrobotics.RelativeEncoder;
+
+import java.beans.Encoder;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+//import com.ctre.phoenix6.;
 
 public class Climb extends SubsystemBase {
   private final CANSparkMax leftClimbMotor;
@@ -34,24 +39,30 @@ public class Climb extends SubsystemBase {
   private PIDController climbPID;
 
   DigitalInput climbLimitSwitch;
+  private boolean lastLimitSwitchInput;
 
 
   /** Creates a new Climb. */
   public Climb() {
+    //Motors
     leftClimbMotor = new CANSparkMax(Constants.leftClimbMotorID, MotorType.kBrushless);
     rightClimbMotor = new CANSparkMax(Constants.rightClimbMotorID, MotorType.kBrushless);
     rightClimbMotor.follow(leftClimbMotor, true);
 
+    //Encoders
     leftClimbEncoder = leftClimbMotor.getEncoder();
     rightClimbEncoder = rightClimbMotor.getEncoder();
     leftClimbEncoder.setPosition(0);
     rightClimbEncoder.setPosition(0);
 
+    //PID
     climbPID = new PIDController(kp, ki, kd);
     climbPID.setTolerance(0.5);
     climbPID.setSetpoint(0);
 
     climbLimitSwitch = new DigitalInput(0);
+
+    Encoder absoluteEncoder = new Encoder();
     
     SmartDashboard.putNumber("kp", kp);
     SmartDashboard.putNumber("ki", ki);
@@ -69,6 +80,9 @@ public class Climb extends SubsystemBase {
 
     SmartDashboard.putBoolean("climb at position", atPosition());
     SmartDashboard.putBoolean("Limit Switch Y/N", getClimbLimitSwitch());
+
+    SmartDashboard.putNumber("CanCoder Position", 0);
+    SmartDashboard.putNumber("CanCoder Velocity", 0);
 
   }
 
@@ -89,6 +103,12 @@ public class Climb extends SubsystemBase {
 
     // when limit switch is hit call zeroClimbCurrentPosition() and zeroClimbIntendedPosition()
 
+    if(climbOnTrue()) {
+      zeroClimbCurrentPosition();
+      zeroClimbIntendedPosition();
+    }
+    
+
     driveClimb();
   }
 
@@ -101,6 +121,19 @@ public class Climb extends SubsystemBase {
   public boolean getClimbLimitSwitch() {
     return !climbLimitSwitch.get();
 
+  }
+
+  public void updateLastLimitSwitch() {
+    lastLimitSwitchInput = getClimbLimitSwitch();
+
+  }
+
+  public boolean climbOnTrue() {
+    if((lastLimitSwitchInput == false) && (getClimbLimitSwitch() == true)) {
+      return true;
+
+    }
+    return false;
   }
 
   public double getClimbIntendedPosition(){
