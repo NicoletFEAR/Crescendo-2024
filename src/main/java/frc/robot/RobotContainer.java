@@ -9,6 +9,7 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.MoveLaunchWrist;
 import frc.robot.commands.RunLaunchMotors;
 import frc.robot.commands.SetLaunchVelocity;
 import frc.robot.subsystems.Launcher;
@@ -27,11 +28,12 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    m_driverController.a().whileTrue(new RunLaunchMotors(m_launcher, 3, 1.5));
-    m_driverController.b().whileTrue(new RunLaunchMotors(m_launcher, 6, 0));
-    m_driverController.x().whileTrue(new RunLaunchMotors(m_launcher, 9, 1.5));
-    m_driverController.y().whileTrue(new RunLaunchMotors(m_launcher, 12, 6));
-    m_driverController.leftBumper().whileTrue(new RunLaunchMotors(m_launcher, -3, -3));
+    m_launcher.setDefaultCommand(new MoveLaunchWrist(m_launcher, m_driverController));
+    m_driverController.a().whileTrue(new RunLaunchMotors(m_launcher, -3, -3));
+    m_driverController.b().whileTrue(new RunLaunchMotors(m_launcher, -6, -6));
+    m_driverController.x().whileTrue(new RunLaunchMotors(m_launcher, -9, -9));
+    m_driverController.y().whileTrue(new RunLaunchMotors(m_launcher, -12, -12));
+    m_driverController.leftBumper().whileTrue(new RunLaunchMotors(m_launcher, 3, 3));
   }
 
   public Command getAutonomousCommand() {
