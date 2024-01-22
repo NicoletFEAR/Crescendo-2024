@@ -3,9 +3,8 @@ package frc.robot.subsystems.launcher;
 
 import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.LauncherConstants;
-import frc.robot.subsystems.swerve.SwerveDrive;
+// import frc.robot.subsystems.swerve.SwerveDrive;
 import frc.robot.subsystems.templates.VelocitySubsystem;
 
 public class LauncherFlywheel extends VelocitySubsystem {
@@ -34,15 +33,16 @@ public class LauncherFlywheel extends VelocitySubsystem {
     public void outputTelemetry() {}
 
     public double calculateRPM() {
-        double distance = SwerveDrive.getInstance().getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
+        // double distance = SwerveDrive.getInstance().getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
 
-        if (distance > 0 && distance < LauncherConstants.kDistanceRPMMap.lastKey()) {
-            double lowerRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.floorKey(distance));
-            double upperRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.ceilingKey(distance));
-            return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
-        } else {
-            return 0;
-        }
+        // if (distance > 0 && distance < LauncherConstants.kDistanceRPMMap.lastKey()) {
+        //     double lowerRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.floorKey(distance));
+        //     double upperRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.ceilingKey(distance));
+        //     return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
+        // } else {
+        //     return 0;
+        // }
+        return 0;
     }
 
     public enum LauncherFlywheelState implements VelocitySubsystemState {

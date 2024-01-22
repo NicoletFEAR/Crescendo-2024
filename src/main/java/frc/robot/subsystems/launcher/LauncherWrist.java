@@ -3,9 +3,8 @@ package frc.robot.subsystems.launcher;
 
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.LauncherConstants;
-import frc.robot.subsystems.swerve.SwerveDrive;
+// import frc.robot.subsystems.swerve.SwerveDrive;
 import frc.robot.subsystems.templates.PositionSubsystem;
 
 public class LauncherWrist extends PositionSubsystem {
@@ -35,15 +34,17 @@ public class LauncherWrist extends PositionSubsystem {
     public void outputTelemetry() {}
 
     public double calculatePitch() {
-        double distance = SwerveDrive.getInstance().getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
+        // double distance = SwerveDrive.getInstance().getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
 
-        if (distance > 0 && distance < LauncherConstants.kDistancePitchMap.lastKey()) {
-            double lowerPitch = LauncherConstants.kDistancePitchMap.get(LauncherConstants.kDistancePitchMap.floorKey(distance));
-            double upperPitch = LauncherConstants.kDistancePitchMap.get(LauncherConstants.kDistancePitchMap.ceilingKey(distance));
-            return lowerPitch + (distance - Math.floor(distance)) * (upperPitch - lowerPitch);
-        } else {
-            return 0;
-        }
+        // if (distance > 0 && distance < LauncherConstants.kDistancePitchMap.lastKey()) {
+        //     double lowerPitch = LauncherConstants.kDistancePitchMap.get(LauncherConstants.kDistancePitchMap.floorKey(distance));
+        //     double upperPitch = LauncherConstants.kDistancePitchMap.get(LauncherConstants.kDistancePitchMap.ceilingKey(distance));
+        //     return lowerPitch + (distance - Math.floor(distance)) * (upperPitch - lowerPitch);
+        // } else {
+        //     return 0;
+        // }
+
+        return 0;
     }
 
     public enum LauncherWristState implements PositionSubsystemState {
