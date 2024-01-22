@@ -1,0 +1,103 @@
+{
+  "HALProvider": {
+    "Other Devices": {
+      "Pigeon 2 (v6)[0]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [34]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [5]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Info/Field": "Field2d",
+      "/Shuffleboard/Main/Auto Picker": "String Chooser",
+      "/SmartDashboard/Mech2d": "Mechanism2d"
+    },
+    "windows": {
+      "/Shuffleboard/Info/Field": {
+        "Robot": {
+          "length": 0.8100000023841858,
+          "width": 0.8100000023841858
+        },
+        "height": 8.220000267028809,
+        "image": "C:\\Users\\Ari\\Downloads\\field24.png",
+        "path": {
+          "arrows": false,
+          "style": "Line"
+        },
+        "width": 16.510000228881836,
+        "window": {
+          "visible": true
+        }
+      },
+      "/Shuffleboard/Main/Auto Picker": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Mech2d": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables": {
+    "transitory": {
+      "AdvantageKit": {
+        "RealOutputs": {
+          "Arm": {
+            "open": true
+          },
+          "Drivebase": {
+            "open": true
+          },
+          "Elevator": {
+            "open": true
+          },
+          "Launcher Flywheel": {
+            "open": true
+          },
+          "Launcher Superstructure": {
+            "open": true
+          },
+          "Launcher Wrist": {
+            "open": true
+          },
+          "LauncherLauncherSuperstructure": {
+            "open": true
+          },
+          "open": true
+        },
+        "open": true
+      },
+      "PathPlanner": {
+        "open": true
+      },
+      "Shuffleboard": {
+        "Drive Tuning": {
+          "open": true
+        },
+        "open": true
+      },
+      "SmartDashboard": {
+        "open": true
+      }
+    }
+  },
+  "NetworkTables Info": {
+    "visible": true
+  }
+}
