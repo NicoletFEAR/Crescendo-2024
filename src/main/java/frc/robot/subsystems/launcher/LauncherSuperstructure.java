@@ -54,8 +54,8 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         LauncherWristState.DOWN,
         "Idle"),
     LAUNCH(
-        LauncherFlywheelState.FIELD_BASED_VELOCITY,
-        LauncherWristState.FIELD_BASED_PITCH,
+        LauncherFlywheelState.RUNNING,
+        LauncherWristState.UP,
         "Launch"),
     TRANSITION(
       LauncherFlywheelState.TRANSITION,
