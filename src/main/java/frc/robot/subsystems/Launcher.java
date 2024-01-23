@@ -33,7 +33,8 @@ public class Launcher extends SubsystemBase {
     leftMotor = new CANSparkFlex(18, MotorType.kBrushless);
     rightMotor = new CANSparkFlex(16, MotorType.kBrushless);
 
-    rightMotor.setInverted(true);
+    // rightMotor.setInverted(true);
+    // leftMotor.setInverted(true);
     rightMotor.setIdleMode(IdleMode.kCoast);
 
     leftEncoder = leftMotor.getEncoder();
@@ -41,6 +42,9 @@ public class Launcher extends SubsystemBase {
 
     leftController = leftMotor.getPIDController();
     rightController = rightMotor.getPIDController();
+
+    leftMotor.setIdleMode(IdleMode.kCoast);
+    rightMotor.setIdleMode(IdleMode.kCoast);
 
     leftController.setP(LauncherConstants.kp);
     leftController.setI(LauncherConstants.ki);

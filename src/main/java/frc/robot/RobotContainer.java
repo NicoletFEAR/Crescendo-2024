@@ -19,19 +19,20 @@ public class RobotContainer {
   
   public static Launcher m_launcher = new Launcher();
 
-  public static Pigeon2 m_pigeon = new Pigeon2(1, "rio");
+  // public static Pigeon2 m_pigeon = new Pigeon2(0, "rio");
 
   public RobotContainer() {
-    m_pigeon.setYaw(0);
+    // m_pigeon.setYaw(0);
     configureBindings();
   }
 
   private void configureBindings() {
-    m_driverController.a().whileTrue(new RunLaunchMotors(m_launcher, 3, 1.5));
-    m_driverController.b().whileTrue(new RunLaunchMotors(m_launcher, 6, 0));
-    m_driverController.x().whileTrue(new RunLaunchMotors(m_launcher, 9, 1.5));
-    m_driverController.y().whileTrue(new RunLaunchMotors(m_launcher, 12, 6));
-    m_driverController.leftBumper().whileTrue(new RunLaunchMotors(m_launcher, -3, -3));
+    m_driverController.a().whileTrue(new RunLaunchMotors(m_launcher, 3, -3));
+    m_driverController.b().whileTrue(new RunLaunchMotors(m_launcher, 6, -6));
+    m_driverController.x().whileTrue(new RunLaunchMotors(m_launcher, 9, -9));
+    m_driverController.y().whileTrue(new RunLaunchMotors(m_launcher, 12, -12));
+    m_driverController.leftBumper().whileTrue(new RunLaunchMotors(m_launcher, -3, 3));
+    m_driverController.rightBumper().whileTrue(new RunLaunchMotors(m_launcher, -1.5, 1.5));
   }
 
   public Command getAutonomousCommand() {
