@@ -34,6 +34,8 @@ public class LED extends SubsystemBase {
 
   private boolean hasEffect = false;
 
+  private static double frameRunTime = 0;
+
   public LED(AddressableLED led, int length) {
     m_led = led;
 
@@ -77,12 +79,18 @@ public class LED extends SubsystemBase {
     return m_currentState;
   }
 
-  public static void runEffect(ArrayList<Double> effect) {
-    for (int i = 0; i < effect.size(); i++) {
-      m_ledBuffer.setRGB(i, (int) (m_currentState.red * effect.get(i)), (int) (m_currentState.green * effect.get(i)), (int) (m_currentState.blue * effect.get(i)));
+  public static void runEffect(ArrayList<Double> effect, double frameDuration) {
+
+    if (frameRunTime >= frameDuration) {
+      frameRunTime = 0;
+      for (int i = 0; i < effect.size(); i++) {
+        m_ledBuffer.setRGB(i, (int) (m_currentState.red * effect.get(i)), (int) (m_currentState.green * effect.get(i)), (int) (m_currentState.blue * effect.get(i)));
+      }
+      m_led.setData(m_ledBuffer);
+      effect.add(0, effect.remove(effect.size() - 1));
     }
-    m_led.setData(m_ledBuffer);
-    effect.add(0, effect.remove(effect.size() - 1));
+
+    frameRunTime += 0.02;
   }
 
   public static void rainbow() {
@@ -141,8 +149,8 @@ public class LED extends SubsystemBase {
     RED(255, 0, 0, "Red", null),
     GREEN(0, 255, 0, "Green", null),
     RAINBOW(0, 0, 0, "Rainbow", LED::rainbow),
-    TEAL_WIPE(0, 122, 133, "Teal Wipe", () -> LED.runEffect(wiperEffect)),
-    TEAL_RAIN(0, 122, 133, "Teal Wipe", () -> LED.runEffect(rainEffect));
+    TEAL_WIPE(0, 122, 133, "Teal Wipe", () -> LED.runEffect(wiperEffect, .2)),
+    TEAL_RAIN(0, 122, 133, "Teal Wipe", () -> LED.runEffect(rainEffect, .2));
 
     public int red;
     public int green;
