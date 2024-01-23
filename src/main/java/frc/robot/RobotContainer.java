@@ -28,21 +28,12 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-<<<<<<< HEAD
-    m_driverController.a().whileTrue(new RunLaunchMotors(m_launcher, 3, -3));
-    m_driverController.b().whileTrue(new RunLaunchMotors(m_launcher, 6, -6));
-    m_driverController.x().whileTrue(new RunLaunchMotors(m_launcher, 9, -9));
-    m_driverController.y().whileTrue(new RunLaunchMotors(m_launcher, 12, -12));
-    m_driverController.leftBumper().whileTrue(new RunLaunchMotors(m_launcher, -3, 3));
-    m_driverController.rightBumper().whileTrue(new RunLaunchMotors(m_launcher, -1.5, 1.5));
-=======
     m_launcher.setDefaultCommand(new MoveLaunchWrist(m_launcher, m_driverController));
     m_driverController.a().whileTrue(new RunLaunchMotors(m_launcher, -3, -3));
     m_driverController.b().whileTrue(new RunLaunchMotors(m_launcher, -6, -6));
     m_driverController.x().whileTrue(new RunLaunchMotors(m_launcher, -9, -9));
     m_driverController.y().whileTrue(new RunLaunchMotors(m_launcher, -12, -12));
     m_driverController.leftBumper().whileTrue(new RunLaunchMotors(m_launcher, 3, 3));
->>>>>>> 10b84054952670a29dfe9aae9b1d8429b2e4d223
   }
 
   public Command getAutonomousCommand() {
