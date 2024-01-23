@@ -20,10 +20,10 @@ public class RobotContainer {
   
   public static Launcher m_launcher = new Launcher();
 
-  public static Pigeon2 m_pigeon = new Pigeon2(1, "rio");
+  // public static Pigeon2 m_pigeon = new Pigeon2(0, "rio");
 
   public RobotContainer() {
-    m_pigeon.setYaw(0);
+    // m_pigeon.setYaw(0);
     configureBindings();
   }
 
