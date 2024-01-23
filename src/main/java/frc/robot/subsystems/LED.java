@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LED extends SubsystemBase {
 
   private static ArrayList<Double> wiperEffect = new ArrayList<>(Arrays.asList(
-    0.1, 0.5, 1.0, 1.0, 1.0, 1.0, 0.5, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+    0.1, 0.5, 1.0, 1.0, 1.0, 1.0, 0.5, 0.1
   ));
 
   private static ArrayList<Double> rainEffect = new ArrayList<>(Arrays.asList(
-    0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0
+    0.25, 1.0
   ));
   
   private static LED m_instance = null;
@@ -29,6 +29,8 @@ public class LED extends SubsystemBase {
   private static LEDState m_currentState = LEDState.OFF;
 
   private static int m_rainbowFirstPixelHue = 0;
+
+  private static boolean hasEffect = false;
 
   public LED(AddressableLED led, int length) {
     m_led = led;
@@ -42,7 +44,7 @@ public class LED extends SubsystemBase {
 
   public static LED getInstance() {
     if (m_instance == null) {
-      m_instance = new LED(new AddressableLED(0), 20);
+      m_instance = new LED(new AddressableLED(0), 300);
     }
 
     return m_instance;
@@ -72,7 +74,9 @@ public class LED extends SubsystemBase {
       m_ledBuffer.setRGB(i, (int) (m_currentState.red * effect.get(i)), (int) (m_currentState.green * effect.get(i)), (int) (m_currentState.blue * effect.get(i)));
     }
     effect.add(0, effect.remove(effect.size() - 1));
-    System.out.println(effect.toString());
+
+    m_led.setData(m_ledBuffer);
+    // System.out.println(effect.toString());
   }
 
   public static void rainbow() {
@@ -95,6 +99,10 @@ public class LED extends SubsystemBase {
   public void periodic() {
     if (m_currentState.ledRunnable != null) {
       m_currentState.ledRunnable.run();
+      if (!hasEffect) hasEffect = true;
+    } else if (hasEffect) {
+      setState(m_currentState);
+      hasEffect = false;
     }
   }
 
