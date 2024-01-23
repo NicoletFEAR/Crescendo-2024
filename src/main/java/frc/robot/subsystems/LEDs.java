@@ -1,5 +1,4 @@
 package frc.robot.subsystems;
-
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -11,7 +10,7 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class LEDs extends SubsystemBase {
+public class LED extends SubsystemBase {
 
   private static ArrayList<Double> wiperEffect = new ArrayList<>(Arrays.asList(
     0.1, 0.5, 1.0, 1.0, 1.0, 1.0, 0.5, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
@@ -21,7 +20,7 @@ public class LEDs extends SubsystemBase {
     0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0
   ));
   
-  private static LEDs m_instance = null;
+  private static LED m_instance = null;
 
   private static AddressableLED m_led;
 
@@ -31,7 +30,7 @@ public class LEDs extends SubsystemBase {
 
   private static int m_rainbowFirstPixelHue = 0;
 
-  public LEDs(AddressableLED led, int length) {
+  public LED(AddressableLED led, int length) {
     m_led = led;
 
     m_ledBuffer = new AddressableLEDBuffer(length);
@@ -41,9 +40,9 @@ public class LEDs extends SubsystemBase {
     m_led.start();
   }
 
-  public static LEDs getInstance() {
+  public static LED getInstance() {
     if (m_instance == null) {
-      m_instance = new LEDs(new AddressableLED(0), 300);
+      m_instance = new LED(new AddressableLED(0), 300);
     }
 
     return m_instance;
@@ -104,9 +103,9 @@ public class LEDs extends SubsystemBase {
     BLUE(0, 0, 255, "Blue", null),
     RED(255, 0, 0, "Red", null),
     GREEN(0, 255, 0, "Green", null),
-    RAINBOW(0, 0, 0, "Rainbow", LEDs::rainbow),
-    TEAL_WIPE(0, 122, 133, "Teal Wipe", () -> LEDs.runEffect(wiperEffect)),
-    TEAL_RAIN(0, 122, 133, "Teal Wipe", () -> LEDs.runEffect(rainEffect));
+    RAINBOW(0, 0, 0, "Rainbow", LED::rainbow),
+    TEAL_WIPE(0, 122, 133, "Teal Wipe", () -> LED.runEffect(wiperEffect)),
+    TEAL_RAIN(0, 122, 133, "Teal Wipe", () -> LED.runEffect(rainEffect));
 
     public int red;
     public int green;
