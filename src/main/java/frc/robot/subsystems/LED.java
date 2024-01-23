@@ -19,7 +19,7 @@ public class LED extends SubsystemBase {
 
   // Size has to be divisible by length of led
   private static ArrayList<Double> rainEffect = new ArrayList<>(Arrays.asList(
-    0.25, 1.0, 0.0
+    0.25, 1.0, 0.25, 0.0
   ));
   
   private static LED m_instance = null;
