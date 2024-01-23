@@ -47,9 +47,6 @@ public class LED extends SubsystemBase {
 
     wiperEffect = setToLength(wiperEffect, length);
     rainEffect = createLoopingEffect(rainEffect, length);
- 
-    System.out.println(rainEffect.toString());
-    System.out.println(rainEffect.size());
 
     m_ledBuffer = new AddressableLEDBuffer(length);
     m_led.setLength(length);
