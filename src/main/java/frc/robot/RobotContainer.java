@@ -33,6 +33,7 @@ public class RobotContainer {
     m_driverController.y().whileTrue(new RunLaunchMotors(m_launcher, 12, -12));
     m_driverController.leftBumper().whileTrue(new RunLaunchMotors(m_launcher, -3, 3));
     m_driverController.rightBumper().whileTrue(new RunLaunchMotors(m_launcher, -1.5, 1.5));
+    m_driverController.b().whileTrue(new RunLaunchMotors(m_launcher, -6, -6));
   }
 
   public Command getAutonomousCommand() {
