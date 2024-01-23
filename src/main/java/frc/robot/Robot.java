@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
 
-    SmartDashboard.putNumber("Yaw", RobotContainer.m_pigeon.getYaw().getValue());
+    // SmartDashboard.putNumber("Yaw", RobotContainer.m_pigeon.getYaw().getValue());
   }
 
   @Override
