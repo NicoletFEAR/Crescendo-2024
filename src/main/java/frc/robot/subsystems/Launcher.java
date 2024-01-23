@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.MagnetSensorConfigs;
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -19,8 +22,8 @@ import frc.robot.Constants.LauncherConstants;
 
 public class Launcher extends SubsystemBase {
 
-  private CANSparkFlex leftMotor;
-  private CANSparkFlex rightMotor;
+  private CANSparkMax leftMotor;
+  private CANSparkMax rightMotor;
   private CANSparkMax launchPitchMotor;
 
   private RelativeEncoder leftEncoder;
@@ -30,14 +33,16 @@ public class Launcher extends SubsystemBase {
   private SparkPIDController leftController;
   private SparkPIDController rightController;
 
+  private CANcoder encoder = new CANcoder(0);
+
   private double leftDesiredVelocity;
   private double rightDesiredVelocity;
 
   /** Creates a new launcher. */
   public Launcher() {
-    leftMotor = new CANSparkFlex(18, MotorType.kBrushless);
-    rightMotor = new CANSparkFlex(16, MotorType.kBrushless);
-    launchPitchMotor = new CANSparkMax(15, MotorType.kBrushless);
+    leftMotor = new CANSparkMax(13, MotorType.kBrushless);
+    rightMotor = new CANSparkMax(15, MotorType.kBrushless);
+    launchPitchMotor = new CANSparkMax(16, MotorType.kBrushless);
 
     rightMotor.setInverted(true);
     rightMotor.setIdleMode(IdleMode.kCoast);
@@ -57,6 +62,9 @@ public class Launcher extends SubsystemBase {
     rightController.setI(LauncherConstants.ki);
     rightController.setD(LauncherConstants.kd);
 
+
+    // encoder.getConfigurator().apply(new CANcoderConfiguration().withMagnetSensor())
+
   }
 
   @Override
@@ -65,6 +73,8 @@ public class Launcher extends SubsystemBase {
     SmartDashboard.putNumber("Right Velocity", rightEncoder.getVelocity());
     SmartDashboard.putNumber("Left Desired Velocity", leftDesiredVelocity);
     SmartDashboard.putNumber("Right Desired Velocity", rightDesiredVelocity);
+
+    SmartDashboard.putNumber("Absolute Position", encoder.getPosition().getValue() * 360);
 
     
   }
