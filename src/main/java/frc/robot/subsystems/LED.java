@@ -42,7 +42,7 @@ public class LED extends SubsystemBase {
 
   public static LED getInstance() {
     if (m_instance == null) {
-      m_instance = new LED(new AddressableLED(0), 20);
+      m_instance = new LED(new AddressableLED(0), 300);
     }
 
     return m_instance;
