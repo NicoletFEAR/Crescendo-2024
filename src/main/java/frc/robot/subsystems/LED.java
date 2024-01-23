@@ -42,6 +42,8 @@ public class LED extends SubsystemBase {
 
   private static double pulseMultiplier = 1.0;
 
+  private static boolean pulseIncreasing = false;
+
   public LED(AddressableLED led, int length) {
     m_led = led;
 
@@ -120,7 +122,21 @@ public class LED extends SubsystemBase {
       m_ledBuffer.setRGB(i, (int) (m_currentState.red * pulseMultiplier), (int) (m_currentState.green * pulseMultiplier), (int) (m_currentState.blue * pulseMultiplier));
     }
     m_led.setData(m_ledBuffer);
-    pulseMultiplier -= .1; // Scale this to run faster
+    
+    if (pulseIncreasing) {
+      pulseMultiplier += .05; // Scale this to run faster/slower
+      if (pulseMultiplier >= 1.0) {
+        pulseMultiplier = 1.0;
+        pulseIncreasing = false;
+      }
+    } else {
+      pulseMultiplier -= 0.05;
+      if (pulseMultiplier <= 0.0) {
+          pulseMultiplier = 0.0;
+          pulseIncreasing = true;
+      }
+  }
+    
   }
 
 
