@@ -21,6 +21,8 @@ public class LED extends SubsystemBase {
   private static ArrayList<Double> rainEffect = new ArrayList<>(Arrays.asList(
     0.25, 1.0, 0.25, 0.0
   ));
+
+
   
   private static LED m_instance = null;
 
@@ -35,6 +37,10 @@ public class LED extends SubsystemBase {
   private boolean hasEffect = false;
 
   private static double frameRunTime = 0;
+
+  private static boolean flashOn = false;
+
+  private static double pulseMultiplier = 1.0;
 
   public LED(AddressableLED led, int length) {
     m_led = led;
@@ -80,7 +86,6 @@ public class LED extends SubsystemBase {
   }
 
   public static void runEffect(ArrayList<Double> effect, double frameDuration) {
-
     if (frameRunTime >= frameDuration) {
       frameRunTime = 0;
       for (int i = 0; i < effect.size(); i++) {
@@ -88,11 +93,39 @@ public class LED extends SubsystemBase {
       }
       m_led.setData(m_ledBuffer);
       effect.add(0, effect.remove(effect.size() - 1));
-      System.out.println("bruh");
     } else {
       frameRunTime += 0.02;
     }
   }
+
+  public static void flash(double frameDuration) {
+    if (frameRunTime >= frameDuration) {
+      frameRunTime = 0;
+      if (flashOn) {
+        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+          m_ledBuffer.setRGB(i, 0, 0, 0);
+        }
+        flashOn = false;
+      } else {
+        for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+          m_ledBuffer.setRGB(i, m_currentState.red, m_currentState.green, m_currentState.blue);
+        }
+        flashOn = true;
+      }
+      m_led.setData(m_ledBuffer);
+    } else {
+      frameRunTime += 0.02;
+    }
+  }
+
+  public static void pulse() {
+    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+      m_ledBuffer.setRGB(i, (int) (m_currentState.red * pulseMultiplier), (int) (m_currentState.green * pulseMultiplier), (int) (m_currentState.blue * pulseMultiplier));
+    }
+    m_led.setData(m_ledBuffer);
+    pulseMultiplier -= .1; // Scale this to run faster
+  }
+
 
   public static void runEffect(ArrayList<Double> effect) {
     for (int i = 0; i < effect.size(); i++) {
@@ -100,7 +133,6 @@ public class LED extends SubsystemBase {
     }
     m_led.setData(m_ledBuffer);
     effect.add(0, effect.remove(effect.size() - 1));
-    System.out.println("bruh");
   }
 
   public static void rainbow() {
@@ -160,7 +192,10 @@ public class LED extends SubsystemBase {
     GREEN(0, 255, 0, "Green", null),
     RAINBOW(0, 0, 0, "Rainbow", LED::rainbow),
     TEAL_WIPE(0, 122, 133, "Teal Wipe", () -> LED.runEffect(wiperEffect, .04)),
-    TEAL_RAIN(0, 122, 133, "Teal Wipe", () -> LED.runEffect(rainEffect, .2));
+    TEAL_RAIN(0, 122, 133, "Teal Rain", () -> LED.runEffect(rainEffect, .2)),
+    TEAL_PULSE(0, 122, 133, "Teal Pulse", LED::pulse),
+    BLUE_FLASH(0, 0, 255, "Blue Flash", () -> LED.flash(.2)),
+    ORANGE_FLASH(255, 179, 0, "Orange Flash", () -> LED.flash(.2));
 
     public int red;
     public int green;
