@@ -13,11 +13,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LED extends SubsystemBase {
 
   private static ArrayList<Double> wiperEffect = new ArrayList<>(Arrays.asList(
-    0.1, 0.5, 1.0, 1.0, 1.0, 1.0, 0.5, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+    0.1, 0.5, 1.0, 1.0, 1.0, 1.0, 0.5, 0.1
   ));
 
+
+  // Size has to be divisible by length of led
   private static ArrayList<Double> rainEffect = new ArrayList<>(Arrays.asList(
-    0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0, 0.25, 1.0, 0.25, 0.0
+    0.25, 1.0, 0.0
   ));
   
   private static LED m_instance = null;
@@ -30,8 +32,16 @@ public class LED extends SubsystemBase {
 
   private static int m_rainbowFirstPixelHue = 0;
 
+  private boolean hasEffect = false;
+
   public LED(AddressableLED led, int length) {
     m_led = led;
+
+    wiperEffect = setToLength(wiperEffect, length);
+    rainEffect = createLoopingEffect(rainEffect, length);
+ 
+    System.out.println(rainEffect.toString());
+    System.out.println(rainEffect.size());
 
     m_ledBuffer = new AddressableLEDBuffer(length);
     m_led.setLength(length);
@@ -71,8 +81,8 @@ public class LED extends SubsystemBase {
     for (int i = 0; i < effect.size(); i++) {
       m_ledBuffer.setRGB(i, (int) (m_currentState.red * effect.get(i)), (int) (m_currentState.green * effect.get(i)), (int) (m_currentState.blue * effect.get(i)));
     }
+    m_led.setData(m_ledBuffer);
     effect.add(0, effect.remove(effect.size() - 1));
-    System.out.println(effect.toString());
   }
 
   public static void rainbow() {
@@ -95,8 +105,35 @@ public class LED extends SubsystemBase {
   public void periodic() {
     if (m_currentState.ledRunnable != null) {
       m_currentState.ledRunnable.run();
-    }
+      if (!hasEffect) hasEffect = true;
+    } else if (hasEffect) {
+      hasEffect = false;
+      setState(m_currentState);
+    } 
   }
+
+  private ArrayList<Double> createLoopingEffect(ArrayList<Double> initialList, int targetLength) {
+    ArrayList<Double> outputList = new ArrayList<>();
+
+    for (int i = 0; i <= targetLength - initialList.size(); i += initialList.size()) {
+      outputList.addAll(i, initialList);
+    }
+
+    return outputList;
+  } 
+
+
+  private ArrayList<Double> setToLength(ArrayList<Double> initialList, int targetLength) {
+    ArrayList<Double> outputList = new ArrayList<>();
+
+    outputList.addAll(initialList);
+
+    for (int i = 0; i < targetLength - initialList.size(); i++) {
+      outputList.add(0.0);
+    }
+
+    return outputList;
+  } 
 
   public enum LEDState {
     OFF(0, 0, 0, "Off", null),

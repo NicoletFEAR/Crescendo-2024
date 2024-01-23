@@ -8,22 +8,19 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.LEDs;
-import frc.robot.subsystems.Temp;
-import frc.robot.subsystems.LEDs.LEDState;
+import frc.robot.subsystems.LED;
+import frc.robot.subsystems.LED.LEDState;
 
 
 public class RobotContainer {
 
   public static CommandXboxController m_driverController = new CommandXboxController(0);
 
-  public static LEDs m_led;
-    public static Temp m_temp;
+  public static LED m_led;
 
 
   public RobotContainer() {
-    m_led = LEDs.getInstance();
-    m_temp = new Temp();
+    m_led = LED.getInstance();
     configureBindings();
   }
 
