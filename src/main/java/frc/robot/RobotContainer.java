@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.BeamBreak;
 import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.LEDs.LEDState;
 
@@ -18,9 +19,12 @@ public class RobotContainer {
 
   public static LEDs m_led;
 
+  public static BeamBreak m_beamBreak;
+
 
   public RobotContainer() {
     m_led = LEDs.getInstance();
+    m_beamBreak = new BeamBreak();
     configureBindings();
   }
 
