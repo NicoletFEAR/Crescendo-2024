@@ -9,6 +9,7 @@ import java.util.Arrays;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LEDConstants;
 
 public class LEDs extends SubsystemBase {
 
@@ -34,7 +35,7 @@ public class LEDs extends SubsystemBase {
 
   private static int m_rainbowFirstPixelHue = 0;
 
-   private boolean hasEffect = false;
+  private boolean hasEffect = false;
 
   private static double frameRunTime = 0;
 
@@ -59,7 +60,7 @@ public class LEDs extends SubsystemBase {
 
   public static LEDs getInstance() {
     if (m_instance == null) {
-      m_instance = new LEDs(new AddressableLED(0), 300);
+      m_instance = new LEDs(new AddressableLED(LEDConstants.kLedStripPort), LEDConstants.kLedStripLength);
     }
 
     return m_instance;
@@ -117,20 +118,20 @@ public class LEDs extends SubsystemBase {
     }
   }
 
-  public static void pulse() {
+  public static void pulse(double speed) {
     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
       m_ledBuffer.setRGB(i, (int) (m_currentState.red * pulseMultiplier), (int) (m_currentState.green * pulseMultiplier), (int) (m_currentState.blue * pulseMultiplier));
     }
     m_led.setData(m_ledBuffer);
     
     if (pulseIncreasing) {
-      pulseMultiplier += .05; // Scale this to run faster/slower
+      pulseMultiplier += speed; // Scale this to run faster/slower
       if (pulseMultiplier >= 1.0) {
         pulseMultiplier = 1.0;
         pulseIncreasing = false;
       }
     } else {
-      pulseMultiplier -= 0.05;
+      pulseMultiplier -= speed;
       if (pulseMultiplier <= 0.0) {
           pulseMultiplier = 0.0;
           pulseIncreasing = true;
@@ -206,7 +207,7 @@ public class LEDs extends SubsystemBase {
     RAINBOW(0, 0, 0, "Rainbow", LEDs::rainbow),
     TEAL_WIPE(0, 122, 133, "Teal Wipe", () -> LEDs.runEffect(wiperEffect, .04)),
     TEAL_RAIN(0, 122, 133, "Teal Rain", () -> LEDs.runEffect(rainEffect, .2)),
-    TEAL_PULSE(0, 122, 133, "Teal Pulse", LEDs::pulse),
+    TEAL_PULSE(0, 122, 133, "Teal Pulse", () -> LEDs.pulse(.01)),
     BLUE_FLASH(0, 0, 255, "Blue Flash", () -> LEDs.flash(.2)),
     ORANGE_FLASH(255, 179, 0, "Orange Flash", () -> LEDs.flash(.2));
 
