@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class LED extends SubsystemBase {
+public class LEDs extends SubsystemBase {
 
   private static ArrayList<Double> wiperEffect = new ArrayList<>(Arrays.asList(
     0.1, 0.5, 1.0, 1.0, 1.0, 1.0, 0.5, 0.1
@@ -24,7 +24,7 @@ public class LED extends SubsystemBase {
 
 
   
-  private static LED m_instance = null;
+  private static LEDs m_instance = null;
 
   private static AddressableLED m_led;
 
@@ -44,7 +44,7 @@ public class LED extends SubsystemBase {
 
   private static boolean pulseIncreasing = false;
 
-  public LED(AddressableLED led, int length) {
+  public LEDs(AddressableLED led, int length) {
     m_led = led;
 
     wiperEffect = setToLength(wiperEffect, length);
@@ -57,9 +57,9 @@ public class LED extends SubsystemBase {
     m_led.start();
   }
 
-  public static LED getInstance() {
+  public static LEDs getInstance() {
     if (m_instance == null) {
-      m_instance = new LED(new AddressableLED(0), 300);
+      m_instance = new LEDs(new AddressableLED(0), 300);
     }
 
     return m_instance;
@@ -203,12 +203,12 @@ public class LED extends SubsystemBase {
     BLUE(0, 0, 255, "Blue", null),
     RED(255, 0, 0, "Red", null),
     GREEN(0, 255, 0, "Green", null),
-    RAINBOW(0, 0, 0, "Rainbow", LED::rainbow),
-    TEAL_WIPE(0, 122, 133, "Teal Wipe", () -> LED.runEffect(wiperEffect, .04)),
-    TEAL_RAIN(0, 122, 133, "Teal Rain", () -> LED.runEffect(rainEffect, .2)),
-    TEAL_PULSE(0, 122, 133, "Teal Pulse", LED::pulse),
-    BLUE_FLASH(0, 0, 255, "Blue Flash", () -> LED.flash(.2)),
-    ORANGE_FLASH(255, 179, 0, "Orange Flash", () -> LED.flash(.2));
+    RAINBOW(0, 0, 0, "Rainbow", LEDs::rainbow),
+    TEAL_WIPE(0, 122, 133, "Teal Wipe", () -> LEDs.runEffect(wiperEffect, .04)),
+    TEAL_RAIN(0, 122, 133, "Teal Rain", () -> LEDs.runEffect(rainEffect, .2)),
+    TEAL_PULSE(0, 122, 133, "Teal Pulse", LEDs::pulse),
+    BLUE_FLASH(0, 0, 255, "Blue Flash", () -> LEDs.flash(.2)),
+    ORANGE_FLASH(255, 179, 0, "Orange Flash", () -> LEDs.flash(.2));
 
     public int red;
     public int green;
