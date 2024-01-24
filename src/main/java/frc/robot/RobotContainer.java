@@ -17,7 +17,6 @@ public class RobotContainer {
   public static CommandXboxController m_driverController = new CommandXboxController(0);
 
   public static LEDs m_led;
-    public static Temp m_temp;
 
 
   public RobotContainer() {
