@@ -3,23 +3,28 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
-public class BeamBreak extends SubsystemBase {
 
-  private DigitalInput m_input;
+public class MotorFEAR extends SubsystemBase {
+  WPI_TalonFX falcon = new WPI_TalonFX(Constants.falconID);
+  
 
-  /** Creates a new BeamBreak. */
-  public BeamBreak() {
-    m_input = new DigitalInput(0);
+  /** Creates a new MotorFEAR. */
+  public MotorFEAR() {
+    falcon.set(0.2);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("Beam break ", m_input.get());
+    // This method will be called once per scheduler rund
+  }
+
+  public void set(double velocity){
+    falcon.set(velocity);
   }
 }
