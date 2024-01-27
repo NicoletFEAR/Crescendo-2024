@@ -69,6 +69,10 @@ public abstract class PositionSubsystem extends SubsystemBase {
         new CANSparkMax(m_constants.kMasterConstants.kID, m_constants.kMasterConstants.kMotorType);
     m_master.setIdleMode(m_constants.kMasterConstants.kIdleMode);
     m_master.setSmartCurrentLimit(m_constants.kMasterConstants.kCurrentLimit);
+    m_pidController = m_master.getPIDController();
+    m_pidController.setP(m_constants.kKp, m_constants.kDefaultSlot);
+    m_pidController.setI(m_constants.kKi, m_constants.kDefaultSlot);
+    m_pidController.setD(m_constants.kKd, m_constants.kDefaultSlot);
     m_master.burnFlash();
 
     m_slaves = new CANSparkMax[m_constants.kSlaveConstants.length];
@@ -139,11 +143,6 @@ public abstract class PositionSubsystem extends SubsystemBase {
             Map.of("min", 0),
             4,
             m_constants.kSubsystemType.ordinal());
-
-    m_pidController = m_master.getPIDController();
-    m_pidController.setP(m_constants.kKp, m_constants.kDefaultSlot);
-    m_pidController.setI(m_constants.kKi, m_constants.kDefaultSlot);
-    m_pidController.setD(m_constants.kKd, m_constants.kDefaultSlot);
 
     m_profile =
         new TrapezoidProfile(

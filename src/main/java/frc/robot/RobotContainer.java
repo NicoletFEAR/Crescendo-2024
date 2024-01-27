@@ -9,6 +9,7 @@ import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.utilities.Alert;
 import frc.lib.utilities.LoggedDashboardChooser;
@@ -18,7 +19,9 @@ import frc.robot.commands.superstructure.ManualTalonFXPositionSubsystem;
 import frc.robot.commands.superstructure.SetTalonFXPositionSubsystemState;
 import frc.robot.subsystems.FalconTestingStateMachine;
 import frc.robot.subsystems.FalconTestingStateMachine.FalconTestingState;
+import frc.robot.subsystems.launcher.LauncherFlywheel;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
+import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
 /*
@@ -67,6 +70,11 @@ public class RobotContainer {
     m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
     m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
 
+    // m_operatorController.a().onTrue(new InstantCommand(() -> LauncherFlywheel.getInstance().setDesiredState(LauncherFlywheelState.IDLE)));
+    // m_operatorController.x().onTrue(new InstantCommand(() -> LauncherFlywheel.getInstance().setDesiredState(LauncherFlywheelState.OFF)));
+    // m_operatorController.y().onTrue(new InstantCommand(() -> LauncherFlywheel.getInstance().setDesiredState(LauncherFlywheelState.RUNNING)));
+    // m_operatorController.b().onTrue(new InstantCommand(() -> LauncherFlywheel.getInstance().setDesiredState(LauncherFlywheelState.FAST)));
+    
     m_operatorController.pov(0).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_REALLY_UP));
     m_operatorController.pov(90).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_UP));
     m_operatorController.pov(180).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.UP));

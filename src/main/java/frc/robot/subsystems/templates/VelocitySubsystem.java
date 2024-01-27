@@ -13,9 +13,16 @@ import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 import com.revrobotics.SparkPIDController.ArbFFUnits;
 
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
 import frc.lib.utilities.LoggedShuffleboardTunableNumber;
+
+import java.util.Map;
+
 import org.littletonrobotics.junction.Logger;
 
 public abstract class VelocitySubsystem extends SubsystemBase {
@@ -39,6 +46,11 @@ public abstract class VelocitySubsystem extends SubsystemBase {
 
   protected double simpos = 0;
 
+  // protected GenericEntry enablePID = RobotContainer.mechTuningTab.add("Enable", false)
+  // .withWidget(BuiltInWidgets.kToggleButton)
+  // .withPosition(5, 5)
+  // .getEntry();
+
   protected VelocitySubsystem(final VelocitySubsystemConstants constants) {
 
     m_constants = constants;
@@ -50,9 +62,14 @@ public abstract class VelocitySubsystem extends SubsystemBase {
         new CANSparkMax(m_constants.kMasterConstants.kID, m_constants.kMasterConstants.kMotorType);
     m_master.setIdleMode(m_constants.kMasterConstants.kIdleMode);
     m_master.setSmartCurrentLimit(m_constants.kMasterConstants.kCurrentLimit);
+    m_pidController = m_master.getPIDController();
+    m_pidController.setP(0.00001);
+    m_pidController.setI(0);
+    m_pidController.setD(0);
+    m_pidController.setFF(0.0001675);
     m_master.burnFlash();
 
-    REVPhysicsSim.getInstance().addSparkMax(m_master, DCMotor.getNEO(1));
+    // REVPhysicsSim.getInstance().addSparkMax(m_master, DCMotor.getNEO(1));
 
     m_slaves = new CANSparkMax[m_constants.kSlaveConstants.length];
 
@@ -69,7 +86,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     if (m_slaves.length > 0) m_master.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 5);
 
     m_encoder = m_master.getEncoder();
-    m_encoder.setVelocityConversionFactor(m_constants.kVelocityConversionFactor);
+    // m_encoder.setVelocityConversionFactor(m_constants.kVelocityConversionFactor);
 
     // m_kp =
     //     new LoggedShuffleboardTunableNumber(
@@ -101,16 +118,13 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     //         2,
     //         m_constants.kSubsystemType.ordinal());
 
-    m_pidController = m_master.getPIDController();
-    m_pidController.setP(m_constants.kKp, m_constants.kDefaultSlot);
-    m_pidController.setI(m_constants.kKi, m_constants.kDefaultSlot);
-    m_pidController.setD(m_constants.kKd, m_constants.kDefaultSlot);
+
 
     setName(m_constants.kName);
   }
 
   public void runToSetpoint() {
-    m_pidController.setReference(m_desiredState.getVelocity(), ControlType.kVelocity, m_constants.kDefaultSlot, m_arbFeedforward, ArbFFUnits.kVoltage);
+    
   }
 
   public VelocitySubsystemState getCurrentState() {
@@ -123,6 +137,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
 
   public void setDesiredState(VelocitySubsystemState desiredState) {
     m_desiredState = desiredState;
+   m_pidController.setReference(m_desiredState.getVelocity(), ControlType.kVelocity);
   }
 
   public boolean atSetpoint() {
@@ -139,6 +154,8 @@ public abstract class VelocitySubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+     
     
     runToSetpoint();
 
@@ -153,10 +170,12 @@ public abstract class VelocitySubsystem extends SubsystemBase {
 
     outputTelemetry();
 
-    // if (Constants.kTuningMode) {
+    // if (enablePID.getBoolean(false)) {
     //   m_pidController.setP(m_kp.get(), m_constants.kDefaultSlot);
     //   m_pidController.setI(m_ki.get(), m_constants.kDefaultSlot);
     //   m_pidController.setD(m_kd.get(), m_constants.kDefaultSlot);
+    //   enablePID.setBoolean(false);
+    //   System.out.println("tuned");
     // }
 
     Logger.recordOutput(m_constants.kName + "/Encoder Velocity", getVelocity()); // Encoder Velocity

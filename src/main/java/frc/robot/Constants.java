@@ -35,7 +35,7 @@ public final class Constants {
 
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : Mode.SIM;
 
-  public static final boolean kInfoMode = true;
+  public static final boolean kInfoMode = false;
 
   public static final boolean kTuningMode = false;
 
@@ -147,7 +147,7 @@ public final class Constants {
       kLauncherFlywheelConstants.kMasterConstants = kLauncherFlywheelMasterConstants;
       kLauncherFlywheelConstants.kSlaveConstants = kLauncherFlywheelSlaveConstants;
 
-      kLauncherFlywheelConstants.kVelocityConversionFactor = 3 / 60; // division by 60 to get rotations per second
+      kLauncherFlywheelConstants.kVelocityConversionFactor = 1.0; // division by 60 to get rotations per second
 
       kLauncherFlywheelConstants.kKp = 0.01;
       kLauncherFlywheelConstants.kKi = 0.0;
@@ -166,7 +166,7 @@ public final class Constants {
   public static final SparkMaxConstants kLauncherWristMasterConstants = new SparkMaxConstants();
 
     static {
-      kLauncherWristMasterConstants.kID = 7;
+      kLauncherWristMasterConstants.kID = 30;
       kLauncherWristMasterConstants.kIdleMode = IdleMode.kBrake;
       kLauncherWristMasterConstants.kMotorType = MotorType.kBrushless;
       kLauncherWristMasterConstants.kCurrentLimit = 80;
@@ -189,7 +189,7 @@ public final class Constants {
       kLauncherWristConstants.kHomePosition = 155;
       kLauncherWristConstants.kPositionConversionFactor = 360 / 100;
 
-      kLauncherWristConstants.kKp = 0.2;
+      kLauncherWristConstants.kKp = 0.01;
       kLauncherWristConstants.kKi = 0.0;
       kLauncherWristConstants.kKd = 0.0;
       kLauncherWristConstants.kSetpointTolerance = 0.1;
@@ -197,8 +197,8 @@ public final class Constants {
 
       kLauncherWristConstants.kDefaultSlot = 0;
 
-      kLauncherWristConstants.kMaxVelocity = 2000;
-      kLauncherWristConstants.kMaxAcceleration = 2000;
+      kLauncherWristConstants.kMaxVelocity = 100;
+      kLauncherWristConstants.kMaxAcceleration = 50;
 
       kLauncherWristConstants.kKs = 0.0;
       kLauncherWristConstants.kKg = 0.0;

@@ -30,10 +30,10 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
     @Override
     public void subsystemPeriodic() {
-        setFeedforward(m_flywheelFeedForward.calculate(getVelocity()));
+        // setFeedforward(m_flywheelFeedForward.calculate(getVelocity()));
 
 
-        LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(calculateRPM());
+        // LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(calculateRPM());
         SmartDashboard.putNumber("Calculated shooter rpm", getVelocity());
     }
 
@@ -56,9 +56,10 @@ public class LauncherFlywheel extends VelocitySubsystem {
     public enum LauncherFlywheelState implements VelocitySubsystemState {
         OFF(0, "Off"),
         IDLE(1000, "Idle"),
+        FAST(4000, "Fast"),
         TRANSITION(0, "Transition"),
         FIELD_BASED_VELOCITY(0, "Field Based Velocity"),
-        RUNNING(5000, "Running");
+        RUNNING(2500, "Running");
     
         private double velocity;
         private String name;
