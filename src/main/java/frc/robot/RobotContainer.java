@@ -14,6 +14,10 @@ import frc.lib.utilities.Alert;
 import frc.lib.utilities.LoggedDashboardChooser;
 import frc.lib.utilities.Alert.AlertType;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.superstructure.ManualTalonFXPositionSubsystem;
+import frc.robot.commands.superstructure.SetTalonFXPositionSubsystemState;
+import frc.robot.subsystems.FalconTestingStateMachine;
+import frc.robot.subsystems.FalconTestingStateMachine.FalconTestingState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
@@ -41,6 +45,7 @@ public class RobotContainer {
 
   // SUBSYSTEMS \\
   private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
+  private FalconTestingStateMachine m_falconTesting = FalconTestingStateMachine.getInstance();
 
   // SENDABLE CHOOSER \\
   public static LoggedDashboardChooser<Command> autoChooser;
@@ -51,6 +56,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     // m_launcherWrist.setDefaultCommand(new ManualPositionSubsystem(m_launcherWrist));
+    m_falconTesting.setDefaultCommand(new ManualTalonFXPositionSubsystem(m_falconTesting));
 
     configureButtonBindings();
   }
@@ -60,6 +66,11 @@ public class RobotContainer {
     m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH));
     m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
     m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
+
+    m_operatorController.pov(0).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_REALLY_UP));
+    m_operatorController.pov(90).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_UP));
+    m_operatorController.pov(180).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.UP));
+    m_operatorController.pov(270).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.DOWN));
   }
 
   public Command getAutonomousCommand() {

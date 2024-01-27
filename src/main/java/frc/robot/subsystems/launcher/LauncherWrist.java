@@ -52,7 +52,7 @@ public class LauncherWrist extends PositionSubsystem {
         UP(45, 0, "Up"),
         FIELD_BASED_PITCH(0, 0, "Field Based Pitch"),
         TRANSITION(0, 0, "Transition"),
-        MANUAL(0, 0, "Transition");
+        MANUAL(0, 0, "Manual");
     
         private double position;
         private double velocity;

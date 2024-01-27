@@ -2,6 +2,7 @@ package frc.robot.subsystems.launcher;
 
 
 import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.LauncherConstants;
 // import frc.robot.subsystems.swerve.SwerveDrive;
@@ -11,8 +12,12 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
     private static LauncherFlywheel m_instance = null;
 
+    private SimpleMotorFeedforward m_flywheelFeedForward;
+
     public LauncherFlywheel(VelocitySubsystemConstants constants) {
         super(constants);
+
+        m_flywheelFeedForward = new SimpleMotorFeedforward(0.0, 0.0, 0.0);
     }
 
     public static LauncherFlywheel getInstance() {
@@ -25,6 +30,9 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
     @Override
     public void subsystemPeriodic() {
+        setFeedforward(m_flywheelFeedForward.calculate(getVelocity()));
+
+
         LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(calculateRPM());
         SmartDashboard.putNumber("Calculated shooter rpm", getVelocity());
     }

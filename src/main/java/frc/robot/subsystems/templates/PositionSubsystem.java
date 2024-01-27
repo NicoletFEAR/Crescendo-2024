@@ -327,7 +327,8 @@ public abstract class PositionSubsystem extends SubsystemBase {
   public abstract void outputTelemetry();
 
   public enum PositionSubsystemType {
-    LAUNCHER_WRIST
+    LAUNCHER_WRIST,
+    FALCON_TESTING
   }
 
   public interface PositionSubsystemState {

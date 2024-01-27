@@ -1,5 +1,8 @@
 package frc.robot.subsystems.templates;
 
+import com.ctre.phoenix6.signals.GravityTypeValue;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -19,6 +22,23 @@ public class SubsystemConstants {
     public MotorType kMotorType = MotorType.kBrushless;
     public int kCurrentLimit = 0;
     public boolean kInverted = false;
+  }
+
+  public static class TalonFXConstants {
+    public int kID = 0;
+    public GravityTypeValue kGravityType = null;
+    public double kKp = 0.0;
+    public double kKi = 0.0;
+    public double kKd = 0.0;
+    public double kKs = 0.0;
+    public double kKg = 0.0;
+    public double kKv = 0.0;
+    public double kKa = 0.0;
+    public double kMaxAcceleration = 0.0;
+    public double kMaxVelocity = 0.0;
+    public double kMaxJerk = 0.0;
+    public NeutralModeValue kNuetralMode = null;
+    public InvertedValue kIsInverted = null;
   }
 
   public static class PositionSubsystemConstants {
@@ -59,6 +79,40 @@ public class SubsystemConstants {
     public double kKg = 0.0;
     public double kKv = 0.0;
     public double kKa = 0.0;
+
+    // Max/Min positions the subsystem should be able to move
+    public double kMaxPosition = Double.POSITIVE_INFINITY;
+    public double kMinPosition = Double.NEGATIVE_INFINITY;
+
+    // Manual constants
+    public ManualControlMode kManualControlMode = null;
+    public double kManualMultiplier = 0;
+    public double kManualDeadBand = 0;
+  }
+
+  public static class TalonFXPositionSubsystemConstants {
+
+    // Subsystem Constants \\
+    public String kName = "ERROR_ASSIGN_A_NAME";
+
+    public PositionSubsystemType kSubsystemType = null;
+
+    public TalonFXConstants kMasterConstants = new TalonFXConstants();
+    public TalonFXConstants[] kSlaveConstants = new TalonFXConstants[0];
+
+    public PositionSubsystemState kInitialState = null;
+    public PositionSubsystemState kManualState = null;
+    public PositionSubsystemState kTransitionState = null;
+
+    public int kDefaultSlot =
+        0; // PID Slot, make more if more than one set of pid constants are used
+
+    // Servo Motor Subsystem Constants \\
+    public double kHomePosition = 0.0;
+    public double kPositionConversionFactor =
+        1.0; // To find degrees: 360/gear ration ex 360/100 for 100:1
+
+    public double kSetpointTolerance = 0.0; // Tolerance for atSetpoint()
 
     // Max/Min positions the subsystem should be able to move
     public double kMaxPosition = Double.POSITIVE_INFINITY;
