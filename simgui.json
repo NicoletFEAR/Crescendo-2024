@@ -55,6 +55,13 @@
     }
   },
   "NetworkTables": {
+    "retained": {
+      "Shuffleboard": {
+        "Main": {
+          "open": true
+        }
+      }
+    },
     "transitory": {
       "AdvantageKit": {
         "RealOutputs": {

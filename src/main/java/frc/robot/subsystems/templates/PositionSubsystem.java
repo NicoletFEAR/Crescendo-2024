@@ -21,6 +21,10 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
 import frc.lib.utilities.LoggedShuffleboardTunableNumber;
+import frc.lib.utilities.Shuffleboardbutton;
+
+import static frc.robot.Constants.kInfoMode;
+
 import java.util.Map;
 import org.littletonrobotics.junction.Logger;
 
@@ -47,6 +51,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
   protected LoggedShuffleboardTunableNumber m_kd;
   protected LoggedShuffleboardTunableNumber m_kMaxAcceleration;
   protected LoggedShuffleboardTunableNumber m_kMaxVelocity;
+  protected Shuffleboardbutton m_button;
 
   protected PositionSubsystemState m_currentState = null;
   protected PositionSubsystemState m_desiredState = null;
@@ -98,7 +103,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
         new LoggedShuffleboardTunableNumber(
             m_constants.kName + " p",
             m_constants.kKp,
-            RobotContainer.mechTuningTab,
+            RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
             0,
@@ -108,7 +113,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
         new LoggedShuffleboardTunableNumber(
             m_constants.kName + " i",
             m_constants.kKi,
-            RobotContainer.mechTuningTab,
+            RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
             1,
@@ -118,7 +123,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
         new LoggedShuffleboardTunableNumber(
             m_constants.kName + " d",
             m_constants.kKd,
-            RobotContainer.mechTuningTab,
+            RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
             2,
@@ -128,7 +133,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
         new LoggedShuffleboardTunableNumber(
             m_constants.kName + " Max Acceleration",
             m_constants.kMaxAcceleration,
-            RobotContainer.mechTuningTab,
+            RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
             3,
@@ -138,11 +143,12 @@ public abstract class PositionSubsystem extends SubsystemBase {
         new LoggedShuffleboardTunableNumber(
             m_constants.kName + " Max Velocity",
             m_constants.kMaxVelocity,
-            RobotContainer.mechTuningTab,
+            RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
             4,
             m_constants.kSubsystemType.ordinal());
+
 
     m_profile =
         new TrapezoidProfile(
@@ -284,10 +290,10 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     if (m_isZeroed && !m_hasBeenZeroed) m_hasBeenZeroed = true;
 
-    if (m_profileStartTime == -1) {
-      holdPosition();
-    } else {
+    if (!(m_profileStartTime == -1)) {
       runToSetpoint();
+    } else if (m_currentState == m_constants.kManualState) {
+      holdPosition();
     }
 
     subsystemPeriodic();
@@ -295,12 +301,16 @@ public abstract class PositionSubsystem extends SubsystemBase {
     outputTelemetry();
 
     if (Constants.kTuningMode) {
-      m_pidController.setP(m_kp.get(), m_constants.kDefaultSlot);
-      m_pidController.setI(m_ki.get(), m_constants.kDefaultSlot);
-      m_pidController.setD(m_kd.get(), m_constants.kDefaultSlot);
-      m_profile =
-          new TrapezoidProfile(
-              new TrapezoidProfile.Constraints(m_kMaxVelocity.get(), m_kMaxAcceleration.get()));
+      if (RobotContainer.m_applyPositionMechConfigs.getValue()) {
+        m_pidController.setP(m_kp.get(), m_constants.kDefaultSlot);
+        m_pidController.setI(m_ki.get(), m_constants.kDefaultSlot);
+        m_pidController.setD(m_kd.get(), m_constants.kDefaultSlot);
+        m_master.burnFlash();
+        m_profile =
+            new TrapezoidProfile(
+                new TrapezoidProfile.Constraints(m_kMaxVelocity.get(), m_kMaxAcceleration.get()));
+        System.out.println("Applied");
+      }
     }
 
     Logger.recordOutput(

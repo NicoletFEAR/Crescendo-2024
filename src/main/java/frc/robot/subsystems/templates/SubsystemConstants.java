@@ -17,11 +17,19 @@ import frc.robot.subsystems.templates.VelocitySubsystem.VelocitySubsystemType;
 public class SubsystemConstants {
 
   public static class SparkMaxConstants {
+    public String kName = "ERROR_ASSIGN_NAME";
     public int kID = 0;
     public IdleMode kIdleMode = IdleMode.kBrake;
     public MotorType kMotorType = MotorType.kBrushless;
     public int kCurrentLimit = 0;
     public boolean kInverted = false;
+    public double kKp = 0.0;
+    public double kKi = 0.0;
+    public double kKd = 0.0;
+    public double kKs = 0.0;
+    public double kKg = 0.0;
+    public double kKv = 0.0;
+    public double kKa = 0.0;
   }
 
   public static class TalonFXConstants {
@@ -144,8 +152,7 @@ public class SubsystemConstants {
 
     public VelocitySubsystemType kSubsystemType = null;
 
-    public SparkMaxConstants kMasterConstants = new SparkMaxConstants();
-    public SparkMaxConstants[] kSlaveConstants = new SparkMaxConstants[0];
+    public SparkMaxConstants[] kMotorConstants = new SparkMaxConstants[0];
 
     public VelocitySubsystemState kInitialState = null;
     public VelocitySubsystemState kTransitionState = null;

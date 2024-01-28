@@ -7,7 +7,6 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 // import frc.robot.subsystems.swerve.SwerveDrive;
@@ -43,11 +42,9 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
 
         // LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(calculateRPM());
-        SmartDashboard.putNumber("Calculated shooter rpm", getVelocity());
 
         if (m_beamBreak.get()) {
             new SetVelocitySubsystemState(m_instance, LauncherFlywheelState.OFF, null, null).schedule();
-            System.out.println("true");
         }
     }
 
@@ -71,17 +68,17 @@ public class LauncherFlywheel extends VelocitySubsystem {
     }
 
     public enum LauncherFlywheelState implements VelocitySubsystemState {
-        OFF(0, "Off"),
-        IDLE(1000, "Idle"),
-        FAST(4000, "Fast"),
-        TRANSITION(0, "Transition"),
-        FIELD_BASED_VELOCITY(0, "Field Based Velocity"),
-        RUNNING(2500, "Running");
+        OFF(new double[] {0, 0}, "Off"),
+        IDLE(new double[] {1000, -1000}, "Idle"),
+        FAST(new double[] {2500, -2500}, "Fast"),
+        TRANSITION(new double[] {0, 0}, "Transition"),
+        FIELD_BASED_VELOCITY(new double[] {0, 0}, "Field Based Velocity"),
+        RUNNING(new double[] {5000, -5000}, "Running");
     
-        private double velocity;
+        private double[] velocity;
         private String name;
     
-        private LauncherFlywheelState(double velocity, String name) {
+        private LauncherFlywheelState(double[] velocity, String name) {
           this.velocity = velocity;
           this.name = name;
         }
@@ -92,12 +89,12 @@ public class LauncherFlywheel extends VelocitySubsystem {
         }
 
         @Override
-        public double getVelocity() {
+        public double[] getVelocity() {
             return velocity;
         }
 
         @Override
-        public void setVelocity(double velocity) {
+        public void setVelocity(double[] velocity) {
             this.velocity = velocity;
         }
     }

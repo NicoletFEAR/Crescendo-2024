@@ -6,23 +6,20 @@ package frc.robot;
 
 import static frc.robot.Constants.*;
 
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.WidgetType;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.utilities.Alert;
 import frc.lib.utilities.LoggedDashboardChooser;
+import frc.lib.utilities.Shuffleboardbutton;
 import frc.lib.utilities.Alert.AlertType;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.superstructure.ManualTalonFXPositionSubsystem;
-import frc.robot.commands.superstructure.SetTalonFXPositionSubsystemState;
-import frc.robot.commands.superstructure.SetVelocitySubsystemState;
-import frc.robot.subsystems.FalconTestingStateMachine;
-import frc.robot.subsystems.FalconTestingStateMachine.FalconTestingState;
-import frc.robot.subsystems.launcher.LauncherFlywheel;
+import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
-import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
+import frc.robot.subsystems.launcher.LauncherWrist;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
 /*
@@ -44,12 +41,15 @@ public class RobotContainer {
   public static ShuffleboardTab infoTab = kInfoMode ? Shuffleboard.getTab("Info") : null;
   public static ShuffleboardTab driveTuningTab =
       kTuningMode ? Shuffleboard.getTab("Drive Tuning") : null;
-  public static ShuffleboardTab mechTuningTab =
-      kTuningMode ? Shuffleboard.getTab("Mech Tuning") : null;
+  public static ShuffleboardTab positionMechTuningTab =
+      kTuningMode ? Shuffleboard.getTab("Position Mech Tuning") : null;
+  public static ShuffleboardTab velocityMechTuningTab =
+      kTuningMode ? Shuffleboard.getTab("Velocity Mech Tuning") : null;
 
+  public static Shuffleboardbutton m_applyPositionMechConfigs = kTuningMode ? new Shuffleboardbutton("Apply Position Mech Configs", false, positionMechTuningTab, BuiltInWidgets.kToggleButton , null, 5, 0) : null;
+  public static Shuffleboardbutton m_applyVelocityMechConfigs = kTuningMode ? new Shuffleboardbutton("Apply Velocity Mech Configs", false, velocityMechTuningTab, BuiltInWidgets.kToggleButton , null, 3, 0) : null;
   // SUBSYSTEMS \\
   private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
-  private FalconTestingStateMachine m_falconTesting = FalconTestingStateMachine.getInstance();
 
   // SENDABLE CHOOSER \\
   public static LoggedDashboardChooser<Command> autoChooser;
@@ -59,29 +59,16 @@ public class RobotContainer {
       new Alert("Tuning Mode Activated, expect decreased network performance.", AlertType.INFO);
 
   public RobotContainer() {
-    // m_launcherWrist.setDefaultCommand(new ManualPositionSubsystem(m_launcherWrist));
-    m_falconTesting.setDefaultCommand(new ManualTalonFXPositionSubsystem(m_falconTesting));
+    LauncherWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(LauncherWrist.getInstance()));
 
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
 
-    // m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH));
-    // m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
-    // m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
-
-    m_operatorController.a().onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.IDLE, null, null));
-
-    // m_operatorController.a().onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.DOWN));
-    // m_operatorController.b().onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.UP));
-    // m_operatorController.x().onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_UP));
-    // m_operatorController.y().onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_REALLY_UP));
-
-    m_operatorController.pov(0).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_REALLY_UP));
-    m_operatorController.pov(90).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_UP));
-    m_operatorController.pov(180).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.UP));
-    m_operatorController.pov(270).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.DOWN));
+    m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH));
+    m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
+    m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
   }
 
   public Command getAutonomousCommand() {
@@ -104,5 +91,6 @@ public class RobotContainer {
   public void realPeriodic() {
   }
 
-  public void periodic() {}
+  public void periodic() {
+  }
 }
