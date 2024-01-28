@@ -89,5 +89,6 @@ public abstract class VoltageSubsystem extends SubsystemBase {
     String getName();
 
     double getVoltage();
+    
   }
 }

@@ -26,5 +26,6 @@ public class SetVoltageSubsystemState extends InstantCommand {
   @Override
   public void initialize() {
     m_subsystem.setState(m_state);
+    
   }
 }

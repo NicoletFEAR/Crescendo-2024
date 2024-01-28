@@ -19,6 +19,7 @@ import frc.robot.commands.superstructure.ManualTalonFXPositionSubsystem;
 import frc.robot.commands.superstructure.SetTalonFXPositionSubsystemState;
 import frc.robot.subsystems.FalconTestingStateMachine;
 import frc.robot.subsystems.FalconTestingStateMachine.FalconTestingState;
+import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherFlywheel;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
@@ -66,9 +67,19 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
 
-    m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH));
-    m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
-    m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
+    // m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH));
+    // m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
+    // m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
+
+    m_operatorController.a()
+      .onTrue(m_launcherSuperstructure.setSuperstructureState(IntakeSuperstructureState.IN))
+      .onFalse(m_launcherSuperstructure.setSuperstructureState(IntakeSuperstructureState.OFF));
+    m_operatorController.b()
+      .onTrue(m_launcherSuperstructure.setSuperstructureState(IntakeSuperstructureState.OUT))
+      .onFalse(m_launcherSuperstructure.setSuperstructureState(IntakeSuperstructureState.OFF));
+    m_operatorController.y()
+      .onTrue(m_launcherSuperstructure.setSuperstructureState(IntakeSuperstructureState.AMP))
+      .onFalse(m_launcherSuperstructure.setSuperstructureState(IntakeSuperstructureState.OFF));
 
     // m_operatorController.a().onTrue(new InstantCommand(() -> LauncherFlywheel.getInstance().setDesiredState(LauncherFlywheelState.IDLE)));
     // m_operatorController.x().onTrue(new InstantCommand(() -> LauncherFlywheel.getInstance().setDesiredState(LauncherFlywheelState.OFF)));
