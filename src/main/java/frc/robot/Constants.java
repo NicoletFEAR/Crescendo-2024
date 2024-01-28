@@ -52,7 +52,7 @@ public final class Constants {
   public static final class FalconTestingConstants {
     public static final TalonFXConstants kFalconTestingMasterConstants = new TalonFXConstants();
     static {
-      kFalconTestingMasterConstants.kID = 6;
+      kFalconTestingMasterConstants.kID = 21;
       kFalconTestingMasterConstants.kGravityType = GravityTypeValue.Elevator_Static;
       kFalconTestingMasterConstants.kKp = 0.1;
       kFalconTestingMasterConstants.kKi = 0.0;
@@ -61,9 +61,9 @@ public final class Constants {
       kFalconTestingMasterConstants.kKg = 0.0;
       kFalconTestingMasterConstants.kKv = 0.0;
       kFalconTestingMasterConstants.kKa = 0.0;
-      kFalconTestingMasterConstants.kMaxAcceleration = 5.0;
-      kFalconTestingMasterConstants.kMaxVelocity = 10.0;
-      kFalconTestingMasterConstants.kMaxJerk = 1.0;
+      kFalconTestingMasterConstants.kMaxAcceleration = 18000.0;
+      kFalconTestingMasterConstants.kMaxVelocity = 20000.0;
+      kFalconTestingMasterConstants.kMaxJerk = 100000.0;
       kFalconTestingMasterConstants.kNuetralMode = NeutralModeValue.Brake;
       kFalconTestingMasterConstants.kIsInverted = InvertedValue.Clockwise_Positive;
     }
@@ -80,7 +80,7 @@ public final class Constants {
       kFalconTestingConstants.kDefaultSlot = 0; // PID Slot, make more if more than one set of pid constants are used
       kFalconTestingConstants.kHomePosition = 0.0;
       kFalconTestingConstants.kPositionConversionFactor = 1.0; // To find degrees: 360/gear ration ex 360/100 for 100:1
-      kFalconTestingConstants.kSetpointTolerance = 0.0; // Tolerance for atSetpoint()
+      kFalconTestingConstants.kSetpointTolerance = 5.0; // Tolerance for atSetpoint()
       kFalconTestingConstants.kMaxPosition = Double.POSITIVE_INFINITY;
       kFalconTestingConstants.kMinPosition = Double.NEGATIVE_INFINITY;
       kFalconTestingConstants.kManualControlMode = ManualControlMode.BUMPERS;
@@ -127,7 +127,7 @@ public final class Constants {
     public static final SparkMaxConstants kLauncherFlywheelMasterConstants = new SparkMaxConstants();
 
     static {
-      kLauncherFlywheelMasterConstants.kID = 34;
+      kLauncherFlywheelMasterConstants.kID = 30;
       kLauncherFlywheelMasterConstants.kIdleMode = IdleMode.kBrake;
       kLauncherFlywheelMasterConstants.kMotorType = MotorType.kBrushless;
       kLauncherFlywheelMasterConstants.kCurrentLimit = 80;
@@ -166,7 +166,7 @@ public final class Constants {
   public static final SparkMaxConstants kLauncherWristMasterConstants = new SparkMaxConstants();
 
     static {
-      kLauncherWristMasterConstants.kID = 30;
+      kLauncherWristMasterConstants.kID = 34;
       kLauncherWristMasterConstants.kIdleMode = IdleMode.kBrake;
       kLauncherWristMasterConstants.kMotorType = MotorType.kBrushless;
       kLauncherWristMasterConstants.kCurrentLimit = 80;
@@ -187,7 +187,7 @@ public final class Constants {
       kLauncherWristConstants.kSlaveConstants = kWristSlaveConstants;
 
       kLauncherWristConstants.kHomePosition = 155;
-      kLauncherWristConstants.kPositionConversionFactor = 360 / 100;
+      kLauncherWristConstants.kPositionConversionFactor = 360;
 
       kLauncherWristConstants.kKp = 0.01;
       kLauncherWristConstants.kKi = 0.0;

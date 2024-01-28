@@ -31,8 +31,10 @@ public class SetVelocitySubsystemState extends Command {
   @Override
   public void initialize() {
     m_subsystem.setDesiredState(m_subsystemState);
-    m_superstructure.setDesiredState(m_superstructureState);
-    m_superstructure.setCurrentState(m_superstructure.getTransitionState());
+    if (m_superstructure != null) {
+      m_superstructure.setDesiredState(m_superstructureState);
+      m_superstructure.setCurrentState(m_superstructure.getTransitionState());
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.

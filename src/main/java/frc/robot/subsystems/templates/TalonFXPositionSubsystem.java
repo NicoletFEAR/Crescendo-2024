@@ -38,6 +38,10 @@ public abstract class TalonFXPositionSubsystem extends SubsystemBase {
   protected boolean m_hasBeenZeroed = false;
   protected boolean m_isZeroed = true;
 
+  protected boolean isRunningToPosition = false;
+
+  protected boolean isRunningToSetpoint = false;
+
   protected double m_arbFeedforward = 0;
 
   protected TalonFXPositionSubsystem(final TalonFXPositionSubsystemConstants constants) {
@@ -112,9 +116,10 @@ public abstract class TalonFXPositionSubsystem extends SubsystemBase {
 
   public void runToSetpoint() {
 
-
-    m_master.setControl(new MotionMagicVoltage(m_desiredState.getPosition(), false, m_arbFeedforward, m_constants.kDefaultSlot, true, false, false));
-
+    if (!isRunningToPosition) {
+      m_master.setControl(new MotionMagicVoltage(m_desiredState.getPosition(), false, m_arbFeedforward, m_constants.kDefaultSlot, true, false, false));
+      isRunningToPosition = true;
+    }
     if (m_currentState != m_constants.kTransitionState)
       m_currentState = m_constants.kTransitionState;
 
@@ -124,6 +129,8 @@ public abstract class TalonFXPositionSubsystem extends SubsystemBase {
     if (atSetpoint()) {
       m_currentState = m_desiredState;
       m_constants.kManualState.setPosition(0);
+      isRunningToPosition = false;
+      isRunningToSetpoint = false;
     }
   }
 
@@ -189,6 +196,7 @@ public abstract class TalonFXPositionSubsystem extends SubsystemBase {
 
   public void setDesiredState(PositionSubsystemState desiredState) {
     m_desiredState = desiredState;
+    isRunningToSetpoint = true;
   }
 
   public boolean atSetpoint() {
@@ -212,7 +220,9 @@ public abstract class TalonFXPositionSubsystem extends SubsystemBase {
 
     if (m_isZeroed && !m_hasBeenZeroed) m_hasBeenZeroed = true;
 
-    if (m_currentState != m_constants.kTransitionState) {
+    // System.out.println(isRunningToPosition);
+
+    if (!isRunningToSetpoint) {
       holdPosition();
     } else {
       runToSetpoint();

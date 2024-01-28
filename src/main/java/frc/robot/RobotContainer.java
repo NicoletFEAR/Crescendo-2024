@@ -17,6 +17,7 @@ import frc.lib.utilities.Alert.AlertType;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.superstructure.ManualTalonFXPositionSubsystem;
 import frc.robot.commands.superstructure.SetTalonFXPositionSubsystemState;
+import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.subsystems.FalconTestingStateMachine;
 import frc.robot.subsystems.FalconTestingStateMachine.FalconTestingState;
 import frc.robot.subsystems.launcher.LauncherFlywheel;
@@ -66,15 +67,17 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
 
-    m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH));
-    m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
-    m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
+    // m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH));
+    // m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
+    // m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
 
-    // m_operatorController.a().onTrue(new InstantCommand(() -> LauncherFlywheel.getInstance().setDesiredState(LauncherFlywheelState.IDLE)));
-    // m_operatorController.x().onTrue(new InstantCommand(() -> LauncherFlywheel.getInstance().setDesiredState(LauncherFlywheelState.OFF)));
-    // m_operatorController.y().onTrue(new InstantCommand(() -> LauncherFlywheel.getInstance().setDesiredState(LauncherFlywheelState.RUNNING)));
-    // m_operatorController.b().onTrue(new InstantCommand(() -> LauncherFlywheel.getInstance().setDesiredState(LauncherFlywheelState.FAST)));
-    
+    m_operatorController.a().onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.IDLE, null, null));
+
+    // m_operatorController.a().onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.DOWN));
+    // m_operatorController.b().onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.UP));
+    // m_operatorController.x().onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_UP));
+    // m_operatorController.y().onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_REALLY_UP));
+
     m_operatorController.pov(0).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_REALLY_UP));
     m_operatorController.pov(90).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.REALLY_UP));
     m_operatorController.pov(180).onTrue(new SetTalonFXPositionSubsystemState(m_falconTesting, FalconTestingState.UP));

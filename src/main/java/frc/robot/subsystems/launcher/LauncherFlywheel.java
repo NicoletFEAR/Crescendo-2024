@@ -2,9 +2,14 @@ package frc.robot.subsystems.launcher;
 
 
 import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
+
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.LauncherConstants;
+import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 // import frc.robot.subsystems.swerve.SwerveDrive;
 import frc.robot.subsystems.templates.VelocitySubsystem;
 
@@ -14,8 +19,12 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
     private SimpleMotorFeedforward m_flywheelFeedForward;
 
+    private DigitalInput m_beamBreak;
+
     public LauncherFlywheel(VelocitySubsystemConstants constants) {
         super(constants);
+
+        m_beamBreak = new DigitalInput(0);
 
         m_flywheelFeedForward = new SimpleMotorFeedforward(0.0, 0.0, 0.0);
     }
@@ -35,10 +44,18 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
         // LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(calculateRPM());
         SmartDashboard.putNumber("Calculated shooter rpm", getVelocity());
+
+        if (m_beamBreak.get()) {
+            new SetVelocitySubsystemState(m_instance, LauncherFlywheelState.OFF, null, null).schedule();
+            System.out.println("true");
+        }
     }
 
     @Override
-    public void outputTelemetry() {}
+    public void outputTelemetry() {
+        // SmartDashboard.putBoolean("Beam Break", m_beamBreak.get());
+        Logger.recordOutput("Beam Break", m_beamBreak.get());
+    }
 
     public double calculateRPM() {
         // double distance = SwerveDrive.getInstance().getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);

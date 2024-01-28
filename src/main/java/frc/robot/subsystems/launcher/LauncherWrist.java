@@ -2,6 +2,9 @@ package frc.robot.subsystems.launcher;
 
 
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
+
+import com.ctre.phoenix6.hardware.CANcoder;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.LauncherConstants;
 // import frc.robot.subsystems.swerve.SwerveDrive;
@@ -12,8 +15,12 @@ public class LauncherWrist extends PositionSubsystem {
 
     private static LauncherWrist m_instance = null;
 
+    private CANcoder m_canCoder;
+
     public LauncherWrist(PositionSubsystemConstants constants) {
         super(constants);
+
+        m_canCoder = new CANcoder(0);
     }
 
     public static LauncherWrist getInstance() {
