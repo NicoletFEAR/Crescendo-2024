@@ -75,6 +75,9 @@
             "open": true
           },
           "Launcher Flywheel": {
+            "Top Launcher Flywheel": {
+              "open": true
+            },
             "double[]##v_/AdvantageKit/RealOutputs/Launcher Flywheel/Desired Velocity": {
               "open": true
             },

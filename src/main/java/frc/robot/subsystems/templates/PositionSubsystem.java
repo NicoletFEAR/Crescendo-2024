@@ -319,7 +319,9 @@ public abstract class PositionSubsystem extends SubsystemBase {
             new TrapezoidProfile(
                 new TrapezoidProfile.Constraints(m_kMaxVelocity.get(), m_kMaxAcceleration.get()));
 
+      }
 
+      if (RobotContainer.m_goToPosition.getValue()) {
         if (m_currentState != m_constants.kManualState)
         m_constants.kManualState.setPosition(getPosition());
 

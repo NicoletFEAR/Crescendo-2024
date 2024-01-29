@@ -47,6 +47,9 @@ public class RobotContainer {
 
   public static Shuffleboardbutton m_applyPositionMechConfigs = kTuningMode ? new Shuffleboardbutton("Apply Position Mech Configs", false, positionMechTuningTab, BuiltInWidgets.kToggleButton , null, 6, 0) : null;
   public static Shuffleboardbutton m_applyVelocityMechConfigs = kTuningMode ? new Shuffleboardbutton("Apply Velocity Mech Configs", false, velocityMechTuningTab, BuiltInWidgets.kToggleButton , null, 4, 0) : null;
+  public static Shuffleboardbutton m_goToPosition = kTuningMode ? new Shuffleboardbutton("Go To Position", false, positionMechTuningTab, BuiltInWidgets.kToggleButton , null, 7, 0) : null;
+  public static Shuffleboardbutton m_goToVelocity = kTuningMode ? new Shuffleboardbutton("Go To Velocity", false, velocityMechTuningTab, BuiltInWidgets.kToggleButton , null, 5, 0) : null;
+  
   // SUBSYSTEMS \\
   private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
 

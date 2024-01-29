@@ -12,6 +12,7 @@ import com.revrobotics.SparkPIDController.ArbFFUnits;
 
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
 import frc.lib.utilities.LoggedShuffleboardTunableNumber;
@@ -168,9 +169,9 @@ public abstract class VelocitySubsystem extends SubsystemBase {
   @Override
   public void periodic() {
 
-    if (atSetpoint() && m_desiredState != m_constants.kManualState && m_currentState != m_desiredState) {
+    if (atSetpoint()) {
         m_currentState = m_desiredState;
-    } else {
+    } else{
         m_currentState = m_constants.kTransitionState;
         m_currentState.setVelocity(getVelocity());
     }
@@ -179,23 +180,27 @@ public abstract class VelocitySubsystem extends SubsystemBase {
 
     outputTelemetry();
 
-    if (RobotContainer.m_applyVelocityMechConfigs.getValue()) {
-      for (int i = 0; i < m_constants.kMotorConstants.length; i++) {
-        m_pidControllers[i].setP(m_constants.kMotorConstants[i].kKp);
-        m_pidControllers[i].setI(m_constants.kMotorConstants[i].kKi);
-        m_pidControllers[i].setD(m_constants.kMotorConstants[i].kKd);
-        m_pidControllers[i].setFF(m_constants.kMotorConstants[i].kKff);
-        m_motors[i].burnFlash();
+    if (Constants.kTuningMode) {
+      if (RobotContainer.m_applyVelocityMechConfigs.getValue()) {
+        for (int i = 0; i < m_constants.kMotorConstants.length; i++) {
+          m_pidControllers[i].setP(m_constants.kMotorConstants[i].kKp);
+          m_pidControllers[i].setI(m_constants.kMotorConstants[i].kKi);
+          m_pidControllers[i].setD(m_constants.kMotorConstants[i].kKd);
+          m_pidControllers[i].setFF(m_constants.kMotorConstants[i].kKff);
+          m_motors[i].burnFlash();
+        }
       }
 
-      double[] speeds = new double[m_motors.length];
-      for (int i = 0; i < speeds.length; i++) {
-        speeds[i] = m_tuningVelocity[i].get();
-      }
+      if (RobotContainer.m_goToVelocity.getValue()) {
+        double[] speeds = new double[m_motors.length];
+        for (int i = 0; i < speeds.length; i++) {
+          speeds[i] = m_tuningVelocity[i].get();
+        }
 
-      m_constants.kManualState.setVelocity(speeds);
-      setDesiredState(m_constants.kManualState);
-      m_currentState = m_constants.kManualState;
+        m_constants.kManualState.setVelocity(speeds);
+        setDesiredState(m_constants.kManualState);
+        m_currentState = m_constants.kManualState;
+      }
     }
 
     for (int i = 0; i < m_motors.length; i++) {
