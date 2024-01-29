@@ -23,8 +23,6 @@ import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConsta
 import frc.lib.utilities.LoggedShuffleboardTunableNumber;
 import frc.lib.utilities.Shuffleboardbutton;
 
-import static frc.robot.Constants.kInfoMode;
-
 import java.util.Map;
 import org.littletonrobotics.junction.Logger;
 
@@ -51,6 +49,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
   protected LoggedShuffleboardTunableNumber m_kd;
   protected LoggedShuffleboardTunableNumber m_kMaxAcceleration;
   protected LoggedShuffleboardTunableNumber m_kMaxVelocity;
+  protected LoggedShuffleboardTunableNumber m_tuningPosition;
   protected Shuffleboardbutton m_button;
 
   protected PositionSubsystemState m_currentState = null;
@@ -147,6 +146,15 @@ public abstract class PositionSubsystem extends SubsystemBase {
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
             4,
+            m_constants.kSubsystemType.ordinal());
+    m_tuningPosition =
+        new LoggedShuffleboardTunableNumber(
+            m_constants.kName + " Set Position",
+            0,
+            RobotContainer.positionMechTuningTab,
+            BuiltInWidgets.kTextView,
+            null,
+            5,
             m_constants.kSubsystemType.ordinal());
 
 
@@ -258,8 +266,9 @@ public abstract class PositionSubsystem extends SubsystemBase {
     m_arbFeedforward = feedforward;
   }
 
-  public void setZeroed(boolean zeroed) {
-    m_isZeroed = zeroed;
+  public void zero(double position) {
+    m_isZeroed = true;
+    m_encoder.setPosition(position);
   }
 
   public void setDesiredState(PositionSubsystemState desiredState) {
@@ -309,7 +318,22 @@ public abstract class PositionSubsystem extends SubsystemBase {
         m_profile =
             new TrapezoidProfile(
                 new TrapezoidProfile.Constraints(m_kMaxVelocity.get(), m_kMaxAcceleration.get()));
-        System.out.println("Applied");
+
+
+        if (m_currentState != m_constants.kManualState)
+        m_constants.kManualState.setPosition(getPosition());
+
+        if (m_profileStartTime == -1) {
+          m_desiredState = m_constants.kManualState;
+          m_currentState = m_constants.kManualState;
+
+          m_constants.kManualState.setPosition(m_tuningPosition.get());
+          m_constants.kManualState.setPosition(
+              MathUtil.clamp(
+                  m_constants.kManualState.getPosition(),
+                  m_constants.kMinPosition,
+                  m_constants.kMaxPosition));
+        }
       }
     }
 

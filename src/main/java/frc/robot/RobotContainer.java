@@ -9,7 +9,6 @@ import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.shuffleboard.WidgetType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.utilities.Alert;
@@ -46,8 +45,8 @@ public class RobotContainer {
   public static ShuffleboardTab velocityMechTuningTab =
       kTuningMode ? Shuffleboard.getTab("Velocity Mech Tuning") : null;
 
-  public static Shuffleboardbutton m_applyPositionMechConfigs = kTuningMode ? new Shuffleboardbutton("Apply Position Mech Configs", false, positionMechTuningTab, BuiltInWidgets.kToggleButton , null, 5, 0) : null;
-  public static Shuffleboardbutton m_applyVelocityMechConfigs = kTuningMode ? new Shuffleboardbutton("Apply Velocity Mech Configs", false, velocityMechTuningTab, BuiltInWidgets.kToggleButton , null, 3, 0) : null;
+  public static Shuffleboardbutton m_applyPositionMechConfigs = kTuningMode ? new Shuffleboardbutton("Apply Position Mech Configs", false, positionMechTuningTab, BuiltInWidgets.kToggleButton , null, 6, 0) : null;
+  public static Shuffleboardbutton m_applyVelocityMechConfigs = kTuningMode ? new Shuffleboardbutton("Apply Velocity Mech Configs", false, velocityMechTuningTab, BuiltInWidgets.kToggleButton , null, 4, 0) : null;
   // SUBSYSTEMS \\
   private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
 
@@ -67,7 +66,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH));
-    m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
+    m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.NOTE_IN_HOLD));
     m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
   }
 

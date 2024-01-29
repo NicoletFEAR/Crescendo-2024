@@ -75,6 +75,12 @@
             "open": true
           },
           "Launcher Flywheel": {
+            "double[]##v_/AdvantageKit/RealOutputs/Launcher Flywheel/Desired Velocity": {
+              "open": true
+            },
+            "double[]##v_/AdvantageKit/RealOutputs/Launcher Flywheel/Encoder Velocity": {
+              "open": true
+            },
             "open": true
           },
           "Launcher Superstructure": {

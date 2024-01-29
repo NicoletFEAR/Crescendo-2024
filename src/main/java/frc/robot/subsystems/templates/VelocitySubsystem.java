@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.SparkPIDController.ArbFFUnits;
 
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -30,6 +31,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
   protected LoggedShuffleboardTunableNumber[] m_kp;
   protected LoggedShuffleboardTunableNumber[] m_ki;
   protected LoggedShuffleboardTunableNumber[] m_kd;
+  protected LoggedShuffleboardTunableNumber[] m_tuningVelocity;
 
   protected VelocitySubsystemState m_currentState = null;
   protected VelocitySubsystemState m_desiredState = null;
@@ -63,7 +65,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
       m_pidControllers[i].setP(m_constants.kMotorConstants[i].kKp);
       m_pidControllers[i].setI(m_constants.kMotorConstants[i].kKi);
       m_pidControllers[i].setD(m_constants.kMotorConstants[i].kKd);
-      m_pidControllers[i].setFF(0.0001675);
+      m_pidControllers[i].setFF(m_constants.kMotorConstants[i].kKff);
 
       m_motors[i].burnFlash();
     }
@@ -73,6 +75,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     m_kp = new LoggedShuffleboardTunableNumber[m_motors.length];
     m_ki = new LoggedShuffleboardTunableNumber[m_motors.length];
     m_kd = new LoggedShuffleboardTunableNumber[m_motors.length];
+    m_tuningVelocity = new LoggedShuffleboardTunableNumber[m_motors.length];
 
     for (int i = 0; i < m_motors.length; i ++) {
       m_kp[i] =
@@ -104,6 +107,15 @@ public abstract class VelocitySubsystem extends SubsystemBase {
               Map.of("min", 0),
               2,
               i);
+    m_tuningVelocity[i] =
+        new LoggedShuffleboardTunableNumber(
+            m_constants.kMotorConstants[i].kName + " Set Position",
+            0,
+            RobotContainer.velocityMechTuningTab,
+            BuiltInWidgets.kTextView,
+            null,
+            3,
+            i);
     }
 
 
@@ -122,7 +134,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
   public void setDesiredState(VelocitySubsystemState desiredState) {
     m_desiredState = desiredState;
     for (int i = 0; i < m_pidControllers.length; i++) {
-      m_pidControllers[i].setReference(m_desiredState.getVelocity()[i], ControlType.kVelocity);
+      m_pidControllers[i].setReference(m_desiredState.getVelocity()[i], ControlType.kVelocity, m_constants.kDefaultSlot, m_arbFeedforward[i], ArbFFUnits.kVoltage);
     }
   }
 
@@ -156,7 +168,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
   @Override
   public void periodic() {
 
-    if (atSetpoint()) {
+    if (atSetpoint() && m_desiredState != m_constants.kManualState && m_currentState != m_desiredState) {
         m_currentState = m_desiredState;
     } else {
         m_currentState = m_constants.kTransitionState;
@@ -172,14 +184,25 @@ public abstract class VelocitySubsystem extends SubsystemBase {
         m_pidControllers[i].setP(m_constants.kMotorConstants[i].kKp);
         m_pidControllers[i].setI(m_constants.kMotorConstants[i].kKi);
         m_pidControllers[i].setD(m_constants.kMotorConstants[i].kKd);
-        m_pidControllers[i].setFF(0.0001675);
+        m_pidControllers[i].setFF(m_constants.kMotorConstants[i].kKff);
         m_motors[i].burnFlash();
       }
+
+      double[] speeds = new double[m_motors.length];
+      for (int i = 0; i < speeds.length; i++) {
+        speeds[i] = m_tuningVelocity[i].get();
+      }
+
+      m_constants.kManualState.setVelocity(speeds);
+      setDesiredState(m_constants.kManualState);
+      m_currentState = m_constants.kManualState;
     }
 
-    Logger.recordOutput(m_constants.kName + "/Encoder Velocity", getVelocity()); // Encoder Velocity
-    Logger.recordOutput(
-        m_constants.kName + "/Desired Velocity", m_desiredState.getVelocity()); // Desired position
+    for (int i = 0; i < m_motors.length; i++) {
+      Logger.recordOutput(m_constants.kName + "/" + m_constants.kMotorConstants[i].kName + "/Encoder Velocity", getVelocity()[i]); // Encoder Velocity
+      Logger.recordOutput(m_constants.kName + "/" + m_constants.kMotorConstants[i].kName + "/Desired Velocity", m_desiredState.getVelocity()[i]); // Desired position
+    }
+
     Logger.recordOutput(
         m_constants.kName + "/Current State", m_currentState.getName()); // Current State
     Logger.recordOutput(

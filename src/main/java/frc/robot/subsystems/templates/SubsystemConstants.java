@@ -26,6 +26,9 @@ public class SubsystemConstants {
     public double kKp = 0.0;
     public double kKi = 0.0;
     public double kKd = 0.0;
+    public double kKff = 0.0;
+
+    // If you want to use custom feedforward
     public double kKs = 0.0;
     public double kKg = 0.0;
     public double kKv = 0.0;
@@ -156,23 +159,14 @@ public class SubsystemConstants {
 
     public VelocitySubsystemState kInitialState = null;
     public VelocitySubsystemState kTransitionState = null;
+    public VelocitySubsystemState kManualState = null;
 
     public double kVelocityConversionFactor =
         1.0; // To find degrees: 360/gear ratio ex 360/100 for 100:1
-
-    // PID Constants
-    public double kKp = 0.0;
-    public double kKi = 0.0;
-    public double kKd = 0.0;
 
     public double kSetpointTolerance = 0.0; // Tolerance for atSetpoint()
 
     public int kDefaultSlot =
         0; // PID Slot, make more if more than one set of pid constants are used
-
-    // Feedforward constants
-    public double kKs = 0.0;
-    public double kKv = 0.0;
-    public double kKa = 0.0;
   }
 }

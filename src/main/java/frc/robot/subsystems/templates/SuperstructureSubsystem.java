@@ -37,12 +37,15 @@ public abstract class SuperstructureSubsystem extends SubsystemBase {
   
   public abstract SuperstructureState getTransitionState();
 
+  public abstract void superstructurePeriodic();
+
   public interface SuperstructureState {
     String getName();
   }
 
   @Override
   public void periodic() {
+    superstructurePeriodic();
     Logger.recordOutput(m_name + " Superstructure/Current State", m_currentState.getName());
     Logger.recordOutput(m_name + " Superstructure/Desired State", m_desiredState.getName());
   }

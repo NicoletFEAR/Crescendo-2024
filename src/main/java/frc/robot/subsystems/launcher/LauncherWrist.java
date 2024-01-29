@@ -7,7 +7,6 @@ import com.ctre.phoenix6.hardware.CANcoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.LauncherConstants;
-// import frc.robot.subsystems.swerve.SwerveDrive;
 import frc.robot.subsystems.templates.PositionSubsystem;
 
 public class LauncherWrist extends PositionSubsystem {
@@ -15,12 +14,14 @@ public class LauncherWrist extends PositionSubsystem {
 
     private static LauncherWrist m_instance = null;
 
-    private CANcoder m_canCoder;
+    private CANcoder m_CANCoder;
 
     public LauncherWrist(PositionSubsystemConstants constants) {
         super(constants);
 
-        m_canCoder = new CANcoder(0);
+        m_CANCoder = new CANcoder(LauncherConstants.kWristCANCoderId);
+
+        zero(m_CANCoder.getAbsolutePosition().getValue());
     }
 
     public static LauncherWrist getInstance() {
