@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -47,8 +46,6 @@ public class SwerveDrive extends SubsystemBase {
   public static List<Pose2d> ppPath = new ArrayList<>();
 
   public final Field2d m_field = new Field2d();
-
-  private SimpleWidget m_gyroWidget;
 
   private PIDController m_snapToAngleController;
 
@@ -100,6 +97,15 @@ public class SwerveDrive extends SubsystemBase {
           BuiltInWidgets.kTextView,
           Map.of("min", 0),
           4,
+          0);
+  public static final LoggedShuffleboardTunableNumber driveVelocity =
+      new LoggedShuffleboardTunableNumber(
+          "Drive Velocity",
+          0,
+          RobotContainer.driveTuningTab,
+          BuiltInWidgets.kTextView,
+          Map.of("min", 0),
+          5,
           0);
 
   public static final LoggedShuffleboardTunableNumber turnkp =
@@ -490,6 +496,10 @@ public class SwerveDrive extends SubsystemBase {
   public void tuningPeriodic() {
 
     for (SwerveModule module : m_SwerveMods) {
+      module.setDesiredState(new SwerveModuleState(driveVelocity.get(), Rotation2d.fromDegrees(0)), false);
+    }
+
+    for (SwerveModule module : m_SwerveMods) {
       module.tuningPeriodic();
     }
   }
@@ -501,27 +511,6 @@ public class SwerveDrive extends SubsystemBase {
     }
   }
 
-  public void infoInit() {
-    for (SwerveModule module : m_SwerveMods) {
-      module.infoInit();
-    }
-
-    RobotContainer.infoTab.add("Field", m_field).withPosition(0, 0).withSize(5, 3);
-    m_gyroWidget =
-        RobotContainer.infoTab
-            .add("Robot Rotation", getYaw().getDegrees())
-            .withWidget(BuiltInWidgets.kGyro)
-            .withPosition(0, 4);
-    m_gyroWidget.getEntry().setDouble(getYaw().getDegrees());
-  }
-
-  public void infoPeriodic() {
-    m_gyroWidget.getEntry().setDouble(getYaw().getDegrees());
-
-    for (SwerveModule module : m_SwerveMods) {
-      module.infoPeriodic();
-    }
-  }
 
   public enum AngleToSnap {
     FORWARD(0),

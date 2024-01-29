@@ -10,6 +10,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -18,8 +19,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.utilities.Alert;
 import frc.lib.utilities.LoggedDashboardChooser;
+import frc.lib.utilities.ShuffleboardButton;
 import frc.lib.utilities.Alert.AlertType;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.auto.CenterNoteAuto;
 import frc.robot.commands.drivebase.TeleopSwerve;
@@ -47,12 +48,11 @@ public class RobotContainer {
 
   // SHUFFLEBOARD TABS \\
   public static ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
-  public static ShuffleboardTab infoTab = kInfoMode ? Shuffleboard.getTab("Info") : null;
   public static ShuffleboardTab driveTuningTab =
       kTuningMode ? Shuffleboard.getTab("Drive Tuning") : null;
   public static ShuffleboardTab mechTuningTab =
       kTuningMode ? Shuffleboard.getTab("Mech Tuning") : null;
-
+  public static ShuffleboardButton m_applyDriveTuning = new ShuffleboardButton("Apply Drive Tuning", false, driveTuningTab, BuiltInWidgets.kToggleButton, null, 6, 0, Constants.kTuningMode);
   // SUBSYSTEMS \\
   private SwerveDrive m_drivebase = SwerveDrive.getInstance();
 
@@ -60,8 +60,6 @@ public class RobotContainer {
   public static LoggedDashboardChooser<Command> autoChooser;
 
   // ALERTS \\
-  private Alert infoAlert =
-      new Alert("Info Mode Activated, expect decreased network performance.", AlertType.INFO);
   private Alert tuningAlert =
       new Alert("Tuning Mode Activated, expect decreased network performance.", AlertType.INFO);
 
@@ -171,14 +169,6 @@ public class RobotContainer {
     m_drivebase.tuningPeriodic();
   }
 
-  public void infoInit() {
-    m_drivebase.infoInit();
-    infoAlert.set(true);
-  }
-
-  public void infoPeriodic() {
-    m_drivebase.infoPeriodic();
-  }
 
   public void realPeriodic() {
     m_drivebase.realPeriodic();

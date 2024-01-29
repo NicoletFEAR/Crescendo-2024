@@ -100,10 +100,6 @@ public class Robot extends LoggedRobot {
       m_robotContainer.tuningInit();
     }
 
-    if (Constants.kInfoMode) {
-      m_robotContainer.infoInit();
-    }
-
     for (int port = 5800; port <= 5807; port++) {
       PortForwarder.add(port, "limelight.local", port);
     }
@@ -117,10 +113,6 @@ public class Robot extends LoggedRobot {
 
     if (Constants.kTuningMode) {
       m_robotContainer.tuningPeriodic();
-    }
-
-    if (Constants.kInfoMode) {
-      m_robotContainer.infoPeriodic();
     }
 
     if (RobotBase.isReal()) {
