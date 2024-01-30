@@ -32,13 +32,6 @@ public class Intake extends SubsystemBase {
   
   final DigitalInput backBeamBreak;
 
-  boolean launching; // if the button to launch is pressed and launcher is ready to launch
-  boolean intaking; // if the button to intake is pressed
-  boolean outtaking; // if the button to outtake is pressd
-  boolean lastLaunching; // if launching boolean was true last tick
-  boolean lastIntaking; // if launching boolean was true last tick
-  boolean lastOuttaking; // if launching boolean was true last tick
-
   /** Creates a new Intake. */
   public Intake() {
     intakeRollerMotor = new CANSparkMax(Constants.intakeRollerMotorID, MotorType.kBrushless);
@@ -61,11 +54,7 @@ public class Intake extends SubsystemBase {
     intakeWristPID.setI(SmartDashboard.getNumber("Intake Wrist Ki", PIDController.getI()));
     intakeWristPID.setD(SmartDashboard.getNumber("Intake Wrist Kd", PIDController.getD()));
     intakeWristVariableSetpoint = SmartDashboard.getNumber("Intake Wrist Variable Set Point", intakeWristVariableSetpoint);
-    
     SmartDashboard.putBoolean("Back Beam Break", backBeamBreak.get());
-    SmartDashboard.putBoolean("Launching", launching);
-    SmartDashboard.putBoolean("Intaking", intaking);
-    SmartDashboard.putBoolean("Outtaking", outtaking);
     
   }
 
