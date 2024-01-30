@@ -26,13 +26,13 @@ public class IntakeNote extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.go(m_speed);
+    m_intake.driveRoller(m_speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.go(0.0);
+    m_intake.driveRoller(0.0);
   }
 
   // Returns true when the command should end.

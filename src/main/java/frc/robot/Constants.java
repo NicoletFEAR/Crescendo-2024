@@ -7,5 +7,7 @@ package frc.robot;
 /** Add your docs here. */
 public final class Constants {
     //Neo
-    public static Integer intakeMotorId = 13;
+    public static final Integer intakeRollerMotorID = 13;
+    public static final Integer intakeWristMotorID = 14;
+
 }
