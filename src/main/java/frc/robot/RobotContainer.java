@@ -19,7 +19,7 @@ import frc.robot.subsystems.Intake;
 public class RobotContainer {
   public static CommandXboxController m_driverController = new CommandXboxController(0);
 
-  private final Intake m_intakeSubsystem = new Intake();
+  private final Intake m_intake = new Intake();
 
   public RobotContainer() {
     m_intakeSubsystem.setDefaultCommand(new IntakeNote(m_intakeSubsystem, m_driverController.getRightY()));
@@ -27,6 +27,13 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    m_driverController.y().onTrue(new SetRollerSpeed(m_intake, 0.2); // represents when the copilot is launching
+    m_driverController.y().onFalse(new SetRollerSpeed(m_intake, 0.0);
+    m_driverController.a().onTrue(new SetRollerSpeed(m_intake, 0.2); // represents when the copilot is intaking
+    m_driverController.a().onFalse(new SetRollerSpeed(m_intake, 0.0);
+    m_driverController.a().onTrue(new CheckBeamBreak(m_intake);
+    m_driverController.b().onTrue(new SetRollerSpeed(m_intake, -0.2); // represents when the copilot is outtaking
+    m_driverController.b().onFalse(new SetRollerSpeed(m_intake, 0.0);
     
   }
 
