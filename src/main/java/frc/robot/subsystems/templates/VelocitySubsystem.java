@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems.templates;
 
+import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
@@ -25,7 +26,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
 
   public VelocitySubsystemConstants m_constants;
 
-  protected final CANSparkMax[] m_motors;
+  protected final CANSparkFlex[] m_motors;
   protected final RelativeEncoder[] m_encoders;
   protected final SparkPIDController[] m_pidControllers;
 
@@ -48,14 +49,14 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     m_currentState = m_constants.kInitialState;
     m_desiredState = m_constants.kInitialState;
 
-    m_motors = new CANSparkMax[m_constants.kMotorConstants.length];
+    m_motors = new CANSparkFlex[m_constants.kMotorConstants.length];
     m_encoders = new RelativeEncoder[m_motors.length];
     m_pidControllers = new SparkPIDController[m_motors.length];
     m_arbFeedforward = new double[m_motors.length];
 
     for (int i = 0; i < m_constants.kMotorConstants.length; i++) {
       m_motors[i] =
-          new CANSparkMax(
+          new CANSparkFlex(
               m_constants.kMotorConstants[i].kID, m_constants.kMotorConstants[i].kMotorType);
       m_motors[i].setIdleMode(m_constants.kMotorConstants[i].kIdleMode);
       m_motors[i].setSmartCurrentLimit(m_constants.kMotorConstants[i].kCurrentLimit);

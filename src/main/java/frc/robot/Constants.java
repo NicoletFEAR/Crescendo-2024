@@ -10,7 +10,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.RobotBase;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
-import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
+// import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
 import frc.robot.subsystems.templates.VelocitySubsystem.VelocitySubsystemType;
 import frc.robot.subsystems.templates.VoltageSubsystem;
 import frc.robot.subsystems.templates.VoltageSubsystem.VoltageSubsystemState;
@@ -130,7 +130,7 @@ public final class Constants {
     public static final SparkMaxConstants kTopLauncherFlywheelConstants = new SparkMaxConstants();
 
     static {
-      kTopLauncherFlywheelConstants.kID = 30;
+      kTopLauncherFlywheelConstants.kID = 16;
       kTopLauncherFlywheelConstants.kName = "Top Launcher Flywheel";
       kTopLauncherFlywheelConstants.kIdleMode = IdleMode.kCoast;
       kTopLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
@@ -145,7 +145,7 @@ public final class Constants {
     public static final SparkMaxConstants kBottomLauncherFlywheelConstants = new SparkMaxConstants();
 
     static {
-      kBottomLauncherFlywheelConstants.kID = 31;
+      kBottomLauncherFlywheelConstants.kID = 18;
       kBottomLauncherFlywheelConstants.kName = "Bottom Launcher Flywheel";
       kBottomLauncherFlywheelConstants.kIdleMode = IdleMode.kCoast;
       kBottomLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
@@ -223,9 +223,9 @@ public final class Constants {
       kLauncherWristConstants.kManualMultiplier = 1;
       kLauncherWristConstants.kManualDeadBand = .1;
 
-      kLauncherWristConstants.kInitialState = LauncherWristState.DOWN;
-      kLauncherWristConstants.kManualState = LauncherWristState.MANUAL;
-      kLauncherWristConstants.kTransitionState = LauncherWristState.TRANSITION;
+      // kLauncherWristConstants.kInitialState = LauncherWristState.DOWN;
+      // kLauncherWristConstants.kManualState = LauncherWristState.MANUAL;
+      // kLauncherWristConstants.kTransitionState = LauncherWristState.TRANSITION;
     }
 
     public static final SparkMaxConstants kLauncherHoldMasterConstants = new SparkMaxConstants();
