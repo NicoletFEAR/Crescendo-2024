@@ -26,13 +26,11 @@ public class IntakeFlywheel extends VoltageSubsystem {
     @Override
     public void subsystemPeriodic() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'subsystemPeriodic'");
     }
 
     @Override
     public void outputTelemetry() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'outputTelemetry'");
     }
 
     public enum IntakeFlywheelState implements VoltageSubsystemState {

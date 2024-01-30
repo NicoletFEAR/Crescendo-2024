@@ -48,7 +48,7 @@ public class IntakeWrist extends PositionSubsystem {
     }
 
     public enum IntakeWristState implements PositionSubsystemState {
-        DOWN(90, 0, "Down"),
+        DOWN(5, 0, "Down"),
         UP(0, 0, "Up"),
         AMP(45, 0, "Amp"),
         FIELD_BASED_PITCH(0, 0, "Field Based Pitch"),
