@@ -24,10 +24,4 @@ public class SetRollerSpeed extends InstantCommand {
   public void initialize() {
     m_intake.driveRoller(speed);
   }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return true;
-  }
 }
