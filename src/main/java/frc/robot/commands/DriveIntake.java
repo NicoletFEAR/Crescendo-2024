@@ -12,7 +12,7 @@ public class DriveIntake extends Command {
   private Intake m_intake;
   private double speed;
 
-  public IntakeNote(Intake intake, double newSpeed) {
+  public DriveIntake(Intake intake, double newSpeed) {
     m_intake = intake;
     speed = newSpeed;
     
