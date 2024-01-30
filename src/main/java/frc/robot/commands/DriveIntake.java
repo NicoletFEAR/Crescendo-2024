@@ -7,15 +7,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
-public class IntakeNote extends Command {
+public class DriveIntake extends Command {
   /** Creates a new IntakeNote. */
   private Intake m_intake;
-  private double m_speed;
+  private double speed;
 
-  public IntakeNote(Intake intake, double speed) {
+  public IntakeNote(Intake intake, double newSpeed) {
     m_intake = intake;
-    m_speed = speed;
-    // Use addRequirements() here to declare subsystem dependencies.
+    speed = newSpeed;
+    
     addRequirements(intake);
   }
 
@@ -26,7 +26,7 @@ public class IntakeNote extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.driveRoller(m_speed);
+    m_intake.driveRoller(speed);
   }
 
   // Called once the command ends or is interrupted.
