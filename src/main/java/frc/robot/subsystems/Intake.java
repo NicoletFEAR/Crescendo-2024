@@ -22,14 +22,22 @@ public class Intake extends SubsystemBase {
   final CANSparkMax intakeWristMotor;
   final RelativeEncoder intakeWristEndcoder;
   final PIDController intakeWristPID;
+  
   final double intakeWristMaxSetpoint = 10;
   final double intakeWristMinSetpoint = 0;
   final double intakeWristFloorSetpoint = 1;
   final double intakeWristAmpSetpoint = 3;
   final double intakeWristInSetpoint = 8;  
   double intakeWristVariableSetpoint = 5;
-  final DigitalInput frontBeamBreak;
+  
   final DigitalInput backBeamBreak;
+
+  boolean launching; // if the button to launch is pressed and launcher is ready to launch
+  boolean intaking; // if the button to intake is pressed
+  boolean outtaking; // if the button to outtake is pressd
+  boolean lastLaunching; // if launching boolean was true last tick
+  boolean lastIntaking; // if launching boolean was true last tick
+  boolean lastOuttaking; // if launching boolean was true last tick
 
   /** Creates a new Intake. */
   public Intake() {
@@ -44,8 +52,7 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putNumber("Intake Wrist Kd", intakeWristPID.getD());
     SmartDashboard.putNumber("Intake Wrist Variable Set Point", intakeWristVariableSetpoint);
 
-    frontBeamBreak = new DigitalInput(0);
-    backBeamBreak = new DigitalInput(1);
+    backBeamBreak = new DigitalInput(0);
   }
 
   @Override
@@ -54,8 +61,12 @@ public class Intake extends SubsystemBase {
     intakeWristPID.setI(SmartDashboard.getNumber("Intake Wrist Ki", PIDController.getI()));
     intakeWristPID.setD(SmartDashboard.getNumber("Intake Wrist Kd", PIDController.getD()));
     intakeWristVariableSetpoint = SmartDashboard.getNumber("Intake Wrist Variable Set Point", intakeWristVariableSetpoint);
-    SmartDashboard.putBoolean("Front Beam Break", frontBeamBreak.get());
+    
     SmartDashboard.putBoolean("Back Beam Break", backBeamBreak.get());
+    SmartDashboard.putBoolean("Launching", launching);
+    SmartDashboard.putBoolean("Intaking", intaking);
+    SmartDashboard.putBoolean("Outtaking", outtaking);
+    
   }
 
   public void driveRoller(double speed){
@@ -89,4 +100,13 @@ public class Intake extends SubsystemBase {
   public void setWristZero(){
     intakeWristEndcoder.setPosition(0);
   }
+
+  public boolean atPosition(){
+    if(Math.abs(getWristSetpoint - getWristPosition) < intakeWristPID.getTolerance()){
+        return true;
+    }
+
+    return false;
+  }
+  
 }
