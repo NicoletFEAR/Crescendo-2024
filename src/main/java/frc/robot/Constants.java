@@ -53,15 +53,15 @@ public final class Constants {
     public static double driveki = 0.0;
     public static double drivekd = 0.0;
     public static double drivekff = 0.23983;
-    public static double driverampRate = 1.0;
+    public static double driverampRate = 0.1;
 
-    public static double turnkp = 0.1;
+    public static double turnkp = 0.05;
     public static double turnki = 0.0;
     public static double turnkd = 0.0;
     public static double turnkff = 0.0;
 
-    public static double kDriveModifier = 1;
-    public static double kTurnModifier = 1;
+    public static double kDriveModifier = 2;
+    public static double kTurnModifier = 2;
 
     /* The lower this is the more you want odometry to trust the april tags
     Scales based on the percentage of an april tag in view
@@ -90,7 +90,7 @@ public final class Constants {
     public static final double kTurnGearRatio =
         150.0 / 7.0; // MK4i turning ratio MK4i Neo, find on sds website
 
-    public static final double kWheelDiameter = Units.inchesToMeters(4.0); // Wheel diameter
+    public static final double kWheelDiameter = Units.inchesToMeters(3.8); // Wheel diameter
 
     public static final double kMaxRotationRadiansPerSecond =
         Math.PI * 2.0; // Just kind of find what works, this is from 930 2023
@@ -102,7 +102,7 @@ public final class Constants {
     public static final int kFrontLeftDriveMotor = 12;
     public static final int kFrontLeftSteerMotor = 11;
     public static final int kFrontLeftSteerEncoder = 1;
-    public static final double kFrontLeftOffset = 0.0; // In Rotations not degrees
+    public static final double kFrontLeftOffset = 0.647705; // In Rotations not degrees
     public static final SwerveModuleConstants kFrontLeft =
         new SwerveModuleConstants(
             kFrontLeftDriveMotor, kFrontLeftSteerMotor, kFrontLeftSteerEncoder, kFrontLeftOffset);
@@ -110,7 +110,7 @@ public final class Constants {
     public static final int kFrontRightDriveMotor = 18;
     public static final int kFrontRightSteerMotor = 17;
     public static final int kFrontRightSteerEncoder = 7;
-    public static final double kFrontRightSteerOffset = 0.0; // In Rotations not degrees
+    public static final double kFrontRightSteerOffset = 0.164551; // In Rotations not degrees
     public static final SwerveModuleConstants kFrontRight =
         new SwerveModuleConstants(
             kFrontRightDriveMotor,
@@ -121,7 +121,7 @@ public final class Constants {
     public static final int kBackLeftDriveMotor = 14;
     public static final int kBackLeftSteerMotor = 13;
     public static final int kBackLeftSteerEncoder = 3;
-    public static final double kBackLeftSteerOffset = 0.0; // In Rotations not degrees
+    public static final double kBackLeftSteerOffset = 0.508301; // In Rotations not degrees
     public static final SwerveModuleConstants kBackLeft =
         new SwerveModuleConstants(
             kBackLeftDriveMotor, kBackLeftSteerMotor, kBackLeftSteerEncoder, kBackLeftSteerOffset);
@@ -129,7 +129,7 @@ public final class Constants {
     public static final int kBackRightDriveMotor = 16;
     public static final int kBackRightSteerMotor = 15;
     public static final int kBackRightSteerEncoder = 5;
-    public static final double kBackRightSteerOffset = 0.0; // In Rotations not degrees
+    public static final double kBackRightSteerOffset = 0.834717; // In Rotations not degrees
     public static final SwerveModuleConstants kBackRight =
         new SwerveModuleConstants(
             kBackRightDriveMotor,

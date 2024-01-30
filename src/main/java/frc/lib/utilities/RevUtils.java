@@ -1,6 +1,7 @@
 package frc.lib.utilities;
 
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -37,7 +38,7 @@ public final class RevUtils {
    *
    * @param motorController the motor controller to tune
    */
-  public static void setTurnMotorConfig(CANSparkFlex motorController) {
+  public static void setTurnMotorConfig(CANSparkMax motorController) {
 
     motorController.getPIDController().setFF(DriveConstants.turnkff);
     motorController.getPIDController().setP(DriveConstants.turnkp);

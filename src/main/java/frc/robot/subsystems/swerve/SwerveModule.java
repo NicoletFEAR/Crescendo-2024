@@ -31,7 +31,7 @@ public class SwerveModule extends SubsystemBase {
   private final int VEL_SLOT = 0;
 
   private CANSparkFlex m_driveMotor;
-  private CANSparkFlex m_turningMotor;
+  private CANSparkMax m_turningMotor;
   private CANcoder m_angleEncoder;
 
   public final RelativeEncoder m_driveEncoder;
@@ -63,19 +63,17 @@ public class SwerveModule extends SubsystemBase {
         new CANSparkFlex(
             swerveModuleConstants.driveMotorChannel, MotorType.kBrushless);
     m_turningMotor =
-        new CANSparkFlex(
+        new CANSparkMax(
             swerveModuleConstants.turningMotorChannel, MotorType.kBrushless);
 
     m_angleEncoder = new CANcoder(swerveModuleConstants.cancoderID, "rio");
     m_angleOffset = swerveModuleConstants.angleOffset;
 
     m_driveMotor.restoreFactoryDefaults();
-    RevUtils.setDriveMotorConfig(m_driveMotor);
     m_driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     m_driveMotor.setInverted(true); // MK4i drive motor is inverted
 
     m_turningMotor.restoreFactoryDefaults();
-    RevUtils.setTurnMotorConfig(m_turningMotor);
     m_turningMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
     m_turningMotor.setSmartCurrentLimit(25);
@@ -96,6 +94,9 @@ public class SwerveModule extends SubsystemBase {
 
     m_driveController = m_driveMotor.getPIDController();
     m_turnController = m_turningMotor.getPIDController();
+
+    RevUtils.setDriveMotorConfig(m_driveMotor);
+    RevUtils.setTurnMotorConfig(m_turningMotor);
   }
 
   /**
@@ -155,7 +156,7 @@ public class SwerveModule extends SubsystemBase {
     double angle =
         (Math.abs(desiredState.speedMetersPerSecond)
                 <= (DriveConstants.kMaxMetersPerSecond
-                    * 0.01)) // Prevent rotating module if speed is less than 1%. Prevents
+                    * 0.05)) // Prevent rotating module if speed is less than 1%. Prevents
             // Jittering.
             ? m_lastAngle
             : desiredState.angle.getDegrees();
