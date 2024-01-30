@@ -33,4 +33,13 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return null;
   }
+
+  public double appyDeadband(double value){
+    if(Math.abs(value) > 0.15){
+      return (value - 0.15) * (1 / (1 - 0.15));
+    else{
+      return 0;
+    }
+  }
+  
 }
