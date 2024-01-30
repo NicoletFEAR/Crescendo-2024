@@ -33,6 +33,9 @@ public class RobotContainer {
     m_driverController.a().onTrue(new InstantCommand(() -> m_led.setState(LEDState.GREEN)));
     m_driverController.b().onTrue(new InstantCommand(() -> m_led.setState(LEDState.RED)));
     m_driverController.y().onTrue(new InstantCommand(() -> m_led.setState(LEDState.RAINBOW)));
+
+    m_driverController.rightTrigger().onTrue(new InstantCommand(() -> m_led.setState(LEDState.TEAL_COMET)));
+
     // m_driverController.leftBumper().onTrue(new InstantCommand(() -> m_led.setState(LEDState.TEAL_WIPE)));
     // m_driverController.rightBumper().onTrue(new InstantCommand(() -> m_led.setState(LEDState.TEAL_PULSE)));
     // m_driverController.back().onTrue(new InstantCommand(() -> m_led.setState(LEDState.TEAL_RAIN)));

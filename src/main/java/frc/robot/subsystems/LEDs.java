@@ -24,6 +24,11 @@ public class LEDs extends SubsystemBase {
   ));
 
 
+  private static ArrayList<Double> cometEffect = new ArrayList<>(Arrays.asList(
+    0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9
+  ));
+
+
   
   private static LEDs m_instance = null;
 
@@ -209,7 +214,9 @@ public class LEDs extends SubsystemBase {
     TEAL_RAIN(0, 122, 133, "Teal Rain", () -> LEDs.runEffect(rainEffect, .2)),
     TEAL_PULSE(0, 122, 133, "Teal Pulse", () -> LEDs.pulse(.01)),
     BLUE_FLASH(0, 0, 255, "Blue Flash", () -> LEDs.flash(.2)),
-    ORANGE_FLASH(255, 179, 0, "Orange Flash", () -> LEDs.flash(.2));
+    ORANGE_FLASH(255, 179, 0, "Orange Flash", () -> LEDs.flash(.2)),
+
+    TEAL_COMET(0, 122, 133, "Teal Comet", () -> LEDs.runEffect(cometEffect, .2));
 
     public int red;
     public int green;
