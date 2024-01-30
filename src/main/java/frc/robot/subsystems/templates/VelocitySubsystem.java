@@ -61,6 +61,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
       m_motors[i].setIdleMode(m_constants.kMotorConstants[i].kIdleMode);
       m_motors[i].setSmartCurrentLimit(m_constants.kMotorConstants[i].kCurrentLimit);
       m_motors[i].setInverted(m_constants.kMotorConstants[i].kInverted);
+      m_motors[i].enableVoltageCompensation(12.6);
       m_encoders[i] = m_motors[i].getEncoder();
       m_pidControllers[i] = m_motors[i].getPIDController();
 
