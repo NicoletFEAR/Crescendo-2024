@@ -22,7 +22,7 @@ public class RobotContainer {
   private final Intake m_intake = new Intake();
 
   public RobotContainer() {
-    m_intakeSubsystem.setDefaultCommand(new IntakeNote(m_intakeSubsystem, m_driverController.getRightY()));
+    m_intakeSubsystem.setDefaultCommand(new DriveIntake(m_intake, m_driverController.getRightY()));
     configureBindings();
   }
 
@@ -34,6 +34,8 @@ public class RobotContainer {
     m_driverController.a().onTrue(new CheckBeamBreak(m_intake);
     m_driverController.b().onTrue(new SetRollerSpeed(m_intake, -0.2); // represents when the copilot is outtaking
     m_driverController.b().onFalse(new SetRollerSpeed(m_intake, 0.0);
+
+    
     
   }
 
