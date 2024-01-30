@@ -87,9 +87,9 @@ public class TeleopSwerve extends Command {
     double m_rotation = GeometryUtils.modifyInputs(rAxis, DriveConstants.kTurnModifier);
 
     // Reduces the speed of the robot based on m_percentSpeed
-    m_throttle = yAxis * .25;
-    m_strafe = xAxis * .25;
-    m_rotation = rAxis * .25;
+    m_throttle = yAxis * m_percentSpeed;
+    m_strafe = xAxis * m_percentSpeed;
+    m_rotation = rAxis * m_percentSpeed;
 
     m_drivebase.drive(m_throttle, m_strafe, m_rotation, m_openLoop, m_fieldRelative);
   }
