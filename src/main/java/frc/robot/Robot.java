@@ -16,6 +16,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
+    SmartDashboard.putString("Branch & Repo Print", "This robot has code from the Basic-Intake branch of the Crescendo-2024 Repo")
   }
 
   @Override
