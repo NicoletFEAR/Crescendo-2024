@@ -271,11 +271,11 @@ public abstract class PositionSubsystem extends SubsystemBase {
     m_encoder.setPosition(position);
   }
 
-  public void setDesiredState(PositionSubsystemState desiredState) {
+  public void setDesiredState(PositionSubsystemState desiredState, boolean useMotionProfile) {
     m_desiredState = desiredState;
-    m_profileStartTime = Timer.getFPGATimestamp();
     m_profileStartPosition = getPosition();
     m_profileStartVelocity = getVelocity();
+    if (useMotionProfile) m_profileStartTime = Timer.getFPGATimestamp();
   }
 
   public boolean atSetpoint() {

@@ -30,7 +30,7 @@ public class SetPositionSubsystemState extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.setDesiredState(m_subsystemState);
+    m_subsystem.setDesiredState(m_subsystemState, true);
     m_superstructure.setDesiredState(m_superstructureState);
     m_superstructure.setCurrentState(m_superstructure.getTransitionState());
   }
