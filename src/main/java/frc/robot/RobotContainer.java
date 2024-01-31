@@ -6,12 +6,9 @@ package frc.robot;
 
 import static frc.robot.Constants.*;
 
-import com.playingwithfusion.TimeOfFlight;
-
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.utilities.Alert;
@@ -19,12 +16,7 @@ import frc.lib.utilities.LoggedDashboardChooser;
 import frc.lib.utilities.Shuffleboardbutton;
 import frc.lib.utilities.Alert.AlertType;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.superstructure.ManualPositionSubsystem;
-import frc.robot.commands.superstructure.SetTalonFXPositionSubsystemState;
-import frc.robot.subsystems.FalconTestingStateMachine;
-import frc.robot.subsystems.FalconTestingStateMachine.FalconTestingState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
-// import frc.robot.subsystems.launcher.LauncherWrist;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
 /*
@@ -58,8 +50,6 @@ public class RobotContainer {
   
   // SUBSYSTEMS \\
   private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
-  private FalconTestingStateMachine m_falcons = FalconTestingStateMachine.getInstance();
-  private TimeOfFlight m_tof = new TimeOfFlight(0);
 
   // SENDABLE CHOOSER \\
   public static LoggedDashboardChooser<Command> autoChooser;
@@ -76,15 +66,10 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
 
-    // m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
-    // m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
-    // m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
-    // m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
-
-    m_operatorController.a().onTrue(new SetTalonFXPositionSubsystemState(m_falcons, FalconTestingState.UP));
-    m_operatorController.b().onTrue(new SetTalonFXPositionSubsystemState(m_falcons, FalconTestingState.DOWN));
-    m_operatorController.x().onTrue(new SetTalonFXPositionSubsystemState(m_falcons, FalconTestingState.REALLY_UP));
-    m_operatorController.y().onTrue(new SetTalonFXPositionSubsystemState(m_falcons, FalconTestingState.REALLY_REALLY_UP));
+    m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
+    m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
+    m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
+    m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
   }
 
   public Command getAutonomousCommand() {
