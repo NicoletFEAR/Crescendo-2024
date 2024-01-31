@@ -1,14 +1,15 @@
 package frc.robot.subsystems.intake;
 
-
 import frc.robot.subsystems.templates.SubsystemConstants.VoltageSubsystemConstants;
 import frc.robot.Constants.IntakeConstants;
-// import frc.robot.subsystems.swerve.SwerveDrive;
 import frc.robot.subsystems.templates.VoltageSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class IntakeFlywheel extends VoltageSubsystem {
 
     private static IntakeFlywheel m_instance = null;
+    private static final DigitalInput m_beamBreak = new DigitalInput(0); // beam break at back of intake before it goes to hold
 
     protected IntakeFlywheel(VoltageSubsystemConstants constants) {
         super(constants);
@@ -26,6 +27,7 @@ public class IntakeFlywheel extends VoltageSubsystem {
     @Override
     public void subsystemPeriodic() {
         // TODO Auto-generated method stub
+        SmartDashboard.putNumber("Velocity of Flywheels", getVelocity());
     }
 
     @Override
@@ -62,6 +64,10 @@ public class IntakeFlywheel extends VoltageSubsystem {
         // public void setVoltage(double voltage) {
         //     this.voltage = voltage;
         // }
+    }
+
+    public boolean getBeamBreak(){
+        return m_beamBreak.get();
     }
     
 }

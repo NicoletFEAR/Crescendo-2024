@@ -17,6 +17,7 @@ import frc.lib.utilities.Alert.AlertType;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.superstructure.ManualTalonFXPositionSubsystem;
 import frc.robot.commands.superstructure.SetTalonFXPositionSubsystemState;
+import frc.robot.commands.superstructure.IntakeFlywheelBeamBreakStop;
 import frc.robot.subsystems.FalconTestingStateMachine;
 import frc.robot.subsystems.FalconTestingStateMachine.FalconTestingState;
 import frc.robot.subsystems.intake.IntakeSuperstructure;
@@ -63,6 +64,7 @@ public class RobotContainer {
   public RobotContainer() {
     // m_launcherWrist.setDefaultCommand(new ManualPositionSubsystem(m_launcherWrist));
     // m_falconTesting.setDefaultCommand(new ManualTalonFXPositionSubsystem(m_falconTesting));
+    m_intakeSuperstructure.setDefaultCommand(new IntakeFlywheelBeamBreakStop(m_intakeSuperstructure));
 
     configureButtonBindings();
   }

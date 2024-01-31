@@ -258,14 +258,22 @@ public final class Constants {
     public static final SparkMaxConstants kIntakeFlywheelMasterConstants = new SparkMaxConstants();
 
     static {
-      kIntakeFlywheelMasterConstants.kID = 13;
+      kIntakeFlywheelMasterConstants.kID = 17;
       kIntakeFlywheelMasterConstants.kIdleMode = IdleMode.kBrake;
       kIntakeFlywheelMasterConstants.kMotorType = MotorType.kBrushless;
       kIntakeFlywheelMasterConstants.kCurrentLimit = 80;
       kIntakeFlywheelMasterConstants.kInverted = false;
     }
 
-    public static final SparkMaxConstants[] kIntakeFlywheelSlaveConstants = new SparkMaxConstants[0];
+    public static final SparkMaxConstants[] kIntakeFlywheelSlaveConstants = new SparkMaxConstants[1];
+    static {
+      kIntakeFlywheelSlaveConstants[0] = new SparkMaxConstants();
+      kIntakeFlywheelSlaveConstants[0].kID = 18;
+      kIntakeFlywheelSlaveConstants[0].kIdleMode = IdleMode.kBrake;
+      kIntakeFlywheelSlaveConstants[0].kMotorType = MotorType.kBrushless;
+      kIntakeFlywheelSlaveConstants[0].kCurrentLimit = 80;
+      kIntakeFlywheelSlaveConstants[0].kInverted = true;
+    }
 
     public static final VoltageSubsystemConstants kIntakeFlywheelConstants =
         new VoltageSubsystemConstants();

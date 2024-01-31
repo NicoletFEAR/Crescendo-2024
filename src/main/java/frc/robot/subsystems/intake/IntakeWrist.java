@@ -4,7 +4,6 @@ package frc.robot.subsystems.intake;
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.IntakeConstants;
-// import frc.robot.subsystems.swerve.SwerveDrive;
 import frc.robot.subsystems.templates.PositionSubsystem;
 
 public class IntakeWrist extends PositionSubsystem {
@@ -27,7 +26,7 @@ public class IntakeWrist extends PositionSubsystem {
     @Override
     public void subsystemPeriodic() {
         IntakeWristState.FIELD_BASED_PITCH.setPosition(calculatePitch());
-        SmartDashboard.putNumber("Calculated shooter Pitch", m_currentState.getPosition());
+        SmartDashboard.putNumber("Current Wrist Pitch", m_currentState.getPosition());
     }
 
     @Override

@@ -28,6 +28,10 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     return m_instance;
   }
 
+  public IntakeFlywheel getIntakeFlywheel(){
+    return m_intakeFlywheel;
+  }
+
   @Override
   public SequentialCommandGroup setSuperstructureState(SuperstructureState desiredState) {
     IntakeSuperstructureState intakeDesiredState = (IntakeSuperstructureState) desiredState;
