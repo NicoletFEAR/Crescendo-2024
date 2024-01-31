@@ -7,18 +7,16 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
 
   final CANSparkMax intakeRollerMotor;
+  final CANSparkMax intakeRollerSlaveMotor;
   final CANSparkMax intakeWristMotor;
   final RelativeEncoder intakeWristEndcoder;
   final PIDController intakeWristPID;
@@ -30,11 +28,14 @@ public class Intake extends SubsystemBase {
   final double intakeWristInSetpoint = 8;  
   double intakeWristVariableSetpoint = 5;
   
-  final DigitalInput backBeamBreak;
+  public final DigitalInput backBeamBreak;
 
   /** Creates a new Intake. */
   public Intake() {
-    intakeRollerMotor = new CANSparkMax(Constants.intakeRollerMotorID, MotorType.kBrushless);
+    intakeRollerMotor = new CANSparkMax(17, MotorType.kBrushless);
+    intakeRollerSlaveMotor = new CANSparkMax(18, MotorType.kBrushless);
+    intakeRollerSlaveMotor.follow(intakeRollerMotor, true);
+
     intakeWristMotor = new CANSparkMax(Constants.intakeWristMotorID, MotorType.kBrushless);
     intakeWristEndcoder = intakeWristMotor.getEncoder();
     
@@ -50,9 +51,9 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    intakeWristPID.setP(SmartDashboard.getNumber("Intake Wrist Kp", PIDController.getP()));
-    intakeWristPID.setI(SmartDashboard.getNumber("Intake Wrist Ki", PIDController.getI()));
-    intakeWristPID.setD(SmartDashboard.getNumber("Intake Wrist Kd", PIDController.getD()));
+    intakeWristPID.setP(SmartDashboard.getNumber("Intake Wrist Kp", intakeWristPID.getP()));
+    intakeWristPID.setI(SmartDashboard.getNumber("Intake Wrist Ki", intakeWristPID.getI()));
+    intakeWristPID.setD(SmartDashboard.getNumber("Intake Wrist Kd", intakeWristPID.getD()));
     intakeWristVariableSetpoint = SmartDashboard.getNumber("Intake Wrist Variable Set Point", intakeWristVariableSetpoint);
     SmartDashboard.putBoolean("Back Beam Break", backBeamBreak.get());
     
@@ -64,10 +65,6 @@ public class Intake extends SubsystemBase {
 
   public void driveWrist(double speed){
     intakeWristMotor.set(speed);
-  }
-
-  public boolean getFrontBeamBreak(){
-    return frontBeamBreak.get();
   }
 
   public boolean getBackBeamBreak(){
@@ -83,7 +80,7 @@ public class Intake extends SubsystemBase {
   }
 
   public double getWristPosition(){
-    return intakeWristEncoder.getPosition();
+    return intakeWristEndcoder.getPosition();
   }
 
   public void setWristZero(){
@@ -91,7 +88,7 @@ public class Intake extends SubsystemBase {
   }
 
   public boolean atPosition(){
-    if(Math.abs(getWristSetpoint - getWristPosition) < intakeWristPID.getTolerance()){
+    if(Math.abs(getWristSetpoint() - getWristPosition()) < intakeWristPID.getPositionTolerance()){
         return true;
     }
 

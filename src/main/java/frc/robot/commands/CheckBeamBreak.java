@@ -10,7 +10,7 @@ import frc.robot.subsystems.Intake;
 public class CheckBeamBreak extends Command {
   /** Creates a new IntakeNote. */
   private Intake m_intake;
-  boolean finish = false
+  boolean finish = false;
 
   public CheckBeamBreak(Intake intake) {
     m_intake = intake;
@@ -27,7 +27,7 @@ public class CheckBeamBreak extends Command {
   public void execute() {
     if(m_intake.backBeamBreak.get()){
       m_intake.driveRoller(0);
-      finish = true
+      finish = true;
     }
   }
 

@@ -13,7 +13,7 @@ import frc.robot.subsystems.Intake;
 public class SetWristSetpoint extends InstantCommand {
 
   public Intake m_Intake;
-  double setPoint
+  double setPoint;
 
   public SetWristSetpoint(Intake newIntake, double newSetPoint) {
     m_Intake = newIntake;
@@ -25,6 +25,6 @@ public class SetWristSetpoint extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Intake.setWristSetPoint(setPoint);
+    m_Intake.setWristSetpoint(setPoint);
   }
 }
