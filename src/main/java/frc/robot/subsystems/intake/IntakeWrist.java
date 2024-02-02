@@ -8,7 +8,6 @@ import frc.robot.subsystems.templates.PositionSubsystem;
 
 public class IntakeWrist extends PositionSubsystem {
 
-
     private static IntakeWrist m_instance = null;
 
     public IntakeWrist(PositionSubsystemConstants constants) {
