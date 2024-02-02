@@ -13,16 +13,16 @@ import frc.robot.subsystems.MotorFEAR;
 public class RobotContainer {
 
   public static CommandXboxController m_driverController = new CommandXboxController(0);
-  public static MotorFEAR m_falcon;
+  public static MotorFEAR m_flex;
 
   public RobotContainer() {
-    m_falcon = new MotorFEAR();
+    m_flex = new MotorFEAR();
 
     configureBindings();
   }
 
   private void configureBindings() {
-    m_driverController.a().onTrue(new SetMotorSpeed(m_falcon, m_driverController.getLeftY()));
+    m_driverController.a().onTrue(new SetMotorSpeed(m_flex, m_driverController.getLeftY()));
   }
 
   public Command getAutonomousCommand() {

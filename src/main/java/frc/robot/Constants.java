@@ -1,5 +1,5 @@
 package frc.robot;
 
 public class Constants {    
-    public static final int falconID = 15;
+    public static final int flexID = 15;
 }

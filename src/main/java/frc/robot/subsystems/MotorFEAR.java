@@ -3,7 +3,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+import com.revrobotics.CANSparkFlex;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -11,20 +14,20 @@ import frc.robot.Constants;
 
 
 public class MotorFEAR extends SubsystemBase {
-  WPI_TalonFX falcon = new WPI_TalonFX(Constants.falconID);
-  
+  CANSparkFlex motor = new CANSparkFlex(Constants.flexID, MotorType.kBrushless);
+  RelativeEncoder encoder =motor.getEncoder();
 
   /** Creates a new MotorFEAR. */
-  public MotorFEAR() {
-    falcon.set(0.2);
-  }
+  public MotorFEAR() {}
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler rund
+    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("flex speed", motor.get());
+    SmartDashboard.putNumber("flex pos", encoder.getPosition());
   }
 
   public void set(double velocity){
-    falcon.set(velocity);
+    motor.set(velocity);
   }
 }
