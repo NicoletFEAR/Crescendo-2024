@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.ControlMotor;
 import frc.robot.commands.SetMotorSpeed;
 import frc.robot.subsystems.MotorFEAR;
 
@@ -22,7 +23,14 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    m_driverController.a().onTrue(new SetMotorSpeed(m_flex, m_driverController.getLeftY()));
+    m_flex.setDefaultCommand(new ControlMotor(m_flex));
+    m_driverController.a().onTrue(new SetMotorSpeed(m_flex, .5));
+    m_driverController.x().onTrue(new SetMotorSpeed(m_flex, -1));
+    m_driverController.y().onTrue(new SetMotorSpeed(m_flex, 0));
+  }
+
+  public static CommandXboxController getController(){
+    return m_driverController;
   }
 
   public Command getAutonomousCommand() {

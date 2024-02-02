@@ -5,17 +5,19 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 
 public class MotorFEAR extends SubsystemBase {
-  CANSparkFlex motor = new CANSparkFlex(Constants.flexID, MotorType.kBrushless);
-  RelativeEncoder encoder =motor.getEncoder();
+  CANSparkMax motor = new CANSparkMax(Constants.CANSparkID, MotorType.kBrushless);
+  RelativeEncoder encoder = motor.getEncoder();
 
   /** Creates a new MotorFEAR. */
   public MotorFEAR() {}
@@ -29,5 +31,9 @@ public class MotorFEAR extends SubsystemBase {
 
   public void set(double velocity){
     motor.set(velocity);
+  }
+
+  public void setControllerSpeed(){
+    motor.set(RobotContainer.getController().getLeftY());
   }
 }
