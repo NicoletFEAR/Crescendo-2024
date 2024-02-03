@@ -9,11 +9,15 @@ import java.util.TreeMap;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.RobotBase;
+import frc.robot.subsystems.climb.ClimbWinch.ClimbWinchState;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
+import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
 // import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
 import frc.robot.subsystems.templates.VelocitySubsystem.VelocitySubsystemType;
 import frc.robot.subsystems.templates.VoltageSubsystem.VoltageSubsystemType;
+import frc.robot.subsystems.templates.MultiMotorPositionSubsystem.MultiMotorPositionSubsystemType;
 import frc.robot.subsystems.templates.PositionSubsystem.PositionSubsystemType;
+import frc.robot.subsystems.templates.SubsystemConstants.MultiMotorPositionSubsystemConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.SparkMaxConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
@@ -30,8 +34,6 @@ import frc.robot.subsystems.templates.SubsystemConstants.VoltageSubsystemConstan
 public final class Constants {
 
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : Mode.SIM;
-
-  public static final boolean kInfoMode = false;
 
   public static final boolean kTuningMode = true;
 
@@ -120,7 +122,8 @@ public final class Constants {
         new VelocitySubsystemConstants();
 
     static {
-      kLauncherFlywheelConstants.kName = "Launcher Flywheel";
+      kLauncherFlywheelConstants.kSubsystemName = "Launcher Flywheel";
+      kLauncherFlywheelConstants.kSuperstructureName = "Launcher";
 
       kLauncherFlywheelConstants.kSubsystemType = VelocitySubsystemType.LAUNCHER_FLYWHEEL;
 
@@ -157,7 +160,8 @@ public final class Constants {
         new PositionSubsystemConstants();
 
     static {
-      kLauncherWristConstants.kName = "Launcher Wrist";
+      kLauncherWristConstants.kSubsystemName = "Launcher Wrist";
+      kLauncherWristConstants.kSuperstructureName = "Launcher";
 
       kLauncherWristConstants.kSubsystemType = PositionSubsystemType.LAUNCHER_WRIST;
 
@@ -182,9 +186,9 @@ public final class Constants {
       kLauncherWristConstants.kManualMultiplier = 1;
       kLauncherWristConstants.kManualDeadBand = .1;
 
-      // kLauncherWristConstants.kInitialState = LauncherWristState.DOWN;
-      // kLauncherWristConstants.kManualState = LauncherWristState.MANUAL;
-      // kLauncherWristConstants.kTransitionState = LauncherWristState.TRANSITION;
+      kLauncherWristConstants.kInitialState = LauncherWristState.DOWN;
+      kLauncherWristConstants.kManualState = LauncherWristState.MANUAL;
+      kLauncherWristConstants.kTransitionState = LauncherWristState.TRANSITION;
     }
 
     public static final SparkMaxConstants kLauncherHoldMasterConstants = new SparkMaxConstants();
@@ -200,7 +204,8 @@ public final class Constants {
     public static final VoltageSubsystemConstants kLauncherHoldConstants = new VoltageSubsystemConstants();
 
     static {
-      kLauncherHoldConstants.kName = "Launcher Hold";
+      kLauncherHoldConstants.kSubsystemName = "Launcher Hold";
+      kLauncherHoldConstants.kSuperstructureName = "Launcher";
 
       kLauncherHoldConstants.kSubsystemType = VoltageSubsystemType.LAUNCHER_HOLD;
 
@@ -208,6 +213,69 @@ public final class Constants {
       kLauncherHoldConstants.kSlaveConstants = new SparkMaxConstants[0];
 
       kLauncherHoldConstants.kInitialState = null;
+    }
+
+  }
+
+  public static class ClimbConstants {
+    public static final SparkMaxConstants[] kClimbWinchMasterConstants = new SparkMaxConstants[2];
+
+    static {
+      kClimbWinchMasterConstants[0] = new SparkMaxConstants();
+      kClimbWinchMasterConstants[0].kID = 7;
+      kClimbWinchMasterConstants[0].kName = "Right Winch";
+      kClimbWinchMasterConstants[0].kIdleMode = IdleMode.kBrake;
+      kClimbWinchMasterConstants[0].kMotorType = MotorType.kBrushless;
+      kClimbWinchMasterConstants[0].kCurrentLimit = 80;
+      kClimbWinchMasterConstants[0].kInverted = false;
+      kClimbWinchMasterConstants[0].kKp = 0.1;
+      kClimbWinchMasterConstants[0].kKi = 0.0;
+      kClimbWinchMasterConstants[0].kKd = 0.0;
+
+      kClimbWinchMasterConstants[1] = new SparkMaxConstants();
+      kClimbWinchMasterConstants[1].kID = 6;
+      kClimbWinchMasterConstants[1].kName = "Left Winch";
+      kClimbWinchMasterConstants[1].kIdleMode = IdleMode.kBrake;
+      kClimbWinchMasterConstants[1].kMotorType = MotorType.kBrushless;
+      kClimbWinchMasterConstants[1].kCurrentLimit = 80;
+      kClimbWinchMasterConstants[1].kInverted = false;
+      kClimbWinchMasterConstants[1].kKp = 0.1;
+      kClimbWinchMasterConstants[1].kKi = 0.0;
+      kClimbWinchMasterConstants[1].kKd = 0.0;
+    }
+
+    public static final MultiMotorPositionSubsystemConstants kClimbWinchConstants =
+        new MultiMotorPositionSubsystemConstants();
+
+    static {
+      kClimbWinchConstants.kSubsystemName = "Climb Winch";
+      kClimbWinchConstants.kSuperstructureName = "Climb";
+
+      kClimbWinchConstants.kSubsystemType = MultiMotorPositionSubsystemType.CLIMB_WINCH;
+
+      kClimbWinchConstants.kMasterConstants = kClimbWinchMasterConstants;
+
+      kClimbWinchConstants.kHomePosition = 0;
+      kClimbWinchConstants.kPositionConversionFactor = 1;
+
+      kClimbWinchConstants.kSetpointTolerance = 0.1;
+      kClimbWinchConstants.kSmartMotionTolerance = 0.1;
+
+      kClimbWinchConstants.kDefaultSlot = 0;
+
+      kClimbWinchConstants.kMaxVelocity = 100;
+      kClimbWinchConstants.kMaxAcceleration = 50;
+
+      kClimbWinchConstants.kMaxPosition = 155;
+      kClimbWinchConstants.kMinPosition = -85;
+
+      kClimbWinchConstants.kManualControlMode = ManualControlMode.TRIGGERS;
+      kClimbWinchConstants.kManualMultiplier = 1;
+      kClimbWinchConstants.kManualDeadBand = .1;
+
+      kClimbWinchConstants.kInitialState = ClimbWinchState.DOWN;
+      kClimbWinchConstants.kManualState = ClimbWinchState.MANUAL;
+      kClimbWinchConstants.kTransitionState = ClimbWinchState.TRANSITION;
     }
 
   }

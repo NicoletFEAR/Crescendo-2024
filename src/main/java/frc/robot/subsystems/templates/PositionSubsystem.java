@@ -74,9 +74,9 @@ public abstract class PositionSubsystem extends SubsystemBase {
     m_master.setIdleMode(m_constants.kMasterConstants.kIdleMode);
     m_master.setSmartCurrentLimit(m_constants.kMasterConstants.kCurrentLimit);
     m_pidController = m_master.getPIDController();
-    m_pidController.setP(m_constants.kKp, m_constants.kDefaultSlot);
-    m_pidController.setI(m_constants.kKi, m_constants.kDefaultSlot);
-    m_pidController.setD(m_constants.kKd, m_constants.kDefaultSlot);
+    m_pidController.setP(m_constants.kMasterConstants.kKp, m_constants.kDefaultSlot);
+    m_pidController.setI(m_constants.kMasterConstants.kKi, m_constants.kDefaultSlot);
+    m_pidController.setD(m_constants.kMasterConstants.kKd, m_constants.kDefaultSlot);
     m_master.burnFlash();
 
     m_slaves = new CANSparkMax[m_constants.kSlaveConstants.length];
@@ -100,8 +100,8 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     m_kp =
         new LoggedShuffleboardTunableNumber(
-            m_constants.kName + " p",
-            m_constants.kKp,
+            m_constants.kSubsystemName + " p",
+            m_constants.kMasterConstants.kKp,
             RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
@@ -110,8 +110,8 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     m_ki =
         new LoggedShuffleboardTunableNumber(
-            m_constants.kName + " i",
-            m_constants.kKi,
+            m_constants.kSubsystemName + " i",
+            m_constants.kMasterConstants.kKi,
             RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
@@ -120,8 +120,8 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     m_kd =
         new LoggedShuffleboardTunableNumber(
-            m_constants.kName + " d",
-            m_constants.kKd,
+            m_constants.kSubsystemName + " d",
+            m_constants.kMasterConstants.kKd,
             RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
@@ -130,7 +130,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     m_kMaxAcceleration =
         new LoggedShuffleboardTunableNumber(
-            m_constants.kName + " Max Acceleration",
+            m_constants.kSubsystemName + " Max Acceleration",
             m_constants.kMaxAcceleration,
             RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
@@ -140,7 +140,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     m_kMaxVelocity =
         new LoggedShuffleboardTunableNumber(
-            m_constants.kName + " Max Velocity",
+            m_constants.kSubsystemName + " Max Velocity",
             m_constants.kMaxVelocity,
             RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
@@ -149,7 +149,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
             m_constants.kSubsystemType.ordinal());
     m_tuningPosition =
         new LoggedShuffleboardTunableNumber(
-            m_constants.kName + " Set Position",
+            m_constants.kSubsystemName + " Set Position",
             0,
             RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
@@ -167,7 +167,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
             new TrapezoidProfile.Constraints(
                 m_constants.kMaxVelocity * .01, m_constants.kMaxAcceleration * .01));
 
-    setName(m_constants.kName);
+    setName(m_constants.kSubsystemName);
   }
 
   public void runToSetpoint() {
@@ -340,21 +340,21 @@ public abstract class PositionSubsystem extends SubsystemBase {
     }
 
     Logger.recordOutput(
-        m_constants.kName + "/Encoder Position", getPosition()); // Current position of encoders
-    Logger.recordOutput(m_constants.kName + "/Encoder Velocity", getVelocity()); // Encoder Velocity
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", getPosition()); // Current position of encoders
+    Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Velocity", getVelocity()); // Encoder Velocity
     Logger.recordOutput(
-        m_constants.kName + "/Trapezoid Desired Position",
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Trapezoid Desired Position",
         m_currentState.getPosition()); // Desired position of trapezoid profile
     Logger.recordOutput(
-        m_constants.kName + "/Trapezoid Desired Velocity",
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Trapezoid Desired Velocity",
         m_currentState.getVelocity()); // Desired position of trapezoid profile
     Logger.recordOutput(
-        m_constants.kName + "/Desired Position", m_desiredState.getPosition()); // Desired position
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired Position", m_desiredState.getPosition()); // Desired position
     Logger.recordOutput(
-        m_constants.kName + "/Current State", m_currentState.getName()); // Current State
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
     Logger.recordOutput(
-        m_constants.kName + "/Desired State", m_desiredState.getName()); // Current State
-    Logger.recordOutput(m_constants.kName + "/At Setpoint", atSetpoint()); // Is at setpoint
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired State", m_desiredState.getName()); // Current State
+    Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/At Setpoint", atSetpoint()); // Is at setpoint
   }
 
   public abstract void subsystemPeriodic();

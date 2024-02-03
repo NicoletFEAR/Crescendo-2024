@@ -6,6 +6,8 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.subsystems.templates.VoltageSubsystem.VoltageSubsystemState;
 import frc.robot.subsystems.templates.VoltageSubsystem.VoltageSubsystemType;
 import frc.robot.Constants.ManualControlMode;
+import frc.robot.subsystems.templates.MultiMotorPositionSubsystem.MultiMotorPositionSubsystemState;
+import frc.robot.subsystems.templates.MultiMotorPositionSubsystem.MultiMotorPositionSubsystemType;
 import frc.robot.subsystems.templates.PositionSubsystem.PositionSubsystemState;
 import frc.robot.subsystems.templates.PositionSubsystem.PositionSubsystemType;
 import frc.robot.subsystems.templates.VelocitySubsystem.VelocitySubsystemState;
@@ -23,7 +25,8 @@ public class SubsystemConstants {
     public double kKp = 0.0;
     public double kKi = 0.0;
     public double kKd = 0.0;
-    public double kKff = 0.0;
+
+    public double kKff = 0.0; // Really only use this for velocity control
 
     // If you want to use custom feedforward
     public double kKs = 0.0;
@@ -35,7 +38,8 @@ public class SubsystemConstants {
   public static class PositionSubsystemConstants {
 
     // Subsystem Constants \\
-    public String kName = "ERROR_ASSIGN_A_NAME";
+    public String kSubsystemName = "ERROR_ASSIGN_A_NAME";
+    public String kSuperstructureName = "ERROR_ASSIGN_A_NAME";
 
     public PositionSubsystemType kSubsystemType = null;
 
@@ -51,11 +55,6 @@ public class SubsystemConstants {
     public double kPositionConversionFactor =
         1.0; // To find degrees: 360/gear ration ex 360/100 for 100:1
 
-    // PID Constants
-    public double kKp = 0.0;
-    public double kKi = 0.0;
-    public double kKd = 0.0;
-
     public double kSetpointTolerance = 0.0; // Tolerance for atSetpoint()
     public double kSmartMotionTolerance = 0.0;
 
@@ -65,11 +64,43 @@ public class SubsystemConstants {
     public double kMaxVelocity = 0.0; // Max velocity for motion profile
     public double kMaxAcceleration = 0.0; // Max acceleration for motion profile
 
-    // Feedforward constants
-    public double kKs = 0.0;
-    public double kKg = 0.0;
-    public double kKv = 0.0;
-    public double kKa = 0.0;
+    // Max/Min positions the subsystem should be able to move
+    public double kMaxPosition = Double.POSITIVE_INFINITY;
+    public double kMinPosition = Double.NEGATIVE_INFINITY;
+
+    // Manual constants
+    public ManualControlMode kManualControlMode = null;
+    public double kManualMultiplier = 0;
+    public double kManualDeadBand = 0;
+  }
+
+  public static class MultiMotorPositionSubsystemConstants {
+
+    // Subsystem Constants \\
+    public String kSubsystemName = "ERROR_ASSIGN_A_NAME";
+    public String kSuperstructureName = "ERROR_ASSIGN_A_NAME";
+
+    public MultiMotorPositionSubsystemType kSubsystemType = null;
+
+    public SparkMaxConstants[] kMasterConstants = new SparkMaxConstants[0];
+
+    public MultiMotorPositionSubsystemState kInitialState = null;
+    public MultiMotorPositionSubsystemState kManualState = null;
+    public MultiMotorPositionSubsystemState kTransitionState = null;
+
+    // Servo Motor Subsystem Constants \\
+    public double kHomePosition = 0.0;
+    public double kPositionConversionFactor =
+        1.0; // To find degrees: 360/gear ration ex 360/100 for 100:1
+
+    public double kSetpointTolerance = 0.0; // Tolerance for atSetpoint()
+    public double kSmartMotionTolerance = 0.0;
+
+    public int kDefaultSlot =
+        0; // PID Slot, make more if more than one set of pid constants are used
+
+    public double kMaxVelocity = 0.0; // Max velocity for motion profile
+    public double kMaxAcceleration = 0.0; // Max acceleration for motion profile
 
     // Max/Min positions the subsystem should be able to move
     public double kMaxPosition = Double.POSITIVE_INFINITY;
@@ -84,7 +115,8 @@ public class SubsystemConstants {
   public static class VoltageSubsystemConstants {
 
     // Subsystem Constants \\
-    public String kName = "ERROR_ASSIGN_A_NAME";
+    public String kSubsystemName = "ERROR_ASSIGN_A_NAME";
+    public String kSuperstructureName = "ERROR_ASSIGN_A_NAME";
 
     public VoltageSubsystemType kSubsystemType = null;
 
@@ -97,7 +129,8 @@ public class SubsystemConstants {
   public static class VelocitySubsystemConstants {
 
     // Subsystem Constants \\
-    public String kName = "ERROR_ASSIGN_A_NAME";
+    public String kSubsystemName = "ERROR_ASSIGN_A_NAME";
+    public String kSuperstructureName = "ERROR_ASSIGN_A_NAME";
 
     public VelocitySubsystemType kSubsystemType = null;
 
@@ -108,7 +141,7 @@ public class SubsystemConstants {
     public VelocitySubsystemState kManualState = null;
 
     public double kVelocityConversionFactor =
-        1.0; // To find degrees: 360/gear ratio ex 360/100 for 100:1
+        1.0; // To find degrees: 360/gear ratio ex 360/100 for 100:1, just put 100 for 100:1
 
     public double kSetpointTolerance = 0.0; // Tolerance for atSetpoint()
 

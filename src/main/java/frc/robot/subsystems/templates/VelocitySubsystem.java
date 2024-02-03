@@ -122,7 +122,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
 
 
 
-    setName(m_constants.kName);
+    setName(m_constants.kSubsystemName);
   }
 
   public VelocitySubsystemState getCurrentState() {
@@ -205,15 +205,15 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     }
 
     for (int i = 0; i < m_motors.length; i++) {
-      Logger.recordOutput(m_constants.kName + "/" + m_constants.kMotorConstants[i].kName + "/Encoder Velocity", getVelocity()[i]); // Encoder Velocity
-      Logger.recordOutput(m_constants.kName + "/" + m_constants.kMotorConstants[i].kName + "/Desired Velocity", m_desiredState.getVelocity()[i]); // Desired position
+      Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Encoder Velocity", getVelocity()[i]); // Encoder Velocity
+      Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Desired Velocity", m_desiredState.getVelocity()[i]); // Desired position
     }
 
     Logger.recordOutput(
-        m_constants.kName + "/Current State", m_currentState.getName()); // Current State
+      m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
     Logger.recordOutput(
-        m_constants.kName + "/Desired State", m_desiredState.getName()); // Current State
-    Logger.recordOutput(m_constants.kName + "/At Setpoint", atSetpoint()); // Is at setpoint
+      m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired State", m_desiredState.getName()); // Current State
+    Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/At Setpoint", atSetpoint()); // Is at setpoint
   }
 
   public abstract void subsystemPeriodic();

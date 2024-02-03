@@ -68,10 +68,28 @@
           "Arm": {
             "open": true
           },
+          "Climb Winch": {
+            "Left Winch": {
+              "open": true
+            },
+            "Right Winch": {
+              "open": true
+            },
+            "open": true
+          },
           "Drivebase": {
             "open": true
           },
+          "ERROR_ASSIGN_A_NAME": {
+            "open": true
+          },
           "Elevator": {
+            "open": true
+          },
+          "Launcher": {
+            "Launcher Flywheel": {
+              "open": true
+            },
             "open": true
           },
           "Launcher Flywheel": {
@@ -86,10 +104,13 @@
             },
             "open": true
           },
-          "Launcher Superstructure": {
-            "open": true
-          },
           "Launcher Wrist": {
+            "Left Winch": {
+              "open": true
+            },
+            "Right Winch": {
+              "open": true
+            },
             "open": true
           },
           "LauncherLauncherSuperstructure": {

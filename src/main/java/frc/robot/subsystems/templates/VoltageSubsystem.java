@@ -47,7 +47,7 @@ public abstract class VoltageSubsystem extends SubsystemBase {
 
     m_encoder = m_master.getEncoder();
 
-    setName(m_constants.kName);
+    setName(m_constants.kSubsystemName);
   }
 
   public VoltageSubsystemState getCurrentState() {
