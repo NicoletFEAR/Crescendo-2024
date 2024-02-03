@@ -5,16 +5,16 @@
 package frc.robot.commands.superstructure;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.launcher.LauncherSuperstructure;
-import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
+import frc.robot.subsystems.templates.SuperstructureSubsystem.SuperstructureState;
 
 public class SetSuperstructureState extends Command {
   /** Creates a new SetSuperstructureState. */
-  private LauncherSuperstructureState m_desiredState;
-  private SuperstructureSubsystem m_superstructure = LauncherSuperstructure.getInstance();
+  private SuperstructureSubsystem m_superstructure;
+  private SuperstructureState m_desiredState;
 
-  public SetSuperstructureState(LauncherSuperstructureState desiredState) {
+  public SetSuperstructureState(SuperstructureSubsystem superstructure, SuperstructureState desiredState) {
+    m_superstructure = superstructure;
     m_desiredState = desiredState;
     addRequirements(m_superstructure);
   }
