@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkFlex;
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -16,7 +15,7 @@ import frc.robot.RobotContainer;
 
 
 public class MotorFEAR extends SubsystemBase {
-  CANSparkMax motor = new CANSparkMax(Constants.CANSparkID, MotorType.kBrushless);
+  CANSparkFlex motor = new CANSparkFlex(Constants.CANSparkID, MotorType.kBrushless);
   RelativeEncoder encoder = motor.getEncoder();
 
   /** Creates a new MotorFEAR. */

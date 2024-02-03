@@ -24,9 +24,9 @@ public class RobotContainer {
 
   private void configureBindings() {
     m_flex.setDefaultCommand(new ControlMotor(m_flex));
-    m_driverController.a().onTrue(new SetMotorSpeed(m_flex, .5));
+    m_driverController.b().onTrue(new SetMotorSpeed(m_flex, 1));
     m_driverController.x().onTrue(new SetMotorSpeed(m_flex, -1));
-    m_driverController.y().onTrue(new SetMotorSpeed(m_flex, 0));
+    m_driverController.a().onTrue(new SetMotorSpeed(m_flex, 0));
   }
 
   public static CommandXboxController getController(){
