@@ -6,6 +6,8 @@ package frc.robot;
 
 import static frc.robot.Constants.*;
 
+import com.playingwithfusion.TimeOfFlight;
+
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -59,6 +61,8 @@ public class RobotContainer {
   private Alert tuningAlert =
       new Alert("Tuning Mode Activated, expect decreased network performance.", AlertType.INFO);
 
+  private TimeOfFlight m_sensor = new TimeOfFlight(0);
+
   public RobotContainer() {
     LauncherWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(LauncherWrist.getInstance()));
 
@@ -94,6 +98,5 @@ public class RobotContainer {
   }
 
   public void periodic() {
-
   }
 }
