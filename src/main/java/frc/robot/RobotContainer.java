@@ -16,7 +16,9 @@ import frc.lib.utilities.LoggedDashboardChooser;
 import frc.lib.utilities.Shuffleboardbutton;
 import frc.lib.utilities.Alert.AlertType;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
+import frc.robot.subsystems.launcher.LauncherWrist;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
 /*
@@ -58,7 +60,7 @@ public class RobotContainer {
       new Alert("Tuning Mode Activated, expect decreased network performance.", AlertType.INFO);
 
   public RobotContainer() {
-    // LauncherWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(LauncherWrist.getInstance()));
+    LauncherWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(LauncherWrist.getInstance()));
 
     configureButtonBindings();
   }

@@ -89,7 +89,7 @@ public final class Constants {
     public static final SparkConstants kTopLauncherFlywheelConstants = new SparkConstants();
 
     static {
-      kTopLauncherFlywheelConstants.kID = 16;
+      kTopLauncherFlywheelConstants.kID = 43;
       kTopLauncherFlywheelConstants.kRevMotorType = RevMotorType.CAN_SPARK_FLEX;
       kTopLauncherFlywheelConstants.kName = "Top Launcher Flywheel";
       kTopLauncherFlywheelConstants.kIdleMode = IdleMode.kCoast;
@@ -105,7 +105,7 @@ public final class Constants {
     public static final SparkConstants kBottomLauncherFlywheelConstants = new SparkConstants();
 
     static {
-      kBottomLauncherFlywheelConstants.kID = 18;
+      kBottomLauncherFlywheelConstants.kID = 41;
       kBottomLauncherFlywheelConstants.kRevMotorType = RevMotorType.CAN_SPARK_FLEX;
       kBottomLauncherFlywheelConstants.kName = "Bottom Launcher Flywheel";
       kBottomLauncherFlywheelConstants.kIdleMode = IdleMode.kCoast;
@@ -143,7 +143,7 @@ public final class Constants {
   public static final SparkConstants kLauncherWristLeaderConstants = new SparkConstants();
 
     static {
-      kLauncherWristLeaderConstants.kID = 34;
+      kLauncherWristLeaderConstants.kID = 40;
       kLauncherWristLeaderConstants.kRevMotorType = RevMotorType.CAN_SPARK_MAX;
       kLauncherWristLeaderConstants.kIdleMode = IdleMode.kBrake;
       kLauncherWristLeaderConstants.kMotorType = MotorType.kBrushless;
