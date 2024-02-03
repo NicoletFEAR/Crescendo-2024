@@ -169,8 +169,8 @@ public final class Constants {
       kLauncherWristConstants.kLeaderConstants = kLauncherWristLeaderConstants;
       kLauncherWristConstants.kFollowerConstants = kWristSlaveConstants;
 
-      kLauncherWristConstants.kHomePosition = 155;
-      kLauncherWristConstants.kPositionConversionFactor = 360;
+      kLauncherWristConstants.kHomePosition = 0;
+      kLauncherWristConstants.kPositionConversionFactor = 1.0;
 
       kLauncherWristConstants.kSetpointTolerance = 0.1;
 
