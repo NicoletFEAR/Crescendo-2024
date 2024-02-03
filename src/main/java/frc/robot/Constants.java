@@ -40,6 +40,49 @@ public final class Constants {
     public static final int kOperatorControllerPort = 0;
   }
 
+<<<<<<< HEAD
+=======
+  public static final class FalconTestingConstants {
+    public static final TalonFXConstants kFalconTestingMasterConstants = new TalonFXConstants();
+    static {
+      kFalconTestingMasterConstants.kID = 6;
+      kFalconTestingMasterConstants.kGravityType = GravityTypeValue.Elevator_Static;
+      kFalconTestingMasterConstants.kKp = 0.1;
+      kFalconTestingMasterConstants.kKi = 0.0;
+      kFalconTestingMasterConstants.kKd = 0.0;
+      kFalconTestingMasterConstants.kKs = 0.0;
+      kFalconTestingMasterConstants.kKg = 0.0;
+      kFalconTestingMasterConstants.kKv = 0.0;
+      kFalconTestingMasterConstants.kKa = 0.0;
+      kFalconTestingMasterConstants.kMaxAcceleration = 5.0;
+      kFalconTestingMasterConstants.kMaxVelocity = 10.0;
+      kFalconTestingMasterConstants.kMaxJerk = 1.0;
+      kFalconTestingMasterConstants.kNuetralMode = NeutralModeValue.Brake;
+      kFalconTestingMasterConstants.kIsInverted = InvertedValue.Clockwise_Positive;
+    }
+
+    public static final TalonFXPositionSubsystemConstants kFalconTestingConstants = new TalonFXPositionSubsystemConstants(); 
+    static {
+      kFalconTestingConstants.kName = "Falcon Testing";
+      kFalconTestingConstants.kSubsystemType = PositionSubsystemType.FALCON_TESTING;
+      kFalconTestingConstants.kMasterConstants = kFalconTestingMasterConstants;
+      kFalconTestingConstants.kSlaveConstants = new TalonFXConstants[0];
+      kFalconTestingConstants.kInitialState = FalconTestingState.DOWN;
+      kFalconTestingConstants.kManualState = FalconTestingState.MANUAL;
+      kFalconTestingConstants.kTransitionState = FalconTestingState.TRANSITION;
+      kFalconTestingConstants.kDefaultSlot = 0; // PID Slot, make more if more than one set of pid constants are used
+      kFalconTestingConstants.kHomePosition = 0.0;
+      kFalconTestingConstants.kPositionConversionFactor = 1.0; // To find degrees: 360/gear ration ex 360/100 for 100:1
+      kFalconTestingConstants.kSetpointTolerance = 0.0; // Tolerance for atSetpoint()
+      kFalconTestingConstants.kMaxPosition = Double.POSITIVE_INFINITY;
+      kFalconTestingConstants.kMinPosition = Double.NEGATIVE_INFINITY;
+      kFalconTestingConstants.kManualControlMode = ManualControlMode.BUMPERS;
+      kFalconTestingConstants.kManualMultiplier = 1;
+      kFalconTestingConstants.kManualDeadBand = .1;
+    } 
+  }
+
+>>>>>>> 46ff4f32ad7ef7c0426d7a2b4971e5606daa301e
   public static final class IntakeConstants {
 
     public static final SparkConstants kIntakeFlywheelMasterConstants = new SparkConstants();
@@ -121,6 +164,18 @@ public final class Constants {
     }
   }
 
+<<<<<<< HEAD
+=======
+  public static enum ManualControlMode {
+    TRIGGERS,
+    BUMPERS,
+    LEFT_X,
+    LEFT_Y,
+    RIGHT_X,
+    RIGHT_Y
+  }
+
+>>>>>>> 46ff4f32ad7ef7c0426d7a2b4971e5606daa301e
   public static enum Mode {
     /** Running on a real robot. */
     REAL,
