@@ -299,9 +299,17 @@ public abstract class PositionSubsystem extends SubsystemBase {
   }
 
   public void setDesiredState(PositionSubsystemState desiredState, boolean useMotionProfile) {
+    m_setpoint =
+    m_profile.calculate(
+        Timer.getFPGATimestamp() - m_profileStartTime,
+        new TrapezoidProfile.State(m_profileStartPosition, m_profileStartVelocity),
+        new TrapezoidProfile.State(m_desiredState.getPosition(), 0));
     m_desiredState = desiredState;
-    m_profileStartPosition = getPosition();
-    m_profileStartVelocity = getVelocity();
+    
+    m_profileStartPosition = m_setpoint.position;
+
+    m_profileStartVelocity = m_setpoint.velocity;
+
     if (useMotionProfile) m_profileStartTime = Timer.getFPGATimestamp();
   }
 
