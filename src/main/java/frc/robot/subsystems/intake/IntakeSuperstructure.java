@@ -94,4 +94,10 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
       return name;
     }
   }
+
+  @Override
+  public void superstructurePeriodic() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'superstructurePeriodic'");
+  }
 }

@@ -6,26 +6,19 @@ package frc.robot;
 
 import static frc.robot.Constants.*;
 
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.utilities.Alert;
 import frc.lib.utilities.LoggedDashboardChooser;
+import frc.lib.utilities.ShuffleboardButton;
 import frc.lib.utilities.Alert.AlertType;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.superstructure.ManualTalonFXPositionSubsystem;
-import frc.robot.commands.superstructure.SetTalonFXPositionSubsystemState;
 import frc.robot.commands.superstructure.IntakeFlywheelBeamBreakStop;
-import frc.robot.subsystems.FalconTestingStateMachine;
-import frc.robot.subsystems.FalconTestingStateMachine.FalconTestingState;
 import frc.robot.subsystems.intake.IntakeSuperstructure;
 import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
-import frc.robot.subsystems.launcher.LauncherFlywheel;
-import frc.robot.subsystems.launcher.LauncherSuperstructure;
-import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
-import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -46,8 +39,15 @@ public class RobotContainer {
   public static ShuffleboardTab infoTab = kInfoMode ? Shuffleboard.getTab("Info") : null;
   public static ShuffleboardTab driveTuningTab =
       kTuningMode ? Shuffleboard.getTab("Drive Tuning") : null;
-  public static ShuffleboardTab mechTuningTab =
-      kTuningMode ? Shuffleboard.getTab("Mech Tuning") : null;
+  public static ShuffleboardTab positionMechTuningTab =
+      kTuningMode ? Shuffleboard.getTab("Position Mech Tuning") : null;
+  public static ShuffleboardTab velocityMechTuningTab =
+      kTuningMode ? Shuffleboard.getTab("Velocity Mech Tuning") : null;
+
+  public static ShuffleboardButton m_applyPositionMechConfigs = kTuningMode ? new ShuffleboardButton("Apply Position Mech Configs", false, positionMechTuningTab, BuiltInWidgets.kToggleButton , null, 6, 0) : null;
+  public static ShuffleboardButton m_applyVelocityMechConfigs = kTuningMode ? new ShuffleboardButton("Apply Velocity Mech Configs", false, velocityMechTuningTab, BuiltInWidgets.kToggleButton , null, 4, 0) : null;
+  public static ShuffleboardButton m_goToPosition = kTuningMode ? new ShuffleboardButton("Go To Position", false, positionMechTuningTab, BuiltInWidgets.kToggleButton , null, 7, 0) : null;
+  public static ShuffleboardButton m_goToVelocity = kTuningMode ? new ShuffleboardButton("Go To Velocity", false, velocityMechTuningTab, BuiltInWidgets.kToggleButton , null, 5, 0) : null;      
 
   // SUBSYSTEMS \\
   // private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();

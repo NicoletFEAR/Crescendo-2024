@@ -4,10 +4,12 @@
 
 package frc.robot.subsystems.templates;
 
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 import com.revrobotics.SparkPIDController.ArbFFUnits;
 
@@ -20,7 +22,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
+import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.lib.utilities.LoggedShuffleboardTunableNumber;
+import frc.lib.utilities.ShuffleboardButton;
+
 import java.util.Map;
 import org.littletonrobotics.junction.Logger;
 
@@ -30,8 +35,8 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
   protected final SparkPIDController m_pidController;
 
-  protected final CANSparkMax m_master;
-  protected final CANSparkMax[] m_slaves;
+  protected final CANSparkBase m_leader;
+  protected final CANSparkBase[] m_followers;
   protected final RelativeEncoder m_encoder;
 
   protected TrapezoidProfile m_profile;
@@ -47,6 +52,8 @@ public abstract class PositionSubsystem extends SubsystemBase {
   protected LoggedShuffleboardTunableNumber m_kd;
   protected LoggedShuffleboardTunableNumber m_kMaxAcceleration;
   protected LoggedShuffleboardTunableNumber m_kMaxVelocity;
+  protected LoggedShuffleboardTunableNumber m_tuningPosition;
+  protected ShuffleboardButton m_button;
 
   protected PositionSubsystemState m_currentState = null;
   protected PositionSubsystemState m_desiredState = null;
@@ -65,40 +72,64 @@ public abstract class PositionSubsystem extends SubsystemBase {
     m_currentState = m_constants.kInitialState;
     m_desiredState = m_constants.kInitialState;
 
-    m_master =
-        new CANSparkMax(m_constants.kMasterConstants.kID, m_constants.kMasterConstants.kMotorType);
-    m_master.setIdleMode(m_constants.kMasterConstants.kIdleMode);
-    m_master.setSmartCurrentLimit(m_constants.kMasterConstants.kCurrentLimit);
-    m_pidController = m_master.getPIDController();
-    m_pidController.setP(m_constants.kKp, m_constants.kDefaultSlot);
-    m_pidController.setI(m_constants.kKi, m_constants.kDefaultSlot);
-    m_pidController.setD(m_constants.kKd, m_constants.kDefaultSlot);
-    m_master.burnFlash();
 
-    m_slaves = new CANSparkMax[m_constants.kSlaveConstants.length];
-
-    for (int i = 0; i < m_constants.kSlaveConstants.length; i++) {
-      m_slaves[i] =
-          new CANSparkMax(
-              m_constants.kSlaveConstants[i].kID, m_constants.kSlaveConstants[i].kMotorType);
-      m_slaves[i].setIdleMode(m_constants.kSlaveConstants[i].kIdleMode);
-      m_slaves[i].setSmartCurrentLimit(m_constants.kSlaveConstants[i].kCurrentLimit);
-      m_slaves[i].follow(m_master);
-      m_slaves[i].burnFlash();
+    if (m_constants.kLeaderConstants.kRevMotorType == RevMotorType.CAN_SPARK_MAX) {
+      m_leader =
+        new CANSparkMax(m_constants.kLeaderConstants.kID, m_constants.kLeaderConstants.kMotorType);
+    } else {
+      m_leader =
+        new CANSparkFlex(m_constants.kLeaderConstants.kID, m_constants.kLeaderConstants.kMotorType);
     }
 
-    if (m_slaves.length > 0) m_master.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 5);
+    m_leader.setIdleMode(m_constants.kLeaderConstants.kIdleMode);
+    m_leader.setSmartCurrentLimit(m_constants.kLeaderConstants.kCurrentLimit);
 
-    m_encoder = m_master.getEncoder();
+    m_pidController = m_leader.getPIDController();
+    m_pidController.setP(m_constants.kLeaderConstants.kKp, m_constants.kDefaultSlot);
+    m_pidController.setI(m_constants.kLeaderConstants.kKi, m_constants.kDefaultSlot);
+    m_pidController.setD(m_constants.kLeaderConstants.kKd, m_constants.kDefaultSlot);
+
+    m_encoder = m_leader.getEncoder();
     m_encoder.setPosition(m_constants.kHomePosition);
     m_encoder.setPositionConversionFactor(m_constants.kPositionConversionFactor);
-    m_encoder.setVelocityConversionFactor(m_constants.kPositionConversionFactor / 60);
+
+    m_leader.burnFlash();
+
+    if (m_constants.kFollowerConstants.length > 0) {
+      if (m_constants.kFollowerConstants[0].kRevMotorType == RevMotorType.CAN_SPARK_MAX) {
+        m_followers = new CANSparkMax[m_constants.kFollowerConstants.length];
+      } else {
+        m_followers = new CANSparkFlex[m_constants.kFollowerConstants.length];
+      }
+    } else {
+      m_followers = new CANSparkBase[0];
+    }
+
+
+    for (int i = 0; i < m_constants.kFollowerConstants.length; i++) {
+      if (m_constants.kFollowerConstants[0].kRevMotorType == RevMotorType.CAN_SPARK_MAX) {
+        m_followers[i] =
+          new CANSparkMax(
+              m_constants.kFollowerConstants[i].kID, m_constants.kFollowerConstants[i].kMotorType);
+      } else {
+        m_followers[i] =
+          new CANSparkFlex(
+              m_constants.kFollowerConstants[i].kID, m_constants.kFollowerConstants[i].kMotorType);
+      }
+      
+      m_followers[i].setIdleMode(m_constants.kFollowerConstants[i].kIdleMode);
+      m_followers[i].setSmartCurrentLimit(m_constants.kFollowerConstants[i].kCurrentLimit);
+      m_followers[i].follow(m_leader);
+      m_followers[i].burnFlash();
+    }
+
+    if (m_followers.length > 0) m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 5);
 
     m_kp =
         new LoggedShuffleboardTunableNumber(
-            m_constants.kName + " p",
-            m_constants.kKp,
-            RobotContainer.mechTuningTab,
+            m_constants.kSubsystemName + " p",
+            m_constants.kLeaderConstants.kKp,
+            RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
             0,
@@ -106,9 +137,9 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     m_ki =
         new LoggedShuffleboardTunableNumber(
-            m_constants.kName + " i",
-            m_constants.kKi,
-            RobotContainer.mechTuningTab,
+            m_constants.kSubsystemName + " i",
+            m_constants.kLeaderConstants.kKi,
+            RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
             1,
@@ -116,9 +147,9 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     m_kd =
         new LoggedShuffleboardTunableNumber(
-            m_constants.kName + " d",
-            m_constants.kKd,
-            RobotContainer.mechTuningTab,
+            m_constants.kSubsystemName + " d",
+            m_constants.kLeaderConstants.kKd,
+            RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
             2,
@@ -126,9 +157,9 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     m_kMaxAcceleration =
         new LoggedShuffleboardTunableNumber(
-            m_constants.kName + " Max Acceleration",
+            m_constants.kSubsystemName + " Max Acceleration",
             m_constants.kMaxAcceleration,
-            RobotContainer.mechTuningTab,
+            RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
             3,
@@ -136,13 +167,23 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     m_kMaxVelocity =
         new LoggedShuffleboardTunableNumber(
-            m_constants.kName + " Max Velocity",
+            m_constants.kSubsystemName + " Max Velocity",
             m_constants.kMaxVelocity,
-            RobotContainer.mechTuningTab,
+            RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
             4,
             m_constants.kSubsystemType.ordinal());
+    m_tuningPosition =
+        new LoggedShuffleboardTunableNumber(
+            m_constants.kSubsystemName + " Set Position",
+            0,
+            RobotContainer.positionMechTuningTab,
+            BuiltInWidgets.kTextView,
+            null,
+            5,
+            m_constants.kSubsystemType.ordinal());
+
 
     m_profile =
         new TrapezoidProfile(
@@ -153,7 +194,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
             new TrapezoidProfile.Constraints(
                 m_constants.kMaxVelocity * .01, m_constants.kMaxAcceleration * .01));
 
-    setName(m_constants.kName);
+    setName(m_constants.kSubsystemName);
   }
 
   public void runToSetpoint() {
@@ -252,15 +293,16 @@ public abstract class PositionSubsystem extends SubsystemBase {
     m_arbFeedforward = feedforward;
   }
 
-  public void setZeroed(boolean zeroed) {
-    m_isZeroed = zeroed;
+  public void zero(double position) {
+    m_isZeroed = true;
+    m_encoder.setPosition(position);
   }
 
-  public void setDesiredState(PositionSubsystemState desiredState) {
+  public void setDesiredState(PositionSubsystemState desiredState, boolean useMotionProfile) {
     m_desiredState = desiredState;
-    m_profileStartTime = Timer.getFPGATimestamp();
     m_profileStartPosition = getPosition();
     m_profileStartVelocity = getVelocity();
+    if (useMotionProfile) m_profileStartTime = Timer.getFPGATimestamp();
   }
 
   public boolean atSetpoint() {
@@ -284,10 +326,10 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     if (m_isZeroed && !m_hasBeenZeroed) m_hasBeenZeroed = true;
 
-    if (m_profileStartTime == -1) {
-      holdPosition();
-    } else {
+    if (!(m_profileStartTime == -1)) {
       runToSetpoint();
+    } else if (m_currentState == m_constants.kManualState) {
+      holdPosition();
     }
 
     subsystemPeriodic();
@@ -295,30 +337,51 @@ public abstract class PositionSubsystem extends SubsystemBase {
     outputTelemetry();
 
     if (Constants.kTuningMode) {
-      m_pidController.setP(m_kp.get(), m_constants.kDefaultSlot);
-      m_pidController.setI(m_ki.get(), m_constants.kDefaultSlot);
-      m_pidController.setD(m_kd.get(), m_constants.kDefaultSlot);
-      m_profile =
-          new TrapezoidProfile(
-              new TrapezoidProfile.Constraints(m_kMaxVelocity.get(), m_kMaxAcceleration.get()));
+      if (RobotContainer.m_applyPositionMechConfigs.getValue()) {
+        m_pidController.setP(m_kp.get(), m_constants.kDefaultSlot);
+        m_pidController.setI(m_ki.get(), m_constants.kDefaultSlot);
+        m_pidController.setD(m_kd.get(), m_constants.kDefaultSlot);
+        m_leader.burnFlash();
+        m_profile =
+            new TrapezoidProfile(
+                new TrapezoidProfile.Constraints(m_kMaxVelocity.get(), m_kMaxAcceleration.get()));
+
+      }
+
+      if (RobotContainer.m_goToPosition.getValue()) {
+        if (m_currentState != m_constants.kManualState)
+        m_constants.kManualState.setPosition(getPosition());
+
+        if (m_profileStartTime == -1) {
+          m_desiredState = m_constants.kManualState;
+          m_currentState = m_constants.kManualState;
+
+          m_constants.kManualState.setPosition(m_tuningPosition.get());
+          m_constants.kManualState.setPosition(
+              MathUtil.clamp(
+                  m_constants.kManualState.getPosition(),
+                  m_constants.kMinPosition,
+                  m_constants.kMaxPosition));
+        }
+      }
     }
 
     Logger.recordOutput(
-        m_constants.kName + "/Encoder Position", getPosition()); // Current position of encoders
-    Logger.recordOutput(m_constants.kName + "/Encoder Velocity", getVelocity()); // Encoder Velocity
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", getPosition()); // Current position of encoders
+    Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Velocity", getVelocity()); // Encoder Velocity
     Logger.recordOutput(
-        m_constants.kName + "/Trapezoid Desired Position",
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Trapezoid Desired Position",
         m_currentState.getPosition()); // Desired position of trapezoid profile
     Logger.recordOutput(
-        m_constants.kName + "/Trapezoid Desired Velocity",
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Trapezoid Desired Velocity",
         m_currentState.getVelocity()); // Desired position of trapezoid profile
     Logger.recordOutput(
-        m_constants.kName + "/Desired Position", m_desiredState.getPosition()); // Desired position
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired Position", m_desiredState.getPosition()); // Desired position
     Logger.recordOutput(
-        m_constants.kName + "/Current State", m_currentState.getName()); // Current State
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
     Logger.recordOutput(
-        m_constants.kName + "/Desired State", m_desiredState.getName()); // Current State
-    Logger.recordOutput(m_constants.kName + "/At Setpoint", atSetpoint()); // Is at setpoint
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired State", m_desiredState.getName()); // Current State
+    Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/At Setpoint", atSetpoint()); // Is at setpoint
   }
 
   public abstract void subsystemPeriodic();
@@ -342,3 +405,74 @@ public abstract class PositionSubsystem extends SubsystemBase {
     void setVelocity(double velocity);
   }
 }
+
+// EXAMPLE POSITION SUBSYSTEM IMPLEMENTATION
+
+
+// public class ExamplePositionSubsystem extends PositionSubsystem {
+
+
+//     private static ExamplePositionSubsystem m_instance = null;
+
+//     public ExamplePositionSubsystem(PositionSubsystemConstants constants) {
+//         super(constants);
+//     }
+
+//     public static ExamplePositionSubsystem getInstance() {
+//         if (m_instance == null) {
+//             m_instance = new ExamplePositionSubsystem(ExampleConstants.kExamplePositionSubsystemConstants);
+//         }
+
+//         return m_instance;
+//     }
+
+//     @Override
+//     public void subsystemPeriodic() {
+//     }
+
+//     @Override
+//     public void outputTelemetry() {}
+
+//     public enum ExamplePositionSubsystemState implements PositionSubsystemState {
+//         DOWN(0, 0, "Down"),
+//         UP(45, 0, "Up"),
+//         TRANSITION(0, 0, "Transition"),
+//         MANUAL(0, 0, "Manual");
+    
+//         private double position;
+//         private double velocity;
+//         private String name;
+    
+//         private ExamplePositionSubsystemState(double position, double velocity, String name) {
+//           this.position = position;
+//           this.velocity = velocity;
+//           this.name = name;
+//         }
+
+//         @Override
+//         public String getName() {
+//             return name;
+//         }
+
+//         @Override
+//         public double getVelocity() {
+//             return velocity;
+//         }
+
+//         @Override
+//         public void setVelocity(double velocity) {
+//             this.velocity = velocity;
+//         }
+
+//         @Override
+//         public double getPosition() {
+//             return position;
+//         }
+
+//         @Override
+//         public void setPosition(double position) {
+//             this.position = position;
+//         }
+//     }
+    
+// }
