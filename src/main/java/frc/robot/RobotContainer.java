@@ -16,9 +16,6 @@ import frc.lib.utilities.LoggedDashboardChooser;
 import frc.lib.utilities.Shuffleboardbutton;
 import frc.lib.utilities.Alert.AlertType;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.superstructure.SetMultiMotorPositionSubsystemState;
-import frc.robot.subsystems.climb.ClimbWinch;
-import frc.robot.subsystems.climb.ClimbWinch.ClimbWinchState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
@@ -68,13 +65,10 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
 
-    // m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
-    // m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
-    // m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
-    // m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
-
-    m_operatorController.a().onTrue(new SetMultiMotorPositionSubsystemState(ClimbWinch.getInstance(), ClimbWinchState.DOWN));
-    m_operatorController.b().onTrue(new SetMultiMotorPositionSubsystemState(ClimbWinch.getInstance(), ClimbWinchState.UP));
+    m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
+    m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
+    m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
+    m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
   }
 
   public Command getAutonomousCommand() {

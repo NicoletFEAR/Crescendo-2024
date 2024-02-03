@@ -27,6 +27,16 @@ public class SetVelocitySubsystemState extends Command {
     addRequirements(m_subsystem);
   }
 
+
+  public SetVelocitySubsystemState(VelocitySubsystem subsystem, VelocitySubsystemState subsystemState) {
+    m_subsystem = subsystem;
+    m_subsystemState = subsystemState;
+    m_superstructure = null;
+    m_superstructureState = null;
+
+    addRequirements(m_subsystem);
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {

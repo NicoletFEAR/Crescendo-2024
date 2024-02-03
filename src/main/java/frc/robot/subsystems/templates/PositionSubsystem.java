@@ -4,10 +4,12 @@
 
 package frc.robot.subsystems.templates;
 
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 import com.revrobotics.SparkPIDController.ArbFFUnits;
 
@@ -20,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
+import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.lib.utilities.LoggedShuffleboardTunableNumber;
 import frc.lib.utilities.Shuffleboardbutton;
 
@@ -32,8 +35,8 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
   protected final SparkPIDController m_pidController;
 
-  protected final CANSparkMax m_master;
-  protected final CANSparkMax[] m_slaves;
+  protected final CANSparkBase m_leader;
+  protected final CANSparkBase[] m_followers;
   protected final RelativeEncoder m_encoder;
 
   protected TrapezoidProfile m_profile;
@@ -69,39 +72,63 @@ public abstract class PositionSubsystem extends SubsystemBase {
     m_currentState = m_constants.kInitialState;
     m_desiredState = m_constants.kInitialState;
 
-    m_master =
-        new CANSparkMax(m_constants.kMasterConstants.kID, m_constants.kMasterConstants.kMotorType);
-    m_master.setIdleMode(m_constants.kMasterConstants.kIdleMode);
-    m_master.setSmartCurrentLimit(m_constants.kMasterConstants.kCurrentLimit);
-    m_pidController = m_master.getPIDController();
-    m_pidController.setP(m_constants.kMasterConstants.kKp, m_constants.kDefaultSlot);
-    m_pidController.setI(m_constants.kMasterConstants.kKi, m_constants.kDefaultSlot);
-    m_pidController.setD(m_constants.kMasterConstants.kKd, m_constants.kDefaultSlot);
-    m_master.burnFlash();
 
-    m_slaves = new CANSparkMax[m_constants.kSlaveConstants.length];
-
-    for (int i = 0; i < m_constants.kSlaveConstants.length; i++) {
-      m_slaves[i] =
-          new CANSparkMax(
-              m_constants.kSlaveConstants[i].kID, m_constants.kSlaveConstants[i].kMotorType);
-      m_slaves[i].setIdleMode(m_constants.kSlaveConstants[i].kIdleMode);
-      m_slaves[i].setSmartCurrentLimit(m_constants.kSlaveConstants[i].kCurrentLimit);
-      m_slaves[i].follow(m_master);
-      m_slaves[i].burnFlash();
+    if (m_constants.kLeaderConstants.kRevMotorType == RevMotorType.CAN_SPARK_MAX) {
+      m_leader =
+        new CANSparkMax(m_constants.kLeaderConstants.kID, m_constants.kLeaderConstants.kMotorType);
+    } else {
+      m_leader =
+        new CANSparkFlex(m_constants.kLeaderConstants.kID, m_constants.kLeaderConstants.kMotorType);
     }
 
-    if (m_slaves.length > 0) m_master.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 5);
+    m_leader.setIdleMode(m_constants.kLeaderConstants.kIdleMode);
+    m_leader.setSmartCurrentLimit(m_constants.kLeaderConstants.kCurrentLimit);
 
-    m_encoder = m_master.getEncoder();
+    m_pidController = m_leader.getPIDController();
+    m_pidController.setP(m_constants.kLeaderConstants.kKp, m_constants.kDefaultSlot);
+    m_pidController.setI(m_constants.kLeaderConstants.kKi, m_constants.kDefaultSlot);
+    m_pidController.setD(m_constants.kLeaderConstants.kKd, m_constants.kDefaultSlot);
+
+    m_encoder = m_leader.getEncoder();
     m_encoder.setPosition(m_constants.kHomePosition);
     m_encoder.setPositionConversionFactor(m_constants.kPositionConversionFactor);
-    m_encoder.setVelocityConversionFactor(m_constants.kPositionConversionFactor / 60);
+
+    m_leader.burnFlash();
+
+    if (m_constants.kFollowerConstants.length > 0) {
+      if (m_constants.kFollowerConstants[0].kRevMotorType == RevMotorType.CAN_SPARK_MAX) {
+        m_followers = new CANSparkMax[m_constants.kFollowerConstants.length];
+      } else {
+        m_followers = new CANSparkFlex[m_constants.kFollowerConstants.length];
+      }
+    } else {
+      m_followers = new CANSparkBase[0];
+    }
+
+
+    for (int i = 0; i < m_constants.kFollowerConstants.length; i++) {
+      if (m_constants.kFollowerConstants[0].kRevMotorType == RevMotorType.CAN_SPARK_MAX) {
+        m_followers[i] =
+          new CANSparkMax(
+              m_constants.kFollowerConstants[i].kID, m_constants.kFollowerConstants[i].kMotorType);
+      } else {
+        m_followers[i] =
+          new CANSparkFlex(
+              m_constants.kFollowerConstants[i].kID, m_constants.kFollowerConstants[i].kMotorType);
+      }
+      
+      m_followers[i].setIdleMode(m_constants.kFollowerConstants[i].kIdleMode);
+      m_followers[i].setSmartCurrentLimit(m_constants.kFollowerConstants[i].kCurrentLimit);
+      m_followers[i].follow(m_leader);
+      m_followers[i].burnFlash();
+    }
+
+    if (m_followers.length > 0) m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 5);
 
     m_kp =
         new LoggedShuffleboardTunableNumber(
             m_constants.kSubsystemName + " p",
-            m_constants.kMasterConstants.kKp,
+            m_constants.kLeaderConstants.kKp,
             RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
@@ -111,7 +138,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
     m_ki =
         new LoggedShuffleboardTunableNumber(
             m_constants.kSubsystemName + " i",
-            m_constants.kMasterConstants.kKi,
+            m_constants.kLeaderConstants.kKi,
             RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
@@ -121,7 +148,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
     m_kd =
         new LoggedShuffleboardTunableNumber(
             m_constants.kSubsystemName + " d",
-            m_constants.kMasterConstants.kKd,
+            m_constants.kLeaderConstants.kKd,
             RobotContainer.positionMechTuningTab,
             BuiltInWidgets.kTextView,
             Map.of("min", 0),
@@ -314,7 +341,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
         m_pidController.setP(m_kp.get(), m_constants.kDefaultSlot);
         m_pidController.setI(m_ki.get(), m_constants.kDefaultSlot);
         m_pidController.setD(m_kd.get(), m_constants.kDefaultSlot);
-        m_master.burnFlash();
+        m_leader.burnFlash();
         m_profile =
             new TrapezoidProfile(
                 new TrapezoidProfile.Constraints(m_kMaxVelocity.get(), m_kMaxAcceleration.get()));
@@ -378,3 +405,74 @@ public abstract class PositionSubsystem extends SubsystemBase {
     void setVelocity(double velocity);
   }
 }
+
+// EXAMPLE POSITION SUBSYSTEM IMPLEMENTATION
+
+
+// public class ExamplePositionSubsystem extends PositionSubsystem {
+
+
+//     private static ExamplePositionSubsystem m_instance = null;
+
+//     public ExamplePositionSubsystem(PositionSubsystemConstants constants) {
+//         super(constants);
+//     }
+
+//     public static ExamplePositionSubsystem getInstance() {
+//         if (m_instance == null) {
+//             m_instance = new ExamplePositionSubsystem(ExampleConstants.kExamplePositionSubsystemConstants);
+//         }
+
+//         return m_instance;
+//     }
+
+//     @Override
+//     public void subsystemPeriodic() {
+//     }
+
+//     @Override
+//     public void outputTelemetry() {}
+
+//     public enum ExamplePositionSubsystemState implements PositionSubsystemState {
+//         DOWN(0, 0, "Down"),
+//         UP(45, 0, "Up"),
+//         TRANSITION(0, 0, "Transition"),
+//         MANUAL(0, 0, "Manual");
+    
+//         private double position;
+//         private double velocity;
+//         private String name;
+    
+//         private ExamplePositionSubsystemState(double position, double velocity, String name) {
+//           this.position = position;
+//           this.velocity = velocity;
+//           this.name = name;
+//         }
+
+//         @Override
+//         public String getName() {
+//             return name;
+//         }
+
+//         @Override
+//         public double getVelocity() {
+//             return velocity;
+//         }
+
+//         @Override
+//         public void setVelocity(double velocity) {
+//             this.velocity = velocity;
+//         }
+
+//         @Override
+//         public double getPosition() {
+//             return position;
+//         }
+
+//         @Override
+//         public void setPosition(double position) {
+//             this.position = position;
+//         }
+//     }
+    
+// }
