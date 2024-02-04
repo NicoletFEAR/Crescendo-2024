@@ -290,11 +290,16 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
   }
 
   public void setDesiredState(MultiMotorPositionSubsystemState desiredState, boolean useMotionProfile) {
-    m_desiredState = desiredState;
     for (int i = 0; i < m_motors.length; i++) {
-      m_profileStartPosition[i] = getPosition()[i];
-      m_profileStartVelocity[i] = getVelocity()[i];
+      m_setpoint =
+          m_profile.calculate(
+              Timer.getFPGATimestamp() - m_profileStartTime,
+              new TrapezoidProfile.State(m_profileStartPosition[i], m_profileStartVelocity[i]),
+              new TrapezoidProfile.State(m_desiredState.getPosition()[i], 0));
+      m_profileStartPosition[i] = m_setpoint.position;
+      m_profileStartVelocity[i] = m_setpoint.velocity;
     }
+    m_desiredState = desiredState;
     if (useMotionProfile) m_profileStartTime = Timer.getFPGATimestamp();
   }
 

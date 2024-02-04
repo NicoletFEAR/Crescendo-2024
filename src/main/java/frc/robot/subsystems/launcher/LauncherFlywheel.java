@@ -1,8 +1,14 @@
 package frc.robot.subsystems.launcher;
 
 
+import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
+import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
-import frc.robot.Constants.LauncherConstants;
+
+import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.templates.VelocitySubsystem;
 
 public class LauncherFlywheel extends VelocitySubsystem {
@@ -15,7 +21,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
     public static LauncherFlywheel getInstance() {
         if (m_instance == null) {
-            m_instance = new LauncherFlywheel(LauncherConstants.kLauncherFlywheelConstants);
+            m_instance = new LauncherFlywheel(LauncherFlywheelConstants.kLauncherFlywheelConstants);
         }
 
         return m_instance;
@@ -80,4 +86,60 @@ public class LauncherFlywheel extends VelocitySubsystem {
         }
     }
     
+    public class LauncherFlywheelConstants {
+        public static final SparkConstants kTopLauncherFlywheelConstants = new SparkConstants();
+
+        static {
+            kTopLauncherFlywheelConstants.kID = MotorConstants.kLauncherTopFlywheelID;
+            kTopLauncherFlywheelConstants.kRevMotorType = RevMotorType.CAN_SPARK_FLEX;
+            kTopLauncherFlywheelConstants.kName = "Top Launcher Flywheel";
+            kTopLauncherFlywheelConstants.kIdleMode = IdleMode.kCoast;
+            kTopLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
+            kTopLauncherFlywheelConstants.kCurrentLimit = 80;
+            kTopLauncherFlywheelConstants.kInverted = false;
+            kTopLauncherFlywheelConstants.kKp = 0.00001;
+            kTopLauncherFlywheelConstants.kKi = 0.0;
+            kTopLauncherFlywheelConstants.kKd = 0.0;
+            kTopLauncherFlywheelConstants.kKff = 0.0001675;
+        }
+
+        public static final SparkConstants kBottomLauncherFlywheelConstants = new SparkConstants();
+
+        static {
+            kBottomLauncherFlywheelConstants.kID = MotorConstants.kLauncherBottomFlywheelID;
+            kBottomLauncherFlywheelConstants.kRevMotorType = RevMotorType.CAN_SPARK_FLEX;
+            kBottomLauncherFlywheelConstants.kName = "Bottom Launcher Flywheel";
+            kBottomLauncherFlywheelConstants.kIdleMode = IdleMode.kCoast;
+            kBottomLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
+            kBottomLauncherFlywheelConstants.kCurrentLimit = 80;
+            kBottomLauncherFlywheelConstants.kInverted = false;
+            kBottomLauncherFlywheelConstants.kKp = 0.00001;
+            kBottomLauncherFlywheelConstants.kKi = 0.0;
+            kBottomLauncherFlywheelConstants.kKd = 0.0;
+            kBottomLauncherFlywheelConstants.kKff = 0.0001675;
+        }
+
+        public static final VelocitySubsystemConstants kLauncherFlywheelConstants =
+            new VelocitySubsystemConstants();
+
+        static {
+            kLauncherFlywheelConstants.kSubsystemName = "Launcher Flywheel";
+            kLauncherFlywheelConstants.kSuperstructureName = "Launcher";
+
+            kLauncherFlywheelConstants.kSubsystemType = VelocitySubsystemType.LAUNCHER_FLYWHEEL;
+
+            kLauncherFlywheelConstants.kMotorConstants = new SparkConstants[] {kTopLauncherFlywheelConstants, kBottomLauncherFlywheelConstants};
+
+            kLauncherFlywheelConstants.kVelocityConversionFactor = 1.0; 
+
+            kLauncherFlywheelConstants.kDefaultSlot = 0;
+
+            kLauncherFlywheelConstants.kSetpointTolerance = 1.0;
+
+            kLauncherFlywheelConstants.kInitialState = LauncherFlywheelState.OFF;
+            kLauncherFlywheelConstants.kTransitionState = LauncherFlywheelState.TRANSITION;
+            kLauncherFlywheelConstants.kManualState = LauncherFlywheelState.MANUAL;
+        }
+    }
+
 }

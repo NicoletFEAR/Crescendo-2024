@@ -192,11 +192,13 @@ public class SwerveModule extends SubsystemBase {
         m_driveController.setD(SwerveDrive.drivekd.get());
         m_driveController.setFF(SwerveDrive.drivekff.get());
         m_driveMotor.setOpenLoopRampRate(SwerveDrive.driveRampRate.get());
+        m_driveMotor.burnFlash();
 
         m_turnController.setP(SwerveDrive.drivekp.get());
         m_turnController.setI(SwerveDrive.driveki.get());
         m_turnController.setD(SwerveDrive.drivekd.get());
         m_turnController.setFF(SwerveDrive.drivekff.get());
+        m_turningMotor.burnFlash();
       }
     }
   }

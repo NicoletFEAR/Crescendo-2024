@@ -240,20 +240,26 @@ public abstract class PositionSubsystem extends SubsystemBase {
       case BUMPERS:
          m_throttle =
           RobotContainer.m_operatorController.getHID().getLeftBumper()
-              ? 1
-              : 0 + (RobotContainer.m_operatorController.getHID().getRightBumper() ? -1 : 0);
+              ? -1
+              : (RobotContainer.m_operatorController.getHID().getRightBumper() ? 1 : 0);
+        break;
       case LEFT_X:
-        m_throttle = -RobotContainer.m_operatorController.getLeftX();
+        m_throttle = RobotContainer.m_operatorController.getLeftX();
+        break;
       case LEFT_Y:
         m_throttle = -RobotContainer.m_operatorController.getLeftY();
+        break;
       case RIGHT_X:
-        m_throttle = -RobotContainer.m_operatorController.getRightX();
+        m_throttle = RobotContainer.m_operatorController.getRightX();
+        break;
       case RIGHT_Y:
         m_throttle = -RobotContainer.m_operatorController.getRightY();
+        break;
       case TRIGGERS:
-        m_throttle =
+        m_throttle = 
           RobotContainer.m_operatorController.getRightTriggerAxis()
               - RobotContainer.m_operatorController.getLeftTriggerAxis();
+        break;
     }
 
     m_throttle = MathUtil.applyDeadband(m_throttle, m_constants.kManualDeadBand);
@@ -299,16 +305,21 @@ public abstract class PositionSubsystem extends SubsystemBase {
   }
 
   public void setDesiredState(PositionSubsystemState desiredState, boolean useMotionProfile) {
-    m_setpoint =
-    m_profile.calculate(
-        Timer.getFPGATimestamp() - m_profileStartTime,
-        new TrapezoidProfile.State(m_profileStartPosition, m_profileStartVelocity),
-        new TrapezoidProfile.State(m_desiredState.getPosition(), 0));
-    m_desiredState = desiredState;
-    
-    m_profileStartPosition = m_setpoint.position;
+    if (m_currentState != m_constants.kManualState) {
+      m_setpoint =
+        m_profile.calculate(
+            Timer.getFPGATimestamp() - m_profileStartTime,
+            new TrapezoidProfile.State(m_profileStartPosition, m_profileStartVelocity),
+            new TrapezoidProfile.State(m_desiredState.getPosition(), 0));
+      m_profileStartPosition = m_setpoint.position;
+      m_profileStartVelocity = m_setpoint.velocity;
+    } else {
+      m_profileStartPosition = getPosition();
+      m_profileStartVelocity = getVelocity();
+      System.out.println("BRUH");
+    }
 
-    m_profileStartVelocity = m_setpoint.velocity;
+    m_desiredState = desiredState;
 
     if (useMotionProfile) m_profileStartTime = Timer.getFPGATimestamp();
   }
@@ -398,7 +409,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
   public enum PositionSubsystemType {
     LAUNCHER_WRIST,
-    FALCON_TESTING
+    ELEVATOR_LIFT
   }
 
   public interface PositionSubsystemState {

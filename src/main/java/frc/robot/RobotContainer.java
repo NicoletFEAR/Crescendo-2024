@@ -28,7 +28,10 @@ import frc.robot.commands.auto.CenterNoteAuto;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.drivebase.TurnToAngle;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
+import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.intake.ElevatorLift;
+import frc.robot.subsystems.intake.ElevatorLift.ElevatorLiftState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherWrist;
@@ -79,7 +82,9 @@ public class RobotContainer {
       new Alert("Tuning Mode Activated, expect decreased network performance.", AlertType.INFO);
 
   public RobotContainer() {
+    ElevatorLift.getInstance().setDefaultCommand(new ManualPositionSubsystem(ElevatorLift.getInstance()));
     LauncherWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(LauncherWrist.getInstance()));
+
     // NAMED COMMANDS FOR AUTO \\
     // you would never do this while following a path, its just to show how to implement
 
@@ -100,40 +105,38 @@ public class RobotContainer {
             true,
             DriveConstants.kRegularSpeed,
             true));
-    // m_launcherWrist.setDefaultCommand(new ManualPositionSubsystem(m_launcherWrist));
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
 
-    // XBOX 0
-    // m_driverController
-    //     .leftBumper()
-    //     .onTrue(
-    //         new TeleopSwerve(
-    //             m_drivebase,
-    //             m_driverController,
-    //             translationAxis,
-    //             strafeAxis,
-    //             rotationAxis,
-    //             true,
-    //             DriveConstants.kSlowSpeed,
-    //             true));
+    // DRIVER CONTROLS \\
 
-    // m_driverController
-    //     .leftBumper()
-    //     .onFalse(
-    //         new TeleopSwerve(
-    //             m_drivebase,
-    //             m_driverController,
-    //             translationAxis,
-    //             strafeAxis,
-    //             rotationAxis,
-    //             true,
-    //             DriveConstants.kRegularSpeed,
-    //             true));
+    m_driverController.R1().onTrue(new TeleopSwerve(
+      m_drivebase,
+      m_driverController,
+      translationAxis,
+      strafeAxis,
+      rotationAxis,
+      true,
+      DriveConstants.kSprintSpeed,
+      true));
 
-    // m_driverController.back().onTrue(new InstantCommand(m_drivebase::zeroGyroscope));
+    m_driverController.R1().onFalse(new TeleopSwerve(
+      m_drivebase,
+      m_driverController,
+      translationAxis,
+      strafeAxis,
+      rotationAxis,
+      true,
+      DriveConstants.kRegularSpeed,
+      true));
+
+    m_driverController.create().onTrue(new InstantCommand(m_drivebase::zeroGyroscope));
+
+
+    m_operatorController.a().onTrue(new SetPositionSubsystemState(ElevatorLift.getInstance(), ElevatorLiftState.UP));
+    m_operatorController.b().onTrue(new SetPositionSubsystemState(ElevatorLift.getInstance(), ElevatorLiftState.DOWN));
 
     // // Example of an automatic path generated to score in the B2 zone
     // m_driverController
@@ -167,11 +170,12 @@ public class RobotContainer {
     //     .onTrue(new InstantCommand(() -> m_drivebase.setAngleToSnap(AngleToSnap.FORWARD)));
     // m_driverController.x().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
 
-    m_operatorController.a().onTrue(new TurnToAngle(m_drivebase));
-    m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
-    m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
-    m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
-    m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
+    // m_operatorController.a().onTrue(new TurnToAngle(m_drivebase));
+    // m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
+    // m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
+    // m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
+    // m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
+    
   }
 
   public Command getAutonomousCommand() {

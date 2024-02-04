@@ -85,6 +85,12 @@
           "Elevator": {
             "open": true
           },
+          "Intake": {
+            "Elevator Lift": {
+              "open": true
+            },
+            "open": true
+          },
           "Launcher": {
             "Launcher Flywheel": {
               "open": true
