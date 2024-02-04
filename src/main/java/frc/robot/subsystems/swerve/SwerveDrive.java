@@ -15,7 +15,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -28,7 +27,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.Limelight;
 import frc.robot.RobotContainer;
 import frc.lib.utilities.GeometryUtils;
 import frc.lib.utilities.LoggedShuffleboardTunableNumber;
@@ -483,7 +481,7 @@ public class SwerveDrive extends SubsystemBase {
     //         .getTranslation()
     //         .getDistance(Limelight.getInstance().getLimelightPose().getTranslation())
     //     <= 2.5 &&
-    //     Limelight.getInstance().getLimelightPose().getTranslation().getDistance(new Translation2d(0, 0)) < 1.5) {
+    //     Limelight.getInstance().getLimelightPose().getTranslation().getDistance(new Translation2d(0, 0)) > 1.5) {
     //   poseEstimator.addVisionMeasurement(
     //       Limelight.getInstance().getLimelightPose(),
     //       Timer.getFPGATimestamp() - (Limelight.getInstance().getBotPose()[6] / 1000.0),
