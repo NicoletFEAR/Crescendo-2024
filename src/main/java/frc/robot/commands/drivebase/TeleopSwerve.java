@@ -2,6 +2,7 @@ package frc.robot.commands.drivebase;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.swerve.SwerveDrive;
@@ -18,7 +19,7 @@ public class TeleopSwerve extends Command {
 
   private final double STICK_DEAD_BAND = 0.1;
 
-  private CommandXboxController m_controller;
+  private CommandPS5Controller m_controller;
 
   public double m_percentSpeed;
 
@@ -51,7 +52,7 @@ public class TeleopSwerve extends Command {
    */
   public TeleopSwerve(
       SwerveDrive m_drivebase,
-      CommandXboxController controller,
+      CommandPS5Controller controller,
       int translationAxis,
       int strafeAxis,
       int rotationAxis,

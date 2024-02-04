@@ -55,9 +55,9 @@ public final class Constants {
     public static double drivekff = 0.23983;
     public static double driverampRate = 0.1;
 
-    public static double turnkp = 0.05;
+    public static double turnkp = 0.02;
     public static double turnki = 0.0;
-    public static double turnkd = 0.0;
+    public static double turnkd = 0.01;
     public static double turnkff = 0.0;
 
     public static double kDriveModifier = 2;
@@ -83,14 +83,14 @@ public final class Constants {
                 / 2); // Distance from center of the robot to corner of the bumpers
 
     public static final double kMaxMetersPerSecond =
-        Units.feetToMeters(12); // Run drivebase at max speed on the ground to find top speed
+        Units.feetToMeters(20.1); // Run drivebase at max speed on the ground to find top speed
 
     public static final double kDriveGearRatio = 5.90318; // MK4i L2 with 16t driving gear, find on sds website
 
     public static final double kTurnGearRatio =
         150.0 / 7.0; // MK4i turning ratio MK4i Neo, find on sds website
 
-    public static final double kWheelDiameter = Units.inchesToMeters(3.8); // Wheel diameter
+    public static final double kWheelDiameter = Units.inchesToMeters(3.915); // Wheel diameter
 
     public static final double kMaxRotationRadiansPerSecond =
         Math.PI * 2.0; // Just kind of find what works, this is from 930 2023

@@ -19,6 +19,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -53,6 +54,8 @@ public class SwerveDrive extends SubsystemBase {
   private AngleToSnap m_angleToSnap = AngleToSnap.NONE;
 
   private boolean m_xWheels = false;
+
+  private double m_simyaw = 0;
 
   public static final LoggedShuffleboardTunableNumber drivekp =
       new LoggedShuffleboardTunableNumber(
@@ -395,13 +398,23 @@ public class SwerveDrive extends SubsystemBase {
   // }
 
   public Rotation2d getYaw() {
-    return (invertGyro)
-        ? Rotation2d.fromDegrees(360 - m_pigeon.getYaw().getValue())
-        : Rotation2d.fromDegrees(m_pigeon.getYaw().getValue());
+    if (RobotBase.isReal()) {
+      return (invertGyro)
+          ? Rotation2d.fromDegrees(360 - m_pigeon.getYaw().getValue())
+          : Rotation2d.fromDegrees(m_pigeon.getYaw().getValue());
+    } else {
+      return Rotation2d.fromDegrees(m_simyaw);
+    }
+
   }
 
   public double getYawDegrees() {
-    return Math.IEEEremainder(m_pigeon.getYaw().getValue(), 360);
+    if (RobotBase.isReal()) {
+      return Math.IEEEremainder(m_pigeon.getYaw().getValue(), 360);
+    } else {
+      return Math.IEEEremainder(m_simyaw, 360);
+    }
+    
   }
 
   public void setAngleToSnap(AngleToSnap rotation) {
@@ -465,35 +478,35 @@ public class SwerveDrive extends SubsystemBase {
 
   public void realPeriodic() {
     
-    if (poseEstimator
-            .getEstimatedPosition()
-            .getTranslation()
-            .getDistance(Limelight.getInstance().getLimelightPose().getTranslation())
-        <= 2.5 &&
-        Limelight.getInstance().getLimelightPose().getTranslation().getDistance(new Translation2d(0, 0)) < 1.5) {
-      poseEstimator.addVisionMeasurement(
-          Limelight.getInstance().getLimelightPose(),
-          Timer.getFPGATimestamp() - (Limelight.getInstance().getBotPose()[6] / 1000.0),
-          VecBuilder.fill(
-              1
-                  - Math.pow(
-                      Limelight.getInstance().getA(),
-                      apriltagTrustMultiplier
-                          .get()), // Higher the multiplier the closer it has to be to the tag to
-              // trust it
-              1 - Math.pow(Limelight.getInstance().getA(), apriltagTrustMultiplier.get()),
-              0.9));
-    }
+    // if (poseEstimator
+    //         .getEstimatedPosition()
+    //         .getTranslation()
+    //         .getDistance(Limelight.getInstance().getLimelightPose().getTranslation())
+    //     <= 2.5 &&
+    //     Limelight.getInstance().getLimelightPose().getTranslation().getDistance(new Translation2d(0, 0)) < 1.5) {
+    //   poseEstimator.addVisionMeasurement(
+    //       Limelight.getInstance().getLimelightPose(),
+    //       Timer.getFPGATimestamp() - (Limelight.getInstance().getBotPose()[6] / 1000.0),
+    //       VecBuilder.fill(
+    //           1
+    //               - Math.pow(
+    //                   Limelight.getInstance().getA(),
+    //                   apriltagTrustMultiplier
+    //                       .get()), // Higher the multiplier the closer it has to be to the tag to
+    //           // trust it
+    //           1 - Math.pow(Limelight.getInstance().getA(), apriltagTrustMultiplier.get()),
+    //           0.9));
+    // }
   }
 
   @Override
   public void simulationPeriodic() {
-    m_pigeon.setYaw(
-        m_pigeon.getYaw().getValue()
+    m_simyaw = 
+        m_simyaw 
             + Units.radiansToDegrees(
                 DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates())
                         .omegaRadiansPerSecond
-                    * 0.02));
+                    * 0.02);
   }
 
   public void tuningPeriodic() {

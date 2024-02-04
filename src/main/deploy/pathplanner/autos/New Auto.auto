@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.29,
+      "y": 5.57
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Auto Path 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Auto Path 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Auto path 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Auto path 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Auto path 5"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Autos",
+  "choreoAuto": false
+}

@@ -142,30 +142,29 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
-    desiredState = RevUtils.optimize(desiredState, getHeadingRotation2d());
+    SwerveModuleState m_desiredState = RevUtils.optimize(desiredState, getHeadingRotation2d());
 
     if (isOpenLoop) {
-      double percentOutput = desiredState.speedMetersPerSecond / DriveConstants.kMaxMetersPerSecond;
+      double percentOutput = m_desiredState.speedMetersPerSecond / DriveConstants.kMaxMetersPerSecond;
       m_driveMotor.set(percentOutput);
     } else {
       int DRIVE_PID_SLOT = VEL_SLOT;
       m_driveController.setReference(
-          desiredState.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity, DRIVE_PID_SLOT);
+          m_desiredState.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity, DRIVE_PID_SLOT);
     }
 
     double angle =
-        (Math.abs(desiredState.speedMetersPerSecond)
+        (Math.abs(m_desiredState.speedMetersPerSecond)
                 <= (DriveConstants.kMaxMetersPerSecond
-                    * 0.05)) // Prevent rotating module if speed is less than 1%. Prevents
+                    * 0.01)) // Prevent rotating module if speed is less than 1%. Prevents
             // Jittering.
             ? m_lastAngle
-            : desiredState.angle.getDegrees();
-    angle = desiredState.angle.getDegrees();
+            : m_desiredState.angle.getDegrees();
     m_turnController.setReference(angle, CANSparkMax.ControlType.kPosition, POS_SLOT);
     m_lastAngle = angle;
 
     if (RobotBase.isSimulation()) {
-      simUpdateDrivePosition(desiredState);
+      simUpdateDrivePosition(m_desiredState);
       // simTurnPosition(angle);
       m_currentAngle = angle;
     }
