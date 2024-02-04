@@ -22,11 +22,16 @@ import frc.lib.utilities.Alert;
 import frc.lib.utilities.LoggedDashboardChooser;
 import frc.lib.utilities.ShuffleboardButton;
 import frc.lib.utilities.Alert.AlertType;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.auto.CenterNoteAuto;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.drivebase.TurnToAngle;
+import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.launcher.LauncherSuperstructure;
+import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
+import frc.robot.subsystems.launcher.LauncherWrist;
 import frc.robot.subsystems.swerve.SwerveDrive;
 
 /*
@@ -51,11 +56,20 @@ public class RobotContainer {
   public static ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
   public static ShuffleboardTab driveTuningTab =
       kTuningMode ? Shuffleboard.getTab("Drive Tuning") : null;
-  public static ShuffleboardTab mechTuningTab =
-      kTuningMode ? Shuffleboard.getTab("Mech Tuning") : null;
-  public static ShuffleboardButton m_applyDriveTuning = new ShuffleboardButton("Apply Drive Tuning", false, driveTuningTab, BuiltInWidgets.kToggleButton, null, 6, 0, Constants.kTuningMode);
+  public static ShuffleboardTab positionMechTuningTab =
+      kTuningMode ? Shuffleboard.getTab("Position Mech Tuning") : null;
+  public static ShuffleboardTab velocityMechTuningTab =
+      kTuningMode ? Shuffleboard.getTab("Velocity Mech Tuning") : null;
+
+  public static ShuffleboardButton m_applyDriveTuning = kTuningMode ? new ShuffleboardButton("Apply Drive Tuning", false, driveTuningTab, BuiltInWidgets.kToggleButton, null, 6, 0) : null;
+  public static ShuffleboardButton m_applyPositionMechConfigs = kTuningMode ? new ShuffleboardButton("Apply Position Mech Configs", false, positionMechTuningTab, BuiltInWidgets.kToggleButton , null, 6, 0) : null;
+  public static ShuffleboardButton m_applyVelocityMechConfigs = kTuningMode ? new ShuffleboardButton("Apply Velocity Mech Configs", false, velocityMechTuningTab, BuiltInWidgets.kToggleButton , null, 4, 0) : null;
+  public static ShuffleboardButton m_goToPosition = kTuningMode ? new ShuffleboardButton("Go To Position", false, positionMechTuningTab, BuiltInWidgets.kToggleButton , null, 7, 0) : null;
+  public static ShuffleboardButton m_goToVelocity = kTuningMode ? new ShuffleboardButton("Go To Velocity", false, velocityMechTuningTab, BuiltInWidgets.kToggleButton , null, 5, 0) : null;
+  
   // SUBSYSTEMS \\
   private SwerveDrive m_drivebase = SwerveDrive.getInstance();
+  private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
 
   // SENDABLE CHOOSER \\
   public static LoggedDashboardChooser<Command> autoChooser;
@@ -65,7 +79,7 @@ public class RobotContainer {
       new Alert("Tuning Mode Activated, expect decreased network performance.", AlertType.INFO);
 
   public RobotContainer() {
-
+    LauncherWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(LauncherWrist.getInstance()));
     // NAMED COMMANDS FOR AUTO \\
     // you would never do this while following a path, its just to show how to implement
 
@@ -87,7 +101,6 @@ public class RobotContainer {
             DriveConstants.kRegularSpeed,
             true));
     // m_launcherWrist.setDefaultCommand(new ManualPositionSubsystem(m_launcherWrist));
-
     configureButtonBindings();
   }
 
@@ -155,6 +168,10 @@ public class RobotContainer {
     // m_driverController.x().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
 
     m_operatorController.a().onTrue(new TurnToAngle(m_drivebase));
+    m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
+    m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
+    m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
+    m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
   }
 
   public Command getAutonomousCommand() {
@@ -176,5 +193,6 @@ public class RobotContainer {
     Limelight.getInstance().realPeriodic();
   }
 
-  public void periodic() {}
+  public void periodic() {
+  }
 }

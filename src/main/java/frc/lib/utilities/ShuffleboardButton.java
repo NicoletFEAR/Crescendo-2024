@@ -17,17 +17,14 @@ public class ShuffleboardButton {
       WidgetType widget,
       Map<String, Object> properties,
       int columnIndex,
-      int rowIndex,
-      boolean tuningMode) {
+      int rowIndex) {
         this.defaultValue = defaultValue;
-        if (tuningMode) {
         this.entry =
             tab.add(key, defaultValue)
                 .withWidget(widget)
                 .withProperties(properties)
                 .withPosition(columnIndex, rowIndex)
                 .getEntry();
-        }
     }
 
     public boolean getValue() {

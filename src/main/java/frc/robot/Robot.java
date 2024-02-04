@@ -14,7 +14,6 @@
 package frc.robot;
 
 import com.pathplanner.lib.pathfinding.Pathfinding;
-import com.revrobotics.REVPhysicsSim;
 
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -109,7 +108,6 @@ public class Robot extends LoggedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    REVPhysicsSim.getInstance().run();
 
     if (Constants.kTuningMode) {
       m_robotContainer.tuningPeriodic();

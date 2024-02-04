@@ -54,25 +54,65 @@
     }
   },
   "NetworkTables": {
+    "retained": {
+      "Shuffleboard": {
+        "Main": {
+          "open": true
+        }
+      }
+    },
     "transitory": {
       "AdvantageKit": {
         "RealOutputs": {
           "Arm": {
             "open": true
           },
+          "Climb Winch": {
+            "Left Winch": {
+              "open": true
+            },
+            "Right Winch": {
+              "open": true
+            },
+            "open": true
+          },
           "Drivebase": {
+            "open": true
+          },
+          "ERROR_ASSIGN_A_NAME": {
             "open": true
           },
           "Elevator": {
             "open": true
           },
-          "Launcher Flywheel": {
+          "Launcher": {
+            "Launcher Flywheel": {
+              "open": true
+            },
+            "Launcher Wrist": {
+              "open": true
+            },
             "open": true
           },
-          "Launcher Superstructure": {
+          "Launcher Flywheel": {
+            "Top Launcher Flywheel": {
+              "open": true
+            },
+            "double[]##v_/AdvantageKit/RealOutputs/Launcher Flywheel/Desired Velocity": {
+              "open": true
+            },
+            "double[]##v_/AdvantageKit/RealOutputs/Launcher Flywheel/Encoder Velocity": {
+              "open": true
+            },
             "open": true
           },
           "Launcher Wrist": {
+            "Left Winch": {
+              "open": true
+            },
+            "Right Winch": {
+              "open": true
+            },
             "open": true
           },
           "LauncherLauncherSuperstructure": {
