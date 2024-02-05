@@ -26,14 +26,11 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.auto.CenterNoteAuto;
 import frc.robot.commands.drivebase.TeleopSwerve;
-import frc.robot.commands.drivebase.TurnToAngle;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.intake.ElevatorLift;
 import frc.robot.subsystems.intake.ElevatorLift.ElevatorLiftState;
-import frc.robot.subsystems.launcher.LauncherSuperstructure;
-import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherWrist;
 import frc.robot.subsystems.swerve.SwerveDrive;
 
@@ -72,7 +69,6 @@ public class RobotContainer {
   
   // SUBSYSTEMS \\
   private SwerveDrive m_drivebase = SwerveDrive.getInstance();
-  private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
 
   // SENDABLE CHOOSER \\
   public static LoggedDashboardChooser<Command> autoChooser;

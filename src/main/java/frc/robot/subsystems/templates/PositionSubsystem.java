@@ -315,8 +315,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
       m_profileStartVelocity = m_setpoint.velocity;
     } else {
       m_profileStartPosition = getPosition();
-      m_profileStartVelocity = getVelocity();
-      System.out.println("BRUH");
+      m_profileStartVelocity = 0;
     }
 
     m_desiredState = desiredState;

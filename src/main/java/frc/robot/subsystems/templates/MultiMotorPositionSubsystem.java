@@ -302,7 +302,7 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
       }
     } else {
       m_profileStartPosition = getPosition();
-      m_profileStartVelocity = getVelocity();
+      m_profileStartVelocity = new double[m_motors.length];
     }
 
     m_desiredState = desiredState;

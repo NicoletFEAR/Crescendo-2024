@@ -84,7 +84,7 @@ public class ElevatorLift extends PositionSubsystem {
           kElevatorLiftLeaderConstants.kName = "Elevator Lift Right";
           kElevatorLiftLeaderConstants.kIdleMode = IdleMode.kBrake;
           kElevatorLiftLeaderConstants.kMotorType = MotorType.kBrushless;
-          kElevatorLiftLeaderConstants.kCurrentLimit = 80;
+          kElevatorLiftLeaderConstants.kCurrentLimit = 35;
           kElevatorLiftLeaderConstants.kInverted = false;
           kElevatorLiftLeaderConstants.kKp = 0.1;
           kElevatorLiftLeaderConstants.kKi = 0.0;
@@ -100,7 +100,7 @@ public class ElevatorLift extends PositionSubsystem {
           kElevatorLiftFollowerConstants[0].kName = "Elevator Lift Left";
           kElevatorLiftFollowerConstants[0].kIdleMode = IdleMode.kBrake;
           kElevatorLiftFollowerConstants[0].kMotorType = MotorType.kBrushless;
-          kElevatorLiftFollowerConstants[0].kCurrentLimit = 80;
+          kElevatorLiftFollowerConstants[0].kCurrentLimit = 35;
           kElevatorLiftFollowerConstants[0].kInverted = true;
         }
 
