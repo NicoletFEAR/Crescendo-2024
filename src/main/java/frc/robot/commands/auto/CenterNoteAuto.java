@@ -19,10 +19,12 @@ import frc.robot.subsystems.swerve.SwerveDrive;
 
 public class CenterNoteAuto extends Command {
   /** Creates a new CenterNoteAuto. */
-  private boolean[] m_availableNotes = new boolean[] {false, true, true, false, true};
+  private boolean[] m_availableNotes = new boolean[] {true, true, true, true, true};
   private Command m_noteCommandRunning;
   private Command m_scoreCommandRunning;
   private Command m_sequentialCommandRunning;
+
+  private int lastIndex = 0;
 
   PathPlannerPath note5 = PathPlannerPath.fromPathFile("Note 5");
   PathPlannerPath note4 = PathPlannerPath.fromPathFile("Note 4");
@@ -46,26 +48,30 @@ public class CenterNoteAuto extends Command {
   @Override
   public void initialize() {
 
-    m_poseToUse = getIndexToUse() > 2 ? m_scoreBot : m_scoreTop;
+    lastIndex = getIndexToUse();
 
-    m_noteCommandRunning = AutoBuilder.pathfindThenFollowPath(m_paths[getIndexToUse()], m_constraints);
+    m_poseToUse = lastIndex > 2 ? m_scoreBot : m_scoreTop;
+
+    m_noteCommandRunning = AutoBuilder.pathfindThenFollowPath(m_paths[lastIndex], m_constraints);
     m_scoreCommandRunning = AutoBuilder.pathfindToPose(m_poseToUse, m_constraints);
     m_sequentialCommandRunning = new SequentialCommandGroup(m_noteCommandRunning, m_scoreCommandRunning, new TurnToAngle(SwerveDrive.getInstance()));
     m_sequentialCommandRunning.schedule();
-    m_availableNotes[getIndexToUse()] = false;
+    m_availableNotes[lastIndex] = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_noteCommandRunning != null) {
-      if (!CommandScheduler.getInstance().isScheduled(m_sequentialCommandRunning)) {
-        m_poseToUse = getIndexToUse() > 2 ? m_scoreBot : m_scoreTop;
-        m_noteCommandRunning = AutoBuilder.pathfindThenFollowPath(m_paths[getIndexToUse()], m_constraints);
+    
+    if (m_noteCommandRunning != null || m_availableNotes[lastIndex] == false) {
+      if (!CommandScheduler.getInstance().isScheduled(m_sequentialCommandRunning) || m_availableNotes[lastIndex] == false) {
+        lastIndex = getIndexToUse();
+        m_poseToUse = lastIndex > 2 ? m_scoreBot : m_scoreTop;
+        m_noteCommandRunning = AutoBuilder.pathfindThenFollowPath(m_paths[lastIndex], m_constraints);
         m_scoreCommandRunning = AutoBuilder.pathfindToPose(m_poseToUse, m_constraints);
         m_sequentialCommandRunning = new SequentialCommandGroup(m_noteCommandRunning, m_scoreCommandRunning, new TurnToAngle(SwerveDrive.getInstance()));
         m_sequentialCommandRunning.schedule();
-        m_availableNotes[getIndexToUse()] = false;
+        m_availableNotes[lastIndex] = false;
       }
     }
   }
