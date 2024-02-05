@@ -3,47 +3,47 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.27,
-        "y": 5.463619575887801
+        "x": 7.761797865938074,
+        "y": 2.246462871304121
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9098948114214702,
-        "y": 5.96284116800116
+        "x": 6.301134764431691,
+        "y": 1.4699078046804748
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Center Auto 4 end"
     },
     {
       "anchor": {
-        "x": 2.6124981979693684,
-        "y": 6.665430988519635
+        "x": 3.426032077289379,
+        "y": 2.7549215458791285
       },
       "prevControl": {
-        "x": 2.447655300716006,
-        "y": 6.405574899257907
+        "x": 4.442949426439393,
+        "y": 1.5808442427695677
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "1 end"
+      "linkedName": "Center Auto 1 end"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 4.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 48.990913098429694,
+    "rotation": -41.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Test Autos",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

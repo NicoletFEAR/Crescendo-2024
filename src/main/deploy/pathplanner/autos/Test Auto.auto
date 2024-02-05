@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.83,
-      "y": 1.62
+      "x": 1.29,
+      "y": 5.57
     },
-    "rotation": 180.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -14,30 +14,36 @@
         {
           "type": "path",
           "data": {
-            "pathName": "C1 to P4"
+            "pathName": "Auto Path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "P4 to C2"
+            "pathName": "Auto Path 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "C2 to P3"
+            "pathName": "Auto path 3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "P3 to Balance"
+            "pathName": "Auto path 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Auto path 5"
           }
         }
       ]
     }
   },
-  "folder": "Autos",
+  "folder": "Test Autos",
   "choreoAuto": false
 }
