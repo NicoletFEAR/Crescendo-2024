@@ -10,7 +10,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.math.controller.ArmFeedforward;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherConstants;
 import frc.robot.subsystems.templates.PositionSubsystem;
@@ -22,10 +22,14 @@ public class LauncherWrist extends PositionSubsystem {
 
     private CANcoder m_CANCoder;
 
+    // private ArmFeedforward m_feedforward;
+
     public LauncherWrist(PositionSubsystemConstants constants) {
         super(constants);
 
         m_CANCoder = new CANcoder(LauncherConstants.kWristCANCoderId);
+
+        // m_feedforward = new ArmFeedforward(m_constants.kLeaderConstants.kKs, m_constants.kLeaderConstants.kKg, m_constants.kLeaderConstants.kKv);
 
         zero(m_CANCoder.getAbsolutePosition().getValue());
     }
@@ -41,7 +45,10 @@ public class LauncherWrist extends PositionSubsystem {
     @Override
     public void subsystemPeriodic() {
         LauncherWristState.FIELD_BASED_PITCH.setPosition(calculatePitch());
-        SmartDashboard.putNumber("Calculated shooter Pitch", m_currentState.getPosition());
+
+
+
+        // setFeedforward(m_feedforward.calculate(m_setpoint.position, m_setpoint.velocity));
     }
 
     @Override

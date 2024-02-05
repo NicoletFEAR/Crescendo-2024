@@ -306,11 +306,6 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
   public void setDesiredState(PositionSubsystemState desiredState, boolean useMotionProfile) {
     if (m_currentState != m_constants.kManualState) {
-      m_setpoint =
-        m_profile.calculate(
-            Timer.getFPGATimestamp() - m_profileStartTime,
-            new TrapezoidProfile.State(m_profileStartPosition, m_profileStartVelocity),
-            new TrapezoidProfile.State(m_desiredState.getPosition(), 0));
       m_profileStartPosition = m_setpoint.position;
       m_profileStartVelocity = m_setpoint.velocity;
     } else {
@@ -389,10 +384,10 @@ public abstract class PositionSubsystem extends SubsystemBase {
     Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Velocity", getVelocity()); // Encoder Velocity
     Logger.recordOutput(
         m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Trapezoid Desired Position",
-        m_currentState.getPosition()); // Desired position of trapezoid profile
+        m_setpoint.position); // Desired position of trapezoid profile
     Logger.recordOutput(
         m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Trapezoid Desired Velocity",
-        m_currentState.getVelocity()); // Desired position of trapezoid profile
+        m_setpoint.velocity); // Desired position of trapezoid profile
     Logger.recordOutput(
         m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired Position", m_desiredState.getPosition()); // Desired position
     Logger.recordOutput(
