@@ -90,7 +90,7 @@ public class Hold extends VoltageSubsystem {
             kHoldConstants.kSubsystemName = "Intake Flywheel";
             kHoldConstants.kSuperstructureName = "Intake";
 
-            kHoldConstants.kSubsystemType = VoltageSubsystemType.INTAKE;
+            kHoldConstants.kSubsystemType = VoltageSubsystemType.HOLD;
 
             kHoldConstants.kLeaderConstants = kHoldLeaderConstants;
            

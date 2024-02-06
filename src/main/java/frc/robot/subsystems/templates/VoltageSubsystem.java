@@ -104,6 +104,10 @@ public abstract class VoltageSubsystem extends SubsystemBase {
 
     Logger.recordOutput(
         m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
+    Logger.recordOutput(
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired Voltage", m_currentState.getVoltage()); // Current State Voltage
+    Logger.recordOutput(
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Leader Voltage", m_leader.getAppliedOutput()); // Current State Voltage
   }
 
   public abstract void subsystemPeriodic();
@@ -111,7 +115,7 @@ public abstract class VoltageSubsystem extends SubsystemBase {
   public abstract void outputTelemetry();
 
   public enum VoltageSubsystemType {
-    LAUNCHER_HOLD,
+    HOLD,
     INTAKE
   }
 
