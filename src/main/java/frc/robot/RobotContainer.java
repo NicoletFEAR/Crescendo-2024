@@ -36,7 +36,9 @@ import frc.robot.subsystems.intake.IntakeWrist;
 import frc.robot.subsystems.intake.ElevatorLift.ElevatorLiftState;
 import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
 import frc.robot.subsystems.intake.IntakeWrist.IntakeWristState;
+import frc.robot.subsystems.launcher.LauncherSuperstructure;
 import frc.robot.subsystems.launcher.LauncherWrist;
+import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.swerve.SwerveDrive;
 
 /*
@@ -75,6 +77,7 @@ public class RobotContainer {
   // SUBSYSTEMS \\
   private SwerveDrive m_drivebase = SwerveDrive.getInstance();
   private IntakeSuperstructure m_IntakeSuperstructure = IntakeSuperstructure.getInstance();
+  private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
 
   // SENDABLE CHOOSER \\
   public static LoggedDashboardChooser<Command> autoChooser;
@@ -142,10 +145,10 @@ public class RobotContainer {
     // m_operatorController.x().onTrue(new SetPositionSubsystemState(ElevatorLift.getInstance(), ElevatorLiftState.DOWN));
     // m_operatorController.y().onTrue(new SetPositionSubsystemState(ElevatorLift.getInstance(), ElevatorLiftState.AMP));
 
-    m_operatorController.a().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.IN));
-    m_operatorController.b().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.AMP));
-    m_operatorController.x().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.LAUNCHING));
-    m_operatorController.y().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.OFF));
+    // m_operatorController.a().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.IN));
+    // m_operatorController.b().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.AMP));
+    // m_operatorController.x().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.LAUNCHING));
+    // m_operatorController.y().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.OFF));
 
 
     // // Example of an automatic path generated to score in the B2 zone
@@ -181,10 +184,10 @@ public class RobotContainer {
     // m_driverController.x().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
 
     // m_operatorController.a().onTrue(new TurnToAngle(m_drivebase));
-    // m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
-    // m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
-    // m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
-    // m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
+    m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
+    m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
+    m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
+    m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
     
   }
 

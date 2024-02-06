@@ -146,6 +146,9 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     m_desiredState = desiredState;
     for (int i = 0; i < m_pidControllers.length; i++) {
       m_pidControllers[i].setReference(m_desiredState.getVelocity()[i], ControlType.kVelocity, m_constants.kDefaultSlot, m_arbFeedforward[i], ArbFFUnits.kVoltage);
+      if (desiredState.getVelocity()[i] == 0) {
+        m_motors[i].stopMotor();
+      }
     }
   }
 
