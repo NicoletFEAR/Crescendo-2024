@@ -230,7 +230,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
   public abstract void outputTelemetry();
 
   public enum VelocitySubsystemType {
-    LAUNCHER_FLYWHEEL
+    LAUNCHER_FLYWHEEL,
   }
 
   public interface VelocitySubsystemState {

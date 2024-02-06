@@ -403,7 +403,8 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
   public enum PositionSubsystemType {
     LAUNCHER_WRIST,
-    ELEVATOR_LIFT
+    ELEVATOR_LIFT,
+    INTAKE_WRIST
   }
 
   public interface PositionSubsystemState {

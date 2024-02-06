@@ -68,7 +68,7 @@ public final class Constants {
     Dont do anything below 0*/
     public static double kAprilTagTrustMultiplier = 1.0;
 
-    public static int kPigeon = 0;
+    public static int kPigeon = 47;
 
     public static final double kTrackWidth =
         Units.inchesToMeters(20.67); // Distance between centers of right and left wheels on robot
@@ -174,6 +174,11 @@ public final class Constants {
     // INTAKE \\
     public static int kElevatorLiftRightID = 20;
     public static int kElevatorLiftLeftID = 21;
+    public static int kIntakeFlywheelID = 30;
+    public static int kIntakeWristRightID = 32;
+    public static int kIntakeWristLeftID = 31;
+    public static int kHoldID = 34;
+
 
     // CLIMB \\
   }

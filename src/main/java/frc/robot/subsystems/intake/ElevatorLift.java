@@ -36,6 +36,7 @@ public class ElevatorLift extends PositionSubsystem {
     public enum ElevatorLiftState implements PositionSubsystemState {
         DOWN(0, 0, "Down"),
         UP(100, 0, "Up"),
+        AMP(75, 0, "AMp"),
         TRANSITION(0, 0, "Transition"),
         MANUAL(0, 0, "Manual");
     

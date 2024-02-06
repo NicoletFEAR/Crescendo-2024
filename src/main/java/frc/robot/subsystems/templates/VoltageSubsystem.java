@@ -104,7 +104,8 @@ public abstract class VoltageSubsystem extends SubsystemBase {
   public abstract void outputTelemetry();
 
   public enum VoltageSubsystemType {
-    LAUNCHER_HOLD
+    LAUNCHER_HOLD,
+    INTAKE
   }
 
   public interface VoltageSubsystemState {
