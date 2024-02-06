@@ -73,7 +73,7 @@ public class Hold extends VoltageSubsystem {
             kHoldLeaderConstants.kID = MotorConstants.kHoldID;
             kHoldLeaderConstants.kRevMotorType = RevMotorType.CAN_SPARK_MAX;
             kHoldLeaderConstants.kName = "Intake Flywheel";
-            kHoldLeaderConstants.kIdleMode = IdleMode.kCoast;
+            kHoldLeaderConstants.kIdleMode = IdleMode.kBrake;
             kHoldLeaderConstants.kMotorType = MotorType.kBrushless;
             kHoldLeaderConstants.kCurrentLimit = 80;
             kHoldLeaderConstants.kInverted = false;
