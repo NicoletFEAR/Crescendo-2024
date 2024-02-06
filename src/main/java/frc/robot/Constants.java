@@ -25,8 +25,6 @@ public final class Constants {
 
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : Mode.SIM;
 
-  public static final boolean kTuningMode = false;
-
   // // DRIVEBASE \\ \\
 
   // Make sure to measure these with as much presicion as possible, as it will have great affect on
@@ -169,10 +167,10 @@ public final class Constants {
     // LAUNCHER \\
     public static int kLauncherTopFlywheelID = 43;
     public static int kLauncherBottomFlywheelID = 41;
-    public static int kLauncherWristID = 40;
+    public static int kLauncherWristID = 20; //40;
 
     // INTAKE \\
-    public static int kElevatorLiftRightID = 20;
+    public static int kElevatorLiftRightID = 80;//20;
     public static int kElevatorLiftLeftID = 21;
     public static int kIntakeFlywheelID = 30;
     public static int kIntakeWristRightID = 32;

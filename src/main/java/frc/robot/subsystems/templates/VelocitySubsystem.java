@@ -12,16 +12,9 @@ import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.SparkPIDController.ArbFFUnits;
 
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
-import frc.lib.utilities.LoggedShuffleboardTunableNumber;
-
-import java.util.Map;
-
 import org.littletonrobotics.junction.Logger;
 
 public abstract class VelocitySubsystem extends SubsystemBase {
@@ -31,11 +24,6 @@ public abstract class VelocitySubsystem extends SubsystemBase {
   protected final CANSparkBase[] m_motors;
   protected final RelativeEncoder[] m_encoders;
   protected final SparkPIDController[] m_pidControllers;
-
-  protected LoggedShuffleboardTunableNumber[] m_kp;
-  protected LoggedShuffleboardTunableNumber[] m_ki;
-  protected LoggedShuffleboardTunableNumber[] m_kd;
-  protected LoggedShuffleboardTunableNumber[] m_tuningVelocity;
 
   protected VelocitySubsystemState m_currentState = null;
   protected VelocitySubsystemState m_desiredState = null;
@@ -61,11 +49,6 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     m_pidControllers = new SparkPIDController[m_motors.length];
     m_arbFeedforward = new double[m_motors.length];
 
-    m_kp = new LoggedShuffleboardTunableNumber[m_motors.length];
-    m_ki = new LoggedShuffleboardTunableNumber[m_motors.length];
-    m_kd = new LoggedShuffleboardTunableNumber[m_motors.length];
-    m_tuningVelocity = new LoggedShuffleboardTunableNumber[m_motors.length];
-
     for (int i = 0; i < m_constants.kMotorConstants.length; i++) {
       if (m_constants.kMotorConstants[i].kRevMotorType == RevMotorType.CAN_SPARK_MAX) {
         m_motors[i] =
@@ -89,46 +72,6 @@ public abstract class VelocitySubsystem extends SubsystemBase {
       m_pidControllers[i].setFF(m_constants.kMotorConstants[i].kKff);
 
       m_motors[i].burnFlash();
-
-
-      m_kp[i] =
-          new LoggedShuffleboardTunableNumber(
-              m_constants.kMotorConstants[i].kName + " p",
-              m_constants.kMotorConstants[i].kKp,
-              RobotContainer.velocityMechTuningTab,
-              BuiltInWidgets.kTextView,
-              Map.of("min", 0),
-              0,
-              i);
-
-      m_ki[i] =
-          new LoggedShuffleboardTunableNumber(
-              m_constants.kMotorConstants[i].kName + " i",
-              m_constants.kMotorConstants[i].kKi,
-              RobotContainer.velocityMechTuningTab,
-              BuiltInWidgets.kTextView,
-              Map.of("min", 0),
-              1,
-              i);
-
-      m_kd[i] =
-          new LoggedShuffleboardTunableNumber(
-              m_constants.kMotorConstants[i].kName + " d",
-              m_constants.kMotorConstants[i].kKd,
-              RobotContainer.velocityMechTuningTab,
-              BuiltInWidgets.kTextView,
-              Map.of("min", 0),
-              2,
-              i);
-    m_tuningVelocity[i] =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kMotorConstants[i].kName + " Set Position",
-            0,
-            RobotContainer.velocityMechTuningTab,
-            BuiltInWidgets.kTextView,
-            null,
-            3,
-            i);
     }
 
     setName(m_constants.kSubsystemName);
@@ -192,29 +135,6 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     subsystemPeriodic();
 
     outputTelemetry();
-
-    if (Constants.kTuningMode) {
-      if (RobotContainer.m_applyVelocityMechConfigs.getValue()) {
-        for (int i = 0; i < m_constants.kMotorConstants.length; i++) {
-          m_pidControllers[i].setP(m_constants.kMotorConstants[i].kKp);
-          m_pidControllers[i].setI(m_constants.kMotorConstants[i].kKi);
-          m_pidControllers[i].setD(m_constants.kMotorConstants[i].kKd);
-          m_pidControllers[i].setFF(m_constants.kMotorConstants[i].kKff);
-          m_motors[i].burnFlash();
-        }
-      }
-
-      if (RobotContainer.m_goToVelocity.getValue()) {
-        double[] speeds = new double[m_motors.length];
-        for (int i = 0; i < speeds.length; i++) {
-          speeds[i] = m_tuningVelocity[i].get();
-        }
-
-        m_constants.kManualState.setVelocity(speeds);
-        setDesiredState(m_constants.kManualState);
-        m_currentState = m_constants.kManualState;
-      }
-    }
 
     for (int i = 0; i < m_motors.length; i++) {
       Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Encoder Velocity", getVelocity()[i]); // Encoder Velocity

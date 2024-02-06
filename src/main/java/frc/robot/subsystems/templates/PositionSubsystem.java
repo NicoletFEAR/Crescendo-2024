@@ -15,18 +15,13 @@ import com.revrobotics.SparkPIDController.ArbFFUnits;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.Mode;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
-import frc.lib.utilities.LoggedShuffleboardTunableNumber;
-import frc.lib.utilities.ShuffleboardButton;
-
-import java.util.Map;
 import org.littletonrobotics.junction.Logger;
 
 public abstract class PositionSubsystem extends SubsystemBase {
@@ -46,14 +41,6 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
   protected double m_profileStartPosition = 0;
   protected double m_profileStartVelocity = 0;
-
-  protected LoggedShuffleboardTunableNumber m_kp;
-  protected LoggedShuffleboardTunableNumber m_ki;
-  protected LoggedShuffleboardTunableNumber m_kd;
-  protected LoggedShuffleboardTunableNumber m_kMaxAcceleration;
-  protected LoggedShuffleboardTunableNumber m_kMaxVelocity;
-  protected LoggedShuffleboardTunableNumber m_tuningPosition;
-  protected ShuffleboardButton m_button;
 
   protected PositionSubsystemState m_currentState = null;
   protected PositionSubsystemState m_desiredState = null;
@@ -124,66 +111,6 @@ public abstract class PositionSubsystem extends SubsystemBase {
     }
 
     if (m_followers.length > 0) m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 5);
-
-    m_kp =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " p",
-            m_constants.kLeaderConstants.kKp,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            Map.of("min", 0),
-            0,
-            m_constants.kSubsystemType.ordinal());
-
-    m_ki =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " i",
-            m_constants.kLeaderConstants.kKi,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            Map.of("min", 0),
-            1,
-            m_constants.kSubsystemType.ordinal());
-
-    m_kd =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " d",
-            m_constants.kLeaderConstants.kKd,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            Map.of("min", 0),
-            2,
-            m_constants.kSubsystemType.ordinal());
-
-    m_kMaxAcceleration =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " Max Acceleration",
-            m_constants.kMaxAcceleration,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            Map.of("min", 0),
-            3,
-            m_constants.kSubsystemType.ordinal());
-
-    m_kMaxVelocity =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " Max Velocity",
-            m_constants.kMaxVelocity,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            Map.of("min", 0),
-            4,
-            m_constants.kSubsystemType.ordinal());
-    m_tuningPosition =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " Set Position",
-            0,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            null,
-            5,
-            m_constants.kSubsystemType.ordinal());
-
 
     m_profile =
         new TrapezoidProfile(
@@ -323,11 +250,11 @@ public abstract class PositionSubsystem extends SubsystemBase {
   }
 
   public double getPosition() {
-    return RobotBase.isReal() ? m_encoder.getPosition() : m_currentState.getPosition();
+    return Constants.currentMode == Mode.REAL ? m_encoder.getPosition() : m_currentState.getPosition();
   }
 
   public double getVelocity() {
-    return RobotBase.isReal() ? m_encoder.getVelocity() : m_currentState.getVelocity();
+    return Constants.currentMode == Mode.REAL ? m_encoder.getVelocity() : m_currentState.getVelocity();
   }
 
   public PositionSubsystemType getSubsystemType() {
@@ -348,36 +275,6 @@ public abstract class PositionSubsystem extends SubsystemBase {
     subsystemPeriodic();
 
     outputTelemetry();
-
-    if (Constants.kTuningMode) {
-      if (RobotContainer.m_applyPositionMechConfigs.getValue()) {
-        m_pidController.setP(m_kp.get(), m_constants.kDefaultSlot);
-        m_pidController.setI(m_ki.get(), m_constants.kDefaultSlot);
-        m_pidController.setD(m_kd.get(), m_constants.kDefaultSlot);
-        m_leader.burnFlash();
-        m_profile =
-            new TrapezoidProfile(
-                new TrapezoidProfile.Constraints(m_kMaxVelocity.get(), m_kMaxAcceleration.get()));
-
-      }
-
-      if (RobotContainer.m_goToPosition.getValue()) {
-        if (m_currentState != m_constants.kManualState)
-        m_constants.kManualState.setPosition(getPosition());
-
-        if (m_profileStartTime == -1) {
-          m_desiredState = m_constants.kManualState;
-          m_currentState = m_constants.kManualState;
-
-          m_constants.kManualState.setPosition(m_tuningPosition.get());
-          m_constants.kManualState.setPosition(
-              MathUtil.clamp(
-                  m_constants.kManualState.getPosition(),
-                  m_constants.kMinPosition,
-                  m_constants.kMaxPosition));
-        }
-      }
-    }
 
     Logger.recordOutput(
         m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", getPosition()); // Current position of encoders

@@ -18,22 +18,18 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.RobotContainer;
+import frc.robot.Constants.Mode;
 import frc.lib.utilities.GeometryUtils;
-import frc.lib.utilities.LoggedShuffleboardTunableNumber;
 import frc.lib.utilities.SwerveModuleConstants;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrive extends SubsystemBase {
@@ -55,107 +51,6 @@ public class SwerveDrive extends SubsystemBase {
 
   private double m_simyaw = 0;
 
-  public static final LoggedShuffleboardTunableNumber drivekp =
-      new LoggedShuffleboardTunableNumber(
-          "Drive P",
-          DriveConstants.drivekp,
-          RobotContainer.driveTuningTab,
-          BuiltInWidgets.kTextView,
-          Map.of("min", 0),
-          0,
-          0);
-  public static final LoggedShuffleboardTunableNumber driveki =
-      new LoggedShuffleboardTunableNumber(
-          "Drive I",
-          DriveConstants.driveki,
-          RobotContainer.driveTuningTab,
-          BuiltInWidgets.kTextView,
-          Map.of("min", 0),
-          1,
-          0);
-  public static final LoggedShuffleboardTunableNumber drivekd =
-      new LoggedShuffleboardTunableNumber(
-          "Drive D",
-          DriveConstants.drivekd,
-          RobotContainer.driveTuningTab,
-          BuiltInWidgets.kTextView,
-          Map.of("min", 0),
-          2,
-          0);
-  public static final LoggedShuffleboardTunableNumber drivekff =
-      new LoggedShuffleboardTunableNumber(
-          "Drive FF",
-          DriveConstants.drivekff,
-          RobotContainer.driveTuningTab,
-          BuiltInWidgets.kTextView,
-          Map.of("min", 0),
-          3,
-          0);
-  public static final LoggedShuffleboardTunableNumber driveRampRate =
-      new LoggedShuffleboardTunableNumber(
-          "Drive RampRate",
-          DriveConstants.driverampRate,
-          RobotContainer.driveTuningTab,
-          BuiltInWidgets.kTextView,
-          Map.of("min", 0),
-          4,
-          0);
-  public static final LoggedShuffleboardTunableNumber driveVelocity =
-      new LoggedShuffleboardTunableNumber(
-          "Drive Velocity",
-          0,
-          RobotContainer.driveTuningTab,
-          BuiltInWidgets.kTextView,
-          Map.of("min", 0),
-          5,
-          0);
-
-  public static final LoggedShuffleboardTunableNumber turnkp =
-      new LoggedShuffleboardTunableNumber(
-          "Turn P",
-          DriveConstants.turnkp,
-          RobotContainer.driveTuningTab,
-          BuiltInWidgets.kTextView,
-          Map.of("min", 0),
-          0,
-          1);
-  public static final LoggedShuffleboardTunableNumber turnki =
-      new LoggedShuffleboardTunableNumber(
-          "Turn I",
-          DriveConstants.turnki,
-          RobotContainer.driveTuningTab,
-          BuiltInWidgets.kTextView,
-          Map.of("min", 0),
-          1,
-          1);
-  public static final LoggedShuffleboardTunableNumber turnkd =
-      new LoggedShuffleboardTunableNumber(
-          "Turn D",
-          DriveConstants.turnkd,
-          RobotContainer.driveTuningTab,
-          BuiltInWidgets.kTextView,
-          Map.of("min", 0),
-          2,
-          1);
-  public static final LoggedShuffleboardTunableNumber turnkff =
-      new LoggedShuffleboardTunableNumber(
-          "Turn FF",
-          DriveConstants.turnkff,
-          RobotContainer.driveTuningTab,
-          BuiltInWidgets.kTextView,
-          Map.of("min", 0),
-          3,
-          1);
-
-  public static final LoggedShuffleboardTunableNumber apriltagTrustMultiplier =
-      new LoggedShuffleboardTunableNumber(
-          "April Tag Trust Multiplier",
-          DriveConstants.kAprilTagTrustMultiplier,
-          RobotContainer.driveTuningTab,
-          BuiltInWidgets.kTextView,
-          Map.of("min", 0),
-          0,
-          3);
   private static final boolean invertGyro = false;
 
   private SwerveModuleState[] moduleStates;
@@ -396,7 +291,7 @@ public class SwerveDrive extends SubsystemBase {
   // }
 
   public Rotation2d getYaw() {
-    if (RobotBase.isReal()) {
+    if (Constants.currentMode == Mode.REAL) {
       return (invertGyro)
           ? Rotation2d.fromDegrees(360 - m_pigeon.getYaw().getValue())
           : Rotation2d.fromDegrees(m_pigeon.getYaw().getValue());
@@ -407,7 +302,7 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public double getYawDegrees() {
-    if (RobotBase.isReal()) {
+    if (Constants.currentMode == Mode.REAL) {
       return Math.IEEEremainder(m_pigeon.getYaw().getValue(), 360);
     } else {
       return Math.IEEEremainder(m_simyaw, 360);
@@ -472,10 +367,7 @@ public class SwerveDrive extends SubsystemBase {
     m_field.getObject("path").setPoses(ppPath);
 
     SmartDashboard.putNumber("Angle To Speaker", calculateAngleToSpeaker());
-  }
 
-  public void realPeriodic() {
-    
     // if (poseEstimator
     //         .getEstimatedPosition()
     //         .getTranslation()
@@ -495,6 +387,12 @@ public class SwerveDrive extends SubsystemBase {
     //           1 - Math.pow(Limelight.getInstance().getA(), apriltagTrustMultiplier.get()),
     //           0.9));
     // }
+
+  }
+
+  public void realPeriodic() {
+    
+
   }
 
   @Override
@@ -506,25 +404,6 @@ public class SwerveDrive extends SubsystemBase {
                         .omegaRadiansPerSecond
                     * 0.02);
   }
-
-  public void tuningPeriodic() {
-
-    for (SwerveModule module : m_SwerveMods) {
-      module.setDesiredState(new SwerveModuleState(driveVelocity.get(), Rotation2d.fromDegrees(0)), false);
-    }
-
-    for (SwerveModule module : m_SwerveMods) {
-      module.tuningPeriodic();
-    }
-  }
-
-  public void tuningInit() {
-
-    for (SwerveModule module : m_SwerveMods) {
-      module.tuningInit();
-    }
-  }
-
 
   public enum AngleToSnap {
     FORWARD(0),

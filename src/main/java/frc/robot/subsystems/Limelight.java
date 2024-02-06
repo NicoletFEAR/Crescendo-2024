@@ -13,6 +13,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.utilities.GeometryUtils;
+import frc.robot.Constants;
+import frc.robot.Constants.Mode;
 import frc.robot.subsystems.swerve.SwerveDrive;
 
 import org.littletonrobotics.junction.Logger;
@@ -95,22 +97,28 @@ public class Limelight extends SubsystemBase {
     m_tcornxy = currentData.getEntry("m_tcornxy");
     m_botpose = currentData.getEntry("botpose_wpiblue");
     m_targetpose_robotspace = currentData.getEntry("targetpose_robotspace");
+
+
+
+    if (Constants.currentMode == Mode.REAL) {
+      Logger.recordOutput("Limelight/Limelight Pose", getLimelightPose());
+      Logger.recordOutput("Limelight/Valid Targets", m_tv.getInteger(0));
+      Logger.recordOutput("Limelight/Target Area", m_ta.getDouble(0));
+      Logger.recordOutput("Limelight/Pipeline Latency", m_tl.getDouble(0));
+      Logger.recordOutput("Limelight/Capture Latency", m_cl.getDouble(0));
+      Logger.recordOutput(
+          "Limelight/Corners/X",
+          GeometryUtils.AKitCorner(m_tcornxy.getDoubleArray(new double[2]))[0]);
+      Logger.recordOutput(
+          "Limelight/Corners/Y",
+          GeometryUtils.AKitCorner(m_tcornxy.getDoubleArray(new double[2]))[1]);
+      Logger.recordOutput(
+          "Limelight/AprilTag Pose",
+          GeometryUtils.PoseSpaceToFieldSpace(getTargetPose(), SwerveDrive.getInstance().getPose()));
+    }
   }
 
   public void realPeriodic() {
-    Logger.recordOutput("Limelight/Limelight Pose", getLimelightPose());
-    Logger.recordOutput("Limelight/Valid Targets", m_tv.getInteger(0));
-    Logger.recordOutput("Limelight/Target Area", m_ta.getDouble(0));
-    Logger.recordOutput("Limelight/Pipeline Latency", m_tl.getDouble(0));
-    Logger.recordOutput("Limelight/Capture Latency", m_cl.getDouble(0));
-    Logger.recordOutput(
-        "Limelight/Corners/X",
-        GeometryUtils.AKitCorner(m_tcornxy.getDoubleArray(new double[2]))[0]);
-    Logger.recordOutput(
-        "Limelight/Corners/Y",
-        GeometryUtils.AKitCorner(m_tcornxy.getDoubleArray(new double[2]))[1]);
-    Logger.recordOutput(
-        "Limelight/AprilTag Pose",
-        GeometryUtils.PoseSpaceToFieldSpace(getTargetPose(), SwerveDrive.getInstance().getPose()));
+
   }
 }

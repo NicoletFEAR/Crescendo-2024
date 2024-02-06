@@ -19,9 +19,9 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.Mode;
 import frc.lib.utilities.CtreUtils;
 import frc.lib.utilities.RevUtils;
 import frc.lib.utilities.SwerveModuleConstants;
@@ -123,7 +123,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public double getHeadingDegrees() {
-    if (RobotBase.isReal()) return m_turnEncoder.getPosition();
+    if (Constants.currentMode == Mode.REAL) return m_turnEncoder.getPosition();
     else return m_currentAngle;
   }
 
@@ -132,12 +132,12 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public double getDriveMeters() {
-    if (RobotBase.isReal()) return m_driveEncoder.getPosition();
+    if (Constants.currentMode == Mode.REAL) return m_driveEncoder.getPosition();
     else return m_simDriveEncoderPosition;
   }
 
   public double getDriveMetersPerSecond() {
-    if (RobotBase.isReal()) return m_driveEncoder.getVelocity();
+    if (Constants.currentMode == Mode.REAL) return m_driveEncoder.getVelocity();
     else return m_simDriveEncoderVelocity;
   }
 
@@ -180,26 +180,5 @@ public class SwerveModule extends SubsystemBase {
     double distancePer20Ms = m_simDriveEncoderVelocity / 50.0;
 
     m_simDriveEncoderPosition += distancePer20Ms;
-  }
-
-  public void tuningInit() {}
-
-  public void tuningPeriodic() {
-    if (Constants.kTuningMode) {
-      if (RobotContainer.m_applyDriveTuning.getValue()) {
-        m_driveController.setP(SwerveDrive.drivekp.get());
-        m_driveController.setI(SwerveDrive.driveki.get());
-        m_driveController.setD(SwerveDrive.drivekd.get());
-        m_driveController.setFF(SwerveDrive.drivekff.get());
-        m_driveMotor.setOpenLoopRampRate(SwerveDrive.driveRampRate.get());
-        m_driveMotor.burnFlash();
-
-        m_turnController.setP(SwerveDrive.drivekp.get());
-        m_turnController.setI(SwerveDrive.driveki.get());
-        m_turnController.setD(SwerveDrive.drivekd.get());
-        m_turnController.setFF(SwerveDrive.drivekff.get());
-        m_turningMotor.burnFlash();
-      }
-    }
   }
 }

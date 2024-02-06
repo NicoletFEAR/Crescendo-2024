@@ -16,7 +16,6 @@ package frc.robot;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 
 import edu.wpi.first.net.PortForwarder;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.utilities.LocalADStarAK;
@@ -95,10 +94,6 @@ public class Robot extends LoggedRobot {
 
     m_robotContainer = new RobotContainer();
 
-    if (Constants.kTuningMode) {
-      m_robotContainer.tuningInit();
-    }
-
     for (int port = 5800; port <= 5807; port++) {
       PortForwarder.add(port, "limelight.local", port);
     }
@@ -108,14 +103,6 @@ public class Robot extends LoggedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-
-    if (Constants.kTuningMode) {
-      m_robotContainer.tuningPeriodic();
-    }
-
-    if (RobotBase.isReal()) {
-      m_robotContainer.realPeriodic();
-    }
 
     m_robotContainer.periodic();
   }

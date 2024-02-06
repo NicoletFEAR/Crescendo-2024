@@ -12,21 +12,13 @@ import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.SparkPIDController.ArbFFUnits;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
+import frc.robot.Constants.Mode;
 import frc.robot.subsystems.templates.SubsystemConstants.MultiMotorPositionSubsystemConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
-import frc.lib.utilities.LoggedShuffleboardTunableNumber;
-import frc.lib.utilities.ShuffleboardButton;
-
-import java.util.Map;
-
 import org.littletonrobotics.junction.Logger;
 
 public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
@@ -44,14 +36,6 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
 
   protected double[] m_profileStartPosition;
   protected double[] m_profileStartVelocity;
-
-  protected LoggedShuffleboardTunableNumber m_kp;
-  protected LoggedShuffleboardTunableNumber m_ki;
-  protected LoggedShuffleboardTunableNumber m_kd;
-  protected LoggedShuffleboardTunableNumber m_kMaxAcceleration;
-  protected LoggedShuffleboardTunableNumber m_kMaxVelocity;
-  protected LoggedShuffleboardTunableNumber m_tuningPosition;
-  protected ShuffleboardButton m_button;
 
   protected MultiMotorPositionSubsystemState m_currentState = null;
   protected MultiMotorPositionSubsystemState m_desiredState = null;
@@ -102,66 +86,6 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
       m_encoders[i].setPositionConversionFactor(m_constants.kPositionConversionFactor);
       m_motors[i].burnFlash();
     }
-
-    m_kp =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " p",
-            m_constants.kMotorConstants[0].kKp,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            Map.of("min", 0),
-            0,
-            m_constants.kSubsystemType.ordinal());
-
-    m_ki =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " i",
-            m_constants.kMotorConstants[0].kKi,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            Map.of("min", 0),
-            1,
-            m_constants.kSubsystemType.ordinal());
-
-    m_kd =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " d",
-            m_constants.kMotorConstants[0].kKd,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            Map.of("min", 0),
-            2,
-            m_constants.kSubsystemType.ordinal());
-
-    m_kMaxAcceleration =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " Max Acceleration",
-            m_constants.kMaxAcceleration,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            Map.of("min", 0),
-            3,
-            m_constants.kSubsystemType.ordinal());
-
-    m_kMaxVelocity =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " Max Velocity",
-            m_constants.kMaxVelocity,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            Map.of("min", 0),
-            4,
-            m_constants.kSubsystemType.ordinal());
-    m_tuningPosition =
-        new LoggedShuffleboardTunableNumber(
-            m_constants.kSubsystemName + " Set Position",
-            0,
-            RobotContainer.positionMechTuningTab,
-            BuiltInWidgets.kTextView,
-            null,
-            5,
-            m_constants.kSubsystemType.ordinal());
-
 
     m_profile =
         new TrapezoidProfile(
@@ -323,7 +247,7 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
   }
 
   public double[] getPosition() {
-    if (RobotBase.isReal()) {
+    if (Constants.currentMode == Mode.REAL) {
       double[] output = new double[m_motors.length];
 
       for (int i = 0; i < output.length; i++) {
@@ -337,7 +261,7 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
   }
 
   public double[] getVelocity() {
-        if (RobotBase.isReal()) {
+        if (Constants.currentMode == Mode.REAL) {
       double[] output = new double[m_motors.length];
 
       for (int i = 0; i < output.length; i++) {
@@ -368,39 +292,6 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
     subsystemPeriodic();
 
     outputTelemetry();
-
-    if (Constants.kTuningMode) {
-      if (RobotContainer.m_applyPositionMechConfigs.getValue()) {
-        for (int i = 0; i < m_motors.length; i++) {
-          m_pidControllers[i].setP(m_kp.get(), m_constants.kDefaultSlot);
-          m_pidControllers[i].setI(m_ki.get(), m_constants.kDefaultSlot);
-          m_pidControllers[i].setD(m_kd.get(), m_constants.kDefaultSlot);
-          m_motors[i].burnFlash();
-        }
-        m_profile =
-            new TrapezoidProfile(
-                new TrapezoidProfile.Constraints(m_kMaxVelocity.get(), m_kMaxAcceleration.get()));
-      }
-
-      if (RobotContainer.m_goToPosition.getValue()) {
-        for (int i = 0; i < m_motors.length; i++) {
-          if (m_currentState != m_constants.kManualState)
-            m_constants.kManualState.setPosition(getPosition()[i], i);
-
-          if (m_profileStartTime == -1) {
-            m_desiredState = m_constants.kManualState;
-            m_currentState = m_constants.kManualState;
-
-            m_constants.kManualState.setPosition(m_tuningPosition.get(), i);
-            m_constants.kManualState.setPosition(
-                MathUtil.clamp(
-                    m_constants.kManualState.getPosition()[i],
-                    m_constants.kMinPosition,
-                    m_constants.kMaxPosition), i);
-          }
-        }
-      }
-    }
 
     Logger.recordOutput(
         m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State

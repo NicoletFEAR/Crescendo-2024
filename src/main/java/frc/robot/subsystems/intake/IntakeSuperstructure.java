@@ -15,7 +15,7 @@ import frc.robot.subsystems.templates.SuperstructureSubsystem;
 
 public class IntakeSuperstructure extends SuperstructureSubsystem {
 
-  private ElevatorLift m_ElevatorLift = ElevatorLift.getInstance();
+  // private ElevatorLift m_ElevatorLift = ElevatorLift.getInstance();
   private IntakeFlywheel m_intakeFlywheel = IntakeFlywheel.getInstance();
   private IntakeWrist m_intakeWrist = IntakeWrist.getInstance();
   private TimeOfFlight m_tof = new TimeOfFlight(0);

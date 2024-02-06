@@ -10,8 +10,9 @@ import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.Mode;
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.robot.subsystems.templates.SubsystemConstants.VoltageSubsystemConstants;
 
@@ -88,7 +89,7 @@ public abstract class VoltageSubsystem extends SubsystemBase {
   }
 
   public double getVolts() {
-    return RobotBase.isReal() ? m_leader.getBusVoltage() : m_currentState.getVoltage();
+    return Constants.currentMode == Mode.REAL ? m_leader.getBusVoltage() : m_currentState.getVoltage();
   }
 
   public VoltageSubsystemType getSubsystemType() {

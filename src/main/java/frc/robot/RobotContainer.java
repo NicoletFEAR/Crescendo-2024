@@ -4,13 +4,10 @@
 
 package frc.robot;
 
-import static frc.robot.Constants.*;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.PS5Controller;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -18,24 +15,13 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.lib.utilities.Alert;
 import frc.lib.utilities.LoggedDashboardChooser;
-import frc.lib.utilities.ShuffleboardButton;
-import frc.lib.utilities.Alert.AlertType;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.auto.CenterNoteAuto;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
-import frc.robot.commands.superstructure.SetPositionSubsystemState;
-import frc.robot.commands.superstructure.SetSuperstructureState;
-import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.intake.ElevatorLift;
-import frc.robot.subsystems.intake.IntakeSuperstructure;
-import frc.robot.subsystems.intake.IntakeWrist;
-import frc.robot.subsystems.intake.ElevatorLift.ElevatorLiftState;
-import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
-import frc.robot.subsystems.intake.IntakeWrist.IntakeWristState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
 import frc.robot.subsystems.launcher.LauncherWrist;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
@@ -61,30 +47,15 @@ public class RobotContainer {
 
   // SHUFFLEBOARD TABS \\
   public static ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
-  public static ShuffleboardTab driveTuningTab =
-      kTuningMode ? Shuffleboard.getTab("Drive Tuning") : null;
-  public static ShuffleboardTab positionMechTuningTab =
-      kTuningMode ? Shuffleboard.getTab("Position Mech Tuning") : null;
-  public static ShuffleboardTab velocityMechTuningTab =
-      kTuningMode ? Shuffleboard.getTab("Velocity Mech Tuning") : null;
-
-  public static ShuffleboardButton m_applyDriveTuning = kTuningMode ? new ShuffleboardButton("Apply Drive Tuning", false, driveTuningTab, BuiltInWidgets.kToggleButton, null, 6, 0) : null;
-  public static ShuffleboardButton m_applyPositionMechConfigs = kTuningMode ? new ShuffleboardButton("Apply Position Mech Configs", false, positionMechTuningTab, BuiltInWidgets.kToggleButton , null, 6, 0) : null;
-  public static ShuffleboardButton m_applyVelocityMechConfigs = kTuningMode ? new ShuffleboardButton("Apply Velocity Mech Configs", false, velocityMechTuningTab, BuiltInWidgets.kToggleButton , null, 4, 0) : null;
-  public static ShuffleboardButton m_goToPosition = kTuningMode ? new ShuffleboardButton("Go To Position", false, positionMechTuningTab, BuiltInWidgets.kToggleButton , null, 7, 0) : null;
-  public static ShuffleboardButton m_goToVelocity = kTuningMode ? new ShuffleboardButton("Go To Velocity", false, velocityMechTuningTab, BuiltInWidgets.kToggleButton , null, 5, 0) : null;
   
-  // SUBSYSTEMS \\
   private SwerveDrive m_drivebase = SwerveDrive.getInstance();
-  private IntakeSuperstructure m_IntakeSuperstructure = IntakeSuperstructure.getInstance();
+  // private IntakeSuperstructure m_IntakeSuperstructure = IntakeSuperstructure.getInstance();
   private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
 
   // SENDABLE CHOOSER \\
   public static LoggedDashboardChooser<Command> autoChooser;
 
   // ALERTS \\
-  private Alert tuningAlert =
-      new Alert("Tuning Mode Activated, expect decreased network performance.", AlertType.INFO);
 
   public RobotContainer() {
     ElevatorLift.getInstance().setDefaultCommand(new ManualPositionSubsystem(ElevatorLift.getInstance()));
@@ -193,21 +164,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return autoChooser.get();
-  }
-
-  public void tuningInit() {
-    m_drivebase.tuningInit();
-    tuningAlert.set(true);
-  }
-
-  public void tuningPeriodic() {
-    m_drivebase.tuningPeriodic();
-  }
-
-
-  public void realPeriodic() {
-    m_drivebase.realPeriodic();
-    Limelight.getInstance().realPeriodic();
   }
 
   public void periodic() {
