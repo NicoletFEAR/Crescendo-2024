@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.templates;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
@@ -97,6 +99,10 @@ public abstract class VoltageSubsystem extends SubsystemBase {
   public void periodic() {
     subsystemPeriodic();
     outputTelemetry();
+
+
+    Logger.recordOutput(
+        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
   }
 
   public abstract void subsystemPeriodic();

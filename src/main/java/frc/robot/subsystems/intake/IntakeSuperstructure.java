@@ -61,6 +61,10 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   public SuperstructureState getTransitionState() {
     return IntakeSuperstructureState.TRANSITION;
   }
+  
+  
+  @Override
+  public void superstructurePeriodic() {}
 
   public enum IntakeSuperstructureState implements SuperstructureState {
     OFF(
@@ -123,11 +127,5 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     public String getName() {
       return name;
     }
-  }
-
-  @Override
-  public void superstructurePeriodic() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'superstructurePeriodic'");
   }
 }
