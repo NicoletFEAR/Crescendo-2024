@@ -44,22 +44,22 @@ public final class Constants {
     public static final SparkConstants kIntakeFlywheelMasterConstants = new SparkConstants();
 
     static {
-      kIntakeFlywheelMasterConstants.kID = 17;
+      kIntakeFlywheelMasterConstants.kID = 30;
       kIntakeFlywheelMasterConstants.kIdleMode = IdleMode.kBrake;
       kIntakeFlywheelMasterConstants.kMotorType = MotorType.kBrushless;
       kIntakeFlywheelMasterConstants.kCurrentLimit = 80;
       kIntakeFlywheelMasterConstants.kInverted = false;
     }
 
-    public static final SparkConstants[] kIntakeFlywheelSlaveConstants = new SparkConstants[1];
-    static {
-      kIntakeFlywheelSlaveConstants[0] = new SparkConstants();
-      kIntakeFlywheelSlaveConstants[0].kID = 18;
-      kIntakeFlywheelSlaveConstants[0].kIdleMode = IdleMode.kBrake;
-      kIntakeFlywheelSlaveConstants[0].kMotorType = MotorType.kBrushless;
-      kIntakeFlywheelSlaveConstants[0].kCurrentLimit = 80;
-      kIntakeFlywheelSlaveConstants[0].kInverted = true;
-    }
+    // public static final SparkConstants[] kIntakeFlywheelSlaveConstants = new SparkConstants[1];
+    // static {
+    //   kIntakeFlywheelSlaveConstants[0] = new SparkConstants();
+    //   kIntakeFlywheelSlaveConstants[0].kID = 18;
+    //   kIntakeFlywheelSlaveConstants[0].kIdleMode = IdleMode.kBrake;
+    //   kIntakeFlywheelSlaveConstants[0].kMotorType = MotorType.kBrushless;
+    //   kIntakeFlywheelSlaveConstants[0].kCurrentLimit = 80;
+    //   kIntakeFlywheelSlaveConstants[0].kInverted = true;
+    // }
 
     public static final VoltageSubsystemConstants kIntakeFlywheelConstants =
         new VoltageSubsystemConstants();
@@ -70,7 +70,7 @@ public final class Constants {
       // kIntakeFlywheelConstants.kSubsystemType = VoltageSubsystemType.INTAKE_FLYWHEEL;
 
       kIntakeFlywheelConstants.kLeaderConstants = kIntakeFlywheelMasterConstants;
-      kIntakeFlywheelConstants.kFollowerConstants = kIntakeFlywheelSlaveConstants;
+      //kIntakeFlywheelConstants.kFollowerConstants = kIntakeFlywheelSlaveConstants;
 
       kIntakeFlywheelConstants.kInitialState = IntakeFlywheelState.OFF;
       // kIntakeFlywheelConstants.kTransitionState = IntakeFlywheelState.TRANSITION;
@@ -79,7 +79,7 @@ public final class Constants {
   public static final SparkConstants kIntakeWristMasterConstants = new SparkConstants();
 
     static {
-      kIntakeWristMasterConstants.kID = 15;
+      kIntakeWristMasterConstants.kID = 34;
       kIntakeWristMasterConstants.kIdleMode = IdleMode.kBrake;
       kIntakeWristMasterConstants.kMotorType = MotorType.kBrushless;
       kIntakeWristMasterConstants.kCurrentLimit = 80;
