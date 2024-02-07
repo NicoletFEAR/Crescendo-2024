@@ -16,7 +16,7 @@ import frc.lib.utilities.GeometryUtils;
  */
 public class TeleopSwerve extends Command {
 
-  private final double STICK_DEAD_BAND = 0.1;
+  private final double STICK_DEAD_BAND = 0.05;
 
   private CommandPS5Controller m_controller;
 

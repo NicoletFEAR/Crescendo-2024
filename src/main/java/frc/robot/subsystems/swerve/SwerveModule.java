@@ -156,7 +156,7 @@ public class SwerveModule extends SubsystemBase {
     double angle =
         (Math.abs(m_desiredState.speedMetersPerSecond)
                 <= (DriveConstants.kMaxMetersPerSecond
-                    * 0.01)) // Prevent rotating module if speed is less than 1%. Prevents
+                    * DriveConstants.kSteerVelocityDeadzone)) // Prevent rotating module if speed is less than 1%. Prevents
             // Jittering.
             ? m_lastAngle
             : m_desiredState.angle.getDegrees();
