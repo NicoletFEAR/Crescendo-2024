@@ -13,14 +13,16 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 public class RobotContainer {
 
-  private CANSparkMax motor1 = new CANSparkMax(0, MotorType.kBrushless);
-  private CANSparkMax motor2 = new CANSparkMax(1, MotorType.kBrushless);
+  private CANSparkMax motor1 = new CANSparkMax(34, MotorType.kBrushless);
+  private CANSparkMax motor2 = new CANSparkMax(30, MotorType.kBrushless);
 
-  double voltage = 0;
+  double voltage1 = 0;
+  double voltage2 = 0;
 
   public RobotContainer() {
 
-    SmartDashboard.putNumber("Motor Voltage", 0);
+    SmartDashboard.putNumber("Motor 1 Voltage", 0);
+    SmartDashboard.putNumber("Motor 2 Voltage", 0);
 
     configureBindings();
   }
@@ -32,9 +34,10 @@ public class RobotContainer {
   }
 
   public void periodic() {
-    voltage = SmartDashboard.getNumber("Motor Voltage", 0);
+    voltage1 = SmartDashboard.getNumber("Motor 1 Voltage", 0);
+    voltage2 = SmartDashboard.getNumber("Motor 2 Voltage", 0);
 
-    motor1.setVoltage(voltage);
-    motor2.setVoltage(-voltage);
+    motor1.setVoltage(voltage1);
+    motor2.setVoltage(voltage2);
   }
 }
