@@ -301,7 +301,8 @@ public abstract class PositionSubsystem extends SubsystemBase {
   public enum PositionSubsystemType {
     LAUNCHER_WRIST,
     ELEVATOR_LIFT,
-    INTAKE_WRIST
+    INTAKE_WRIST,
+    CLIMB_WINCH
   }
 
   public interface PositionSubsystemState {

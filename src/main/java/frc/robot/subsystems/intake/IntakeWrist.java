@@ -161,8 +161,8 @@ public class IntakeWrist extends PositionSubsystem {
 
             // Deadband for controller
             kIntakeWristConstants.kManualDeadBand = .1;
-        }
+            }
 
-    }
+        }
         
     }

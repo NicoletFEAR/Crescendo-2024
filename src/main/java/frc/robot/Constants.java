@@ -177,8 +177,10 @@ public final class Constants {
     public static int kIntakeWristLeftID = 31;
     public static int kHoldID = 34;
 
-
     // CLIMB \\
+    public static int kClimbWinchLeftID = 51;
+    public static int kClimbWinchRightID = 52;
+
   }
 
 
