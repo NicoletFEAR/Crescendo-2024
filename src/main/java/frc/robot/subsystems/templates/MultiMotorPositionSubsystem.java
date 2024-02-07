@@ -6,6 +6,7 @@ package frc.robot.subsystems.templates;
 
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
@@ -75,6 +76,7 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
       }
       m_motors[i].setIdleMode(m_constants.kMotorConstants[i].kIdleMode);
       m_motors[i].setSmartCurrentLimit(m_constants.kMotorConstants[i].kCurrentLimit);
+      m_motors[i].setInverted(m_constants.kMotorConstants[i].kInverted);
 
       m_pidControllers[i] = m_motors[i].getPIDController();
       m_pidControllers[i].setP(m_constants.kMotorConstants[i].kKp, m_constants.kDefaultSlot);
@@ -84,6 +86,15 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
       m_encoders[i] = m_motors[i].getEncoder();
       m_encoders[i].setPosition(m_constants.kHomePosition);
       m_encoders[i].setPositionConversionFactor(m_constants.kPositionConversionFactor);
+
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 50);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 100);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 500);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 500);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 500);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 500);
+
       m_motors[i].burnFlash();
     }
 

@@ -6,6 +6,7 @@ package frc.robot.subsystems.templates;
 
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
@@ -70,6 +71,14 @@ public abstract class VelocitySubsystem extends SubsystemBase {
       m_pidControllers[i].setI(m_constants.kMotorConstants[i].kKi);
       m_pidControllers[i].setD(m_constants.kMotorConstants[i].kKd);
       m_pidControllers[i].setFF(m_constants.kMotorConstants[i].kKff);
+
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 50);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 500);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 500);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 500);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 500);
 
       m_motors[i].burnFlash();
     }

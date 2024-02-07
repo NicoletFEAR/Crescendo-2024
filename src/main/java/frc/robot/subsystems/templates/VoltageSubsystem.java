@@ -8,6 +8,7 @@ import org.littletonrobotics.junction.Logger;
 
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -42,7 +43,6 @@ public abstract class VoltageSubsystem extends SubsystemBase {
     m_leader.setIdleMode(m_constants.kLeaderConstants.kIdleMode);
     m_leader.setSmartCurrentLimit(m_constants.kLeaderConstants.kCurrentLimit);
     m_leader.setInverted(m_constants.kLeaderConstants.kInverted);
-    m_leader.burnFlash();
 
     if (m_constants.kFollowerConstants.length > 0) {
       if (m_constants.kFollowerConstants[0].kRevMotorType == RevMotorType.CAN_SPARK_MAX) {
@@ -53,6 +53,16 @@ public abstract class VoltageSubsystem extends SubsystemBase {
     } else {
       m_followers = new CANSparkBase[0];
     }
+
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 500);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 500);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 500);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 500);
+
+    m_leader.burnFlash();
 
     for (int i = 0; i < m_constants.kFollowerConstants.length; i++) {
       if (m_constants.kFollowerConstants[0].kRevMotorType == RevMotorType.CAN_SPARK_MAX) {
@@ -67,6 +77,15 @@ public abstract class VoltageSubsystem extends SubsystemBase {
       m_followers[i].setIdleMode(m_constants.kFollowerConstants[i].kIdleMode);
       m_followers[i].setSmartCurrentLimit(m_constants.kFollowerConstants[i].kCurrentLimit);
       m_followers[i].follow(m_leader, m_constants.kFollowerConstants[i].kInverted);
+
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 500);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 500);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 500);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 500);
+
       m_followers[i].burnFlash();
     }
 
