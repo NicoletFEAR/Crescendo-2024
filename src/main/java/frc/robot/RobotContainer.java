@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 public class RobotContainer {
 
-  private CANSparkMax motor1 = new CANSparkMax(0, MotorType.kBrushless);
-  private CANSparkMax motor2 = new CANSparkMax(1, MotorType.kBrushless);
+  private CANSparkMax motor1 = new CANSparkMax(34, MotorType.kBrushless);
+  private CANSparkMax motor2 = new CANSparkMax(30, MotorType.kBrushless);
 
   double voltage = 0;
 
@@ -35,6 +35,6 @@ public class RobotContainer {
     voltage = SmartDashboard.getNumber("Motor Voltage", 0);
 
     motor1.setVoltage(voltage);
-    motor2.setVoltage(-voltage);
+    motor2.setVoltage(voltage);
   }
 }
