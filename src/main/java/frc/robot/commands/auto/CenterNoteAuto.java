@@ -11,7 +11,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -50,7 +50,7 @@ public class CenterNoteAuto extends Command {
   @Override
   public void initialize() {
     m_availableNotes = new boolean[] {true, true, true, true, true};
-    m_availableNotes[1] = SmartDashboard.putBoolean("Note 2", true);
+    // m_availableNotes[1] = SmartDashboard.putBoolean("Note 2", true);
 
     lastIndex = getIndexToUse();
 
@@ -59,7 +59,7 @@ public class CenterNoteAuto extends Command {
 
       m_noteCommandRunning = AutoBuilder.pathfindThenFollowPath(m_paths[lastIndex], m_constraints);
       m_scoreCommandRunning = AutoBuilder.pathfindToPose(m_poseToUse, m_constraints);
-      m_sequentialCommandRunning = new SequentialCommandGroup(m_noteCommandRunning, new InstantCommand(() -> m_availableNotes[lastIndex] = false), m_scoreCommandRunning, new TurnToAngle(SwerveDrive.getInstance()));
+      m_sequentialCommandRunning = new SequentialCommandGroup(m_noteCommandRunning, m_scoreCommandRunning, new TurnToAngle(SwerveDrive.getInstance()), new InstantCommand(() -> m_availableNotes[lastIndex] = false));
       m_sequentialCommandRunning.schedule();
     }
 
@@ -69,8 +69,8 @@ public class CenterNoteAuto extends Command {
   @Override
   public void execute() {
 
-    m_availableNotes[1] = SmartDashboard.getBoolean("Note 2", true);
-    SmartDashboard.putBooleanArray("Notes", m_availableNotes);
+    // m_availableNotes[1] = SmartDashboard.getBoolean("Note 2", true);
+    // SmartDashboard.putBooleanArray("Notes", m_availableNotes);
     
     if (m_noteCommandRunning != null
      || m_availableNotes[lastIndex] == false
@@ -83,7 +83,7 @@ public class CenterNoteAuto extends Command {
           m_poseToUse = lastIndex > 2 ? m_scoreBot : m_scoreTop;
           m_noteCommandRunning = AutoBuilder.pathfindThenFollowPath(m_paths[lastIndex], m_constraints);
           m_scoreCommandRunning = AutoBuilder.pathfindToPose(m_poseToUse, m_constraints);
-          m_sequentialCommandRunning = new SequentialCommandGroup(m_noteCommandRunning, new InstantCommand(() -> m_availableNotes[lastIndex] = false), m_scoreCommandRunning, new TurnToAngle(SwerveDrive.getInstance()));
+          m_sequentialCommandRunning = new SequentialCommandGroup(m_noteCommandRunning, m_scoreCommandRunning, new TurnToAngle(SwerveDrive.getInstance()), new InstantCommand(() -> m_availableNotes[lastIndex] = false));
           m_sequentialCommandRunning.schedule();
         }
       }

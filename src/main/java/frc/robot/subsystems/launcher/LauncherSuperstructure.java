@@ -123,7 +123,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
     
     public static final int kWristCANCoderId = 4;
-    public static final int kLaunchBeamBreakId = 0;
+    public static final int kLaunchBeamBreakId = 1;
 
 
     // IN METERS

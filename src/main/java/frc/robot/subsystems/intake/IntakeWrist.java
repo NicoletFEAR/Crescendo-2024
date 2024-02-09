@@ -5,6 +5,10 @@ import frc.robot.subsystems.templates.SubsystemConstants.ManualControlMode;
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
+
+import org.littletonrobotics.junction.Logger;
+
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -13,9 +17,13 @@ import frc.robot.subsystems.templates.PositionSubsystem;
 public class IntakeWrist extends PositionSubsystem {
 
     private static IntakeWrist m_instance = null;
+    private CANcoder m_intakeWristAbsoluteEncoder;
 
     public IntakeWrist(PositionSubsystemConstants constants) {
         super(constants);
+        m_intakeWristAbsoluteEncoder = new CANcoder(11);
+        
+        // zero(m_intakeWristAbsoluteEncoder.getAbsolutePosition().getValue());
     }
 
     public static IntakeWrist getInstance() {
@@ -30,7 +38,9 @@ public class IntakeWrist extends PositionSubsystem {
     public void subsystemPeriodic() {}
 
     @Override
-    public void outputTelemetry() {}
+    public void outputTelemetry() {
+        Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", m_intakeWristAbsoluteEncoder.getAbsolutePosition().getValue());
+    }
 
     public enum IntakeWristState implements PositionSubsystemState {
         DOWN(5, 0, "Down"),

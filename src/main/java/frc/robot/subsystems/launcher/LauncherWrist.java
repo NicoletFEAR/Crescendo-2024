@@ -6,6 +6,8 @@ import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConsta
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -17,21 +19,20 @@ import frc.robot.subsystems.templates.PositionSubsystem;
 
 public class LauncherWrist extends PositionSubsystem {
 
-
     private static LauncherWrist m_instance = null;
 
-    private CANcoder m_CANCoder;
+    private CANcoder m_launcherWristAbsoluteEncoder;
 
     // private ArmFeedforward m_feedforward;
 
     public LauncherWrist(PositionSubsystemConstants constants) {
         super(constants);
 
-        m_CANCoder = new CANcoder(LauncherConstants.kWristCANCoderId);
+        m_launcherWristAbsoluteEncoder = new CANcoder(LauncherConstants.kWristCANCoderId);
 
         // m_feedforward = new ArmFeedforward(m_constants.kLeaderConstants.kKs, m_constants.kLeaderConstants.kKg, m_constants.kLeaderConstants.kKv);
 
-        zero(m_CANCoder.getAbsolutePosition().getValue());
+        // zero(m_launcherWristAbsoluteEncoder.getAbsolutePosition().getValue());
     }
 
     public static LauncherWrist getInstance() {
@@ -52,7 +53,9 @@ public class LauncherWrist extends PositionSubsystem {
     }
 
     @Override
-    public void outputTelemetry() {}
+    public void outputTelemetry() {
+        Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", m_launcherWristAbsoluteEncoder.getAbsolutePosition().getValue());
+    }
 
     public double calculatePitch() {
         // double distance = SwerveDrive.getInstance().getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);

@@ -7,17 +7,29 @@ import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.templates.VoltageSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.playingwithfusion.TimeOfFlight;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 public class IntakeFlywheel extends VoltageSubsystem {
 
     private static IntakeFlywheel m_instance = null;
+  private TimeOfFlight m_intakeTOF;
 
     protected IntakeFlywheel(VoltageSubsystemConstants constants) {
         super(constants);
+         m_intakeTOF = new TimeOfFlight(0);
         //TODO Auto-generated constructor stub
     }
+
+    public boolean timeOfFlightBlocked(){
+        if(m_intakeTOF.getRange() < 300){
+          return true;
+        }
+        else{
+          return false;
+        }
+      }
 
     public static IntakeFlywheel getInstance() {
         if (m_instance == null) {

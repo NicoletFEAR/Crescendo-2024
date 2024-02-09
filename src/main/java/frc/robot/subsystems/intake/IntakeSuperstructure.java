@@ -1,5 +1,6 @@
 package frc.robot.subsystems.intake;
 
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.playingwithfusion.TimeOfFlight;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -18,7 +19,6 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   // private ElevatorLift m_ElevatorLift = ElevatorLift.getInstance();
   private IntakeFlywheel m_intakeFlywheel = IntakeFlywheel.getInstance();
   private IntakeWrist m_intakeWrist = IntakeWrist.getInstance();
-  private TimeOfFlight m_tof = new TimeOfFlight(0);
 
   private static IntakeSuperstructure m_instance = null;
 
@@ -36,10 +36,6 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
   public IntakeFlywheel getIntakeFlywheel(){
     return m_intakeFlywheel;
-  }
-
-  public double getTOF(){
-    return m_tof.getRange();
   }
 
   @Override
@@ -127,5 +123,11 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     public String getName() {
       return name;
     }
+  }
+
+  public static final class IntakeConstants{
+    public static final int kWristCANCoderID = 5;
+    public static final int kLaunchBeamBreakID = 0;
+    public static final int elevatorLimitSwitchID = 6;
   }
 }

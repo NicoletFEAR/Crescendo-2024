@@ -1,9 +1,13 @@
 package frc.robot.subsystems.intake;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.MotorConstants;
+import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeConstants;
 import frc.robot.subsystems.templates.PositionSubsystem;
 import frc.robot.subsystems.templates.SubsystemConstants.ManualControlMode;
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
@@ -13,9 +17,15 @@ import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 public class ElevatorLift extends PositionSubsystem {
 
     private static ElevatorLift m_instance = null;
+    DigitalInput m_limitSwitch;
 
     public ElevatorLift(PositionSubsystemConstants constants) {
         super(constants);
+        m_limitSwitch = new DigitalInput(IntakeConstants.elevatorLimitSwitchID);
+
+        // if(m_limitSwitch.get()){
+        //     zero(0);
+        // }
     }
 
     public static ElevatorLift getInstance() {
@@ -31,7 +41,9 @@ public class ElevatorLift extends PositionSubsystem {
     }
 
     @Override
-    public void outputTelemetry() {}
+    public void outputTelemetry() {
+        Logger.recordOutput("Follower pos", m_followers[0].getEncoder().getPosition());
+    }
 
     public enum ElevatorLiftState implements PositionSubsystemState {
         DOWN(0, 0, "Down"),
@@ -85,7 +97,7 @@ public class ElevatorLift extends PositionSubsystem {
           kElevatorLiftLeaderConstants.kName = "Elevator Lift Right";
           kElevatorLiftLeaderConstants.kIdleMode = IdleMode.kBrake;
           kElevatorLiftLeaderConstants.kMotorType = MotorType.kBrushless;
-          kElevatorLiftLeaderConstants.kCurrentLimit = 35;
+          kElevatorLiftLeaderConstants.kCurrentLimit = 20;
           kElevatorLiftLeaderConstants.kInverted = false;
           kElevatorLiftLeaderConstants.kKp = 0.1;
           kElevatorLiftLeaderConstants.kKi = 0.0;
@@ -101,7 +113,7 @@ public class ElevatorLift extends PositionSubsystem {
           kElevatorLiftFollowerConstants[0].kName = "Elevator Lift Left";
           kElevatorLiftFollowerConstants[0].kIdleMode = IdleMode.kBrake;
           kElevatorLiftFollowerConstants[0].kMotorType = MotorType.kBrushless;
-          kElevatorLiftFollowerConstants[0].kCurrentLimit = 35;
+          kElevatorLiftFollowerConstants[0].kCurrentLimit = 20;
           kElevatorLiftFollowerConstants[0].kInverted = true;
         }
 
@@ -147,18 +159,18 @@ public class ElevatorLift extends PositionSubsystem {
           kElevatorLiftSubsystemConstants.kDefaultSlot = 0; 
 
           // Max velocity and acceleration for trapezoidal motion profile
-          kElevatorLiftSubsystemConstants.kMaxVelocity = 100.0; 
-          kElevatorLiftSubsystemConstants.kMaxAcceleration = 75.0;
+          kElevatorLiftSubsystemConstants.kMaxVelocity = 10.0; 
+          kElevatorLiftSubsystemConstants.kMaxAcceleration = 5.0;
 
           // Max/Min positions the subsystem should be able to move
           kElevatorLiftSubsystemConstants.kMaxPosition = 100;
-          kElevatorLiftSubsystemConstants.kMinPosition = 0;
+          kElevatorLiftSubsystemConstants.kMinPosition = -100;
 
           // Enum which is found in SubsystemConstants
-          kElevatorLiftSubsystemConstants.kManualControlMode = ManualControlMode.LEFT_X;
+          kElevatorLiftSubsystemConstants.kManualControlMode = ManualControlMode.BUMPERS;
 
           // Multiplied by controller inputs
-          kElevatorLiftSubsystemConstants.kManualMultiplier = 1;
+          kElevatorLiftSubsystemConstants.kManualMultiplier = 0.05;
 
           // Deadband for controller
           kElevatorLiftSubsystemConstants.kManualDeadBand = .1;
