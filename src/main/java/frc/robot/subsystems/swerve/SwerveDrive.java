@@ -89,6 +89,7 @@ public class SwerveDrive extends SubsystemBase {
 
     m_pigeon.optimizeBusUtilization();
     m_pigeon.getYaw().setUpdateFrequency(100);
+    m_pigeon.getFault_BootupGyroscope().setUpdateFrequency(100);
 
     /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
      * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.

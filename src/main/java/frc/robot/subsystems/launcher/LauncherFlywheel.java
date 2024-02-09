@@ -55,11 +55,11 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
     public enum LauncherFlywheelState implements VelocitySubsystemState {
         OFF(new double[] {0, 0}, "Off"),
-        IDLE(new double[] {1000, 1000}, "Idle"),
+        IDLE(new double[] {-2500, -2500}, "Idle"),
         FAST(new double[] {-4000, -4000}, "Fast"),
         TRANSITION(new double[] {0, 0}, "Transition"),
         FIELD_BASED_VELOCITY(new double[] {0, 0}, "Field Based Velocity"),
-        RUNNING(new double[] {-5500, -5500}, "Running"),
+        RUNNING(new double[] {-5000, -5000}, "Running"),
         MANUAL(new double[] {0, 0}, "Manual");
     
         private double[] velocity;
