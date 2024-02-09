@@ -351,7 +351,6 @@ public class SwerveDrive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // System.out.println(getYawDegrees());
     poseEstimator.update(getYaw(), getModulePositions());
 
     robotRelativeChassisSpeeds = DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());

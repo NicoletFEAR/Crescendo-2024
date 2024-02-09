@@ -28,15 +28,10 @@ public class Hold extends VoltageSubsystem {
     }
 
     @Override
-    public void subsystemPeriodic() {
-        // TODO Auto-generated method stub
-        SmartDashboard.putNumber("Velocity of Hold", getVelocity());
-    }
+    public void subsystemPeriodic() {}
 
     @Override
-    public void outputTelemetry() {
-        // TODO Auto-generated method stub
-    }
+    public void outputTelemetry() {}
 
     public enum HoldState implements VoltageSubsystemState {
         OFF(0, "Off"),

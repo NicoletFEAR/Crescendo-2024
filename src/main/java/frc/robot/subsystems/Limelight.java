@@ -21,7 +21,8 @@ import org.littletonrobotics.junction.Logger;
 
 public class Limelight extends SubsystemBase {
 
-  private static Limelight m_instance = null;
+  private static Limelight m_launchInstance = null;
+  private static Limelight m_intakeInstance = null;
 
   private NetworkTableInstance m_visionTable;
   private NetworkTableEntry m_tv;
@@ -38,25 +39,33 @@ public class Limelight extends SubsystemBase {
   public int fidId;
   public String camName;
 
-  public static Limelight getInstance() {
-    if (m_instance == null) {
-      m_instance = new Limelight();
+  public static Limelight getLaunchLimelight() {
+    if (m_launchInstance == null) {
+      m_launchInstance = new Limelight("limelight-launch");
     }
 
-    return m_instance;
+    return m_launchInstance;
   }
 
-  public Limelight() {
+  public static Limelight getIntakeLimelight() {
+    if (m_intakeInstance == null) {
+      m_intakeInstance = new Limelight("limelight-intake");
+    }
+
+    return m_intakeInstance;
+  }
+
+  public Limelight(String name) {
     m_visionTable = NetworkTableInstance.getDefault();
     m_tv = m_visionTable.getEntry("tv");
     m_ta = m_visionTable.getEntry("ta");
     m_tl = m_visionTable.getEntry("tl");
     m_cl = m_visionTable.getEntry("cl");
-    m_tcornxy = m_visionTable.getEntry("m_tcornxy");
+    m_tcornxy = m_visionTable.getEntry("tcornxy");
     m_botpose = m_visionTable.getEntry("botpose");
     m_targetpose_robotspace = m_visionTable.getEntry("targetpose_robotspace");
 
-    camName = "limelight";
+    camName = name;
   }
 
   public double getA() {
@@ -94,31 +103,27 @@ public class Limelight extends SubsystemBase {
     m_ta = currentData.getEntry("ta");
     m_tl = currentData.getEntry("tl");
     m_cl = currentData.getEntry("cl");
-    m_tcornxy = currentData.getEntry("m_tcornxy");
+    m_tcornxy = currentData.getEntry("tcornxy");
     m_botpose = currentData.getEntry("botpose_wpiblue");
     m_targetpose_robotspace = currentData.getEntry("targetpose_robotspace");
 
 
 
     if (Constants.currentMode == Mode.REAL) {
-      Logger.recordOutput("Limelight/Limelight Pose", getLimelightPose());
-      Logger.recordOutput("Limelight/Valid Targets", m_tv.getInteger(0));
-      Logger.recordOutput("Limelight/Target Area", m_ta.getDouble(0));
-      Logger.recordOutput("Limelight/Pipeline Latency", m_tl.getDouble(0));
-      Logger.recordOutput("Limelight/Capture Latency", m_cl.getDouble(0));
+      Logger.recordOutput(camName + "/Pose", getLimelightPose());
+      Logger.recordOutput(camName + "/Valid Targets", m_tv.getInteger(0));
+      Logger.recordOutput(camName + "/Target Area", m_ta.getDouble(0));
+      Logger.recordOutput(camName + "/Pipeline Latency", m_tl.getDouble(0));
+      Logger.recordOutput(camName + "/Capture Latency", m_cl.getDouble(0));
       Logger.recordOutput(
-          "Limelight/Corners/X",
+          camName + "/Corners/X",
           GeometryUtils.AKitCorner(m_tcornxy.getDoubleArray(new double[2]))[0]);
       Logger.recordOutput(
-          "Limelight/Corners/Y",
+          camName + "/Corners/Y",
           GeometryUtils.AKitCorner(m_tcornxy.getDoubleArray(new double[2]))[1]);
       Logger.recordOutput(
-          "Limelight/AprilTag Pose",
+          camName + "/AprilTag Pose",
           GeometryUtils.PoseSpaceToFieldSpace(getTargetPose(), SwerveDrive.getInstance().getPose()));
     }
-  }
-
-  public void realPeriodic() {
-
   }
 }

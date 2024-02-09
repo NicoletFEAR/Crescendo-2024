@@ -103,8 +103,6 @@ public class Robot extends LoggedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-
-    m_robotContainer.periodic();
   }
 
   /** This function is called once when autonomous is enabled. */
