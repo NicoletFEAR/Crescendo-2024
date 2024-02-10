@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -32,6 +33,8 @@ import frc.robot.subsystems.launcher.LauncherWrist;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
+import frc.robot.subsystems.leds.LED;
+import frc.robot.subsystems.leds.LED.LEDState;
 // import frc.robot.subsystems.launcher.LauncherFlywheel;
 // import frc.robot.subsystems.launcher.LauncherSuperstructure;
 // import frc.robot.subsystems.launcher.LauncherWrist;
@@ -62,7 +65,8 @@ public class RobotContainer {
   
   private SwerveDrive m_drivebase = SwerveDrive.getInstance();
   // private IntakeSuperstructure m_IntakeSuperstructure = IntakeSuperstructure.getInstance();
- private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
+  private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
+  private LED m_led = LED.getInstance();
 
   // SENDABLE CHOOSER \\
   public static LoggedDashboardChooser<Command> autoChooser;
@@ -172,13 +176,17 @@ public class RobotContainer {
     // m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
     // m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
     // m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
-    m_operatorController.back().onTrue(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.IN))
-      .onFalse(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.OFF));
 
     m_operatorController.a().onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.FAST));
     m_operatorController.b().onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.RUNNING));
     m_operatorController.x().onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.IDLE));
     m_operatorController.y().onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.OFF));
+
+    ///// LEDS /////
+    m_driverController.pov(0).onTrue(new InstantCommand(() -> m_led.setState(LEDState.BLUE)));
+    m_driverController.pov(90).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF)));  //
+    m_driverController.pov(180).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF))); // Can switch to other colors
+    m_driverController.pov(270).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF))); //
     
   }
 
