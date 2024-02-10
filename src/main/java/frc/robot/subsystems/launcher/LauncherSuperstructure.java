@@ -9,17 +9,20 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
+import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 // import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
+import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
 // import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
+import frc.robot.subsystems.launcher.LauncherHold;
 
 public class LauncherSuperstructure extends SuperstructureSubsystem {
 
   private LauncherFlywheel m_launcherFlywheel = LauncherFlywheel.getInstance();
   private LauncherWrist m_launcherWrist = LauncherWrist.getInstance();
-  // private LauncherHold m_launcherHold = LauncherHold.getInstance();
+  private LauncherHold m_launcherHold = LauncherHold.getInstance();
 
   private DigitalInput m_launcherBeamBreak;
 
@@ -45,8 +48,11 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
-    outputCommand.addCommands(new SetVelocitySubsystemState(m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
-    .alongWith(new SetPositionSubsystemState(m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState)));
+    outputCommand.addCommands(
+      new SetVelocitySubsystemState(m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState))
+      .alongWith(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState))
+    );
     // outputCommand.addCommands(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState));
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = launcherDesiredState));
 
@@ -73,43 +79,49 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     OFF(
         LauncherFlywheelState.OFF,
         LauncherWristState.DOWN,
+        LauncherHoldState.OFF,
         "Off"),
     IDLE(
         LauncherFlywheelState.IDLE,
         LauncherWristState.DOWN,
+        LauncherHoldState.OFF,
         "Idle"),
     RUNNING(
         LauncherFlywheelState.RUNNING,
         LauncherWristState.UP,
+        LauncherHoldState.IN,
         "Launch"),
     FAST(
         LauncherFlywheelState.FAST,
         LauncherWristState.DOWN,
+        LauncherHoldState.IN,
         "Feeding"),
     OUTTAKE(
         LauncherFlywheelState.OFF,
         LauncherWristState.DOWN,
+        LauncherHoldState.OFF,
         "Outtaking"),
     TRANSITION(
       LauncherFlywheelState.TRANSITION,
       LauncherWristState.TRANSITION,
+      LauncherHoldState.OFF,
       "Transition"
     );
 
 
     public LauncherFlywheelState launcherFlywheelState;
     public LauncherWristState launcherWristState;
-    // public LauncherHoldState launcherHoldState;
+    public LauncherHoldState launcherHoldState;
     public String name;
 
     private LauncherSuperstructureState(
         LauncherFlywheelState launcherFlywheelState,
         LauncherWristState launcherWristState,
-        // LauncherHoldState launcherHoldState,
+        LauncherHoldState launcherHoldState,
         String name) {
       this.launcherFlywheelState = launcherFlywheelState;
       this.launcherWristState = launcherWristState;
-      // this.launcherHoldState = launcherHoldState;
+      this.launcherHoldState = launcherHoldState;
       this.name = name;
     }
 

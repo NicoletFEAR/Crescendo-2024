@@ -14,22 +14,14 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 public class IntakeFlywheel extends VoltageSubsystem {
 
     private static IntakeFlywheel m_instance = null;
-  private TimeOfFlight m_intakeTOF;
+  
 
     protected IntakeFlywheel(VoltageSubsystemConstants constants) {
         super(constants);
-         m_intakeTOF = new TimeOfFlight(0);
         //TODO Auto-generated constructor stub
     }
 
-    public boolean timeOfFlightBlocked(){
-        if(m_intakeTOF.getRange() < 300){
-          return true;
-        }
-        else{
-          return false;
-        }
-      }
+    
 
     public static IntakeFlywheel getInstance() {
         if (m_instance == null) {
@@ -103,7 +95,7 @@ public class IntakeFlywheel extends VoltageSubsystem {
             kIntakeFlywheelConstants.kSubsystemName = "Intake Flywheel";
             kIntakeFlywheelConstants.kSuperstructureName = "Intake";
 
-            kIntakeFlywheelConstants.kSubsystemType = VoltageSubsystemType.INTAKE;
+            kIntakeFlywheelConstants.kSubsystemType = VoltageSubsystemType.INTAKE_FLYWHEELS;
 
             kIntakeFlywheelConstants.kLeaderConstants = kIntakeFlywheelLeaderConstants;
            

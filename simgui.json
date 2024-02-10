@@ -11,6 +11,11 @@
           "open": true
         }
       },
+      "SPARK MAX [44]": {
+        "header": {
+          "open": true
+        }
+      },
       "SPARK MAX [5]": {
         "header": {
           "open": true
@@ -58,6 +63,9 @@
     }
   },
   "NetworkTables": {
+    "Persistent Values": {
+      "open": false
+    },
     "retained": {
       "Shuffleboard": {
         "Main": {
@@ -93,10 +101,7 @@
             "open": true
           },
           "Launcher": {
-            "Launcher Flywheel": {
-              "open": true
-            },
-            "Launcher Wrist": {
+            "Launcher Hold": {
               "open": true
             },
             "open": true

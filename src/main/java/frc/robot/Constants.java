@@ -170,6 +170,7 @@ public final class Constants {
     public static int kLauncherTopFlywheelID = 43;
     public static int kLauncherBottomFlywheelID = 41;
     public static int kLauncherWristID = 40;
+    public static int kLauncherHoldID = 44;
 
     // INTAKE \\
     public static int kElevatorLiftRightID = 20;
@@ -177,7 +178,7 @@ public final class Constants {
     public static int kIntakeFlywheelID = 30;
     public static int kIntakeWristRightID = 32;
     public static int kIntakeWristLeftID = 31;
-    public static int kHoldID = 34;
+    public static int kIntakeHoldID = 34;
 
 
     // CLIMB \\

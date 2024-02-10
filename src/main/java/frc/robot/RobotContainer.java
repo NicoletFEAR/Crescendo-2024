@@ -22,11 +22,16 @@ import frc.robot.commands.auto.CenterNoteAuto;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
+import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 // import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.subsystems.intake.ElevatorLift;
 import frc.robot.subsystems.launcher.LauncherFlywheel;
+import frc.robot.subsystems.launcher.LauncherHold;
+import frc.robot.subsystems.launcher.LauncherSuperstructure;
 import frc.robot.subsystems.launcher.LauncherWrist;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
+import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
+import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 // import frc.robot.subsystems.launcher.LauncherFlywheel;
 // import frc.robot.subsystems.launcher.LauncherSuperstructure;
 // import frc.robot.subsystems.launcher.LauncherWrist;
@@ -57,7 +62,7 @@ public class RobotContainer {
   
   private SwerveDrive m_drivebase = SwerveDrive.getInstance();
   // private IntakeSuperstructure m_IntakeSuperstructure = IntakeSuperstructure.getInstance();
-  // private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
+ private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
 
   // SENDABLE CHOOSER \\
   public static LoggedDashboardChooser<Command> autoChooser;
@@ -167,6 +172,8 @@ public class RobotContainer {
     // m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
     // m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
     // m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
+    m_operatorController.back().onTrue(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.IN))
+      .onFalse(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.OFF));
 
     m_operatorController.a().onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.FAST));
     m_operatorController.b().onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.RUNNING));
