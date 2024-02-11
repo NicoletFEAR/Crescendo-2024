@@ -12,6 +12,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.templates.PositionSubsystem;
 
 public class IntakeWrist extends PositionSubsystem {
@@ -89,13 +90,13 @@ public class IntakeWrist extends PositionSubsystem {
         public static final SparkConstants kIntakeWristLeaderConstants = new SparkConstants();
 
         static {
-            kIntakeWristLeaderConstants.kID = 8;
+            kIntakeWristLeaderConstants.kID = MotorConstants.kIntakeWristLeftID;
             kIntakeWristLeaderConstants.kRevMotorType = RevMotorType.CAN_SPARK_MAX;
             kIntakeWristLeaderConstants.kName = "Intake Wrist Leader";
             kIntakeWristLeaderConstants.kIdleMode = IdleMode.kBrake;
             kIntakeWristLeaderConstants.kMotorType = MotorType.kBrushless;
-            kIntakeWristLeaderConstants.kCurrentLimit = 80;
-            kIntakeWristLeaderConstants.kInverted = false;
+            kIntakeWristLeaderConstants.kCurrentLimit = 20;
+            kIntakeWristLeaderConstants.kInverted = true;
             kIntakeWristLeaderConstants.kKp = 0.1;
             kIntakeWristLeaderConstants.kKi = 0.0;
             kIntakeWristLeaderConstants.kKd = 0.0;
@@ -106,11 +107,11 @@ public class IntakeWrist extends PositionSubsystem {
         static {
             kWristFollowerConstants[0] = new SparkConstants();
             kWristFollowerConstants[0].kRevMotorType = RevMotorType.CAN_SPARK_MAX;
-            kWristFollowerConstants[0].kID = 7;
+            kWristFollowerConstants[0].kID = MotorConstants.kIntakeWristRightID;
             kWristFollowerConstants[0].kName = "Intake Wrist Follower";
             kWristFollowerConstants[0].kIdleMode = IdleMode.kBrake;
             kWristFollowerConstants[0].kMotorType = MotorType.kBrushless;
-            kWristFollowerConstants[0].kCurrentLimit = 80;
+            kWristFollowerConstants[0].kCurrentLimit = 20;
             kWristFollowerConstants[0].kInverted = true;
         }
 
@@ -137,7 +138,7 @@ public class IntakeWrist extends PositionSubsystem {
             // Initial, Manual, and Transition state of the subsytem
             // This enum is in the Subsystem that extends the MultiMotorPositionSubsystem
             // You will have to create these states
-            kIntakeWristConstants.kInitialState = IntakeWristState.DOWN;
+            kIntakeWristConstants.kInitialState = IntakeWristState.UP;
             kIntakeWristConstants.kManualState = IntakeWristState.MANUAL;
             kIntakeWristConstants.kTransitionState = IntakeWristState.TRANSITION;
 
@@ -160,14 +161,14 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristConstants.kMaxAcceleration = 20;
 
             // Max/Min positions the subsystem should be able to move
-            kIntakeWristConstants.kMaxPosition = Double.POSITIVE_INFINITY;
-            kIntakeWristConstants.kMinPosition = Double.NEGATIVE_INFINITY;
+            kIntakeWristConstants.kMaxPosition = 17.0;
+            kIntakeWristConstants.kMinPosition = 0.0;
 
             // Enum which is found in SubsystemConstants
-            kIntakeWristConstants.kManualControlMode = ManualControlMode.TRIGGERS;
+            kIntakeWristConstants.kManualControlMode = ManualControlMode.BUMPERS;
 
             // Multiplied by controller inputs
-            kIntakeWristConstants.kManualMultiplier = 1;
+            kIntakeWristConstants.kManualMultiplier = 0.1;
 
             // Deadband for controller
             kIntakeWristConstants.kManualDeadBand = .1;

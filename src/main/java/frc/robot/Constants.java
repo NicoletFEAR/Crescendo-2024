@@ -175,10 +175,11 @@ public final class Constants {
     // INTAKE \\
     public static int kElevatorLiftRightID = 20;
     public static int kElevatorLiftLeftID = 21;
-    public static int kIntakeFlywheelID = 30;
+    
+    public static int kIntakeFlywheelID = 34;
     public static int kIntakeWristRightID = 32;
     public static int kIntakeWristLeftID = 31;
-    public static int kIntakeHoldID = 34;
+    public static int kIntakeHoldID = 36;
 
 
     // CLIMB \\

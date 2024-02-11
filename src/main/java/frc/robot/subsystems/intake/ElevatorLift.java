@@ -167,7 +167,7 @@ public class ElevatorLift extends PositionSubsystem {
           kElevatorLiftSubsystemConstants.kMinPosition = -100;
 
           // Enum which is found in SubsystemConstants
-          kElevatorLiftSubsystemConstants.kManualControlMode = ManualControlMode.BUMPERS;
+          kElevatorLiftSubsystemConstants.kManualControlMode = ManualControlMode.TRIGGERS;
 
           // Multiplied by controller inputs
           kElevatorLiftSubsystemConstants.kManualMultiplier = 0.05;

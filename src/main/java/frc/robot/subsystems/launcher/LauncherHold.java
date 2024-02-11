@@ -38,7 +38,9 @@ public class LauncherHold extends VoltageSubsystem {
 
     public enum LauncherHoldState implements VoltageSubsystemState {
         OFF(0, "Off"),
-        IN(5, "In");
+        IN(9, "In"),
+        AMP(6, "Amp"),
+        OUT(-6, "Out");
         
         private double voltage;
         private String name;
