@@ -103,10 +103,16 @@
             "Elevator Lift": {
               "open": true
             },
+            "Intake Wrist": {
+              "open": true
+            },
             "open": true
           },
           "Launcher": {
             "Launcher Hold": {
+              "open": true
+            },
+            "Launcher Wrist": {
               "open": true
             },
             "open": true

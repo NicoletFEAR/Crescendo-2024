@@ -46,11 +46,13 @@ public abstract class PositionSubsystem extends SubsystemBase {
   protected PositionSubsystemState m_desiredState = null;
 
   protected boolean m_hasBeenZeroed = false;
-  protected boolean m_isZeroed = true;
+  protected boolean m_isZeroed = true; //TODO fix this when you have zeroing working
 
   protected double m_profileStartTime = -1;
 
   protected double m_arbFeedforward = 0;
+
+  protected boolean m_isManualMoving;
 
   protected PositionSubsystem(final PositionSubsystemConstants constants) {
 
@@ -96,10 +98,10 @@ public abstract class PositionSubsystem extends SubsystemBase {
       
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 100);
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 500);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 500);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 500);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 500);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
 
     m_leader.burnFlash();
 
@@ -120,12 +122,12 @@ public abstract class PositionSubsystem extends SubsystemBase {
       m_followers[i].follow(m_leader, m_constants.kFollowerConstants[i].kInverted);
 
       m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 500);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 500);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 500);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 500);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 500);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 65534);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 65534);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
 
       m_followers[i].burnFlash();
     }
@@ -220,12 +222,20 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
       m_throttle *= m_constants.kManualMultiplier;
 
-      m_constants.kManualState.setPosition(m_constants.kManualState.getPosition() + m_throttle);
-      m_constants.kManualState.setPosition(
-          MathUtil.clamp(
-              m_constants.kManualState.getPosition(),
+      double intendedPosition = MathUtil.clamp(
+              m_constants.kManualState.getPosition() + m_throttle,
               m_constants.kMinPosition,
-              m_constants.kMaxPosition));
+              m_constants.kMaxPosition);
+
+      if (intendedPosition != m_constants.kManualState.getPosition()) {
+        m_isManualMoving = true;
+        m_constants.kManualState.setPosition(intendedPosition);
+        if (m_profileStartTime == -1) {
+          holdPosition();
+        }
+      } else {
+        m_isManualMoving = false;
+      }
     }
   }
 
@@ -288,8 +298,6 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     if (!(m_profileStartTime == -1)) {
       runToSetpoint();
-    } else if (m_currentState == m_constants.kManualState) {
-      holdPosition();
     }
 
     subsystemPeriodic();

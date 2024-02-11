@@ -29,6 +29,8 @@ public class LauncherWrist extends PositionSubsystem {
         super(constants);
 
         m_launcherWristAbsoluteEncoder = new CANcoder(LauncherConstants.kWristCANCoderId);
+        m_launcherWristAbsoluteEncoder.optimizeBusUtilization();
+        m_launcherWristAbsoluteEncoder.getAbsolutePosition().setUpdateFrequency(50);
 
         // m_feedforward = new ArmFeedforward(m_constants.kLeaderConstants.kKs, m_constants.kLeaderConstants.kKg, m_constants.kLeaderConstants.kKv);
 

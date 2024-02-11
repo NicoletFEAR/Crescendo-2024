@@ -23,6 +23,8 @@ public class IntakeWrist extends PositionSubsystem {
     public IntakeWrist(PositionSubsystemConstants constants) {
         super(constants);
         m_intakeWristAbsoluteEncoder = new CANcoder(11);
+        m_intakeWristAbsoluteEncoder.optimizeBusUtilization();
+        m_intakeWristAbsoluteEncoder.getAbsolutePosition().setUpdateFrequency(50);
         
         // zero(m_intakeWristAbsoluteEncoder.getAbsolutePosition().getValue());
     }

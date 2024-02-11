@@ -10,13 +10,10 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
-// import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
-// import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
-import frc.robot.subsystems.launcher.LauncherHold;
 
 public class LauncherSuperstructure extends SuperstructureSubsystem {
 
@@ -51,7 +48,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     outputCommand.addCommands(
       new SetVelocitySubsystemState(m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
       .alongWith(new SetPositionSubsystemState(m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState))
-      .alongWith(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState))
+      .andThen(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState))
     );
     // outputCommand.addCommands(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState));
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = launcherDesiredState));

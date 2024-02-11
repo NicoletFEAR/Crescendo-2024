@@ -5,9 +5,7 @@ import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.VoltageSubsystemConstants;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.templates.VoltageSubsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.playingwithfusion.TimeOfFlight;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 

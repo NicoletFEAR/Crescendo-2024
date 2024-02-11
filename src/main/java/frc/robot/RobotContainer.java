@@ -4,27 +4,20 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-// import edu.wpi.first.math.geometry.Pose2d;
-// import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-// import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.utilities.LoggedDashboardChooser;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.auto.CenterNoteAuto;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
-// import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.subsystems.intake.ElevatorLift;
 import frc.robot.subsystems.intake.IntakeFlywheel;
 import frc.robot.subsystems.intake.IntakeHold;
@@ -33,18 +26,9 @@ import frc.robot.subsystems.intake.IntakeFlywheel.IntakeFlywheelState;
 import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 import frc.robot.subsystems.launcher.LauncherFlywheel;
 import frc.robot.subsystems.launcher.LauncherHold;
-import frc.robot.subsystems.launcher.LauncherSuperstructure;
 import frc.robot.subsystems.launcher.LauncherWrist;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
-import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
-import frc.robot.subsystems.leds.LED;
-import frc.robot.subsystems.leds.LED.LEDState;
-// import frc.robot.subsystems.launcher.LauncherFlywheel;
-// import frc.robot.subsystems.launcher.LauncherSuperstructure;
-// import frc.robot.subsystems.launcher.LauncherWrist;
-// import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
-// import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.swerve.SwerveDrive;
 
 /*

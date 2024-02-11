@@ -68,7 +68,7 @@ public class GeometryUtils {
         new Pose2d(
             speeds.vxMetersPerSecond * dt,
             speeds.vyMetersPerSecond * dt,
-            new Rotation2d(speeds.omegaRadiansPerSecond * dt * 1));
+            new Rotation2d(speeds.omegaRadiansPerSecond * dt * 4));
     var twist = new Pose2d().log(desiredDeltaPose);
 
     return new ChassisSpeeds((twist.dx / dt), (twist.dy / dt), (speeds.omegaRadiansPerSecond));

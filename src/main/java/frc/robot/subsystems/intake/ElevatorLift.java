@@ -164,7 +164,7 @@ public class ElevatorLift extends PositionSubsystem {
 
           // Max/Min positions the subsystem should be able to move
           kElevatorLiftSubsystemConstants.kMaxPosition = 100;
-          kElevatorLiftSubsystemConstants.kMinPosition = -100;
+          kElevatorLiftSubsystemConstants.kMinPosition = 0;
 
           // Enum which is found in SubsystemConstants
           kElevatorLiftSubsystemConstants.kManualControlMode = ManualControlMode.TRIGGERS;

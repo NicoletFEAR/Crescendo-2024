@@ -2,7 +2,6 @@ package frc.robot.subsystems.intake;
 
 import org.littletonrobotics.junction.Logger;
 
-import com.ctre.phoenix6.hardware.CANcoder;
 import com.playingwithfusion.TimeOfFlight;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
