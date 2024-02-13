@@ -73,7 +73,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
   }
 
   public enum LauncherSuperstructureState implements SuperstructureState {
-    OFF(
+    OFF( // should clean up
         LauncherFlywheelState.OFF,
         LauncherWristState.DOWN,
         LauncherHoldState.OFF,
@@ -86,18 +86,18 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     RUNNING(
         LauncherFlywheelState.RUNNING,
         LauncherWristState.UP,
-        LauncherHoldState.IN,
-        "Launch"),
+        LauncherHoldState.LAUNCHING,
+        "Running"),
     FAST(
         LauncherFlywheelState.FAST,
         LauncherWristState.DOWN,
-        LauncherHoldState.IN,
-        "Feeding"),
-    INTAKE(
-        LauncherFlywheelState.INTAKE,
+        LauncherHoldState.Launching,
+        "Fast"),
+    INTAKING(
+        LauncherFlywheelState.INTAKING,
         LauncherWristState.LAUNCH,
-        LauncherHoldState.Intake,
-        "Intakings"),
+        LauncherHoldState.INTAKING,
+        "Intakings),
     TRANSITION(
       LauncherFlywheelState.TRANSITION,
       LauncherWristState.TRANSITION,
@@ -106,7 +106,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     SUBWOOFER(
       LauncherFlywheelState.FAST,
       LauncherWristState.LAUNCH,
-      LauncherHoldState.LAUNCH,
+      LauncherHoldState.OFF,
       "Subwoofer"
     );
 

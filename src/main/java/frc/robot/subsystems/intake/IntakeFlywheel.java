@@ -16,10 +16,7 @@ public class IntakeFlywheel extends VoltageSubsystem {
 
     protected IntakeFlywheel(VoltageSubsystemConstants constants) {
         super(constants);
-        //TODO Auto-generated constructor stub
     }
-
-    
 
     public static IntakeFlywheel getInstance() {
         if (m_instance == null) {
@@ -37,8 +34,8 @@ public class IntakeFlywheel extends VoltageSubsystem {
 
     public enum IntakeFlywheelState implements VoltageSubsystemState {
         OFF(0, "Off"),
-        IN(4, "In"),
-        OUT(-6, "Out"),
+        INTAKING(4, "In"),
+        EJECTING(-6, "Out"),
         AMP(-6, "Amp"),
         TRANSITION(0, "Transition"),
         MANUAL(0, "Manual");
