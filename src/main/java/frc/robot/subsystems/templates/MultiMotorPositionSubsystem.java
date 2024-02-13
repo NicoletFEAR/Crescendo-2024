@@ -87,13 +87,13 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
       m_encoders[i].setPosition(m_constants.kHomePosition);
       m_encoders[i].setPositionConversionFactor(m_constants.kPositionConversionFactor);
 
-      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 50);
-      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 100);
-      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
-      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 500);
-      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 500);
-      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 500);
-      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 500);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 65534);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
 
       m_motors[i].burnFlash();
     }
