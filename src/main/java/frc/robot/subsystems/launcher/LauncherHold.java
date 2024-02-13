@@ -38,7 +38,6 @@ public class LauncherHold extends VoltageSubsystem {
 
     public enum LauncherHoldState implements VoltageSubsystemState {
         OFF(0, "Off"),
-        FEEDING(6, "Feeding"), // should remove this or launching
         LAUNCHING(12, "Launching"),
         INTAKING(-6, "Intaking");
         
