@@ -141,7 +141,7 @@ public class IntakeWrist extends PositionSubsystem {
             // Initial, Manual, and Transition state of the subsytem
             // This enum is in the Subsystem that extends the MultiMotorPositionSubsystem
             // You will have to create these states
-            kIntakeWristConstants.kInitialState = IntakeWristState.UP;
+            kIntakeWristConstants.kInitialState = IntakeWristState.STOWED;
             kIntakeWristConstants.kManualState = IntakeWristState.MANUAL;
             kIntakeWristConstants.kTransitionState = IntakeWristState.TRANSITION;
 

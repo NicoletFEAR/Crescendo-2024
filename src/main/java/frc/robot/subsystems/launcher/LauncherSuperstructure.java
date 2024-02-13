@@ -91,13 +91,13 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     FAST(
         LauncherFlywheelState.FAST,
         LauncherWristState.DOWN,
-        LauncherHoldState.Launching,
+        LauncherHoldState.LAUNCHING,
         "Fast"),
     INTAKING(
         LauncherFlywheelState.INTAKING,
         LauncherWristState.LAUNCH,
         LauncherHoldState.INTAKING,
-        "Intakings),
+        "Intaking"),
     TRANSITION(
       LauncherFlywheelState.TRANSITION,
       LauncherWristState.TRANSITION,
