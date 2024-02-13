@@ -40,6 +40,9 @@ public class LauncherHold extends VoltageSubsystem {
         OFF(0, "Off"),
         IN(9, "In"),
         AMP(6, "Amp"),
+        LAUNCH(12, "Launch"),
+                Intake(-6, "intakings"),
+
         OUT(-6, "Out");
         
         private double voltage;

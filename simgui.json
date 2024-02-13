@@ -99,6 +99,18 @@
           "Elevator": {
             "open": true
           },
+          "Elevator Lift": {
+            "Intake": {
+              "Elevator Lift Left": {
+                "open": true
+              },
+              "Elevator Lift Right": {
+                "open": true
+              },
+              "open": true
+            },
+            "open": true
+          },
           "Intake": {
             "Elevator Lift": {
               "open": true

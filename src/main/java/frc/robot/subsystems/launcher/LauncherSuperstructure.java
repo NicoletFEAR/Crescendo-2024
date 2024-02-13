@@ -48,7 +48,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     outputCommand.addCommands(
       new SetVelocitySubsystemState(m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
       .alongWith(new SetPositionSubsystemState(m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState))
-      .andThen(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState))
+      .alongWith(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState))
     );
     // outputCommand.addCommands(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState));
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = launcherDesiredState));
@@ -93,16 +93,21 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         LauncherWristState.DOWN,
         LauncherHoldState.IN,
         "Feeding"),
-    OUTTAKE(
-        LauncherFlywheelState.OFF,
-        LauncherWristState.DOWN,
-        LauncherHoldState.OFF,
-        "Outtaking"),
+    INTAKE(
+        LauncherFlywheelState.INTAKE,
+        LauncherWristState.LAUNCH,
+        LauncherHoldState.Intake,
+        "Intakings"),
     TRANSITION(
       LauncherFlywheelState.TRANSITION,
       LauncherWristState.TRANSITION,
       LauncherHoldState.OFF,
-      "Transition"
+      "Transition"),
+    SUBWOOFER(
+      LauncherFlywheelState.FAST,
+      LauncherWristState.LAUNCH,
+      LauncherHoldState.LAUNCH,
+      "Subwoofer"
     );
 
 

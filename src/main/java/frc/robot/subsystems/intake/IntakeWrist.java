@@ -18,15 +18,15 @@ import frc.robot.subsystems.templates.PositionSubsystem;
 public class IntakeWrist extends PositionSubsystem {
 
     private static IntakeWrist m_instance = null;
-    private CANcoder m_intakeWristAbsoluteEncoder;
+    // private CANcoder m_intakeWristAbsoluteEncoder;
 
     public IntakeWrist(PositionSubsystemConstants constants) {
         super(constants);
-        m_intakeWristAbsoluteEncoder = new CANcoder(11);
-        m_intakeWristAbsoluteEncoder.optimizeBusUtilization();
-        m_intakeWristAbsoluteEncoder.getAbsolutePosition().setUpdateFrequency(50);
+        // m_intakeWristAbsoluteEncoder = new CANcoder(11);
+        // m_intakeWristAbsoluteEncoder.optimizeBusUtilization();
+        // m_intakeWristAbsoluteEncoder.getAbsolutePosition().setUpdateFrequency(50);
         
-        // zero(m_intakeWristAbsoluteEncoder.getAbsolutePosition().getValue());
+        // // zero(m_intakeWristAbsoluteEncoder.getAbsolutePosition().getValue());
     }
 
     public static IntakeWrist getInstance() {
@@ -42,14 +42,15 @@ public class IntakeWrist extends PositionSubsystem {
 
     @Override
     public void outputTelemetry() {
-        Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", m_intakeWristAbsoluteEncoder.getAbsolutePosition().getValue());
+        // Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", m_intakeWristAbsoluteEncoder.getAbsolutePosition().getValue());
     }
 
     public enum IntakeWristState implements PositionSubsystemState {
-        DOWN(5, 0, "Down"),
+        DOWN(17, 0, "Down"),
         UP(0, 0, "Up"),
-        AMP(3.5, 0, "Amp"),
+        AMP(13.6, 0, "Amp"),
         TRANSITION(0, 0, "Transition"),
+        LAUNCHING(6.5, 0, "Launching"),
         MANUAL(0, 0, "Manual");
     
         private double position;
@@ -153,7 +154,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristConstants.kPositionConversionFactor = 1.0; 
 
             // Tolerance for atSetpoint()
-            kIntakeWristConstants.kSetpointTolerance = 0.1; 
+            kIntakeWristConstants.kSetpointTolerance = 2.0; 
 
             // PID Slot, make more if more than one set of pid constants are used
             kIntakeWristConstants.kDefaultSlot = 0; 

@@ -21,16 +21,16 @@ public class LauncherWrist extends PositionSubsystem {
 
     private static LauncherWrist m_instance = null;
 
-    private CANcoder m_launcherWristAbsoluteEncoder;
+    // private CANcoder m_launcherWristAbsoluteEncoder;
 
     // private ArmFeedforward m_feedforward;
 
     public LauncherWrist(PositionSubsystemConstants constants) {
         super(constants);
 
-        m_launcherWristAbsoluteEncoder = new CANcoder(LauncherConstants.kWristCANCoderId);
-        m_launcherWristAbsoluteEncoder.optimizeBusUtilization();
-        m_launcherWristAbsoluteEncoder.getAbsolutePosition().setUpdateFrequency(50);
+        // m_launcherWristAbsoluteEncoder = new CANcoder(LauncherConstants.kWristCANCoderId);
+        // m_launcherWristAbsoluteEncoder.optimizeBusUtilization();
+        // m_launcherWristAbsoluteEncoder.getAbsolutePosition().setUpdateFrequency(50);
 
         // m_feedforward = new ArmFeedforward(m_constants.kLeaderConstants.kKs, m_constants.kLeaderConstants.kKg, m_constants.kLeaderConstants.kKv);
 
@@ -56,7 +56,7 @@ public class LauncherWrist extends PositionSubsystem {
 
     @Override
     public void outputTelemetry() {
-        Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", m_launcherWristAbsoluteEncoder.getAbsolutePosition().getValue());
+        // Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", m_launcherWristAbsoluteEncoder.getAbsolutePosition().getValue());
     }
 
     public double calculatePitch() {
@@ -76,8 +76,11 @@ public class LauncherWrist extends PositionSubsystem {
     public enum LauncherWristState implements PositionSubsystemState {
         DOWN(0, 0, "Down"),
         UP(45, 0, "Up"),
+        SUBWOOFER(77, 0, "Subwoofer"),
         FIELD_BASED_PITCH(0, 0, "Field Based Pitch"),
         TRANSITION(0, 0, "Transition"),
+        LAUNCH(30, 0, "Launch"),
+
         MANUAL(0, 0, "Manual");
     
         private double position;
@@ -157,7 +160,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristConstants.kMaxVelocity = 100;
             kLauncherWristConstants.kMaxAcceleration = 50;
 
-            kLauncherWristConstants.kMaxPosition = 80;
+            kLauncherWristConstants.kMaxPosition = 77;
             kLauncherWristConstants.kMinPosition = 0;
 
             kLauncherWristConstants.kManualControlMode = ManualControlMode.LEFT_X;

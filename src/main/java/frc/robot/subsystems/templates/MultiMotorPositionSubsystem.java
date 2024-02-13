@@ -330,7 +330,7 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
   public abstract void outputTelemetry();
 
   public enum MultiMotorPositionSubsystemType {
-    CLIMB_WINCH
+    ELEVATOR_LIFT
   }
 
   public interface MultiMotorPositionSubsystemState {

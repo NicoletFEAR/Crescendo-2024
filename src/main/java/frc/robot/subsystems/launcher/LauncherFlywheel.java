@@ -60,6 +60,8 @@ public class LauncherFlywheel extends VelocitySubsystem {
         TRANSITION(new double[] {0, 0}, "Transition"),
         FIELD_BASED_VELOCITY(new double[] {0, 0}, "Field Based Velocity"),
         RUNNING(new double[] {-5000, -5000}, "Running"),
+                INTAKE(new double[] {500, 500}, "Intaking"),
+
         MANUAL(new double[] {0, 0}, "Manual");
     
         private double[] velocity;
