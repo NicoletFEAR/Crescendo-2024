@@ -65,9 +65,9 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
       isNoteInIntake = false;
     }
 
-    Logger.recordOutput("tof", m_intakeTOF.getRange());
-    Logger.recordOutput("tofbool", timeOfFlightBlocked());
-    Logger.recordOutput("isNoteInIntake", isNoteInIntake);
+    // Logger.recordOutput("tof", m_intakeTOF.getRange());
+    // Logger.recordOutput("tofbool", timeOfFlightBlocked());
+    // Logger.recordOutput("isNoteInIntake", isNoteInIntake);
 
   }
 
@@ -77,13 +77,21 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
-    outputCommand.addCommands(
-      new SetPositionSubsystemState(m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
-      .alongWith(new SetMultiMotorPositionSubsystemState(m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState))
-      .andThen(new SetVoltageSubsystemState(m_intakeFlywheel, intakeDesiredState.intakeFlywheelState))
-      .andThen(new SetVoltageSubsystemState(m_intakeHold, intakeDesiredState.intakeHoldState))
-
-    );
+    if (intakeDesiredState == IntakeSuperstructureState.STOW) {
+      outputCommand.addCommands(
+        new SetPositionSubsystemState(m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
+        .alongWith(new SetMultiMotorPositionSubsystemState(m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState))
+        .alongWith(new SetVoltageSubsystemState(m_intakeFlywheel, intakeDesiredState.intakeFlywheelState))
+        .alongWith(new SetVoltageSubsystemState(m_intakeHold, intakeDesiredState.intakeHoldState))
+      );
+    } else {
+      outputCommand.addCommands(
+        new SetPositionSubsystemState(m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
+        .alongWith(new SetMultiMotorPositionSubsystemState(m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState))
+        .andThen(new SetVoltageSubsystemState(m_intakeFlywheel, intakeDesiredState.intakeFlywheelState))
+        .andThen(new SetVoltageSubsystemState(m_intakeHold, intakeDesiredState.intakeHoldState))
+      );
+    }
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = intakeDesiredState));
 
     return outputCommand;
