@@ -44,7 +44,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   }
 
   public boolean timeOfFlightBlocked(){
-    if(m_intakeTOF.getRange() < IntakeConstants.kTOFNoteTrheshold){
+    if(m_intakeTOF.getRange() < IntakeConstants.kTOFNoteThreshold){
       return true;
     }
     else{
@@ -103,14 +103,14 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   }
 
   public enum IntakeSuperstructureState implements SuperstructureState {
-    STOW(
+    STOWED(
         IntakeFlywheelState.OFF,
-        IntakeWristState.UP,
+        IntakeWristState.STOWED,
         MultiElevatorLiftState.DOWN,
         IntakeHoldState.OFF,
-        "Stow"),
+        "Stowed"),
     INTAKING(
-        IntakeFlywheelState.IN,
+        IntakeFlywheelState.INTAKING,
         IntakeWristState.DOWN,
         MultiElevatorLiftState.DOWN,
         IntakeHoldState.OFF,
@@ -121,12 +121,12 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         MultiElevatorLiftState.AMP,
         IntakeHoldState.AMP,
         "Amp"),
-    EJECT(
-        IntakeFlywheelState.OUT,
+    EJECTING(
+        IntakeFlywheelState.EJECTING,
         IntakeWristState.DOWN,
         MultiElevatorLiftState.DOWN,
-        IntakeHoldState.OUT,
-        "Eject"),
+        IntakeHoldState.EJECTING,
+        "Ejecting"),
     DOWNOFF(
         IntakeFlywheelState.OFF,
         IntakeWristState.DOWN,
@@ -140,10 +140,10 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
       IntakeHoldState.OFF,
       "Transition"),
     LAUNCHING(
-      IntakeFlywheelState.IN,
+      IntakeFlywheelState.INTAKING,
       IntakeWristState.LAUNCHING,
       MultiElevatorLiftState.DOWN,
-      IntakeHoldState.IN,
+      IntakeHoldState.INTAKING,
       "Launching");
 
     public IntakeFlywheelState intakeFlywheelState;
