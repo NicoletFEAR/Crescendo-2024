@@ -1,0 +1,100 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.4783611105683763,
+        "y": 6.60098474043102
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.4783611105683763,
+        "y": 6.60098474043102
+      },
+      "isLocked": false,
+      "linkedName": "Reveal-1"
+    },
+    {
+      "anchor": {
+        "x": 2.7447685664602113,
+        "y": 5.604423516539341
+      },
+      "prevControl": {
+        "x": 3.232108196169517,
+        "y": 6.477636025219096
+      },
+      "nextControl": {
+        "x": 2.4172851436971694,
+        "y": 5.01764049355284
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.6396709716496372,
+        "y": 3.295558898810106
+      },
+      "prevControl": {
+        "x": 1.9551528123327315,
+        "y": 2.7867951247675564
+      },
+      "nextControl": {
+        "x": 1.2914757039337426,
+        "y": 3.857078186650332
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.123151169379263,
+        "y": 5.4564193743772105
+      },
+      "prevControl": {
+        "x": 1.6168305330696051,
+        "y": 4.982417076555403
+      },
+      "nextControl": {
+        "x": 2.5868974814872723,
+        "y": 5.890564858052794
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.3185803623726016,
+        "y": 5.5
+      },
+      "prevControl": {
+        "x": 2.102816980041989,
+        "y": 5.63712770101601
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 1.75,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Reveal Auto",
+  "previewStartingState": {
+    "rotation": 45.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

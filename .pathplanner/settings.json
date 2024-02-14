@@ -4,6 +4,7 @@
   "holonomicMode": true,
   "pathFolders": [
     "Center Paths",
+    "Reveal Auto",
     "Test Autos",
     "Tuning Paths"
   ],
@@ -11,8 +12,8 @@
     "Test Autos",
     "Tuning"
   ],
-  "defaultMaxVel": 4.0,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxVel": 2.0,
+  "defaultMaxAccel": 1.75,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 6.1

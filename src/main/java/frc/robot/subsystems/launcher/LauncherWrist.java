@@ -78,7 +78,7 @@ public class LauncherWrist extends PositionSubsystem {
         SUBWOOFER(77, 0, "Subwoofer"), // should clean this up
         FIELD_BASED_PITCH(0, 0, "Field Based Pitch"),
         TRANSITION(0, 0, "Transition"),
-        LAUNCH(30, 0, "Launch"),
+        LAUNCH(50, 0, "Launch"),
 
         MANUAL(0, 0, "Manual");
     
