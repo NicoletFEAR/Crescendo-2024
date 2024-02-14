@@ -1,6 +1,5 @@
 package frc.robot.subsystems.launcher;
 
-
 import frc.robot.subsystems.templates.SubsystemConstants.ManualControlMode;
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
@@ -76,7 +75,7 @@ public class LauncherWrist extends PositionSubsystem {
     public enum LauncherWristState implements PositionSubsystemState {
         DOWN(0, 0, "Down"),
         UP(45, 0, "Up"),
-        SUBWOOFER(77, 0, "Subwoofer"),
+        SUBWOOFER(77, 0, "Subwoofer"), // should clean this up
         FIELD_BASED_PITCH(0, 0, "Field Based Pitch"),
         TRANSITION(0, 0, "Transition"),
         LAUNCH(30, 0, "Launch"),

@@ -15,7 +15,6 @@ public class IntakeHold extends VoltageSubsystem {
 
     protected IntakeHold(VoltageSubsystemConstants constants) {
         super(constants);
-        //TODO Auto-generated constructor stub
     }
 
     public static IntakeHold getInstance() {
@@ -34,9 +33,9 @@ public class IntakeHold extends VoltageSubsystem {
 
     public enum IntakeHoldState implements VoltageSubsystemState {
         OFF(0, "Off"),
-        IN(9, "In"),
+        INTAKING(9, "In"),
         AMP(6, "Amp"),
-        OUT(-6, "Out");
+        EJECTING(-6, "Out");
         
         private double voltage;
         private String name;
