@@ -80,11 +80,8 @@ public class RobotContainer {
 
 
     // NAMED COMMANDS FOR AUTO \\
-    // you would never do this while following a path, its just to show how to implement
-
-    NamedCommands.registerCommand("intake", new SetSuperstructureState(IntakeSuperstructure.getInstance(), IntakeSuperstructureState.INTAKING));
+    NamedCommands.registerCommand("intake", IntakeSuperstructure.getInstance().setSuperstructureState(IntakeSuperstructureState.INTAKING));
     NamedCommands.registerCommand("eject", new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.EJECTING));
-    NamedCommands.registerCommand("stow", new SetSuperstructureState(IntakeSuperstructure.getInstance(), IntakeSuperstructureState.STOWED));
 
     autoChooser =
         new LoggedDashboardChooser<>(

@@ -118,6 +118,9 @@
             "Intake Wrist": {
               "open": true
             },
+            "Superstructure": {
+              "open": true
+            },
             "open": true
           },
           "Launcher": {
