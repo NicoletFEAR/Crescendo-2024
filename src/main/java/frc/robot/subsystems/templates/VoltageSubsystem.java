@@ -121,12 +121,12 @@ public abstract class VoltageSubsystem extends SubsystemBase {
     outputTelemetry();
 
 
-    Logger.recordOutput(
-        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
-    Logger.recordOutput(
-        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired Voltage", m_currentState.getVoltage()); // Current State Voltage
-    Logger.recordOutput(
-        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Leader Voltage", m_leader.getAppliedOutput()); // Current State Voltage
+    // Logger.recordOutput(
+    //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
+    // Logger.recordOutput(
+    //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired Voltage", m_currentState.getVoltage()); // Current State Voltage
+    // Logger.recordOutput(
+    //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Leader Voltage", m_leader.getAppliedOutput()); // Current State Voltage
   }
 
   public abstract void subsystemPeriodic();

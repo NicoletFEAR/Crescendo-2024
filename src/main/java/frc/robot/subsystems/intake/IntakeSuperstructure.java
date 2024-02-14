@@ -65,9 +65,9 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
       isNoteInIntake = false;
     }
 
-    Logger.recordOutput("tof", m_intakeTOF.getRange());
-    Logger.recordOutput("tofbool", timeOfFlightBlocked());
-    Logger.recordOutput("isNoteInIntake", isNoteInIntake);
+    // Logger.recordOutput("tof", m_intakeTOF.getRange());
+    // Logger.recordOutput("tofbool", timeOfFlightBlocked());
+    // Logger.recordOutput("isNoteInIntake", isNoteInIntake);
 
   }
 

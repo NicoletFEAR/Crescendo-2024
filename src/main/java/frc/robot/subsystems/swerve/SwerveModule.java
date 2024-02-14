@@ -180,7 +180,7 @@ public class SwerveModule extends SubsystemBase {
 
   @Override
   public void periodic() {
-    Logger.recordOutput("SwerveModule/" + "Module " + m_moduleNumber + " Angle", getHeadingDegrees());
+    // Logger.recordOutput("SwerveModule/" + "Module " + m_moduleNumber + " Angle", getHeadingDegrees());
   }
 
   private void simUpdateDrivePosition(SwerveModuleState state) {

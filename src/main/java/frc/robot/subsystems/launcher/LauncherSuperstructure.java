@@ -69,7 +69,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     // }
 
 
-    Logger.recordOutput(m_name + "/Superstructure/BeamBreak", m_launcherBeamBreak.get());
+    // Logger.recordOutput(m_name + "/Superstructure/BeamBreak", m_launcherBeamBreak.get());
   }
 
   public enum LauncherSuperstructureState implements SuperstructureState {

@@ -304,24 +304,24 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
 
     outputTelemetry();
 
-    Logger.recordOutput(
-        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
-    Logger.recordOutput(
-        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired State", m_desiredState.getName()); // Current State
-    Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/At Setpoint", atSetpoint()); // Is at setpoint
+    // Logger.recordOutput(
+    //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
+    // Logger.recordOutput(
+    //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired State", m_desiredState.getName()); // Current State
+    // Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/At Setpoint", atSetpoint()); // Is at setpoint
 
     for (int i = 0; i < m_motors.length; i++) {
-        Logger.recordOutput(
-                m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Encoder Position", getPosition()[i]); // Current position of encoders
-        Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Encoder Velocity", getVelocity()[i]); // Encoder Velocity
-        Logger.recordOutput(
-            m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Trapezoid Desired Position",
-            m_currentState.getPosition()[i]); // Desired position of trapezoid profile
-        Logger.recordOutput(
-            m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Trapezoid Desired Velocity",
-            m_currentState.getVelocity()[i]); // Desired position of trapezoid profile
-        Logger.recordOutput(
-            m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Desired Position", m_desiredState.getPosition()[i]); // Desired position
+        // Logger.recordOutput(
+        //         m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Encoder Position", getPosition()[i]); // Current position of encoders
+        // Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Encoder Velocity", getVelocity()[i]); // Encoder Velocity
+        // Logger.recordOutput(
+        //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Trapezoid Desired Position",
+        //     m_currentState.getPosition()[i]); // Desired position of trapezoid profile
+        // Logger.recordOutput(
+        //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Trapezoid Desired Velocity",
+        //     m_currentState.getVelocity()[i]); // Desired position of trapezoid profile
+        // Logger.recordOutput(
+        //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Desired Position", m_desiredState.getPosition()[i]); // Desired position
     }
   }
 

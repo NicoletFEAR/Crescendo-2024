@@ -46,7 +46,7 @@ public abstract class SuperstructureSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     superstructurePeriodic();
-    Logger.recordOutput(m_name + "/Superstructure/Current State", m_currentState.getName());
-    Logger.recordOutput(m_name + "/Superstructure/Desired State", m_desiredState.getName());
+    // Logger.recordOutput(m_name + "/Superstructure/Current State", m_currentState.getName());
+    // Logger.recordOutput(m_name + "/Superstructure/Desired State", m_desiredState.getName());
   }
 }
