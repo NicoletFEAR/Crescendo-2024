@@ -154,7 +154,7 @@ public static class MultiElevatorLiftConstants {
     kMultiElevatorLiftConstants.kPositionConversionFactor = 1.0; 
 
     // Tolerance for atSetpoint()
-    kMultiElevatorLiftConstants.kSetpointTolerance = 3.0; 
+    kMultiElevatorLiftConstants.kSetpointTolerance = 1.5; 
 
     // PID Slot, make more if more than one set of pid constants are used
     kMultiElevatorLiftConstants.kDefaultSlot = 0; 

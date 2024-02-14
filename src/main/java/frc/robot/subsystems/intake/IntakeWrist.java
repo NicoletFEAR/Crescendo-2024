@@ -154,7 +154,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristConstants.kPositionConversionFactor = 1.0; 
 
             // Tolerance for atSetpoint()
-            kIntakeWristConstants.kSetpointTolerance = 2.0; 
+            kIntakeWristConstants.kSetpointTolerance = 1.5; 
 
             // PID Slot, make more if more than one set of pid constants are used
             kIntakeWristConstants.kDefaultSlot = 0; 

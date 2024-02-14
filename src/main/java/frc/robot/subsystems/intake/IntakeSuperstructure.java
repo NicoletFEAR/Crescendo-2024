@@ -65,9 +65,9 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
       isNoteInIntake = false;
     }
 
-    // Logger.recordOutput("tof", m_intakeTOF.getRange());
-    // Logger.recordOutput("tofbool", timeOfFlightBlocked());
-    // Logger.recordOutput("isNoteInIntake", isNoteInIntake);
+    Logger.recordOutput("tof", m_intakeTOF.getRange());
+    Logger.recordOutput("tofbool", timeOfFlightBlocked());
+    Logger.recordOutput("isNoteInIntake", isNoteInIntake);
 
   }
 
@@ -115,12 +115,18 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         MultiElevatorLiftState.DOWN,
         IntakeHoldState.OFF,
         "Intaking"),
-    AMP(
-        IntakeFlywheelState.AMP,
+    AMP_PREPARE(
+        IntakeFlywheelState.OFF,
         IntakeWristState.AMP,
         MultiElevatorLiftState.AMP,
-        IntakeHoldState.AMP,
-        "Amp"),
+        IntakeHoldState.OFF,
+        "Amp Prepare"),
+    AMP_SHOOT(
+      IntakeFlywheelState.AMP,
+      IntakeWristState.AMP,
+      MultiElevatorLiftState.AMP,
+      IntakeHoldState.AMP,
+      "Amp Prepare"),
     EJECT(
         IntakeFlywheelState.OUT,
         IntakeWristState.DOWN,
@@ -176,6 +182,6 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     public static final int kLaunchBeamBreakID = 0;
     public static final int elevatorLimitSwitchID = 6;
 
-    public static final double kTOFNoteTrheshold = 280;
+    public static final double kTOFNoteTrheshold = 260;
   }
 }

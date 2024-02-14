@@ -189,10 +189,13 @@ public class RobotContainer {
     // m_driverController.pov(180).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF))); // Can switch to other colors
     // m_driverController.pov(270).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF))); //
     
-    m_operatorController.a().onTrue(new SetSuperstructureState(IntakeSuperstructure.getInstance(), IntakeSuperstructureState.DOWNOFF));
-    m_operatorController.b().onTrue(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.OFF));
-    m_operatorController.y().onTrue(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.INTAKE));
-    m_operatorController.x().onTrue(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.SUBWOOFER));
+    m_operatorController.a().onTrue(new SetSuperstructureState(IntakeSuperstructure.getInstance(), IntakeSuperstructureState.INTAKING));
+    m_operatorController.b().onTrue(new SetSuperstructureState(IntakeSuperstructure.getInstance(), IntakeSuperstructureState.STOW));
+    m_operatorController.x().onTrue(new SetSuperstructureState(IntakeSuperstructure.getInstance(), IntakeSuperstructureState.AMP_PREPARE));
+    m_operatorController.y().onTrue(new SetSuperstructureState(IntakeSuperstructure.getInstance(), IntakeSuperstructureState.AMP_SHOOT));
+    // m_operatorController.b().onTrue(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.OFF));
+    // m_operatorController.y().onTrue(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.INTAKE));
+    // m_operatorController.x().onTrue(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.SUBWOOFER));
     // m_operatorController.y().onTrue(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.SUBWOOFER));
     // m_operatorController.y().onFalse(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.OFF));
 
