@@ -95,9 +95,9 @@ public final class Constants {
     public static final double kMaxRotationRadiansPerSecond =
         Math.PI * 2.0; // Just kind of find what works, this is from 930 2023
 
-    public static final double kRegularSpeed = 1; // Regular speed multiplier of robot
+    public static final double kRegularSpeed = .6; // Regular speed multiplier of robot
 
-    public static final double kSprintSpeed = .5; // Slow speed multiplier of robot
+    public static final double kSprintSpeed = 1; // Slow speed multiplier of robot
 
     public static final int kFrontLeftDriveMotor = 12;
     public static final int kFrontLeftSteerMotor = 11;

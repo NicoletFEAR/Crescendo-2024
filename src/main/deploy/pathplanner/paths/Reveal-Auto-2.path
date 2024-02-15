@@ -16,32 +16,48 @@
     },
     {
       "anchor": {
-        "x": 2.7447685664602113,
-        "y": 5.604423516539341
+        "x": 5.118473094089046,
+        "y": 6.860626292681157
       },
       "prevControl": {
-        "x": 3.232108196169517,
-        "y": 6.477636025219096
+        "x": 5.6058127237983495,
+        "y": 7.733838801360912
       },
       "nextControl": {
-        "x": 2.4172851436971694,
-        "y": 5.01764049355284
+        "x": 4.790989671326004,
+        "y": 6.273843269694656
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.6396709716496372,
-        "y": 3.295558898810106
+        "x": 3.0808084473311808,
+        "y": 5.775826408795675
       },
       "prevControl": {
-        "x": 1.9551528123327315,
-        "y": 2.7867951247675564
+        "x": 3.839198015208758,
+        "y": 6.538098479385344
       },
       "nextControl": {
-        "x": 1.2914757039337426,
-        "y": 3.857078186650332
+        "x": 2.3224188794536036,
+        "y": 5.013554338206006
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.4389491636126137,
+        "y": 3.4596320621212673
+      },
+      "prevControl": {
+        "x": 1.673500489858123,
+        "y": 3.474291520011612
+      },
+      "nextControl": {
+        "x": 0.7795211987413521,
+        "y": 3.4184178143168125
       },
       "isLocked": false,
       "linkedName": null
@@ -76,9 +92,55 @@
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1.85,
+      "rotationDegrees": -138.5736105021621,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 1.5,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intake"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "eject",
+      "waypointRelativePos": 0.7000000000000001,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "eject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 1.75,
