@@ -58,7 +58,9 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   @Override
   public void superstructurePeriodic() {
     if (m_currentState == IntakeSuperstructureState.INTAKING && timeOfFlightBlocked()) {
-      new SetSuperstructureState(this, IntakeSuperstructureState.STOWED).schedule();
+      // new SetSuperstructureState(this, IntakeSuperstructureState.STOWED).schedule();
+      m_intakeFlywheel.setState(IntakeFlywheelState.OFF);
+      m_intakeWrist.setDesiredState(IntakeWristState.STOWED, true);
       isNoteInIntake = true;
     }
     else if ( isNoteInIntake && !timeOfFlightBlocked()){

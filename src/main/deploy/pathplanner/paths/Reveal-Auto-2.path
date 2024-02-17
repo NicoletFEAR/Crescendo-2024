@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.4783611105683763,
-        "y": 6.60098474043102
+        "x": 2.4733924503512332,
+        "y": 6.651755158003897
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.4783611105683763,
-        "y": 6.60098474043102
+        "x": 3.4733924503512332,
+        "y": 6.651755158003897
       },
       "isLocked": false,
       "linkedName": "Reveal-1"
@@ -105,42 +105,7 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "intake",
-      "waypointRelativePos": 1.5,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intake"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "eject",
-      "waypointRelativePos": 0.7000000000000001,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "eject"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 1.75,
