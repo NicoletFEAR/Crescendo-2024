@@ -6,6 +6,7 @@ import com.playingwithfusion.TimeOfFlight;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.commands.superstructure.SetMultiMotorPositionSubsystemState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetSuperstructureState;
@@ -13,12 +14,12 @@ import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 // import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 import frc.robot.subsystems.intake.IntakeFlywheel.IntakeFlywheelState;
 import frc.robot.subsystems.intake.IntakeWrist.IntakeWristState;
-import frc.robot.subsystems.intake.MultiElevatorLift.MultiElevatorLiftState;
+import frc.robot.subsystems.intake.ElevatorLift.ElevatorLiftState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
 
 public class IntakeSuperstructure extends SuperstructureSubsystem {
 
-  private MultiElevatorLift m_elevatorLift = MultiElevatorLift.getInstance();
+  private ElevatorLift m_elevatorLift = ElevatorLift.getInstance();
   private IntakeFlywheel m_intakeFlywheel = IntakeFlywheel.getInstance();
   private IntakeWrist m_intakeWrist = IntakeWrist.getInstance();
   // private IntakeHold m_intakeHold = IntakeHold.getInstance();
@@ -58,16 +59,25 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   @Override
   public void superstructurePeriodic() {
     if (m_currentState == IntakeSuperstructureState.INTAKING && timeOfFlightBlocked()) {
-      new SetSuperstructureState(this, IntakeSuperstructureState.STOWED).schedule();
+      // new SetSuperstructureState(this, IntakeSuperstructureState.STOWED).schedule();
+      m_intakeWrist.setDesiredState(IntakeWristState.STOWED, true);
+      m_intakeFlywheel.setState(IntakeFlywheelState.OFF);
+      m_elevatorLift.setDesiredState(ElevatorLiftState.DOWN, true);
+      if (m_intakeWrist.atSetpoint() && m_elevatorLift.atSetpoint()) {
+        setCurrentState(IntakeSuperstructureState.STOWED);
+      }
       isNoteInIntake = true;
     }
     else if ( isNoteInIntake && !timeOfFlightBlocked()){
       isNoteInIntake = false;
     }
 
-    // Logger.recordOutput("tof", m_intakeTOF.getRange());
-    // Logger.recordOutput("tofbool", timeOfFlightBlocked());
-    // Logger.recordOutput("isNoteInIntake", isNoteInIntake);
+    if (Constants.kInfoMode) {
+      Logger.recordOutput("tof", m_intakeTOF.getRange());
+      Logger.recordOutput("tofbool", timeOfFlightBlocked());
+      Logger.recordOutput("isNoteInIntake", isNoteInIntake);
+    }
+
 
   }
 
@@ -106,62 +116,62 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     STOWED(
         IntakeFlywheelState.OFF,
         IntakeWristState.STOWED,
-        MultiElevatorLiftState.DOWN,
+        ElevatorLiftState.DOWN,
         // IntakeHoldState.OFF,
         "Stowed"),
     INTAKING(
         IntakeFlywheelState.INTAKING,
         IntakeWristState.DOWN,
-        MultiElevatorLiftState.DOWN,
+        ElevatorLiftState.DOWN,
         // IntakeHoldState.OFF,
         "Intaking"),
     AMP_PREPARE(
         IntakeFlywheelState.OFF,
         IntakeWristState.AMP,
-        MultiElevatorLiftState.AMP,
+        ElevatorLiftState.AMP,
         // IntakeHoldState.OFF,
         "Amp Prepare"),
     AMP_SHOOT(
       IntakeFlywheelState.AMP,
       IntakeWristState.AMP,
-      MultiElevatorLiftState.AMP,
+      ElevatorLiftState.AMP,
       // IntakeHoldState.AMP,
       "Amp Prepare"),
     EJECT(
         IntakeFlywheelState.EJECTING,
         IntakeWristState.DOWN,
-        MultiElevatorLiftState.DOWN,
+        ElevatorLiftState.DOWN,
         // IntakeHoldState.EJECTING,
         "Ejecting"),
     DOWNOFF(
         IntakeFlywheelState.OFF,
         IntakeWristState.DOWN,
-        MultiElevatorLiftState.DOWN,
+        ElevatorLiftState.DOWN,
         // IntakeHoldState.OFF,
         "down off"),
     TRANSITION(
       IntakeFlywheelState.OFF,
       IntakeWristState.TRANSITION,
-      MultiElevatorLiftState.TRANSITION,
+      ElevatorLiftState.TRANSITION,
       // IntakeHoldState.OFF,
       "Transition"),
     LAUNCHING(
       IntakeFlywheelState.INTAKING,
       IntakeWristState.LAUNCHING,
-      MultiElevatorLiftState.DOWN,
+      ElevatorLiftState.DOWN,
       // IntakeHoldState.INTAKING,
       "Launching");
 
     public IntakeFlywheelState intakeFlywheelState;
     public IntakeWristState intakeWristState;
-    public MultiElevatorLiftState elevatorLiftState;
+    public ElevatorLiftState elevatorLiftState;
     // public IntakeHoldState intakeHoldState;
     public String name;
 
     private IntakeSuperstructureState(
         IntakeFlywheelState intakeFlywheelState,
         IntakeWristState intakeWristState,
-        MultiElevatorLiftState elevatorLiftState,
+        ElevatorLiftState elevatorLiftState,
         // IntakeHoldState intakeHoldState,
         String name) {
       this.intakeFlywheelState = intakeFlywheelState;

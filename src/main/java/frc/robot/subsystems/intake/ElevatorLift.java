@@ -1,181 +1,234 @@
-// package frc.robot.subsystems.intake;
+package frc.robot.subsystems.intake;
 
-// import org.littletonrobotics.junction.Logger;
+import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 
-// import com.revrobotics.CANSparkBase.IdleMode;
-// import com.revrobotics.CANSparkLowLevel.MotorType;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.Constants.MotorConstants;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeConstants;
+import frc.robot.subsystems.templates.MultiMotorPositionSubsystem;
+import frc.robot.subsystems.templates.SubsystemConstants.ManualControlMode;
+import frc.robot.subsystems.templates.SubsystemConstants.MultiMotorPositionSubsystemConstants;
+import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
+import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 
-// import edu.wpi.first.wpilibj.DigitalInput;
-// import frc.robot.Constants.MotorConstants;
-// import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeConstants;
-// import frc.robot.subsystems.templates.PositionSubsystem;
-// import frc.robot.subsystems.templates.SubsystemConstants.ManualControlMode;
-// import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
-// import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
-// import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
+public class ElevatorLift extends MultiMotorPositionSubsystem {
 
-// public class ElevatorLift extends PositionSubsystem {
+    private static ElevatorLift m_instance = null;
+    DigitalInput m_limitSwitch;
 
-//     private static ElevatorLift m_instance = null;
-//     DigitalInput m_limitSwitch;
+    public ElevatorLift(MultiMotorPositionSubsystemConstants constants) {
+        super(constants);
+        m_limitSwitch = new DigitalInput(IntakeConstants.elevatorLimitSwitchID);
 
-//     public ElevatorLift(PositionSubsystemConstants constants) {
-//         super(constants);
-//         m_limitSwitch = new DigitalInput(IntakeConstants.elevatorLimitSwitchID);
+        // if(m_limitSwitch.get()){
+        //     zero(0);
+        // }
+    }
 
-//         // if(m_limitSwitch.get()){
-//         //     zero(0);
-//         // }
-//     }
+    public static ElevatorLift getInstance() {
+        if (m_instance == null) {
+            m_instance = new ElevatorLift(ElevatorLiftConstants.kElevatorLiftConstants);
+        }
 
-//     public static ElevatorLift getInstance() {
-//         if (m_instance == null) {
-//             m_instance = new ElevatorLift(ElevatorConstants.kElevatorLiftSubsystemConstants);
-//         }
+        return m_instance;
+    }
 
-//         return m_instance;
-//     }
+    @Override
+    public void subsystemPeriodic() {
+    }
 
-//     @Override
-//     public void subsystemPeriodic() {
-//     }
+    @Override
+    public void outputTelemetry() {
+    }
 
-//     @Override
-//     public void outputTelemetry() {
-//         Logger.recordOutput("Follower pos", m_followers[0].getEncoder().getPosition());
-//     }
+    @Override
+    public void manualControl() {
+    double m_throttle = 0;
 
-//     public enum ElevatorLiftState implements PositionSubsystemState {
-//         DOWN(0, 0, "Down"),
-//         UP(100, 0, "Up"),
-//         AMP(75, 0, "Amp"),
-//         TRANSITION(0, 0, "Transition"),
-//         MANUAL(0, 0, "Manual");
+    switch (m_constants.kManualControlMode) {
+      case BUMPERS:
+         m_throttle =
+          RobotContainer.m_operatorController.getHID().getLeftBumper()
+              ? -1
+              : (RobotContainer.m_operatorController.getHID().getRightBumper() ? 1 : 0);
+        break;
+      case LEFT_X:
+        m_throttle = RobotContainer.m_operatorController.getLeftX();
+        break;
+      case LEFT_Y:
+        m_throttle = -RobotContainer.m_operatorController.getLeftY();
+        break;
+      case RIGHT_X:
+        m_throttle = RobotContainer.m_operatorController.getRightX();
+        break;
+      case RIGHT_Y:
+        m_throttle = -RobotContainer.m_operatorController.getRightY();
+        break;
+      case TRIGGERS:
+        m_throttle = 
+          RobotContainer.m_operatorController.getRightTriggerAxis()
+              - RobotContainer.m_operatorController.getLeftTriggerAxis();
+        break;
+    }
+
+    m_throttle = MathUtil.applyDeadband(m_throttle, m_constants.kManualDeadBand);
+
+    if (m_currentState != m_constants.kManualState){
+
+      m_constants.kManualState.setPosition(getPosition()[0], 0);
+      m_constants.kManualState.setPosition(getPosition()[1], 1);
+    }
+
+    if (Math.abs(m_throttle) > 0 && m_profileStartTime == -1) {
+      m_desiredState = m_constants.kManualState;
+      m_currentState = m_constants.kManualState;
+
+      m_throttle *= m_constants.kManualMultiplier;
+
+      double intendedPosition = MathUtil.clamp(
+              m_constants.kManualState.getPosition()[0] + m_throttle,
+              m_constants.kMinPosition,
+              m_constants.kMaxPosition);
+
+      if (intendedPosition != m_constants.kManualState.getPosition()[0]) {
+        m_constants.kManualState.setPosition(intendedPosition, 0);
+        m_constants.kManualState.setPosition(intendedPosition, 1);
+        if (m_profileStartTime == -1) {
+          holdPosition();
+        }
+      }
+    }
+  }
+
+    public enum ElevatorLiftState implements MultiMotorPositionSubsystemState {
+        DOWN(new double[] {0, 0}, new double[] {0, 0}, "Down"),
+        TRANSITION(new double[] {0, 0}, new double[] {0, 0}, "Transition"),
+        AMP(new double[] {37.5, 37.5}, new double[] {0, 0}, "Amp"),
+        MANUAL(new double[] {0, 0}, new double[] {0, 0}, "Manual");
     
-//         private double position;
-//         private double velocity;
-//         private String name;
+        private double[] position;
+        private double[] velocity;
+        private String name;
     
-//         private ElevatorLiftState(double position, double velocity, String name) {
-//           this.position = position;
-//           this.velocity = velocity;
-//           this.name = name;
-//         }
+        private ElevatorLiftState(double[] position, double[] velocity, String name) {
+          this.position = position;
+          this.velocity = velocity;
+          this.name = name;
+        }
 
-//         @Override
-//         public String getName() {
-//             return name;
-//         }
+        @Override
+        public String getName() {
+            return name;
+        }
 
-//         @Override
-//         public double getVelocity() {
-//             return velocity;
-//         }
+        @Override
+        public double[] getVelocity() {
+            return velocity;
+        }
 
-//         @Override
-//         public void setVelocity(double velocity) {
-//             this.velocity = velocity;
-//         }
+        @Override
+        public void setVelocity(double velocity, int index) {
+            this.velocity[index] = velocity;
+        }
 
-//         @Override
-//         public double getPosition() {
-//             return position;
-//         }
+        @Override
+        public double[] getPosition() {
+            return position;
+        }
 
-//         @Override
-//         public void setPosition(double position) {
-//             this.position = position;
-//         }
-//     }
+        @Override
+        public void setPosition(double position, int index) {
+            this.position[index] = position;
+        }
+    }
 
-//     public class ElevatorConstants {
-//         public static final SparkConstants kElevatorLiftLeaderConstants = new SparkConstants();
 
-//         static {
-//           kElevatorLiftLeaderConstants.kID = MotorConstants.kElevatorLiftRightID;
-//           kElevatorLiftLeaderConstants.kRevMotorType = RevMotorType.CAN_SPARK_MAX;
-//           kElevatorLiftLeaderConstants.kName = "Elevator Lift Right";
-//           kElevatorLiftLeaderConstants.kIdleMode = IdleMode.kBrake;
-//           kElevatorLiftLeaderConstants.kMotorType = MotorType.kBrushless;
-//           kElevatorLiftLeaderConstants.kCurrentLimit = 20;
-//           kElevatorLiftLeaderConstants.kInverted = false;
-//           kElevatorLiftLeaderConstants.kKp = 0.125;
-//           kElevatorLiftLeaderConstants.kKi = 0.0;
-//           kElevatorLiftLeaderConstants.kKd = 0.0;
-//         }
+public static class ElevatorLiftConstants {
+    public static final SparkConstants[] kElevatorLiftMotorConstants = new SparkConstants[2];
 
-//         public static final SparkConstants[] kElevatorLiftFollowerConstants = new SparkConstants[1];
+    static {
+    kElevatorLiftMotorConstants[0] = new SparkConstants();
+    kElevatorLiftMotorConstants[0].kRevMotorType = RevMotorType.CAN_SPARK_MAX;
+    kElevatorLiftMotorConstants[0].kID = MotorConstants.kElevatorLiftRightID;
+    kElevatorLiftMotorConstants[0].kName = "Elevator Lift Right";
+    kElevatorLiftMotorConstants[0].kIdleMode = IdleMode.kBrake;
+    kElevatorLiftMotorConstants[0].kMotorType = MotorType.kBrushless;
+    kElevatorLiftMotorConstants[0].kCurrentLimit = 80;
+    kElevatorLiftMotorConstants[0].kInverted = false;
+    kElevatorLiftMotorConstants[0].kKp = 0.125;
+    kElevatorLiftMotorConstants[0].kKi = 0.001;
+    kElevatorLiftMotorConstants[0].kKd = 0.0;
 
-//         static {
-//           kElevatorLiftFollowerConstants[0] = new SparkConstants();
-//           kElevatorLiftFollowerConstants[0].kRevMotorType = RevMotorType.CAN_SPARK_MAX;
-//           kElevatorLiftFollowerConstants[0].kID = MotorConstants.kElevatorLiftLeftID;
-//           kElevatorLiftFollowerConstants[0].kName = "Elevator Lift Left";
-//           kElevatorLiftFollowerConstants[0].kIdleMode = IdleMode.kBrake;
-//           kElevatorLiftFollowerConstants[0].kMotorType = MotorType.kBrushless;
-//           kElevatorLiftFollowerConstants[0].kCurrentLimit = 20;
-//           kElevatorLiftFollowerConstants[0].kInverted = true;
-//         }
+    kElevatorLiftMotorConstants[1] = new SparkConstants();
+    kElevatorLiftMotorConstants[1].kRevMotorType = RevMotorType.CAN_SPARK_MAX;
+    kElevatorLiftMotorConstants[1].kID = MotorConstants.kElevatorLiftLeftID;
+    kElevatorLiftMotorConstants[1].kName = "Elevator Lift Left";
+    kElevatorLiftMotorConstants[1].kIdleMode = IdleMode.kBrake;
+    kElevatorLiftMotorConstants[1].kMotorType = MotorType.kBrushless;
+    kElevatorLiftMotorConstants[1].kCurrentLimit = 80;
+    kElevatorLiftMotorConstants[1].kInverted = true;
+    kElevatorLiftMotorConstants[1].kKp = 0.125;
+    kElevatorLiftMotorConstants[1].kKi = 0.001;
+    kElevatorLiftMotorConstants[1].kKd = 0.0;
+    }
 
-//         public static PositionSubsystemConstants kElevatorLiftSubsystemConstants = new PositionSubsystemConstants();
+    public static MultiMotorPositionSubsystemConstants kElevatorLiftConstants = new MultiMotorPositionSubsystemConstants();
 
-//         static {
-//           // Name of the subsystem, for example "Launcher Flywheels"
-//           kElevatorLiftSubsystemConstants.kSubsystemName = "Elevator Lift"; 
-
-//           // Name of the subsystem, for example "Launcher"
-//           kElevatorLiftSubsystemConstants.kSuperstructureName = "Intake";
-
-//           // An enum which is in the template subsystem
-//           kElevatorLiftSubsystemConstants.kSubsystemType = PositionSubsystemType.ELEVATOR_LIFT;
-
-//           // The main motor constants
-//           // Instantiate these motor constants above this static block
-//           kElevatorLiftSubsystemConstants.kLeaderConstants = kElevatorLiftLeaderConstants;
-
-//           // An array of motor constants that follow the leader
-//           // Instantiate these motor constants above this static block
-//           kElevatorLiftSubsystemConstants.kFollowerConstants = kElevatorLiftFollowerConstants;
-
-//           // Initial, Manual, and Transition state of the subsytem
-//           // This enum is in the Subsystem that extends the MultiMotorPositionSubsystem
-//           // You will have to create these states
-//           kElevatorLiftSubsystemConstants.kInitialState = ElevatorLiftState.DOWN;
-//           kElevatorLiftSubsystemConstants.kManualState = ElevatorLiftState.MANUAL;
-//           kElevatorLiftSubsystemConstants.kTransitionState = ElevatorLiftState.TRANSITION;
-
-//           // Home position of the motor
-//           kElevatorLiftSubsystemConstants.kHomePosition = 0.0;
-
-//           // Conversion factor for the motor output units
-//           // To find degrees: 360/gear ratio ex 360/100 for 100:1
-//           // For example for ratio 100:1 do 100
-//           kElevatorLiftSubsystemConstants.kPositionConversionFactor = 1.0; 
-
-//           // Tolerance for atSetpoint()
-//           kElevatorLiftSubsystemConstants.kSetpointTolerance = 1.0; 
-
-//           // PID Slot, make more if more than one set of pid constants are used
-//           kElevatorLiftSubsystemConstants.kDefaultSlot = 0; 
-
-//           // Max velocity and acceleration for trapezoidal motion profile
-//           kElevatorLiftSubsystemConstants.kMaxVelocity = 10.0; 
-//           kElevatorLiftSubsystemConstants.kMaxAcceleration = 5.0;
-
-//           // Max/Min positions the subsystem should be able to move
-//           kElevatorLiftSubsystemConstants.kMaxPosition = 100;
-//           kElevatorLiftSubsystemConstants.kMinPosition = 0;
-
-//           // Enum which is found in SubsystemConstants
-//           kElevatorLiftSubsystemConstants.kManualControlMode = ManualControlMode.TRIGGERS;
-
-//           // Multiplied by controller inputs
-//           kElevatorLiftSubsystemConstants.kManualMultiplier = 0.05;
-
-//           // Deadband for controller
-//           kElevatorLiftSubsystemConstants.kManualDeadBand = .1;
-//         }
-
-//     }
+    static {
+    // Name of the subsystem, for example "Launcher Flywheels"
+    kElevatorLiftConstants.kSubsystemName = "Elevator Lift"; 
     
-// }
+    // Name of the subsystem, for example "Launcher"
+    kElevatorLiftConstants.kSuperstructureName = "Intake";
+
+    // An enum which is in the template subsystem
+    kElevatorLiftConstants.kSubsystemType = MultiMotorPositionSubsystemType.ELEVATOR_LIFT;
+
+    // An array of motors to be set to an array of positions
+    // Instantiate these motor constants above this static block
+    kElevatorLiftConstants.kMotorConstants = kElevatorLiftMotorConstants;
+
+    // Initial, Manual, and Transition state of the subsytem
+    // This enum is in the Subsystem that extends the MultiMotorPositionSubsystem
+    // You will have to create these states
+    kElevatorLiftConstants.kInitialState = ElevatorLiftState.DOWN;
+    kElevatorLiftConstants.kManualState = ElevatorLiftState.MANUAL;
+    kElevatorLiftConstants.kTransitionState = ElevatorLiftState.TRANSITION;
+
+    // Home position of the motor
+    kElevatorLiftConstants.kHomePosition = 0.0;
+
+    // Conversion factor for the motor output units
+    // To find degrees: 360/gear ratio ex 360/100 for 100:1
+    // For example for ratio 100:1 do 100
+    kElevatorLiftConstants.kPositionConversionFactor = 1.0; 
+
+    // Tolerance for atSetpoint()
+    kElevatorLiftConstants.kSetpointTolerance = 1.5; 
+
+    // PID Slot, make more if more than one set of pid constants are used
+    kElevatorLiftConstants.kDefaultSlot = 0; 
+
+    // Max velocity and acceleration for trapezoidal motion profile
+    kElevatorLiftConstants.kMaxVelocity = 10.0; 
+    kElevatorLiftConstants.kMaxAcceleration = 5.0;
+
+    // Max/Min positions the subsystem should be able to move
+    kElevatorLiftConstants.kMaxPosition = 38.;
+    kElevatorLiftConstants.kMinPosition = 0;
+
+    // Enum which is found in SubsystemConstants
+    kElevatorLiftConstants.kManualControlMode = ManualControlMode.TRIGGERS;
+
+    // Multiplied by controller inputs
+    kElevatorLiftConstants.kManualMultiplier = .05;
+
+    // Deadband for controller
+    kElevatorLiftConstants.kManualDeadBand = .1;
+    }
+    
+}
+}

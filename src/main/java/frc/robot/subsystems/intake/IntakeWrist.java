@@ -6,9 +6,6 @@ import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConsta
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 
-import org.littletonrobotics.junction.Logger;
-
-import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 

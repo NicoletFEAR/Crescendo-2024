@@ -5,15 +5,10 @@ import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConsta
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 
-import org.littletonrobotics.junction.Logger;
-
-import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-// import edu.wpi.first.math.controller.ArmFeedforward;
 import frc.robot.Constants.MotorConstants;
-import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherConstants;
 import frc.robot.subsystems.templates.PositionSubsystem;
 
 public class LauncherWrist extends PositionSubsystem {

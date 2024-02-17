@@ -25,6 +25,8 @@ public final class Constants {
 
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : Mode.SIM;
 
+  public static final boolean kInfoMode = true;
+
   // // DRIVEBASE \\ \\
 
   // Make sure to measure these with as much presicion as possible, as it will have great affect on

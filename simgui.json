@@ -113,6 +113,12 @@
           },
           "Intake": {
             "Elevator Lift": {
+              "Elevator Lift Left": {
+                "open": true
+              },
+              "open": true
+            },
+            "Intake Flywheel": {
               "open": true
             },
             "Intake Wrist": {
@@ -129,8 +135,7 @@
             },
             "Launcher Wrist": {
               "open": true
-            },
-            "open": true
+            }
           },
           "Launcher Flywheel": {
             "Top Launcher Flywheel": {

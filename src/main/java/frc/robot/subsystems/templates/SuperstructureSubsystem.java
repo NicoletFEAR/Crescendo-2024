@@ -1,8 +1,10 @@
 package frc.robot.subsystems.templates;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import org.littletonrobotics.junction.Logger;
+import frc.robot.Constants;
 
 public abstract class SuperstructureSubsystem extends SubsystemBase {
 
@@ -46,7 +48,10 @@ public abstract class SuperstructureSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     superstructurePeriodic();
-    // Logger.recordOutput(m_name + "/Superstructure/Current State", m_currentState.getName());
-    // Logger.recordOutput(m_name + "/Superstructure/Desired State", m_desiredState.getName());
+    if (Constants.kInfoMode) {
+      Logger.recordOutput(m_name + "/Superstructure/Current State", m_currentState.getName());
+      Logger.recordOutput(m_name + "/Superstructure/Desired State", m_desiredState.getName());
+    }
+
   }
 }

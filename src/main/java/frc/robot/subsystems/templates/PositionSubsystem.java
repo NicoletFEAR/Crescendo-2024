@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.templates;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -22,7 +24,6 @@ import frc.robot.Constants.Mode;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
-import org.littletonrobotics.junction.Logger;
 
 public abstract class PositionSubsystem extends SubsystemBase {
 
@@ -302,24 +303,26 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
     subsystemPeriodic();
 
-    outputTelemetry();
+    if (Constants.kInfoMode) {
+      outputTelemetry();
 
-    // Logger.recordOutput(
-    //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", getPosition()); // Current position of encoders
-    // Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Velocity", getVelocity()); // Encoder Velocity
-    // Logger.recordOutput(
-    //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Trapezoid Desired Position",
-    //     m_setpoint.position); // Desired position of trapezoid profile
-    // Logger.recordOutput(
-    //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Trapezoid Desired Velocity",
-    //     m_setpoint.velocity); // Desired position of trapezoid profile
-    // Logger.recordOutput(
-    //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired Position", m_desiredState.getPosition()); // Desired position
-    // Logger.recordOutput(
-    //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
-    // Logger.recordOutput(
-    //     m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired State", m_desiredState.getName()); // Current State
-    // Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/At Setpoint", atSetpoint()); // Is at setpoint
+      Logger.recordOutput(
+          m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", getPosition()); // Current position of encoders
+      Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Velocity", getVelocity()); // Encoder Velocity
+      Logger.recordOutput(
+          m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Trapezoid Desired Position",
+          m_setpoint.position); // Desired position of trapezoid profile
+      Logger.recordOutput(
+          m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Trapezoid Desired Velocity",
+          m_setpoint.velocity); // Desired position of trapezoid profile
+      Logger.recordOutput(
+          m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired Position", m_desiredState.getPosition()); // Desired position
+      Logger.recordOutput(
+          m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
+      Logger.recordOutput(
+          m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired State", m_desiredState.getName()); // Current State
+      Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/At Setpoint", atSetpoint()); // Is at setpoint
+    }
   }
 
   public abstract void subsystemPeriodic();

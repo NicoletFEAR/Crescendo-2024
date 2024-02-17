@@ -161,11 +161,10 @@ public class SwerveModule extends SubsystemBase {
 
     double angle = m_desiredState.angle.getDegrees();
 
-    if (m_desiredState.angle.getDegrees() != m_lastAngle || 
+    if (m_desiredState.angle.getDegrees() != m_lastAngle && 
       Math.abs(m_desiredState.speedMetersPerSecond)
         >= (DriveConstants.kMaxMetersPerSecond * DriveConstants.kSteerVelocityDeadzone)) {
           m_turnController.setReference(angle, CANSparkMax.ControlType.kPosition, POS_SLOT);
-          
           m_lastAngle = angle;
     }
     
@@ -180,7 +179,9 @@ public class SwerveModule extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // Logger.recordOutput("SwerveModule/" + "Module " + m_moduleNumber + " Angle", getHeadingDegrees());
+    if (Constants.kInfoMode) {
+      Logger.recordOutput("SwerveModule/" + "Module " + m_moduleNumber + " Angle", getHeadingDegrees());
+    }
   }
 
   private void simUpdateDrivePosition(SwerveModuleState state) {
