@@ -36,7 +36,7 @@ public class SwerveDrive extends SubsystemBase {
 
   private static SwerveDrive m_instance = null;
 
-  private final Pigeon2 m_pigeon = new Pigeon2(Constants.DriveConstants.kPigeon);
+  private final Pigeon2 m_pigeon = new Pigeon2(Constants.DriveConstants.kPigeon, "CANivore");
 
   private Pose2d targetPPPose = new Pose2d(0, 0, new Rotation2d(0));
   public static List<Pose2d> ppPath = new ArrayList<>();
