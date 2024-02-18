@@ -170,7 +170,7 @@ public static class ElevatorLiftConstants {
     kElevatorLiftMotorConstants[1].kMotorType = MotorType.kBrushless;
     kElevatorLiftMotorConstants[1].kCurrentLimit = 80;
     kElevatorLiftMotorConstants[1].kInverted = true;
-    kElevatorLiftMotorConstants[1].kKp = 0.125;
+    kElevatorLiftMotorConstants[1].kKp = 0.075;
     kElevatorLiftMotorConstants[1].kKi = 0.001;
     kElevatorLiftMotorConstants[1].kKd = 0.0;
     }
@@ -213,18 +213,18 @@ public static class ElevatorLiftConstants {
     kElevatorLiftConstants.kDefaultSlot = 0; 
 
     // Max velocity and acceleration for trapezoidal motion profile
-    kElevatorLiftConstants.kMaxVelocity = 10.0; 
-    kElevatorLiftConstants.kMaxAcceleration = 5.0;
+    kElevatorLiftConstants.kMaxVelocity = 100.0; 
+    kElevatorLiftConstants.kMaxAcceleration = 50.0;
 
     // Max/Min positions the subsystem should be able to move
-    kElevatorLiftConstants.kMaxPosition = 38.;
+    kElevatorLiftConstants.kMaxPosition = 190;
     kElevatorLiftConstants.kMinPosition = 0;
 
     // Enum which is found in SubsystemConstants
     kElevatorLiftConstants.kManualControlMode = ManualControlMode.TRIGGERS;
 
     // Multiplied by controller inputs
-    kElevatorLiftConstants.kManualMultiplier = .05;
+    kElevatorLiftConstants.kManualMultiplier = 1;
 
     // Deadband for controller
     kElevatorLiftConstants.kManualDeadBand = .1;
