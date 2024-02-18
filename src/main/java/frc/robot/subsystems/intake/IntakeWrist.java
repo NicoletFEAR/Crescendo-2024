@@ -90,7 +90,7 @@ public class IntakeWrist extends PositionSubsystem {
         public static final SparkConstants kIntakeWristLeaderConstants = new SparkConstants();
 
         static {
-            kIntakeWristLeaderConstants.kID = MotorConstants.kIntakeWristLeftID;
+            kIntakeWristLeaderConstants.kID = MotorConstants.kIntakeWristID;
             kIntakeWristLeaderConstants.kRevMotorType = RevMotorType.CAN_SPARK_MAX;
             kIntakeWristLeaderConstants.kName = "Intake Wrist Leader";
             kIntakeWristLeaderConstants.kIdleMode = IdleMode.kBrake;
@@ -102,18 +102,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristLeaderConstants.kKd = 0.0;
         }
 
-        public static final SparkConstants[] kWristFollowerConstants = new SparkConstants[1];
-
-        static {
-            kWristFollowerConstants[0] = new SparkConstants();
-            kWristFollowerConstants[0].kRevMotorType = RevMotorType.CAN_SPARK_MAX;
-            kWristFollowerConstants[0].kID = MotorConstants.kIntakeWristRightID;
-            kWristFollowerConstants[0].kName = "Intake Wrist Follower";
-            kWristFollowerConstants[0].kIdleMode = IdleMode.kBrake;
-            kWristFollowerConstants[0].kMotorType = MotorType.kBrushless;
-            kWristFollowerConstants[0].kCurrentLimit = 20;
-            kWristFollowerConstants[0].kInverted = true;
-        }
+        public static final SparkConstants[] kWristFollowerConstants = new SparkConstants[0];
 
         public static PositionSubsystemConstants kIntakeWristConstants = new PositionSubsystemConstants();
 
