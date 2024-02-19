@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LED extends SubsystemBase {
     
     private static ArrayList<Double> wiperEffect = new ArrayList<>(Arrays.asList(
-        0.1, 0.5, 1.0, 1.0, 1.0, 1.0, 0.5, 0.1
+        0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
       ));
     
     
@@ -207,7 +207,12 @@ public class LED extends SubsystemBase {
         GREEN(0, 255, 0, "Green", null),
         ORANGE(255, 102, 25, "Orange", null),
         YELLOW(255,255,25, "Yellow", null),
-        WHITE(255, 255, 255, "White", null);
+        WHITE(255, 255, 255, "White", null),
+
+        BLUE_WIPE(0, 0, 255, "Blue Wipe", () -> LED.runEffect(wiperEffect, 0.4)),
+        ORANGE_WIPE(255, 102, 25, "Orange Wipe", () -> LED.runEffect(wiperEffect, 0.4)),
+        YELLOW_WIPE(255, 255, 25, "Yellow Wipe", () -> LED.runEffect(wiperEffect, 0.4)),
+        ;
 
         // RAINBOW(0, 0, 0, "Rainbow",  LED::rainbow),
         // TEAL_WIPE(0, 122, 133, "Teal Wipe", () ->  LED.runEffect(wiperEffect, .04)),

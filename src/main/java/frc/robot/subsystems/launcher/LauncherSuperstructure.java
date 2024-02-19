@@ -97,7 +97,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherHoldState.OFF,
       "Transition"),
     SUBWOOFER(
-      LauncherFlywheelState.FAST,
+      LauncherFlywheelState.RUNNING,
       LauncherWristState.LAUNCH,
       LauncherHoldState.OFF,
       "Subwoofer"

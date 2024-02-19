@@ -34,6 +34,8 @@ import frc.robot.subsystems.launcher.LauncherSuperstructure;
 import frc.robot.subsystems.launcher.LauncherWrist;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
+import frc.robot.subsystems.leds.LED;
+import frc.robot.subsystems.leds.LED.LEDState;
 import frc.robot.subsystems.swerve.SwerveDrive;
 
 /*
@@ -61,7 +63,7 @@ public class RobotContainer {
   private SwerveDrive m_drivebase = SwerveDrive.getInstance();
   private IntakeSuperstructure m_IntakeSuperstructure = IntakeSuperstructure.getInstance();
   private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
-  // private LED m_led = LED.getInstance();
+  private LED m_led = LED.getInstance();
 
   // SENDABLE CHOOSER \\
   public static LoggedDashboardChooser<Command> autoChooser;
@@ -162,10 +164,10 @@ public class RobotContainer {
     // m_driverController.x().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
 
     ///// LEDS /////
-    // m_driverController.pov(0).onTrue(new InstantCommand(() -> m_led.setState(LEDState.BLUE)));
-    // m_driverController.pov(90).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF)));  //
-    // m_driverController.pov(180).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF))); // Can switch to other colors
-    // m_driverController.pov(270).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF))); //
+    // m_driverController.pov(0).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF)));
+    // m_driverController.pov(90).onTrue(new InstantCommand(() -> m_led.setState(LEDState.BLUE_WIPE)));  //
+    // m_driverController.pov(180).onTrue(new InstantCommand(() -> m_led.setState(LEDState.ORANGE_WIPE))); // Can switch to other colors
+    // m_driverController.pov(270).onTrue(new InstantCommand(() -> m_led.setState(LEDState.YELLOW_WIPE))); //
     
     ///// INTAKE /////
     // m_operatorController.a().onTrue(new setSuperstructureState(IntakeSuperstructureState.getInstance(), IntakeSuperstructureState.INTAKING));
