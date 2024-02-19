@@ -59,8 +59,8 @@ public class RobotContainer {
   public static ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
 
   private SwerveDrive m_drivebase = SwerveDrive.getInstance();
-  // // private IntakeSuperstructure m_IntakeSuperstructure = IntakeSuperstructure.getInstance();
-  // private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
+  private IntakeSuperstructure m_IntakeSuperstructure = IntakeSuperstructure.getInstance();
+  private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
   // private LED m_led = LED.getInstance();
 
   // SENDABLE CHOOSER \\
@@ -69,9 +69,9 @@ public class RobotContainer {
   // ALERTS \\
 
   public RobotContainer() {
-    ElevatorLift.getInstance().setDefaultCommand(new ManualMultiMotorPositionSubsystem(ElevatorLift.getInstance()));
-    // LauncherWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(LauncherWrist.getInstance()));
-    // IntakeWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(IntakeWrist.getInstance()));
+    ElevatorLift.getInstance().setDefaultCommand(new ManualMultiMotorPositionSubsystem(ElevatorLift.getInstance())); // TRIGGERS
+    LauncherWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(LauncherWrist.getInstance())); // LEFT X
+    IntakeWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(IntakeWrist.getInstance())); // BUMPERS
 
 
     // NAMED COMMANDS FOR AUTO \\
@@ -129,18 +129,6 @@ public class RobotContainer {
 
     m_driverController.options().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
 
-    // m_operatorController.a().onTrue(new SetPositionSubsystemState(IntakeWrist.getInstance(), IntakeWristState.DOWN));
-    // m_operatorController.b().onTrue(new SetPositionSubsystemState(IntakeWrist.getInstance(), IntakeWristState.AMP));
-
-    // m_operatorController.x().onTrue(new SetPositionSubsystemState(ElevatorLift.getInstance(), ElevatorLiftState.DOWN));
-    // m_operatorController.y().onTrue(new SetPositionSubsystemState(ElevatorLift.getInstance(), ElevatorLiftState.AMP));
-
-    // m_operatorController.a().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.IN));
-    // m_operatorController.b().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.AMP));
-    // m_operatorController.x().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.LAUNCHING));
-    // m_operatorController.y().onTrue(new SetSuperstructureState(m_IntakeSuperstructure, IntakeSuperstructureState.OFF));
-
-
     // // Example of an automatic path generated to score in the B2 zone
     // m_driverController
     //     .a()
@@ -173,50 +161,26 @@ public class RobotContainer {
     //     .onTrue(new InstantCommand(() -> m_drivebase.setAngleToSnap(AngleToSnap.FORWARD)));
     // m_driverController.x().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
 
-    ///// LAUNCHER /////
-    // m_operatorController.a().onTrue(new TurnToAngle(m_drivebase));
-    // m_operatorController.a().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
-    // m_operatorController.b().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FAST));
-    // m_operatorController.x().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.RUNNING));
-    // m_operatorController.y().onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.OFF));
-
-    // m_operatorController.pov(0).onTrue(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.LAUNCHING));
-    // m_operatorController.pov(0).onFalse(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.OFF));
-    // m_operatorController.pov(180).onTrue(new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.EJECTING));
-    // m_operatorController.pov(180).onFalse(new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.OFF));
-
-    // m_operatorController.start().onTrue(new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.INTAKING));
-    // m_operatorController.start().onFalse(new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.OFF));
-
     ///// LEDS /////
     // m_driverController.pov(0).onTrue(new InstantCommand(() -> m_led.setState(LEDState.BLUE)));
     // m_driverController.pov(90).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF)));  //
     // m_driverController.pov(180).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF))); // Can switch to other colors
     // m_driverController.pov(270).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF))); //
     
-    // m_operatorController.a().onTrue(new SetSuperstructureState(IntakeSuperstructure.getInstance(), IntakeSuperstructureState.INTAKING));
-    // m_operatorController.b().onTrue(new SetSuperstructureState(IntakeSuperstructure.getInstance(), IntakeSuperstructureState.STOWED));
-    // m_operatorController.x().onTrue(new SetSuperstructureState(IntakeSuperstructure.getInstance(), IntakeSuperstructureState.AMP_PREPARE));
-    // m_operatorController.y().onTrue(new SetSuperstructureState(IntakeSuperstructure.getInstance(), IntakeSuperstructureState.DOWNOFF));
-    // m_operatorController.pov(90).onTrue(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.OFF));
-    // // m_operatorController.y().onTrue(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.INTAKE));
-    // m_operatorController.pov(270).onTrue(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.SUBWOOFER));
-    // m_operatorController.y().onTrue(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.SUBWOOFER));
-    // m_operatorController.y().onFalse(new SetSuperstructureState(LauncherSuperstructure.getInstance(), LauncherSuperstructureState.OFF));
-
-
-    // m_operatorController.a().onTrue(new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.AMP)
-    //   .alongWith(new SetVoltageSubsystemState(IntakeHold.getInstance(), IntakeHoldState.AMP))
-    //   .alongWith(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.AMP)));
-    // m_operatorController.b().onTrue(new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.IN)
-    //   .alongWith(new SetVoltageSubsystemState(IntakeHold.getInstance(), IntakeHoldState.IN))
-    //   .alongWith(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.IN)));
-    // m_operatorController.x().onTrue(new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.OUT)
-    //   .alongWith(new SetVoltageSubsystemState(IntakeHold.getInstance(), IntakeHoldState.OUT))
-    //   .alongWith(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.OUT)));
-    // m_operatorController.y().onTrue(new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.OFF)
-    //   .alongWith(new SetVoltageSubsystemState(IntakeHold.getInstance(), IntakeHoldState.OFF))
-    //   .alongWith(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.OFF)));
+    ///// INTAKE /////
+    // m_operatorController.a().onTrue(new setSuperstructureState(IntakeSuperstructureState.getInstance(), IntakeSuperstructureState.INTAKING));
+    // m_operatorController.b().onTrue(new setSuperstructureState(IntakeSuperstructureState.getInstance(), IntakeSuperstructureState.STOWED));
+    // m_operatorController.x().onTrue(new setSuperstructureState(IntakeSuperstructureState.getInstance(), IntakeSuperstructureState.AMP_PREPARE));
+    // m_operatorController.x().onFalse(new setSuperstructureState(IntakeSuperstructureState.getInstance(), IntakeSuperstructureState.AMP_SHOOT));
+    // m_operatorController.y().onTrue(new setSuperstructureState(IntakeSuperstructureState.getInstance(), IntakeSuperstructureState.EJECT));
+  
+    // m_driverController.pov(0).onTrue(new setSuperstructureState(IntakeSuperstructureState.getInstance(), IntakeSuperstructureState.LAUNCHING));
+    // m_driverController.pov(180).onTrue(new setSuperstructureState(IntakeSuperstructureState.getInstance(), IntakeSuperstructureState.DOWNOFF));
+  
+    ///// LAUNCH /////
+    // m_operatorController.a().onTrue(new setSuperstructureState(LauncherSuperstructureState.getInstance(), LauncherSuperstructureState.RUNNING));
+    // m_operatorController.b().onTrue(new setSuperstructureState(LauncherSuperstructureState.getInstance(), LauncherSuperstructureState.OFF));
+    // m_operatorController.x().onTrue(new setSuperstructureState(LauncherSuperstructureState.getInstance(), LauncherSuperstructureState.INTAKING));
   }
 
   public Command getAutonomousCommand() {

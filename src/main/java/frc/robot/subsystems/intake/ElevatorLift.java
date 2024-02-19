@@ -158,8 +158,8 @@ public static class ElevatorLiftConstants {
     kElevatorLiftMotorConstants[0].kMotorType = MotorType.kBrushless;
     kElevatorLiftMotorConstants[0].kCurrentLimit = 80;
     kElevatorLiftMotorConstants[0].kInverted = false;
-    kElevatorLiftMotorConstants[0].kKp = 0.125;
-    kElevatorLiftMotorConstants[0].kKi = 0.001;
+    kElevatorLiftMotorConstants[0].kKp = 0.01; // 0.125
+    kElevatorLiftMotorConstants[0].kKi = 0.0; //0.001
     kElevatorLiftMotorConstants[0].kKd = 0.0;
 
     kElevatorLiftMotorConstants[1] = new SparkConstants();
@@ -170,8 +170,8 @@ public static class ElevatorLiftConstants {
     kElevatorLiftMotorConstants[1].kMotorType = MotorType.kBrushless;
     kElevatorLiftMotorConstants[1].kCurrentLimit = 80;
     kElevatorLiftMotorConstants[1].kInverted = true;
-    kElevatorLiftMotorConstants[1].kKp = 0.075;
-    kElevatorLiftMotorConstants[1].kKi = 0.001;
+    kElevatorLiftMotorConstants[1].kKp = 0.01; // 0.075
+    kElevatorLiftMotorConstants[1].kKi = 0.0; //0.001
     kElevatorLiftMotorConstants[1].kKd = 0.0;
     }
 
@@ -224,7 +224,7 @@ public static class ElevatorLiftConstants {
     kElevatorLiftConstants.kManualControlMode = ManualControlMode.TRIGGERS;
 
     // Multiplied by controller inputs
-    kElevatorLiftConstants.kManualMultiplier = 1;
+    kElevatorLiftConstants.kManualMultiplier = .01;
 
     // Deadband for controller
     kElevatorLiftConstants.kManualDeadBand = .1;

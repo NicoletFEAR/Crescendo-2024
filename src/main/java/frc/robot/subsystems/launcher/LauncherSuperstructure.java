@@ -86,11 +86,6 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         LauncherWristState.UP,
         LauncherHoldState.LAUNCHING,
         "Running"),
-    FAST(
-        LauncherFlywheelState.FAST,
-        LauncherWristState.DOWN,
-        LauncherHoldState.LAUNCHING,
-        "Fast"),
     INTAKING(
         LauncherFlywheelState.INTAKING,
         LauncherWristState.LAUNCH,

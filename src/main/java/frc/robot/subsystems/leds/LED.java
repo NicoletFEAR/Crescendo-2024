@@ -205,15 +205,18 @@ public class LED extends SubsystemBase {
         BLUE(0, 0, 255, "Blue", null),
         RED(255, 0, 0, "Red", null),
         GREEN(0, 255, 0, "Green", null),
-        WHITE(255, 255, 255, "White", null),
-        RAINBOW(0, 0, 0, "Rainbow",  LED::rainbow),
-        TEAL_WIPE(0, 122, 133, "Teal Wipe", () ->  LED.runEffect(wiperEffect, .04)),
-        TEAL_RAIN(0, 122, 133, "Teal Rain", () ->  LED.runEffect(rainEffect, .2)),
-        TEAL_PULSE(0, 122, 133, "Teal Pulse", () ->  LED.pulse(.01)),
-        BLUE_FLASH(0, 0, 255, "Blue Flash", () ->  LED.flash(.2)),
-        ORANGE_FLASH(255, 179, 0, "Orange Flash", () ->  LED.flash(.2)),
+        ORANGE(255, 102, 25, "Orange", null),
+        YELLOW(255,255,25, "Yellow", null),
+        WHITE(255, 255, 255, "White", null);
+
+        // RAINBOW(0, 0, 0, "Rainbow",  LED::rainbow),
+        // TEAL_WIPE(0, 122, 133, "Teal Wipe", () ->  LED.runEffect(wiperEffect, .04)),
+        // TEAL_RAIN(0, 122, 133, "Teal Rain", () ->  LED.runEffect(rainEffect, .2)),
+        // TEAL_PULSE(0, 122, 133, "Teal Pulse", () ->  LED.pulse(.01)),
+        // BLUE_FLASH(0, 0, 255, "Blue Flash", () ->  LED.flash(.2)),
+        // ORANGE_FLASH(255, 179, 0, "Orange Flash", () ->  LED.flash(.2)),
     
-        TEAL_COMET(0, 122, 133, "Teal Comet", () ->  LED.runEffect(cometEffect, .2));
+        // TEAL_COMET(0, 122, 133, "Teal Comet", () ->  LED.runEffect(cometEffect, .2));
     
         public int red;
         public int green;
