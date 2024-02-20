@@ -135,7 +135,8 @@
             },
             "Launcher Wrist": {
               "open": true
-            }
+            },
+            "open": true
           },
           "Launcher Flywheel": {
             "Top Launcher Flywheel": {
