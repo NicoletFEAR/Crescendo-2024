@@ -3,47 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.426032077289379,
-        "y": 2.7549215458791285
+        "x": 2.3074229932254755,
+        "y": 5.539426141915347
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.553885864528485,
-        "y": 1.1833220062836523
+        "x": 2.0115924916534516,
+        "y": 5.18627848066507
       },
       "isLocked": false,
-      "linkedName": "Center Auto 1 end"
+      "linkedName": "RS2-WN2"
     },
     {
       "anchor": {
-        "x": 7.761797865938074,
-        "y": 2.246462871304121
+        "x": 2.35364650909482,
+        "y": 4.422605624474577
       },
       "prevControl": {
-        "x": 6.38433709299851,
-        "y": 1.2480349285022903
+        "x": 1.9468795694337822,
+        "y": 4.88484078317907
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Center Auto 4 end"
+      "linkedName": "RS3-WN3"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 1.75,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 20.55604521958359,
+    "rotation": -26.790048695775912,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Test Autos",
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "folder": "Wing Note 2",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }

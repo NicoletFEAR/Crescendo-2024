@@ -23,7 +23,7 @@ import frc.lib.utilities.SwerveModuleConstants;
  */
 public final class Constants {
 
-  public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : Mode.SIM;
+  public static final Mode kCurrentMode = RobotBase.isReal() ? Mode.REAL : Mode.SIM;
 
   public static final boolean kInfoMode = true;
 
@@ -164,7 +164,7 @@ public final class Constants {
     };
 
     public static final Translation2d kBlueSpeakerPosition = new Translation2d(0, 5.56);
-    public static final Translation2d kRedSpeakerPosition = new Translation2d(0, 2.65);
+    public static final Translation2d kRedSpeakerPosition = new Translation2d(16.53, 5.56);
   }
 
   public class MotorConstants {

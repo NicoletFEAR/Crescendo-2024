@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 5.0,
-      "y": 5.0
+      "x": 1.3,
+      "y": 5.54
     },
     "rotation": 0
   },
@@ -14,12 +14,18 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2 Meter Diagonal Line 180 Rotation"
+            "pathName": "RS2-WN2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "WN2-WN3"
           }
         }
       ]
     }
   },
-  "folder": "Tuning",
+  "folder": "Start Pos 2",
   "choreoAuto": false
 }

@@ -4,13 +4,17 @@
   "holonomicMode": true,
   "pathFolders": [
     "Center Paths",
-    "Reveal Auto",
-    "Test Autos",
-    "Tuning Paths"
+    "Wing Note 3",
+    "Start Pos 1",
+    "Start Pos 2",
+    "Start Pos 3",
+    "Wing Note 1",
+    "Wing Note 2"
   ],
   "autoFolders": [
-    "Test Autos",
-    "Tuning"
+    "Start Pos 3",
+    "Start Pos 1",
+    "Start Pos 2"
   ],
   "defaultMaxVel": 2.0,
   "defaultMaxAccel": 1.75,

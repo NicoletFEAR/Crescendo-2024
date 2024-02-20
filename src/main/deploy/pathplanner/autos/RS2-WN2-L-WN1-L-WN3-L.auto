@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.48,
-      "y": 4.1
+      "x": 1.3,
+      "y": 5.54
     },
     "rotation": 0
   },
@@ -14,36 +14,24 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center Auto 1"
+            "pathName": "RS2-WN2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Center Auto 2"
+            "pathName": "WN2-WN1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Center Auto 3"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Center Auto 4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Center Auto 5"
+            "pathName": "WN1-WN3"
           }
         }
       ]
     }
   },
-  "folder": "Test Autos",
+  "folder": "Start Pos 2",
   "choreoAuto": false
 }

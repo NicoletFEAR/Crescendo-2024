@@ -27,6 +27,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
 import frc.lib.utilities.GeometryUtils;
+import frc.lib.utilities.PolarCoordinate;
 import frc.lib.utilities.SwerveModuleConstants;
 import java.util.ArrayList;
 import java.util.List;
@@ -299,7 +300,7 @@ public class SwerveDrive extends SubsystemBase {
   // }
 
   public Rotation2d getYaw() {
-    if (Constants.currentMode == Mode.REAL) {
+    if (Constants.kCurrentMode == Mode.REAL) {
       return (invertGyro)
           ? Rotation2d.fromDegrees(360 - m_pigeon.getYaw().getValue())
           : Rotation2d.fromDegrees(m_pigeon.getYaw().getValue());
@@ -310,7 +311,7 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public double getYawDegrees() {
-    if (Constants.currentMode == Mode.REAL) {
+    if (Constants.kCurrentMode == Mode.REAL) {
       return Math.IEEEremainder(m_pigeon.getYaw().getValue(), 360);
     } else {
       return Math.IEEEremainder(m_simyaw, 360);
@@ -353,6 +354,15 @@ public class SwerveDrive extends SubsystemBase {
     return getPose().getY() > DriveConstants.kBlueSpeakerPosition.getY() ? Math.toDegrees(Math.acos(adjacent / hypot)) : -Math.toDegrees(Math.acos(adjacent / hypot));
   }
 
+  public double calculateDistanceToSpeaker(Pose2d robotPose) {
+    var alliance = DriverStation.getAlliance();
+
+    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+      return robotPose.getTranslation().getDistance(DriveConstants.kRedSpeakerPosition);
+    }
+    return robotPose.getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
+  }
+
   @Override
   public void periodic() {
     poseEstimator.update(getYaw(), getModulePositions());
@@ -376,6 +386,13 @@ public class SwerveDrive extends SubsystemBase {
     m_field.getObject("path").setPoses(ppPath);
 
     SmartDashboard.putNumber("Angle To Speaker", calculateAngleToSpeaker());
+    SmartDashboard.putNumber("Distance To Speaker", calculateDistanceToSpeaker(getPose()));
+
+    PolarCoordinate coord = GeometryUtils.findClosestCoordinate(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose()));
+
+    SmartDashboard.putNumberArray("Closest Coord", new Double[] {coord.getTheta(), coord.getR()});
+
+    SmartDashboard.putNumber("Pitch", GeometryUtils.interpolatePitch(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose())));
 
     // if (poseEstimator
     //         .getEstimatedPosition()

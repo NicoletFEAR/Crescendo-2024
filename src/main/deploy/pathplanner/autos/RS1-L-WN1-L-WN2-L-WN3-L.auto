@@ -2,42 +2,36 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.32,
-      "y": 5.51
+      "x": 0.73,
+      "y": 6.62
     },
-    "rotation": 0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "intake"
+            "pathName": "RS1-WN1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Reveal-Auto-1"
+            "pathName": "WN1-WN2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Reveal-Auto-2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "eject"
+            "pathName": "WN2-WN3"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Start Pos 1",
   "choreoAuto": false
 }

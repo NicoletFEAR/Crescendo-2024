@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 5.0,
-      "y": 5.0
+      "x": 0.66,
+      "y": 4.42
     },
-    "rotation": 0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -14,12 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2 Meter Straight Line"
+            "pathName": "RS3-WN3"
           }
         }
       ]
     }
   },
-  "folder": "Tuning",
+  "folder": "Start Pos 3",
   "choreoAuto": false
 }

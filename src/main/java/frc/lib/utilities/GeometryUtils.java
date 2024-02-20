@@ -13,8 +13,13 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.Trajectory.State;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherConstants;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class GeometryUtils {
   private static final double kEps = 1E-9;
@@ -177,4 +182,68 @@ public class GeometryUtils {
   public static double modifyInputs(double input, double modifier) {
     return input >= 0 ? Math.pow(input, modifier) : -Math.pow(-input, modifier);
   }
+
+  public static double interpolatePitch(double theta, double r) {
+    PolarCoordinate nearestCoords = findClosestCoordinate(theta, r);
+    if (nearestCoords != null) {
+        double pitchNearest = LauncherConstants.kDistancePitchMap.get(nearestCoords);
+        
+        // Find the next nearest setpoint
+        PolarCoordinate nextNearestCoords = findClosestCoordinate(theta, r, nearestCoords);
+        if (nextNearestCoords != null) {
+            double pitchNextNearest = LauncherConstants.kDistancePitchMap.get(nextNearestCoords);
+            
+            // Interpolate pitch linearly between nearest and next nearest setpoints
+            double fraction = calculateFraction(nearestCoords, nextNearestCoords, theta, r);
+            return pitchNearest + fraction * (pitchNextNearest - pitchNearest);
+        } else {
+            // If there's no next nearest setpoint, return pitch of nearest setpoint
+            return pitchNearest;
+        }
+    }
+    return 0.0; // Default pitch if no nearest setpoint found
+}
+
+  public static PolarCoordinate findClosestCoordinate(double theta, double r) {
+    PolarCoordinate nearestCoords = null;
+    double minDistance = Double.MAX_VALUE;
+
+    // Iterate through the angleTable to find the nearest setpoint
+    for (PolarCoordinate coords : LauncherConstants.kDistancePitchMap.keySet()) {
+        double distance = Math.sqrt(Math.pow(coords.getTheta() - theta, 2) + Math.pow(coords.getR() - r, 2));
+        if (distance < minDistance) {
+            minDistance = distance;
+            nearestCoords = coords;
+        }
+    }
+
+    return nearestCoords;
+  }
+
+  public static PolarCoordinate findClosestCoordinate(double theta, double r, PolarCoordinate nearestCoords) {
+    // Iterate through the angleTable to find the next nearest setpoint
+    PolarCoordinate nextNearestCoords = null;
+    double minDistance = Double.MAX_VALUE;
+    
+    for (PolarCoordinate coords : LauncherConstants.kDistancePitchMap.keySet()) {
+        if (!coords.equals(nearestCoords)) {
+            double distance = Math.sqrt(Math.pow(coords.getTheta() - theta, 2) + Math.pow(coords.getR() - r, 2));
+            if (distance < minDistance) {
+                minDistance = distance;
+                nextNearestCoords = coords;
+            }
+        }
+    }
+    
+    return nextNearestCoords;
+}
+
+public static double calculateFraction(PolarCoordinate nearestCoords, PolarCoordinate nextNearestCoords, double theta, double r) {
+  double distanceNearest = Math.sqrt(Math.pow(nearestCoords.getTheta() - theta, 2) + Math.pow(nearestCoords.getR() - r, 2));
+  double distanceNextNearest = Math.sqrt(Math.pow(nextNearestCoords.getTheta() - theta, 2) + Math.pow(nextNearestCoords.getR() - r, 2));
+  return distanceNearest / (distanceNearest + distanceNextNearest);
+}
+
+
+
 }

@@ -108,7 +108,7 @@ public abstract class VoltageSubsystem extends SubsystemBase {
   }
 
   public double getVolts() {
-    return Constants.currentMode == Mode.REAL ? m_leader.getBusVoltage() : m_currentState.getVoltage();
+    return Constants.kCurrentMode == Mode.REAL ? m_leader.getBusVoltage() : m_currentState.getVoltage();
   }
 
   public VoltageSubsystemType getSubsystemType() {

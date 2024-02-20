@@ -109,7 +109,7 @@ public class Limelight extends SubsystemBase {
 
 
 
-    if (Constants.currentMode == Mode.REAL) {
+    if (Constants.kCurrentMode == Mode.REAL) {
       Logger.recordOutput(camName + "/Pose", getLimelightPose());
       Logger.recordOutput(camName + "/Valid Targets", m_tv.getInteger(0));
       Logger.recordOutput(camName + "/Target Area", m_ta.getDouble(0));

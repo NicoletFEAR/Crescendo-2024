@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.29,
-        "y": 5.574358195791997
+        "x": 0.66,
+        "y": 4.422605624474577
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.54,
-        "y": 5.574358195791997
+        "x": 1.3625370672203436,
+        "y": 4.522508792765333
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.3211515752560734,
-        "y": 5.574358195791997
+        "x": 2.35364650909482,
+        "y": 4.422605624474577
       },
       "prevControl": {
-        "x": 2.0711515752560734,
-        "y": 5.574358195791997
+        "x": 1.7989643186493578,
+        "y": 4.659330399741881
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "auto 1 end"
+      "linkedName": "RS3-WN3"
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -27.012665347938462,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Test Autos",
-  "previewStartingState": null,
+  "folder": "Start Pos 3",
+  "previewStartingState": {
+    "rotation": -60.0,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

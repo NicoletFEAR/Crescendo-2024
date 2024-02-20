@@ -258,7 +258,7 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
   }
 
   public double[] getPosition() {
-    if (Constants.currentMode == Mode.REAL) {
+    if (Constants.kCurrentMode == Mode.REAL) {
       double[] output = new double[m_motors.length];
 
       for (int i = 0; i < output.length; i++) {
@@ -272,7 +272,7 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
   }
 
   public double[] getVelocity() {
-        if (Constants.currentMode == Mode.REAL) {
+        if (Constants.kCurrentMode == Mode.REAL) {
       double[] output = new double[m_motors.length];
 
       for (int i = 0; i < output.length; i++) {

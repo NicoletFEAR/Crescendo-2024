@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9112722961537205,
-        "y": 5.070792224323394
+        "x": 2.35364650909482,
+        "y": 4.422605624474577
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8292964403332497,
-        "y": 5.597779868883562
+        "x": 1.9191454599125413,
+        "y": 4.844224463223702
       },
       "isLocked": false,
-      "linkedName": "auto 3 end"
+      "linkedName": "RS3-WN3"
     },
     {
       "anchor": {
-        "x": 2.613922488900611,
-        "y": 6.5463576290918635
+        "x": 2.3074229932254755,
+        "y": 5.539426141915347
       },
       "prevControl": {
-        "x": 2.5085249599885775,
-        "y": 6.323851734722014
+        "x": 1.9376348662607235,
+        "y": 5.260236106057798
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "auto 4 end"
+      "linkedName": "RS2-WN2"
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 59.53445508054005,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Test Autos",
-  "previewStartingState": null,
+  "folder": "Wing Note 3",
+  "previewStartingState": {
+    "rotation": -26.906863691591397,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

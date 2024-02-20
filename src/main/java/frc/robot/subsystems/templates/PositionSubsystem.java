@@ -281,11 +281,11 @@ public abstract class PositionSubsystem extends SubsystemBase {
   }
 
   public double getPosition() {
-    return Constants.currentMode == Mode.REAL ? m_encoder.getPosition() : m_currentState.getPosition();
+    return Constants.kCurrentMode == Mode.REAL ? m_encoder.getPosition() : m_currentState.getPosition();
   }
 
   public double getVelocity() {
-    return Constants.currentMode == Mode.REAL ? m_encoder.getVelocity() : m_currentState.getVelocity();
+    return Constants.kCurrentMode == Mode.REAL ? m_encoder.getVelocity() : m_currentState.getVelocity();
   }
 
   public PositionSubsystemType getSubsystemType() {

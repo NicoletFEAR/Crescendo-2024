@@ -65,7 +65,7 @@ public class Robot extends LoggedRobot {
     Pathfinding.setPathfinder(new LocalADStarAK());
 
     // Set up data receivers & replay source
-    switch (Constants.currentMode) {
+    switch (Constants.kCurrentMode) {
       case REAL:
         // Running on a real robot, log to a USB stick
         // Logger.addDataReceiver(new WPILOGWriter());

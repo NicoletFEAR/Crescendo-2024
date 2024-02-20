@@ -126,7 +126,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public double getHeadingDegrees() {
-    if (Constants.currentMode == Mode.REAL) return m_turnEncoder.getPosition();
+    if (Constants.kCurrentMode == Mode.REAL) return m_turnEncoder.getPosition();
     else return m_currentAngle;
   }
 
@@ -135,12 +135,12 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public double getDriveMeters() {
-    if (Constants.currentMode == Mode.REAL) return m_driveEncoder.getPosition();
+    if (Constants.kCurrentMode == Mode.REAL) return m_driveEncoder.getPosition();
     else return m_simDriveEncoderPosition;
   }
 
   public double getDriveMetersPerSecond() {
-    if (Constants.currentMode == Mode.REAL) return m_driveEncoder.getVelocity();
+    if (Constants.kCurrentMode == Mode.REAL) return m_driveEncoder.getVelocity();
     else return m_simDriveEncoderVelocity;
   }
 
