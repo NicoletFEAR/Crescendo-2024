@@ -88,11 +88,6 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         LauncherWristState.UP,
         LauncherHoldState.LAUNCHING,
         "Running"),
-    FAST(
-        LauncherFlywheelState.FAST,
-        LauncherWristState.DOWN,
-        LauncherHoldState.LAUNCHING,
-        "Fast"),
     INTAKING(
         LauncherFlywheelState.INTAKING,
         LauncherWristState.LAUNCH,
@@ -104,7 +99,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherHoldState.OFF,
       "Transition"),
     SUBWOOFER(
-      LauncherFlywheelState.FAST,
+      LauncherFlywheelState.RUNNING,
       LauncherWristState.LAUNCH,
       LauncherHoldState.OFF,
       "Subwoofer"

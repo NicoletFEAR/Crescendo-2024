@@ -157,7 +157,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristConstants.kManualControlMode = ManualControlMode.BUMPERS;
 
             // Multiplied by controller inputs
-            kIntakeWristConstants.kManualMultiplier = 0.1;
+            kIntakeWristConstants.kManualMultiplier = 1;
 
             // Deadband for controller
             kIntakeWristConstants.kManualDeadBand = .1;
