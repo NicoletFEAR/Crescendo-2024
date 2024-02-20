@@ -97,7 +97,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristLeaderConstants.kMotorType = MotorType.kBrushless;
             kIntakeWristLeaderConstants.kCurrentLimit = 20;
             kIntakeWristLeaderConstants.kInverted = true;
-            kIntakeWristLeaderConstants.kKp = 0.01; //0.1
+            kIntakeWristLeaderConstants.kKp = 0.1;
             kIntakeWristLeaderConstants.kKi = 0.0;
             kIntakeWristLeaderConstants.kKd = 0.0;
         }
@@ -157,7 +157,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristConstants.kManualControlMode = ManualControlMode.BUMPERS;
 
             // Multiplied by controller inputs
-            kIntakeWristConstants.kManualMultiplier = 0.1;
+            kIntakeWristConstants.kManualMultiplier = 1;
 
             // Deadband for controller
             kIntakeWristConstants.kManualDeadBand = .1;

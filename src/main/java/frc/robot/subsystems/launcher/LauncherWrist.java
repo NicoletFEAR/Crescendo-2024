@@ -124,7 +124,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristLeaderConstants.kMotorType = MotorType.kBrushless;
             kLauncherWristLeaderConstants.kCurrentLimit = 80;
             kLauncherWristLeaderConstants.kInverted = false;
-            kLauncherWristLeaderConstants.kKp = 0.01; //0.05
+            kLauncherWristLeaderConstants.kKp = 0.05;
             kLauncherWristLeaderConstants.kKi = 0.0;
             kLauncherWristLeaderConstants.kKd = 0.0;
             kLauncherWristLeaderConstants.kKff = 0.0;
@@ -158,7 +158,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristConstants.kMinPosition = 0;
 
             kLauncherWristConstants.kManualControlMode = ManualControlMode.LEFT_X;
-            kLauncherWristConstants.kManualMultiplier = 0.1;
+            kLauncherWristConstants.kManualMultiplier = 1;
             kLauncherWristConstants.kManualDeadBand = 0.1;
 
             kLauncherWristConstants.kInitialState = LauncherWristState.DOWN;

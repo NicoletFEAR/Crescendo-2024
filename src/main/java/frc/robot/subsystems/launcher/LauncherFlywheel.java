@@ -55,11 +55,11 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
     public enum LauncherFlywheelState implements VelocitySubsystemState {
         OFF(new double[] {0, 0}, "Off"),
-        IDLE(new double[] {-2500, -2500}, "Idle"),
-        RUNNING(new double[] {-5000, -5000}, "Running"),
+        IDLE(new double[] {2500, 2500}, "Idle"),
+        RUNNING(new double[] {5000, 5000}, "Running"),
         TRANSITION(new double[] {0, 0}, "Transition"),
         FIELD_BASED_VELOCITY(new double[] {0, 0}, "Field Based Velocity"),
-        INTAKING(new double[] {500, 500}, "Intaking"),
+        INTAKING(new double[] {-500, -500}, "Intaking"),
         MANUAL(new double[] {0, 0}, "Manual");
     
         private double[] velocity;
@@ -97,7 +97,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
             kTopLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
             kTopLauncherFlywheelConstants.kCurrentLimit = 80;
             kTopLauncherFlywheelConstants.kInverted = false;
-            kTopLauncherFlywheelConstants.kKp = 0.01; //0.00001
+            kTopLauncherFlywheelConstants.kKp = 0.00001;
             kTopLauncherFlywheelConstants.kKi = 0.0;
             kTopLauncherFlywheelConstants.kKd = 0.0;
             kTopLauncherFlywheelConstants.kKff = 0.0001675;
@@ -113,7 +113,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
             kBottomLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
             kBottomLauncherFlywheelConstants.kCurrentLimit = 80;
             kBottomLauncherFlywheelConstants.kInverted = false;
-            kBottomLauncherFlywheelConstants.kKp = 0.01; //0.00001
+            kBottomLauncherFlywheelConstants.kKp = 0.00001;
             kBottomLauncherFlywheelConstants.kKi = 0.0;
             kBottomLauncherFlywheelConstants.kKd = 0.0;
             kBottomLauncherFlywheelConstants.kKff = 0.0001675;

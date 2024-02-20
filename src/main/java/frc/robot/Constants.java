@@ -181,8 +181,6 @@ public final class Constants {
     public static int kIntakeFlywheelID = 34;
     public static int kIntakeWristID = 32;
     public static int kIntakeHoldID = 36;
-
-
     // CLIMB \\
   }
 
