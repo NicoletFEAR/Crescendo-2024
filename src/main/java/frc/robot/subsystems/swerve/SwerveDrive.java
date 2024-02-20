@@ -31,6 +31,8 @@ import frc.lib.utilities.PolarCoordinate;
 import frc.lib.utilities.SwerveModuleConstants;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.ejml.generic.GenericMatrixOps_F32;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrive extends SubsystemBase {
@@ -388,9 +390,15 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("Angle To Speaker", calculateAngleToSpeaker());
     SmartDashboard.putNumber("Distance To Speaker", calculateDistanceToSpeaker(getPose()));
 
-    PolarCoordinate coord = GeometryUtils.findClosestCoordinate(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose()));
+    PolarCoordinate[] coord = GeometryUtils.findClosestCoordinates(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose()));
 
-    SmartDashboard.putNumberArray("Closest Coord", new Double[] {coord.getTheta(), coord.getR()});
+    SmartDashboard.putNumberArray("Top Left Coord", new Double[] {coord[0].getTheta(), coord[0].getR()});
+
+    SmartDashboard.putNumberArray("Top Right Coord", new Double[] {coord[1].getTheta(), coord[1].getR()});
+
+    SmartDashboard.putNumberArray("Bottom Left Coord", new Double[] {coord[2].getTheta(), coord[2].getR()});
+
+    SmartDashboard.putNumberArray("Bottom Right Coord", new Double[] {coord[3].getTheta(), coord[3].getR()});
 
     SmartDashboard.putNumber("Pitch", GeometryUtils.interpolatePitch(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose())));
 

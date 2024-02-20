@@ -220,6 +220,42 @@ public class GeometryUtils {
     return nearestCoords;
   }
 
+  public static PolarCoordinate[] findClosestCoordinates(double theta, double r) {
+    PolarCoordinate[] closestCoords = new PolarCoordinate[4];
+    double closestTopLeftR = Double.POSITIVE_INFINITY;
+    double closestTopLeftTheta = Double.POSITIVE_INFINITY;
+
+    double closestBottomRightR = Double.NEGATIVE_INFINITY;
+    double closestBottomRightTheta = Double.NEGATIVE_INFINITY;
+
+    for (PolarCoordinate coord : LauncherConstants.kDistancePitchMap.keySet()) {
+      if ((coord.getTheta() > theta && coord.getTheta() < closestTopLeftTheta) || closestTopLeftTheta == coord.getTheta()) {
+        if ((coord.getR() > r && coord.getR() < closestTopLeftR) || closestTopLeftR == coord.getR()) { 
+          closestTopLeftR = coord.getR();
+          closestTopLeftTheta = coord.getTheta();
+          closestCoords[0] = coord;
+        }
+      }
+
+      if ((coord.getTheta() < theta && coord.getTheta() > closestBottomRightTheta) || closestBottomRightTheta == coord.getTheta()) {
+        if ((coord.getR() < r && coord.getR() > closestBottomRightR) || closestBottomRightR == coord.getR()) { 
+          closestBottomRightR = coord.getR();
+          closestBottomRightTheta = coord.getTheta();
+          closestCoords[3] = coord;
+        }
+      }
+    }
+
+    if (closestCoords[0] == null || closestCoords[3] == null) {
+      return new PolarCoordinate[] {new PolarCoordinate(0, 0), new PolarCoordinate(0, 0), new PolarCoordinate(0, 0), new PolarCoordinate(0, 0)};
+    } else {
+      closestCoords[1] = new PolarCoordinate(closestCoords[3].getTheta(), closestCoords[0].getR());
+      closestCoords[2] = new PolarCoordinate(closestCoords[0].getTheta(), closestCoords[3].getR());
+    }
+
+    return closestCoords;
+  }
+
   public static PolarCoordinate findClosestCoordinate(double theta, double r, PolarCoordinate nearestCoords) {
     // Iterate through the angleTable to find the next nearest setpoint
     PolarCoordinate nextNearestCoords = null;

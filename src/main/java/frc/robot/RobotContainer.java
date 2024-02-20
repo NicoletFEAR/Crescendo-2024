@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.utilities.LoggedDashboardChooser;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetSuperstructureState;
@@ -79,16 +81,16 @@ public class RobotContainer {
 
 
     // CONFIGURE DEFAULT COMMANDS \\
-    // m_drivebase.setDefaultCommand(
-    //     new TeleopSwerve(
-    //         m_drivebase,
-    //         m_driverController,
-    //         translationAxis,
-    //         strafeAxis,
-    //         rotationAxis,
-    //         true,
-    //         DriveConstants.kRegularSpeed,
-    //         true));
+    m_drivebase.setDefaultCommand(
+        new TeleopSwerve(
+            m_drivebase,
+            m_driverController,
+            translationAxis,
+            strafeAxis,
+            rotationAxis,
+            true,
+            DriveConstants.kRegularSpeed,
+            true));
     ElevatorLift.getInstance().setDefaultCommand(new ManualMultiMotorPositionSubsystem(ElevatorLift.getInstance())); // TRIGGERS
     LauncherWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(LauncherWrist.getInstance())); // LEFT X
     IntakeWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(IntakeWrist.getInstance())); // BUMPERS
