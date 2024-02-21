@@ -134,7 +134,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
             kLauncherFlywheelConstants.kDefaultSlot = 0;
 
-            kLauncherFlywheelConstants.kSetpointTolerance = 1.0;
+            kLauncherFlywheelConstants.kSetpointTolerance = 3000;
 
             kLauncherFlywheelConstants.kInitialState = LauncherFlywheelState.OFF;
             kLauncherFlywheelConstants.kTransitionState = LauncherFlywheelState.TRANSITION;

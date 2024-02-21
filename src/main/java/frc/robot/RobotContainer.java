@@ -176,8 +176,10 @@ public class RobotContainer {
     m_driverController.pov(270).onTrue(new InstantCommand(() -> m_led.setState(LEDState.BLUE_WIPE))); //
     
     ///// INTAKE /////
-    m_operatorController.a().onTrue(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.INTAKING));
-    m_operatorController.b().onTrue(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.STOWED));
+    m_operatorController.a().onTrue(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.INTAKING)
+    .alongWith(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.INTAKING)));
+    m_operatorController.b().onTrue(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.STOWED)
+    .alongWith(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.OFF)));
     m_operatorController.x().onTrue(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.AMP_PREPARE));
     m_operatorController.x().onFalse(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.AMP_SHOOT)   
     .andThen(new WaitCommand(1)
@@ -188,12 +190,14 @@ public class RobotContainer {
     m_operatorController.pov(180).onTrue(new SetSuperstructureState(m_launcherSuperstructure, IntakeSuperstructureState.DOWNOFF));
   
     ///// LAUNCH /////
-    m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.RUNNING).alongWith(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.LAUNCHING)));
-    m_operatorController.pov(90).onFalse(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.OFF).alongWith(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.OFF)));
+    m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.RUNNING));
+    // .alongWith(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.LAUNCHING)));
+    m_operatorController.pov(270).onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.OFF));
+    // .alongWith(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.OFF)));
     // m_operatorController.pov(90).onTrue(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.RUNNING));
     // m_operatorController.pov(90).onFalse(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.OFF));
-    m_operatorController.pov(270).onTrue(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.INTAKING));
-    m_operatorController.pov(270).onFalse(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.OFF));
+    m_operatorController.pov(270).onTrue(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.OFF));
+    m_operatorController.pov(90).onFalse(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.LAUNCHING));
 }
 
   public Command getAutonomousCommand() {

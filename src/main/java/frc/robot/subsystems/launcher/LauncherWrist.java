@@ -147,7 +147,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristConstants.kHomePosition = 0;
             kLauncherWristConstants.kPositionConversionFactor = 360/100;
 
-            kLauncherWristConstants.kSetpointTolerance = 0.1;
+            kLauncherWristConstants.kSetpointTolerance = 1;
 
             kLauncherWristConstants.kDefaultSlot = 0;
 

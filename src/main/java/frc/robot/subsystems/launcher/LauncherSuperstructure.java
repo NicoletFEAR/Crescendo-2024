@@ -8,10 +8,13 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.lib.utilities.PolarCoordinate;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
+import frc.robot.subsystems.intake.IntakeSuperstructure;
+import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
@@ -22,6 +25,8 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
   private LauncherFlywheel m_launcherFlywheel = LauncherFlywheel.getInstance();
   private LauncherWrist m_launcherWrist = LauncherWrist.getInstance();
   private LauncherHold m_launcherHold = LauncherHold.getInstance();
+
+  private boolean m_noteInLauncher = false;
 
   private DigitalInput m_launcherBeamBreak;
 
@@ -63,12 +68,20 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     return LauncherSuperstructureState.TRANSITION;
   }
 
+  public boolean getNoteInLauncher() {
+    return m_noteInLauncher;
+  }
+
   @Override
   public void superstructurePeriodic() {
 
-    // if (m_currentState == LauncherSuperstructureState.INTAKE && m_launcherBeamBreak.get()) {
-    //   setSuperstructureState(LauncherSuperstructureState.NOTE_IN_HOLD).schedule();
-    // }
+    if (m_desiredState == LauncherSuperstructureState.INTAKING && !m_launcherBeamBreak.get()) {
+      // new WaitCommand(.2)
+      // .andThen
+      (setSuperstructureState(LauncherSuperstructureState.OFF))
+      .alongWith(IntakeSuperstructure.getInstance().setSuperstructureState(IntakeSuperstructureState.STOWED)).schedule();
+      
+    }
 
 
     Logger.recordOutput(m_name + "/Superstructure/BeamBreak", m_launcherBeamBreak.get());
@@ -91,7 +104,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         LauncherHoldState.LAUNCHING,
         "Running"),
     INTAKING(
-        LauncherFlywheelState.INTAKING,
+        LauncherFlywheelState.OFF,
         LauncherWristState.LAUNCH,
         LauncherHoldState.INTAKING,
         "Intaking"),
