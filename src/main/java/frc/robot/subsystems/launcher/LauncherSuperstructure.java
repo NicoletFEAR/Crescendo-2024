@@ -3,6 +3,8 @@ package frc.robot.subsystems.launcher;
 import java.util.HashMap;
 import java.util.TreeMap;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -69,7 +71,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     // }
 
 
-    // Logger.recordOutput(m_name + "/Superstructure/BeamBreak", m_launcherBeamBreak.get());
+    Logger.recordOutput(m_name + "/Superstructure/BeamBreak", m_launcherBeamBreak.get());
   }
 
   public enum LauncherSuperstructureState implements SuperstructureState {
@@ -132,7 +134,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
     
     public static final int kWristCANCoderId = 4;
-    public static final int kLaunchBeamBreakId = 1;
+    public static final int kLaunchBeamBreakId = 0;
 
 
     // IN METERS

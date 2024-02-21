@@ -154,8 +154,8 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristConstants.kMaxVelocity = 100;
             kLauncherWristConstants.kMaxAcceleration = 50;
 
-            kLauncherWristConstants.kMaxPosition = 77;
-            kLauncherWristConstants.kMinPosition = 0;
+            kLauncherWristConstants.kMaxPosition = 100;
+            kLauncherWristConstants.kMinPosition = 20;
 
             kLauncherWristConstants.kManualControlMode = ManualControlMode.LEFT_X;
             kLauncherWristConstants.kManualMultiplier = 1;

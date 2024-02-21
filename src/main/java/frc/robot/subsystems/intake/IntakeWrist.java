@@ -146,8 +146,8 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristConstants.kDefaultSlot = 0; 
 
             // Max velocity and acceleration for trapezoidal motion profile
-            kIntakeWristConstants.kMaxVelocity = 10; 
-            kIntakeWristConstants.kMaxAcceleration = 20;
+            kIntakeWristConstants.kMaxVelocity = 20; 
+            kIntakeWristConstants.kMaxAcceleration = 10;
 
             // Max/Min positions the subsystem should be able to move
             kIntakeWristConstants.kMaxPosition = 17.0;
@@ -157,7 +157,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristConstants.kManualControlMode = ManualControlMode.BUMPERS;
 
             // Multiplied by controller inputs
-            kIntakeWristConstants.kManualMultiplier = 1;
+            kIntakeWristConstants.kManualMultiplier = .05;
 
             // Deadband for controller
             kIntakeWristConstants.kManualDeadBand = .1;

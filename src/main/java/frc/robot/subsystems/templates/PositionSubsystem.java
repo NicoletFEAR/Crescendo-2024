@@ -144,6 +144,13 @@ public abstract class PositionSubsystem extends SubsystemBase {
             new TrapezoidProfile.Constraints(
                 m_constants.kMaxVelocity * .01, m_constants.kMaxAcceleration * .01));
 
+    m_pidController.setReference(
+        m_currentState.getPosition(),
+        ControlType.kPosition,
+        m_constants.kDefaultSlot,
+        m_arbFeedforward,
+        ArbFFUnits.kVoltage);
+            
     setName(m_constants.kSubsystemName);
   }
 

@@ -5,24 +5,37 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.lib.utilities.LoggedDashboardChooser;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetSuperstructureState;
+import frc.robot.commands.superstructure.SetVelocitySubsystemState;
+import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.subsystems.intake.ElevatorLift;
+import frc.robot.subsystems.intake.IntakeFlywheel;
 import frc.robot.subsystems.intake.IntakeSuperstructure;
 import frc.robot.subsystems.intake.IntakeWrist;
+import frc.robot.subsystems.intake.IntakeFlywheel.IntakeFlywheelState;
 import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
+import frc.robot.subsystems.launcher.LauncherFlywheel;
+import frc.robot.subsystems.launcher.LauncherHold;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
 import frc.robot.subsystems.launcher.LauncherWrist;
+import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
+import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.leds.LED;
 import frc.robot.subsystems.leds.LED.LEDState;
@@ -41,10 +54,10 @@ public class RobotContainer {
   private final int rotationAxis = PS5Controller.Axis.kRightX.value;
 
   // CONTROLLERS \\
-  // public static final CommandPS5Controller m_driverController =
-  //     new CommandPS5Controller(OperatorConstants.kDriverControllerPort);
-  public static final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  public static final CommandPS5Controller m_driverController =
+      new CommandPS5Controller(OperatorConstants.kDriverControllerPort);
+  // public static final CommandXboxController m_driverController =
+      // new CommandXboxController(OperatorConstants.kDriverControllerPort);
   public static final CommandXboxController m_operatorController =
       new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
@@ -67,8 +80,8 @@ public class RobotContainer {
 
 
     // NAMED COMMANDS FOR AUTO \\
-    // NamedCommands.registerCommand("intake", IntakeSuperstructure.getInstance().setSuperstructureState(IntakeSuperstructureState.INTAKING));
-    // NamedCommands.registerCommand("eject", new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.EJECTING));
+    NamedCommands.registerCommand("intake", IntakeSuperstructure.getInstance().setSuperstructureState(IntakeSuperstructureState.INTAKING));
+    NamedCommands.registerCommand("eject", new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.EJECTING));
 
     autoChooser =
         new LoggedDashboardChooser<>(
@@ -79,16 +92,16 @@ public class RobotContainer {
 
 
     // CONFIGURE DEFAULT COMMANDS \\
-    // m_drivebase.setDefaultCommand(
-    //     new TeleopSwerve(
-    //         m_drivebase,
-    //         m_driverController,
-    //         translationAxis,
-    //         strafeAxis,
-    //         rotationAxis,
-    //         true,
-    //         DriveConstants.kRegularSpeed,
-    //         true));
+    m_drivebase.setDefaultCommand(
+        new TeleopSwerve(
+            m_drivebase,
+            m_driverController,
+            translationAxis,
+            strafeAxis,
+            rotationAxis,
+            true,
+            DriveConstants.kRegularSpeed,
+            true));
     ElevatorLift.getInstance().setDefaultCommand(new ManualMultiMotorPositionSubsystem(ElevatorLift.getInstance())); // TRIGGERS
     LauncherWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(LauncherWrist.getInstance())); // LEFT X
     IntakeWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(IntakeWrist.getInstance())); // BUMPERS
@@ -100,29 +113,29 @@ public class RobotContainer {
     // DRIVER CONTROLS \\
 
 
-    // m_driverController.R1().onTrue(new TeleopSwerve(
-    //   m_drivebase,
-    //   m_driverController,
-    //   translationAxis,
-    //   strafeAxis,
-    //   rotationAxis,
-    //   true,
-    //   DriveConstants.kSprintSpeed,
-    //   true));
+    m_driverController.R1().onTrue(new TeleopSwerve(
+      m_drivebase,
+      m_driverController,
+      translationAxis,
+      strafeAxis,
+      rotationAxis,
+      true,
+      DriveConstants.kSprintSpeed,
+      true));
 
-    // m_driverController.R1().onFalse(new TeleopSwerve(
-    //   m_drivebase,
-    //   m_driverController,
-    //   translationAxis,
-    //   strafeAxis,
-    //   rotationAxis,
-    //   true,
-    //   DriveConstants.kRegularSpeed,
-    //   true));
+    m_driverController.R1().onFalse(new TeleopSwerve(
+      m_drivebase,
+      m_driverController,
+      translationAxis,
+      strafeAxis,
+      rotationAxis,
+      true,
+      DriveConstants.kRegularSpeed,
+      true));
 
-    // m_driverController.create().onTrue(new InstantCommand(m_drivebase::zeroGyroscope));
+    m_driverController.create().onTrue(new InstantCommand(m_drivebase::zeroGyroscope));
 
-    // m_driverController.options().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
+    m_driverController.options().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
 
     // // Example of an automatic path generated to score in the B2 zone
     // m_driverController
@@ -157,10 +170,10 @@ public class RobotContainer {
     // m_driverController.x().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
 
     /// LEDS /////
-    m_operatorController.pov(0).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF)));
-    m_operatorController.pov(90).onTrue(new InstantCommand(() -> m_led.setState(LEDState.BLUE_WIPE)));  //
-    m_operatorController.pov(180).onTrue(new InstantCommand(() -> m_led.setState(LEDState.ORANGE_WIPE))); // Can switch to other colors
-    m_operatorController.pov(270).onTrue(new InstantCommand(() -> m_led.setState(LEDState.YELLOW_WIPE))); //
+    m_driverController.pov(0).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF)));
+    m_driverController.pov(90).onTrue(new InstantCommand(() -> m_led.setState(LEDState.BLUE)));  //
+    m_driverController.pov(180).onTrue(new InstantCommand(() -> m_led.setState(LEDState.ORANGE_WIPE))); // Can switch to other colors
+    m_driverController.pov(270).onTrue(new InstantCommand(() -> m_led.setState(LEDState.BLUE_WIPE))); //
     
     ///// INTAKE /////
     m_operatorController.a().onTrue(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.INTAKING));
@@ -175,8 +188,10 @@ public class RobotContainer {
     m_operatorController.pov(180).onTrue(new SetSuperstructureState(m_launcherSuperstructure, IntakeSuperstructureState.DOWNOFF));
   
     ///// LAUNCH /////
-    m_operatorController.pov(90).onTrue(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.RUNNING));
-    m_operatorController.pov(90).onFalse(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.OFF));
+    m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.RUNNING).alongWith(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.LAUNCHING)));
+    m_operatorController.pov(90).onFalse(new SetVelocitySubsystemState(LauncherFlywheel.getInstance(), LauncherFlywheelState.OFF).alongWith(new SetVoltageSubsystemState(LauncherHold.getInstance(), LauncherHoldState.OFF)));
+    // m_operatorController.pov(90).onTrue(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.RUNNING));
+    // m_operatorController.pov(90).onFalse(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.OFF));
     m_operatorController.pov(270).onTrue(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.INTAKING));
     m_operatorController.pov(270).onFalse(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.OFF));
 }
