@@ -76,10 +76,9 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
   public void superstructurePeriodic() {
 
     if (m_desiredState == LauncherSuperstructureState.INTAKING && !m_launcherBeamBreak.get()) {
-      // new WaitCommand(.2)
-      // .andThen
-      (setSuperstructureState(LauncherSuperstructureState.OFF))
-      .alongWith(IntakeSuperstructure.getInstance().setSuperstructureState(IntakeSuperstructureState.STOWED)).schedule();
+      new SequentialCommandGroup(new WaitCommand(.2),
+      setSuperstructureState(LauncherSuperstructureState.OFF),
+      IntakeSuperstructure.getInstance().setSuperstructureState(IntakeSuperstructureState.STOWED)).schedule();
       
     }
 
