@@ -106,7 +106,7 @@ public class ElevatorLift extends MultiMotorPositionSubsystem {
     public enum ElevatorLiftState implements MultiMotorPositionSubsystemState {
         DOWN(new double[] {0, 0}, new double[] {0, 0}, "Down"),
         TRANSITION(new double[] {0, 0}, new double[] {0, 0}, "Transition"),
-        AMP(new double[] {37.5, 37.5}, new double[] {0, 0}, "Amp"),
+        AMP(new double[] {195, 195}, new double[] {0, 0}, "Amp"),
         MANUAL(new double[] {0, 0}, new double[] {0, 0}, "Manual");
     
         private double[] position;
@@ -213,8 +213,8 @@ public static class ElevatorLiftConstants {
     kElevatorLiftConstants.kDefaultSlot = 0; 
 
     // Max velocity and acceleration for trapezoidal motion profile
-    kElevatorLiftConstants.kMaxVelocity = 100.0; 
-    kElevatorLiftConstants.kMaxAcceleration = 50.0;
+    kElevatorLiftConstants.kMaxVelocity = 10.0; 
+    kElevatorLiftConstants.kMaxAcceleration = 5.0;
 
     // Max/Min positions the subsystem should be able to move
     kElevatorLiftConstants.kMaxPosition = 190;

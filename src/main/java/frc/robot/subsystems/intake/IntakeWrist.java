@@ -45,7 +45,8 @@ public class IntakeWrist extends PositionSubsystem {
     public enum IntakeWristState implements PositionSubsystemState {
         DOWN(17, 0, "Down"),
         STOWED(0, 0, "Up"),
-        AMP(13.6, 0, "Amp"),
+        AMP(13, 0, "Amp"),
+        TRAVEL(3.74, 0, "Travel"),
         TRANSITION(0, 0, "Transition"),
         LAUNCHING(6.5, 0, "Launching"), // this is the angle where the note is minimanlly bent when being passed to the launcher superstructure
         MANUAL(0, 0, "Manual");

@@ -120,6 +120,12 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         ElevatorLiftState.DOWN,
         IntakeHoldState.OFF,
         "Stowed"),
+    TRAVEL(
+        IntakeFlywheelState.OFF,
+        IntakeWristState.TRAVEL,
+        ElevatorLiftState.DOWN,
+        IntakeHoldState.OFF,
+        "Travel"),
     INTAKING(
         IntakeFlywheelState.INTAKING,
         IntakeWristState.DOWN,

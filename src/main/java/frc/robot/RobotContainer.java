@@ -181,10 +181,13 @@ public class RobotContainer {
     m_operatorController.b().onTrue(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.STOWED)
     .alongWith(new SetSuperstructureState(m_launcherSuperstructure, LauncherSuperstructureState.OFF)));
     m_operatorController.x().onTrue(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.AMP_PREPARE));
-    m_operatorController.x().onFalse(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.AMP_SHOOT)   
-    .andThen(new WaitCommand(1)
-    .andThen(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.STOWED))));
-    m_operatorController.y().onTrue(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.EJECT));
+    // m_operatorController.x().onFalse(new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.EJECTING));   
+    // .andThen(new WaitCommand(1)
+    // .andThen(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.STOWED))));
+    m_operatorController.y().onTrue(new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.EJECTING));
+    m_operatorController.y().onFalse(new SetVoltageSubsystemState(IntakeFlywheel.getInstance(), IntakeFlywheelState.OFF));
+
+    m_operatorController.start().onTrue(new SetSuperstructureState(m_intakeSuperstructure, IntakeSuperstructureState.TRAVEL));
   
     m_operatorController.pov(0).onTrue(new SetSuperstructureState(m_launcherSuperstructure, IntakeSuperstructureState.LAUNCHING));
     m_operatorController.pov(180).onTrue(new SetSuperstructureState(m_launcherSuperstructure, IntakeSuperstructureState.DOWNOFF));
