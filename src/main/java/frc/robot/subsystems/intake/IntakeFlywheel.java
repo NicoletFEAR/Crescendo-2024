@@ -3,6 +3,7 @@ package frc.robot.subsystems.intake;
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.VoltageSubsystemConstants;
+import frc.robot.subsystems.templates.VoltageSubsystem.VoltageSubsystemState;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.templates.VoltageSubsystem;
 
