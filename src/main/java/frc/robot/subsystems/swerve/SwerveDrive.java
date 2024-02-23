@@ -179,19 +179,19 @@ public class SwerveDrive extends SubsystemBase {
   public void drive(
       double throttle, double strafe, double rotation, boolean isOpenLoop, boolean fieldRelative) {
 
-    if (m_angleToSnap != AngleToSnap.NONE) {
-      if (Math.abs(m_angleToSnap.getAngle() - getYawDegrees()) < 1) {
-        m_angleToSnap = AngleToSnap.NONE;
-      } else {
-        rotation =
-            MathUtil.clamp(
-                m_snapToAngleController.calculate(
-                    GeometryUtils.getAdjustedYawDegrees(getYawDegrees(), m_angleToSnap.getAngle()),
-                    180),
-                -1,
-                1);
-      }
-    }
+    // if (m_angleToSnap != AngleToSnap.NONE) {
+    //   if (Math.abs(m_angleToSnap.getAngle() - getYawDegrees()) < 1) {
+    //     m_angleToSnap = AngleToSnap.NONE;
+    //   } else {
+    //     rotation =
+    //         MathUtil.clamp(
+    //             m_snapToAngleController.calculate(
+    //                 GeometryUtils.getAdjustedYawDegrees(getYawDegrees(), m_angleToSnap.getAngle()),
+    //                 180),
+    //             -1,
+    //             1);
+    //   }
+    // }
 
     if (throttle + strafe + rotation != 0 && m_xWheels == true) {
       m_xWheels = false;
@@ -207,7 +207,7 @@ public class SwerveDrive extends SubsystemBase {
               ? ChassisSpeeds.fromFieldRelativeSpeeds(throttle, strafe, rotation, getYaw())
               : new ChassisSpeeds(throttle, strafe, rotation);
 
-      chassisSpeeds = GeometryUtils.discretize(chassisSpeeds);
+      // chassisSpeeds = GeometryUtils.discretize(chassisSpeeds);
       moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
       setSwerveModuleStates(moduleStates, isOpenLoop);
 
@@ -382,17 +382,17 @@ public class SwerveDrive extends SubsystemBase {
           "PathPlanner/PathPlannerError", GeometryUtils.getPoseError(getPose(), targetPPPose));
     }
 
-    m_field.setRobotPose(poseEstimator.getEstimatedPosition());
-    m_field.getObject("path").setPoses(ppPath);
+    // m_field.setRobotPose(poseEstimator.getEstimatedPosition());
+    // m_field.getObject("path").setPoses(ppPath);
 
-    SmartDashboard.putNumber("Angle To Speaker", calculateAngleToSpeaker());
-    SmartDashboard.putNumber("Distance To Speaker", calculateDistanceToSpeaker(getPose()));
+    // SmartDashboard.putNumber("Angle To Speaker", calculateAngleToSpeaker());
+    // SmartDashboard.putNumber("Distance To Speaker", calculateDistanceToSpeaker(getPose()));
 
-    PolarCoordinate coord = GeometryUtils.findClosestCoordinate(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose()));
+    // PolarCoordinate coord = GeometryUtils.findClosestCoordinate(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose()));
 
-    SmartDashboard.putNumberArray("Closest Coord", new Double[] {coord.getTheta(), coord.getR()});
+    // SmartDashboard.putNumberArray("Closest Coord", new Double[] {coord.getTheta(), coord.getR()});
 
-    SmartDashboard.putNumber("Pitch", GeometryUtils.interpolatePitch(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose())));
+    // SmartDashboard.putNumber("Pitch", GeometryUtils.interpolatePitch(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose())));
 
     // if (poseEstimator
     //         .getEstimatedPosition()

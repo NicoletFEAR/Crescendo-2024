@@ -198,6 +198,6 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     public static final int kLaunchBeamBreakID = 0;
     public static final int elevatorLimitSwitchID = 6;
 
-    public static final double kTOFNoteThreshold = 260;
+    public static final double kTOFNoteThreshold = 230;
   }
 }
