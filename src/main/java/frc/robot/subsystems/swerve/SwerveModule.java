@@ -170,7 +170,7 @@ public class SwerveModule extends SubsystemBase {
     
     
 
-    if (RobotBase.isSimulation()) {
+    if (Constants.kCurrentMode == Mode.SIM) {
       simUpdateDrivePosition(m_desiredState);
       // simTurnPosition(angle);
       m_currentAngle = angle;
