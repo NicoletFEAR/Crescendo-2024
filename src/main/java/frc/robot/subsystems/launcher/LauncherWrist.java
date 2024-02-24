@@ -49,9 +49,7 @@ public class LauncherWrist extends PositionSubsystem {
     }
 
     @Override
-    public void outputTelemetry() {
-        // Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", m_launcherWristAbsoluteEncoder.getAbsolutePosition().getValue());
-    }
+    public void outputTelemetry() {}
 
     public double calculatePitch() {
         // double distance = SwerveDrive.getInstance().getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);

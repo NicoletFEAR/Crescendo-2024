@@ -38,9 +38,7 @@ public class IntakeWrist extends PositionSubsystem {
     public void subsystemPeriodic() {}
 
     @Override
-    public void outputTelemetry() {
-        // Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Encoder Position", m_intakeWristAbsoluteEncoder.getAbsolutePosition().getValue());
-    }
+    public void outputTelemetry() { }
 
     public enum IntakeWristState implements PositionSubsystemState {
         DOWN(17, 0, "Down"),

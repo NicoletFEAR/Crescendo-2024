@@ -3,8 +3,6 @@ package frc.robot.subsystems.launcher;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-import org.littletonrobotics.junction.Logger;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -85,11 +83,6 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       m_noteInLauncher = true;
     } else if (m_launcherBeamBreak.get() && m_noteInLauncher) {
       m_noteInLauncher = false;
-    }
-
-
-    if (Constants.kInfoMode) {
-      Logger.recordOutput(m_name + "/Superstructure/BeamBreak", m_launcherBeamBreak.get());
     }
     
   }

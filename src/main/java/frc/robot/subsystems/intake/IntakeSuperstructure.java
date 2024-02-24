@@ -1,7 +1,5 @@
 package frc.robot.subsystems.intake;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.playingwithfusion.TimeOfFlight;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -70,12 +68,6 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     // else if ( isNoteInIntake && !timeOfFlightBlocked()){
     //   isNoteInIntake = false;
     // }
-
-    if (Constants.kInfoMode) {
-      Logger.recordOutput("tof", m_intakeTOF.getRange());
-      Logger.recordOutput("tofbool", timeOfFlightBlocked());
-      Logger.recordOutput("isNoteInIntake", isNoteInIntake);
-    }
 
 
   }

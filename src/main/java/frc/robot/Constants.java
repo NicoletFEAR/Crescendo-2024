@@ -169,18 +169,18 @@ public final class Constants {
 
   public class MotorConstants {
     // LAUNCHER \\
-    public static int kLauncherTopFlywheelID = 43;
-    public static int kLauncherBottomFlywheelID = 41;
-    public static int kLauncherWristID = 40;
-    public static int kLauncherHoldID = 44;
+    public static final int kLauncherTopFlywheelID = 43;
+    public static final int kLauncherBottomFlywheelID = 41;
+    public static final int kLauncherWristID = 40;
+    public static final int kLauncherHoldID = 44;
 
     // INTAKE \\
-    public static int kElevatorLiftRightID = 20;
-    public static int kElevatorLiftLeftID = 21;
+    public static final int kElevatorLiftRightID = 20;
+    public static final int kElevatorLiftLeftID = 21;
     
-    public static int kIntakeFlywheelID = 34;
-    public static int kIntakeWristID = 31;
-    public static int kIntakeHoldID = 36;
+    public static final int kIntakeFlywheelID = 34;
+    public static final int kIntakeWristID = 31;
+    public static final int kIntakeHoldID = 36;
     // CLIMB \\
   }
 

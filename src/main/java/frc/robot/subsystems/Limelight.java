@@ -17,8 +17,6 @@ import frc.robot.Constants;
 import frc.robot.Constants.Mode;
 import frc.robot.subsystems.swerve.SwerveDrive;
 
-import org.littletonrobotics.junction.Logger;
-
 public class Limelight extends SubsystemBase {
 
   private static Limelight m_launchInstance = null;
@@ -106,26 +104,5 @@ public class Limelight extends SubsystemBase {
     m_tcornxy = currentData.getEntry("tcornxy");
     m_botpose = currentData.getEntry("botpose_wpiblue");
     m_targetpose_robotspace = currentData.getEntry("targetpose_robotspace");
-
-
-
-    if (Constants.kCurrentMode == Mode.REAL) {
-      if (Constants.kInfoMode) {
-        Logger.recordOutput(camName + "/Pose", getLimelightPose());
-        Logger.recordOutput(camName + "/Valid Targets", m_tv.getInteger(0));
-        Logger.recordOutput(camName + "/Target Area", m_ta.getDouble(0));
-        Logger.recordOutput(camName + "/Pipeline Latency", m_tl.getDouble(0));
-        Logger.recordOutput(camName + "/Capture Latency", m_cl.getDouble(0));
-        Logger.recordOutput(
-            camName + "/Corners/X",
-            GeometryUtils.AKitCorner(m_tcornxy.getDoubleArray(new double[2]))[0]);
-        Logger.recordOutput(
-            camName + "/Corners/Y",
-            GeometryUtils.AKitCorner(m_tcornxy.getDoubleArray(new double[2]))[1]);
-        Logger.recordOutput(
-            camName + "/AprilTag Pose",
-            GeometryUtils.PoseSpaceToFieldSpace(getTargetPose(), SwerveDrive.getInstance().getPose()));
-      }
-    }
   }
 }

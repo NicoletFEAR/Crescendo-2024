@@ -27,7 +27,6 @@ import frc.lib.utilities.GeometryUtils;
 import frc.lib.utilities.SwerveModuleConstants;
 import java.util.ArrayList;
 import java.util.List;
-import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrive extends SubsystemBase {
 
@@ -189,18 +188,11 @@ public class SwerveDrive extends SubsystemBase {
       moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
       setSwerveModuleStates(moduleStates, isOpenLoop);
 
-      if (Constants.kInfoMode) {
-        Logger.recordOutput("Drivebase/SwerveStateSetpoints", moduleStates);
-      }
-
       // robotRelativeChassisSpeeds =
       //     GeometryUtils.discretize(new ChassisSpeeds(throttle, strafe, rotation));
 
     } else {
       setSwerveModuleStates(DriveConstants.kXWheels, isOpenLoop);
-      if (Constants.kInfoMode) {
-        Logger.recordOutput("Drivebase/SwerveStateSetpoints", DriveConstants.kXWheels);
-      }
     }
   }
 
@@ -342,19 +334,6 @@ public class SwerveDrive extends SubsystemBase {
     poseEstimator.update(getYaw(), getModulePositions());
 
     robotRelativeChassisSpeeds = DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
-
-    if (Constants.kInfoMode) {
-      Logger.recordOutput(
-          "Drivebase/Gyro Connected", !m_pigeon.getFault_BootupGyroscope().getValue());
-      Logger.recordOutput("Drivebase/Gyro", getYaw());
-      Logger.recordOutput("Drivebase/SwerveStates", getModuleStates());
-      Logger.recordOutput("Drivebase/SwervePositions", getModulePositions());
-      Logger.recordOutput("Drivebase/Pose", getPose());
-      Logger.recordOutput("PathPlanner/Trajectory", GeometryUtils.listToArray(ppPath));
-      Logger.recordOutput("PathPlanner/Pathplanner Setpoint", targetPPPose);
-      Logger.recordOutput(
-          "PathPlanner/PathPlannerError", GeometryUtils.getPoseError(getPose(), targetPPPose));
-    }
 
     // m_field.setRobotPose(poseEstimator.getEstimatedPosition());
     // m_field.getObject("path").setPoses(ppPath);

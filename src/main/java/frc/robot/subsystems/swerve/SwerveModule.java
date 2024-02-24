@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems.swerve;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkFlex;
@@ -179,9 +177,6 @@ public class SwerveModule extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (Constants.kInfoMode) {
-      Logger.recordOutput("SwerveModule/" + "Module " + m_moduleNumber + " Angle", getHeadingDegrees());
-    }
   }
 
   private void simUpdateDrivePosition(SwerveModuleState state) {
