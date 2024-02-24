@@ -12,6 +12,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 import com.revrobotics.SparkPIDController.ArbFFUnits;
 
@@ -92,17 +93,17 @@ public abstract class PositionSubsystem extends SubsystemBase {
         m_followers = new CANSparkFlex[m_constants.kFollowerConstants.length];
       }
     } else {
-      m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+      m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
       m_followers = new CANSparkBase[0];
     }
 
       
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 100);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 50);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 20);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 200);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 200);
 
     m_leader.burnFlash();
 
@@ -122,13 +123,13 @@ public abstract class PositionSubsystem extends SubsystemBase {
       m_followers[i].setSmartCurrentLimit(m_constants.kFollowerConstants[i].kCurrentLimit);
       m_followers[i].follow(m_leader, m_constants.kFollowerConstants[i].kInverted);
 
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 65534);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 65534);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 50);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 20);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 200);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 200);
 
       m_followers[i].burnFlash();
     }

@@ -24,13 +24,13 @@ public final class RevUtils {
 
     motorController.setOpenLoopRampRate(DriveConstants.driverampRate);
 
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 50);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 20);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 200);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 200);
 
     motorController.setSmartCurrentLimit(60, 35);
     motorController.burnFlash();
@@ -48,13 +48,13 @@ public final class RevUtils {
     motorController.getPIDController().setI(DriveConstants.turnki);
     motorController.getPIDController().setD(DriveConstants.turnkd);
 
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 250);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 50);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 20);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 200);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 200);
 
     motorController.setSmartCurrentLimit(40, 25);
     motorController.burnFlash();

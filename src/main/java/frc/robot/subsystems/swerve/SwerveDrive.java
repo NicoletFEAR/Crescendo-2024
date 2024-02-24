@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems.swerve;
 
+import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -88,9 +89,7 @@ public class SwerveDrive extends SubsystemBase {
           new SwerveModule(3, backRightModuleConstants)
         };
 
-    m_pigeon.optimizeBusUtilization();
-    m_pigeon.getYaw().setUpdateFrequency(50);
-    m_pigeon.getFault_BootupGyroscope().setUpdateFrequency(4);
+    m_pigeon.getConfigurator().apply(new Pigeon2Configuration());
 
     /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
      * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.

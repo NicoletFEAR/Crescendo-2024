@@ -56,11 +56,11 @@ public abstract class VoltageSubsystem extends SubsystemBase {
 
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 500);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 500);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 500);
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 500);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 50);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 20);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 200);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 200);
 
     m_leader.burnFlash();
 
@@ -78,13 +78,13 @@ public abstract class VoltageSubsystem extends SubsystemBase {
       m_followers[i].setSmartCurrentLimit(m_constants.kFollowerConstants[i].kCurrentLimit);
       m_followers[i].follow(m_leader, m_constants.kFollowerConstants[i].kInverted);
 
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
       m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 65534);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
-      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 50);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 20);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 200);
+      m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 200);
 
       m_followers[i].burnFlash();
     }

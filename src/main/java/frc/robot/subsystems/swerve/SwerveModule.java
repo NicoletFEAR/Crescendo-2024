@@ -68,8 +68,7 @@ public class SwerveModule extends SubsystemBase {
             swerveModuleConstants.turningMotorChannel, MotorType.kBrushless);
 
     m_angleEncoder = new CANcoder(swerveModuleConstants.cancoderID, "CANivore");
-    m_angleEncoder.optimizeBusUtilization();
-    m_angleEncoder.getAbsolutePosition().setUpdateFrequency(50);
+    m_angleEncoder.getConfigurator().apply(new CANcoderConfiguration());
     m_angleOffset = swerveModuleConstants.angleOffset;
 
     m_driveMotor.restoreFactoryDefaults();
