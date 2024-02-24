@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.lib.utilities.PolarCoordinate;
+import frc.robot.Constants;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
@@ -75,15 +76,25 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
   @Override
   public void superstructurePeriodic() {
 
-    if (m_desiredState == LauncherSuperstructureState.INTAKING && !m_launcherBeamBreak.get()) {
+    if (m_desiredState == LauncherSuperstructureState.INTAKING && !m_launcherBeamBreak.get() && m_noteInLauncher == false) {
       new SequentialCommandGroup(
-      new WaitCommand(.01),
+      new WaitCommand(.1),
       setSuperstructureState(LauncherSuperstructureState.OFF)
       .alongWith(IntakeSuperstructure.getInstance().setSuperstructureState(IntakeSuperstructureState.STOWED))).schedule();
+      m_noteInLauncher = true;
+    }
+
+    if (!m_launcherBeamBreak.get() && !m_noteInLauncher) {
+      m_noteInLauncher = true;
+    } else if (m_launcherBeamBreak.get() && m_noteInLauncher) {
+      m_noteInLauncher = false;
     }
 
 
-    Logger.recordOutput(m_name + "/Superstructure/BeamBreak", m_launcherBeamBreak.get());
+    if (Constants.kInfoMode) {
+      Logger.recordOutput(m_name + "/Superstructure/BeamBreak", m_launcherBeamBreak.get());
+    }
+    
   }
 
   public enum LauncherSuperstructureState implements SuperstructureState {

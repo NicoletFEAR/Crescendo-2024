@@ -184,65 +184,69 @@ public class GeometryUtils {
   }
 
   public static double interpolatePitch(double theta, double r) {
-    PolarCoordinate nearestCoords = findClosestCoordinate(theta, r);
-    if (nearestCoords != null) {
-        double pitchNearest = LauncherConstants.kDistancePitchMap.get(nearestCoords);
-        
-        // Find the next nearest setpoint
-        PolarCoordinate nextNearestCoords = findClosestCoordinate(theta, r, nearestCoords);
-        if (nextNearestCoords != null) {
-            double pitchNextNearest = LauncherConstants.kDistancePitchMap.get(nextNearestCoords);
-            
-            // Interpolate pitch linearly between nearest and next nearest setpoints
-            double fraction = calculateFraction(nearestCoords, nextNearestCoords, theta, r);
-            return pitchNearest + fraction * (pitchNextNearest - pitchNearest);
-        } else {
-            // If there's no next nearest setpoint, return pitch of nearest setpoint
-            return pitchNearest;
-        }
-    }
-    return 0.0; // Default pitch if no nearest setpoint found
-}
+    PolarCoordinate[] coords = findClosestCoordinates(theta, r);
 
-  public static PolarCoordinate findClosestCoordinate(double theta, double r) {
-    PolarCoordinate nearestCoords = null;
-    double minDistance = Double.MAX_VALUE;
+    PolarCoordinate topLeft = coords[0];
+    PolarCoordinate topRight = coords[1];
+    PolarCoordinate bottomLeft = coords[2];
+    PolarCoordinate bottomRight = coords[3];
 
-    // Iterate through the angleTable to find the nearest setpoint
-    for (PolarCoordinate coords : LauncherConstants.kDistancePitchMap.keySet()) {
-        double distance = Math.sqrt(Math.pow(coords.getTheta() - theta, 2) + Math.pow(coords.getR() - r, 2));
-        if (distance < minDistance) {
-            minDistance = distance;
-            nearestCoords = coords;
-        }
+    double topLeftPitch;
+    double topRightPitch;
+    double bottomLeftPitch;
+    double bottomRightPitch;
+
+    if (LauncherConstants.kDistancePitchMap.get(topLeft) != null) {
+      topLeftPitch = LauncherConstants.kDistancePitchMap.get(topLeft);
+      topRightPitch = LauncherConstants.kDistancePitchMap.get(topRight);
+      bottomLeftPitch = LauncherConstants.kDistancePitchMap.get(bottomLeft);
+      bottomRightPitch = LauncherConstants.kDistancePitchMap.get(bottomRight);
+    
+      double pitchTop = topLeftPitch + (topRightPitch - topLeftPitch) * (theta - topLeft.getTheta()) / (topRight.getTheta() - topLeft.getTheta());
+      double pitchBottom = bottomLeftPitch + (bottomRightPitch - bottomLeftPitch) * (theta - bottomLeft.getTheta()) / (bottomRight.getTheta() - bottomLeft.getTheta());
+  
+      return pitchTop + (pitchBottom - pitchTop) * (r - topLeft.getR()) / (bottomLeft.getR() - topLeft.getR());
     }
 
-    return nearestCoords;
+    return 0;
   }
 
-  public static PolarCoordinate findClosestCoordinate(double theta, double r, PolarCoordinate nearestCoords) {
-    // Iterate through the angleTable to find the next nearest setpoint
-    PolarCoordinate nextNearestCoords = null;
-    double minDistance = Double.MAX_VALUE;
-    
-    for (PolarCoordinate coords : LauncherConstants.kDistancePitchMap.keySet()) {
-        if (!coords.equals(nearestCoords)) {
-            double distance = Math.sqrt(Math.pow(coords.getTheta() - theta, 2) + Math.pow(coords.getR() - r, 2));
-            if (distance < minDistance) {
-                minDistance = distance;
-                nextNearestCoords = coords;
-            }
-        }
-    }
-    
-    return nextNearestCoords;
-}
 
-public static double calculateFraction(PolarCoordinate nearestCoords, PolarCoordinate nextNearestCoords, double theta, double r) {
-  double distanceNearest = Math.sqrt(Math.pow(nearestCoords.getTheta() - theta, 2) + Math.pow(nearestCoords.getR() - r, 2));
-  double distanceNextNearest = Math.sqrt(Math.pow(nextNearestCoords.getTheta() - theta, 2) + Math.pow(nextNearestCoords.getR() - r, 2));
-  return distanceNearest / (distanceNearest + distanceNextNearest);
-}
+  public static PolarCoordinate[] findClosestCoordinates(double theta, double r) {
+    PolarCoordinate[] closestCoords = new PolarCoordinate[4];
+    double closestTopLeftR = Double.POSITIVE_INFINITY;
+    double closestTopLeftTheta = Double.POSITIVE_INFINITY;
+
+    double closestBottomRightR = Double.NEGATIVE_INFINITY;
+    double closestBottomRightTheta = Double.NEGATIVE_INFINITY;
+
+    for (PolarCoordinate coord : LauncherConstants.kDistancePitchMap.keySet()) {
+      if ((coord.getTheta() > theta && coord.getTheta() < closestTopLeftTheta) || closestTopLeftTheta == coord.getTheta()) {
+        if ((coord.getR() > r && coord.getR() < closestTopLeftR) || closestTopLeftR == coord.getR()) { 
+          closestTopLeftR = coord.getR();
+          closestTopLeftTheta = coord.getTheta();
+          closestCoords[0] = coord;
+        }
+      }
+
+      if ((coord.getTheta() < theta && coord.getTheta() > closestBottomRightTheta) || closestBottomRightTheta == coord.getTheta()) {
+        if ((coord.getR() < r && coord.getR() > closestBottomRightR) || closestBottomRightR == coord.getR()) { 
+          closestBottomRightR = coord.getR();
+          closestBottomRightTheta = coord.getTheta();
+          closestCoords[3] = coord;
+        }
+      }
+    }
+
+    if (closestCoords[0] == null || closestCoords[3] == null) {
+      return new PolarCoordinate[] {new PolarCoordinate(0, 0), new PolarCoordinate(0, 0), new PolarCoordinate(0, 0), new PolarCoordinate(0, 0)};
+    } else {
+      closestCoords[1] = new PolarCoordinate(closestCoords[3].getTheta(), closestCoords[0].getR());
+      closestCoords[2] = new PolarCoordinate(closestCoords[0].getTheta(), closestCoords[3].getR());
+    }
+
+    return closestCoords;
+  }
 
 
 
