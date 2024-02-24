@@ -15,8 +15,6 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
@@ -24,7 +22,7 @@ import frc.lib.utilities.CtreUtils;
 import frc.lib.utilities.RevUtils;
 import frc.lib.utilities.SwerveModuleConstants;
 
-public class SwerveModule extends SubsystemBase {
+public class SwerveModule {
   private final int POS_SLOT = 0;
   private final int VEL_SLOT = 0;
 
@@ -173,10 +171,6 @@ public class SwerveModule extends SubsystemBase {
       // simTurnPosition(angle);
       m_currentAngle = angle;
     }
-  }
-
-  @Override
-  public void periodic() {
   }
 
   private void simUpdateDrivePosition(SwerveModuleState state) {
