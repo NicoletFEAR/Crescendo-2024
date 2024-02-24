@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems.templates;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
@@ -144,21 +142,6 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     }
 
     subsystemPeriodic();
-
-    if (Constants.kInfoMode) {
-      outputTelemetry();
-
-      for (int i = 0; i < m_motors.length; i++) {
-        Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Encoder Velocity", getVelocity()[i]); // Encoder Velocity
-        Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/" + m_constants.kMotorConstants[i].kName + "/Desired Velocity", m_desiredState.getVelocity()[i]); // Desired position
-      }
-
-      Logger.recordOutput(
-        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Current State", m_currentState.getName()); // Current State
-      Logger.recordOutput(
-        m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/Desired State", m_desiredState.getName()); // Current State
-      Logger.recordOutput(m_constants.kSuperstructureName + "/" + m_constants.kSubsystemName + "/At Setpoint", atSetpoint()); // Is at setpoint
-    }
   }
 
   public abstract void subsystemPeriodic();
