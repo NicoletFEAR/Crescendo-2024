@@ -41,37 +41,11 @@ public class ElevatorLift extends MultiMotorPositionSubsystem {
     @Override
     public void manualControl() {
     double m_throttle = 0;
-
-    switch (m_constants.kManualControlMode) {
-      case BUMPERS:
-         m_throttle =
-          RobotContainer.m_operatorController.getHID().getLeftBumper()
-              ? -1
-              : (RobotContainer.m_operatorController.getHID().getRightBumper() ? 1 : 0);
-        break;
-      case LEFT_X:
-        m_throttle = RobotContainer.m_operatorController.getLeftX();
-        break;
-      case LEFT_Y:
-        m_throttle = -RobotContainer.m_operatorController.getLeftY();
-        break;
-      case RIGHT_X:
-        m_throttle = RobotContainer.m_operatorController.getRightX();
-        break;
-      case RIGHT_Y:
-        m_throttle = -RobotContainer.m_operatorController.getRightY();
-        break;
-      case TRIGGERS:
-        m_throttle = 
-          RobotContainer.m_operatorController.getRightTriggerAxis()
-              - RobotContainer.m_operatorController.getLeftTriggerAxis();
-        break;
-    }
-
-    m_throttle = MathUtil.applyDeadband(m_throttle, m_constants.kManualDeadBand);
+      m_throttle = 
+        MathUtil.applyDeadband(RobotContainer.m_operatorController.getRightTriggerAxis()
+            - RobotContainer.m_operatorController.getLeftTriggerAxis(), m_constants.kManualDeadBand);
 
     if (m_currentState != m_constants.kManualState){
-
       m_constants.kManualState.setPosition(getPosition()[0], 0);
       m_constants.kManualState.setPosition(getPosition()[1], 1);
     }
