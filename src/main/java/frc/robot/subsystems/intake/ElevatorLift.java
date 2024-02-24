@@ -7,7 +7,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeConstants;
 import frc.robot.subsystems.templates.MultiMotorPositionSubsystem;
 import frc.robot.subsystems.templates.SubsystemConstants.ManualControlMode;
 import frc.robot.subsystems.templates.SubsystemConstants.MultiMotorPositionSubsystemConstants;
@@ -20,12 +19,7 @@ public class ElevatorLift extends MultiMotorPositionSubsystem {
     DigitalInput m_limitSwitch;
 
     public ElevatorLift(MultiMotorPositionSubsystemConstants constants) {
-        super(constants);
-        m_limitSwitch = new DigitalInput(IntakeConstants.elevatorLimitSwitchID);
-
-        // if(m_limitSwitch.get()){
-        //     zero(0);
-        // }
+      super(constants);
     }
 
     public static ElevatorLift getInstance() {
@@ -104,45 +98,45 @@ public class ElevatorLift extends MultiMotorPositionSubsystem {
   }
 
     public enum ElevatorLiftState implements MultiMotorPositionSubsystemState {
-        DOWN(new double[] {0, 0}, new double[] {0, 0}, "Down"),
-        TRANSITION(new double[] {0, 0}, new double[] {0, 0}, "Transition"),
-        AMP(new double[] {195, 195}, new double[] {0, 0}, "Amp"),
-        MANUAL(new double[] {0, 0}, new double[] {0, 0}, "Manual");
-    
-        private double[] position;
-        private double[] velocity;
-        private String name;
-    
-        private ElevatorLiftState(double[] position, double[] velocity, String name) {
-          this.position = position;
-          this.velocity = velocity;
-          this.name = name;
-        }
+      DOWN(new double[] {0, 0}, new double[] {0, 0}, "Down"),
+      TRANSITION(new double[] {0, 0}, new double[] {0, 0}, "Transition"),
+      AMP(new double[] {195, 195}, new double[] {0, 0}, "Amp"),
+      MANUAL(new double[] {0, 0}, new double[] {0, 0}, "Manual");
+  
+      private double[] position;
+      private double[] velocity;
+      private String name;
+  
+      private ElevatorLiftState(double[] position, double[] velocity, String name) {
+        this.position = position;
+        this.velocity = velocity;
+        this.name = name;
+      }
 
-        @Override
-        public String getName() {
-            return name;
-        }
+      @Override
+      public String getName() {
+          return name;
+      }
 
-        @Override
-        public double[] getVelocity() {
-            return velocity;
-        }
+      @Override
+      public double[] getVelocity() {
+          return velocity;
+      }
 
-        @Override
-        public void setVelocity(double velocity, int index) {
-            this.velocity[index] = velocity;
-        }
+      @Override
+      public void setVelocity(double velocity, int index) {
+          this.velocity[index] = velocity;
+      }
 
-        @Override
-        public double[] getPosition() {
-            return position;
-        }
+      @Override
+      public double[] getPosition() {
+          return position;
+      }
 
-        @Override
-        public void setPosition(double position, int index) {
-            this.position[index] = position;
-        }
+      @Override
+      public void setPosition(double position, int index) {
+          this.position[index] = position;
+      }
     }
 
 

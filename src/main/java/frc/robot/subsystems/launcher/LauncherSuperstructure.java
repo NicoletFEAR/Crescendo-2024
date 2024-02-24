@@ -53,12 +53,9 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
-    outputCommand.addCommands(
-      new SetVelocitySubsystemState(m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
-      .alongWith(new SetPositionSubsystemState(m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState))
-      .alongWith(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState))
-    );
-    // outputCommand.addCommands(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState));
+    outputCommand.addCommands(new SetVelocitySubsystemState(m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState));
+    outputCommand.addCommands(new SetPositionSubsystemState(m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState));
+    outputCommand.addCommands(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState));
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = launcherDesiredState));
 
     return outputCommand;

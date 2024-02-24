@@ -9,9 +9,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PathPlannerLogging;
 import com.pathplanner.lib.util.ReplanningConfig;
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -21,13 +19,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
 import frc.lib.utilities.GeometryUtils;
-import frc.lib.utilities.PolarCoordinate;
 import frc.lib.utilities.SwerveModuleConstants;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +39,6 @@ public class SwerveDrive extends SubsystemBase {
   public static List<Pose2d> ppPath = new ArrayList<>();
 
   public final Field2d m_field = new Field2d();
-
-  private PIDController m_snapToAngleController;
-
-  private AngleToSnap m_angleToSnap = AngleToSnap.NONE;
 
   private boolean m_xWheels = false;
 
@@ -111,7 +103,7 @@ public class SwerveDrive extends SubsystemBase {
 
     robotRelativeChassisSpeeds = new ChassisSpeeds(0, 0, 0);
 
-    m_snapToAngleController = new PIDController(.06, 0, 0);
+    // m_snapToAngleController = new PIDController(.06, 0, 0);
 
     PathPlannerLogging.setLogTargetPoseCallback(
         (targetPose) -> {
@@ -178,20 +170,6 @@ public class SwerveDrive extends SubsystemBase {
 
   public void drive(
       double throttle, double strafe, double rotation, boolean isOpenLoop, boolean fieldRelative) {
-
-    // if (m_angleToSnap != AngleToSnap.NONE) {
-    //   if (Math.abs(m_angleToSnap.getAngle() - getYawDegrees()) < 1) {
-    //     m_angleToSnap = AngleToSnap.NONE;
-    //   } else {
-    //     rotation =
-    //         MathUtil.clamp(
-    //             m_snapToAngleController.calculate(
-    //                 GeometryUtils.getAdjustedYawDegrees(getYawDegrees(), m_angleToSnap.getAngle()),
-    //                 180),
-    //             -1,
-    //             1);
-    //   }
-    // }
 
     if (throttle + strafe + rotation != 0 && m_xWheels == true) {
       m_xWheels = false;
@@ -317,10 +295,6 @@ public class SwerveDrive extends SubsystemBase {
       return Math.IEEEremainder(m_simyaw, 360);
     }
     
-  }
-
-  public void setAngleToSnap(AngleToSnap rotation) {
-    m_angleToSnap = rotation;
   }
 
   public void setSwerveModuleStates(SwerveModuleState[] states) {

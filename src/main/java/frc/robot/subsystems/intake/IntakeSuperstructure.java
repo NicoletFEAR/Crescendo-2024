@@ -9,9 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.superstructure.SetMultiMotorPositionSubsystemState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
-import frc.robot.commands.superstructure.SetSuperstructureState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
-// import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 import frc.robot.subsystems.intake.IntakeFlywheel.IntakeFlywheelState;
 import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 import frc.robot.subsystems.intake.IntakeWrist.IntakeWristState;
@@ -89,19 +87,16 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
     if (intakeDesiredState == IntakeSuperstructureState.STOWED) {
-      outputCommand.addCommands(
-        new SetPositionSubsystemState(m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
-        .alongWith(new SetMultiMotorPositionSubsystemState(m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState))
-        .alongWith(new SetVoltageSubsystemState(m_intakeFlywheel, intakeDesiredState.intakeFlywheelState))
-        .alongWith(new SetVoltageSubsystemState(m_intakeHold, intakeDesiredState.intakeHoldState))
-      );
+      outputCommand.addCommands(new SetVoltageSubsystemState(m_intakeFlywheel, intakeDesiredState.intakeFlywheelState));
+      outputCommand.addCommands(new SetVoltageSubsystemState(m_intakeHold, intakeDesiredState.intakeHoldState));
+      outputCommand.addCommands(new SetPositionSubsystemState(m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
+        .alongWith(new SetMultiMotorPositionSubsystemState(m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState)));
     } else {
       outputCommand.addCommands(
         new SetPositionSubsystemState(m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
-        .alongWith(new SetMultiMotorPositionSubsystemState(m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState))
-        .andThen(new SetVoltageSubsystemState(m_intakeFlywheel, intakeDesiredState.intakeFlywheelState))
-        .andThen(new SetVoltageSubsystemState(m_intakeHold, intakeDesiredState.intakeHoldState))
-      );
+          .alongWith(new SetMultiMotorPositionSubsystemState(m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState)));
+      outputCommand.addCommands(new SetVoltageSubsystemState(m_intakeFlywheel, intakeDesiredState.intakeFlywheelState));
+      outputCommand.addCommands(new SetVoltageSubsystemState(m_intakeHold, intakeDesiredState.intakeHoldState));
     }
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = intakeDesiredState));
 
@@ -195,9 +190,6 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   }
 
   public static final class IntakeConstants{
-    public static final int kLaunchBeamBreakID = 0;
-    public static final int elevatorLimitSwitchID = 6;
-
     public static final double kTOFNoteThreshold = 230;
   }
 }

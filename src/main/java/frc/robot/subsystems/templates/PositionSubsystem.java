@@ -53,8 +53,6 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
   protected double m_arbFeedforward = 0;
 
-  protected boolean m_isManualMoving;
-
   protected PositionSubsystem(final PositionSubsystemConstants constants) {
 
     m_constants = constants;
@@ -236,13 +234,10 @@ public abstract class PositionSubsystem extends SubsystemBase {
               m_constants.kMaxPosition);
 
       if (intendedPosition != m_constants.kManualState.getPosition()) {
-        m_isManualMoving = true;
         m_constants.kManualState.setPosition(intendedPosition);
         if (m_profileStartTime == -1) {
           holdPosition();
         }
-      } else {
-        m_isManualMoving = false;
       }
     }
   }
@@ -284,7 +279,12 @@ public abstract class PositionSubsystem extends SubsystemBase {
   }
 
   public boolean atSetpoint() {
-    return Math.abs(m_desiredState.getPosition() - getPosition()) <= m_constants.kSetpointTolerance;
+    if (m_profileStartTime != -1 && Math.abs(m_desiredState.getPosition() - m_setpoint.position) <= m_constants.kSetpointTolerance || m_currentState == m_constants.kManualState)  {
+      return Math.abs(m_desiredState.getPosition() - getPosition()) <= m_constants.kSetpointTolerance;
+    } else if (m_profileStartTime == -1) {
+      return true;
+    }
+    return false;
   }
 
   public double getPosition() {
