@@ -7,6 +7,7 @@ import com.playingwithfusion.TimeOfFlight;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.commands.superstructure.SetMultiMotorPositionSubsystemState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
@@ -17,11 +18,7 @@ import frc.robot.subsystems.intake.ElevatorLift.ElevatorLiftState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
 
 public class IntakeSuperstructure extends SuperstructureSubsystem {
-
-  private ElevatorLift m_elevatorLift = ElevatorLift.getInstance();
-  private IntakeFlywheel m_intakeFlywheel = IntakeFlywheel.getInstance();
-  private IntakeWrist m_intakeWrist = IntakeWrist.getInstance();
-  private IntakeHold m_intakeHold = IntakeHold.getInstance();
+  
   private TimeOfFlight m_intakeTOF = new TimeOfFlight(0);
   private static boolean isNoteInIntake = false;
 
@@ -39,21 +36,12 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     return m_instance;
   }
 
-  public IntakeFlywheel getIntakeFlywheel(){
-    return m_intakeFlywheel;
-  }
-
   public boolean timeOfFlightBlocked(){
-    if(m_intakeTOF.getRange() < IntakeConstants.kTOFNoteThreshold){
-      return true;
-    }
-    else{
-      return false;
-    }
+    if (m_intakeTOF.getRange() < IntakeConstants.kTOFNoteThreshold) return true;
+    return false;
   }
 
-  public void outputTelemetry() {
-  }
+  public void outputTelemetry() {}
 
   @Override
   public void superstructurePeriodic() {
@@ -87,16 +75,16 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
     if (intakeDesiredState == IntakeSuperstructureState.STOWED) {
-      outputCommand.addCommands(new SetVoltageSubsystemState(m_intakeFlywheel, intakeDesiredState.intakeFlywheelState));
-      outputCommand.addCommands(new SetVoltageSubsystemState(m_intakeHold, intakeDesiredState.intakeHoldState));
-      outputCommand.addCommands(new SetPositionSubsystemState(m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
-        .alongWith(new SetMultiMotorPositionSubsystemState(m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState)));
+      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState));
+      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState));
+      outputCommand.addCommands(new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
+        .alongWith(new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState)));
     } else {
       outputCommand.addCommands(
-        new SetPositionSubsystemState(m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
-          .alongWith(new SetMultiMotorPositionSubsystemState(m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState)));
-      outputCommand.addCommands(new SetVoltageSubsystemState(m_intakeFlywheel, intakeDesiredState.intakeFlywheelState));
-      outputCommand.addCommands(new SetVoltageSubsystemState(m_intakeHold, intakeDesiredState.intakeHoldState));
+        new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
+          .alongWith(new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState)));
+      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState));
+      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState));
     }
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = intakeDesiredState));
 

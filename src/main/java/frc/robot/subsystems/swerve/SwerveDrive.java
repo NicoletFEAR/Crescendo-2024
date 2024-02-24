@@ -356,6 +356,10 @@ public class SwerveDrive extends SubsystemBase {
           "PathPlanner/PathPlannerError", GeometryUtils.getPoseError(getPose(), targetPPPose));
     }
 
+    for (SwerveModule module : m_SwerveMods) {
+      module.periodic();
+    }
+
     // m_field.setRobotPose(poseEstimator.getEstimatedPosition());
     // m_field.getObject("path").setPoses(ppPath);
 
@@ -395,11 +399,6 @@ public class SwerveDrive extends SubsystemBase {
     //           1 - Math.pow(Limelight.getInstance().getA(), apriltagTrustMultiplier.get()),
     //           0.9));
     // }
-
-  }
-
-  public void realPeriodic() {
-    
 
   }
 

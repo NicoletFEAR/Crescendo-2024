@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.lib.utilities.PolarCoordinate;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
@@ -22,10 +23,6 @@ import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
 
 public class LauncherSuperstructure extends SuperstructureSubsystem {
-
-  private LauncherFlywheel m_launcherFlywheel = LauncherFlywheel.getInstance();
-  private LauncherWrist m_launcherWrist = LauncherWrist.getInstance();
-  private LauncherHold m_launcherHold = LauncherHold.getInstance();
 
   private boolean m_noteInLauncher = false;
 
@@ -53,9 +50,9 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
-    outputCommand.addCommands(new SetVelocitySubsystemState(m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState));
-    outputCommand.addCommands(new SetPositionSubsystemState(m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState));
-    outputCommand.addCommands(new SetVoltageSubsystemState(m_launcherHold, launcherDesiredState.launcherHoldState));
+    outputCommand.addCommands(new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState));
+    outputCommand.addCommands(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState));
+    outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState));
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = launcherDesiredState));
 
     return outputCommand;

@@ -5,13 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.PS5Controller;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.lib.utilities.LoggedDashboardChooser;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.drivebase.TeleopSwerve;
@@ -21,6 +18,7 @@ import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.subsystems.intake.ElevatorLift;
 import frc.robot.subsystems.intake.IntakeFlywheel;
+import frc.robot.subsystems.intake.IntakeHold;
 import frc.robot.subsystems.intake.IntakeSuperstructure;
 import frc.robot.subsystems.intake.IntakeWrist;
 import frc.robot.subsystems.intake.IntakeFlywheel.IntakeFlywheelState;
@@ -58,18 +56,23 @@ public class RobotContainer {
 
 
   // SHUFFLEBOARD TABS \\
-  public static ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
+  // public static ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
 
-  private SwerveDrive m_drivebase = SwerveDrive.getInstance();
-  private IntakeSuperstructure m_intakeSuperstructure = IntakeSuperstructure.getInstance();
-  private LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
-  private LauncherFlywheel m_launcherFlywheel = LauncherFlywheel.getInstance();
-  private IntakeFlywheel m_intakeFlywheel = IntakeFlywheel.getInstance();
-  private LauncherHold m_launcherHold = LauncherHold.getInstance();
-  private LED m_led = LED.getInstance();
+  public static SwerveDrive m_drivebase = SwerveDrive.getInstance();
+  public static IntakeSuperstructure m_intakeSuperstructure = IntakeSuperstructure.getInstance();
+  public static LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
+  public static LauncherFlywheel m_launcherFlywheel = LauncherFlywheel.getInstance();
+  public static IntakeFlywheel m_intakeFlywheel = IntakeFlywheel.getInstance();
+  public static LauncherHold m_launcherHold = LauncherHold.getInstance();
+  public static IntakeHold m_intakeHold = IntakeHold.getInstance();
+  public static LED m_led = LED.getInstance();
+  public static ElevatorLift m_elevatorLift = ElevatorLift.getInstance();
+  public static LauncherWrist m_launcherWrist = LauncherWrist.getInstance();
+  public static IntakeWrist m_intakeWrist = IntakeWrist.getInstance();
+
 
   // SENDABLE CHOOSER \\
-  public static LoggedDashboardChooser<Command> autoChooser;
+  // public static LoggedDashboardChooser<Command> autoChooser;
 
   // ALERTS \\
 
@@ -100,9 +103,9 @@ public class RobotContainer {
             true,
             DriveConstants.kRegularSpeed,
             true));
-    ElevatorLift.getInstance().setDefaultCommand(new ManualMultiMotorPositionSubsystem(ElevatorLift.getInstance())); // TRIGGERS
-    LauncherWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(LauncherWrist.getInstance())); // LEFT X
-    IntakeWrist.getInstance().setDefaultCommand(new ManualPositionSubsystem(IntakeWrist.getInstance())); // BUMPERS
+    m_elevatorLift.setDefaultCommand(new ManualMultiMotorPositionSubsystem(m_elevatorLift)); // TRIGGERS
+    m_launcherWrist.setDefaultCommand(new ManualPositionSubsystem(m_launcherWrist)); // LEFT X
+    m_intakeWrist.setDefaultCommand(new ManualPositionSubsystem(m_intakeWrist)); // BUMPERS
     configureButtonBindings();
   }
 
