@@ -26,7 +26,7 @@ public class FieldRelativeLaunch extends SequentialCommandGroup {
       // Launch then wait till done launching then go back to zero
       RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_LAUNCH),
       new WaitCommand(.1),
-      RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOW)
+      RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
     );
   }
 }

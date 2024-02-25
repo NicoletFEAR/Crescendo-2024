@@ -38,7 +38,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
   public static LauncherSuperstructure getInstance() {
     if (m_instance == null) {
-      m_instance = new LauncherSuperstructure(LauncherSuperstructureState.STOW, "Launcher");
+      m_instance = new LauncherSuperstructure(LauncherSuperstructureState.STOWED, "Launcher");
     }
 
     return m_instance;
@@ -49,7 +49,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     LauncherSuperstructureState launcherDesiredState = (LauncherSuperstructureState) desiredState;
 
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
-    if (launcherDesiredState == LauncherSuperstructureState.STOW) {
+    if (launcherDesiredState == LauncherSuperstructureState.STOWED) {
       outputCommand.addCommands(
         new SetLedState(LEDState.GREEN_BLINKING),
         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
@@ -90,7 +90,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         new SetLedState(LEDState.GREEN_BLINKING),
         new WaitForLaunchNote(),
         new WaitCommand(.01),
-        setSuperstructureState(LauncherSuperstructureState.STOW)
+        setSuperstructureState(LauncherSuperstructureState.STOWED)
         .alongWith(RobotContainer.m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED)),
         new SetLedState(LEDState.BLUE)
       );
@@ -131,7 +131,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
   }
 
   public enum LauncherSuperstructureState implements SuperstructureState {
-    STOW(
+    STOWED(
         LauncherFlywheelState.OFF,
         LauncherWristState.DOWN,
         LauncherHoldState.OFF,
@@ -150,7 +150,12 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         LauncherFlywheelState.OFF,
         LauncherWristState.LAUNCH,
         LauncherHoldState.THRU_INTAKE_INTAKING,
-        "Intaking"),
+        "Thru Intake Intaking"),
+    LAUNCH_TO_INTAKE(
+        LauncherFlywheelState.INTAKING,
+        LauncherWristState.DOWN,
+        LauncherHoldState.THRU_LAUNCHER_INTAKING,
+        "Launch To Intake"),
     TRANSITION(
       LauncherFlywheelState.TRANSITION,
       LauncherWristState.TRANSITION,
@@ -160,7 +165,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherFlywheelState.PODIUM,
       LauncherWristState.PODIUM,
       LauncherHoldState.LAUNCHING,
-      "Subwoofer"
+      "Podium"
     ),
     WING_NOTE_1( // use when against base of podium
       LauncherFlywheelState.WING_NOTE_1,

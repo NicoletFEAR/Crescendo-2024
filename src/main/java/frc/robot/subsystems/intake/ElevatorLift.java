@@ -76,7 +76,7 @@ public class ElevatorLift extends MultiMotorPositionSubsystem {
   }
 
     public enum ElevatorLiftState implements MultiMotorPositionSubsystemState {
-      DOWN(new double[] {0, 0}, new double[] {0, 0}, "Down"),
+      STOWED(new double[] {0, 0}, new double[] {0, 0}, "Down"),
       TRANSITION(new double[] {0, 0}, new double[] {0, 0}, "Transition"),
       AMP(new double[] {178, 178}, new double[] {0, 0}, "Amp"),
       MANUAL(new double[] {0, 0}, new double[] {0, 0}, "Manual");
@@ -166,7 +166,7 @@ public static class ElevatorLiftConstants {
     // Initial, Manual, and Transition state of the subsytem
     // This enum is in the Subsystem that extends the MultiMotorPositionSubsystem
     // You will have to create these states
-    kElevatorLiftConstants.kInitialState = ElevatorLiftState.DOWN;
+    kElevatorLiftConstants.kInitialState = ElevatorLiftState.STOWED;
     kElevatorLiftConstants.kManualState = ElevatorLiftState.MANUAL;
     kElevatorLiftConstants.kTransitionState = ElevatorLiftState.TRANSITION;
 
