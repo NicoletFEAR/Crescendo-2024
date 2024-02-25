@@ -34,6 +34,7 @@ public class IntakeHold extends VoltageSubsystem {
     public enum IntakeHoldState implements VoltageSubsystemState {
         OFF(0, "Off"),
         INTAKING(-9, "In"),
+        INTAKE_TO_LAUNCH(-6, "Intake To Launch"),
         AMP(6, "Amp"),
         EJECTING(6, "Out");
         

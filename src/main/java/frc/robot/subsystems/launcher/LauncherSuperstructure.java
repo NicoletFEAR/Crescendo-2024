@@ -148,9 +148,14 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         "Running"),
     THRU_INTAKE_INTAKING(
         LauncherFlywheelState.OFF,
-        LauncherWristState.LAUNCH,
+        LauncherWristState.DOWN,
         LauncherHoldState.THRU_INTAKE_INTAKING,
         "Thru Intake Intaking"),
+    INTAKE_TO_LAUNCH(
+        LauncherFlywheelState.OFF,
+        LauncherWristState.DOWN,
+        LauncherHoldState.THRU_INTAKE_INTAKING,
+        "INTAKE_TO_LAUNCH"),
     LAUNCH_TO_INTAKE(
         LauncherFlywheelState.INTAKING,
         LauncherWristState.DOWN,

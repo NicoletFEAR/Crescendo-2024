@@ -4,12 +4,14 @@ import com.playingwithfusion.TimeOfFlight;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.superstructure.SetLedState;
 import frc.robot.commands.superstructure.SetMultiMotorPositionSubsystemState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.commands.waits.WaitForIntakeNote;
+import frc.robot.commands.waits.WaitForLaunchNote;
 import frc.robot.subsystems.intake.IntakeFlywheel.IntakeFlywheelState;
 import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 import frc.robot.subsystems.intake.IntakeWrist.IntakeWristState;
@@ -113,6 +115,12 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         new SetLedState(LEDState.GREEN_BLINKING),
         new WaitForIntakeNote(),
         setSuperstructureState(IntakeSuperstructureState.STOWED),
+        setSuperstructureState(IntakeSuperstructureState.INTAKE_TO_LAUNCH)
+          .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.INTAKE_TO_LAUNCH)),
+        new WaitForLaunchNote(),
+        new WaitCommand(.01),
+        setSuperstructureState(IntakeSuperstructureState.STOWED)
+          .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)),
         new SetLedState(LEDState.BLUE)
       );
     }
@@ -174,6 +182,12 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         ElevatorLiftState.STOWED,
         IntakeHoldState.EJECTING,
         "Launch To Intake"),
+    INTAKE_TO_LAUNCH(
+        IntakeFlywheelState.INTAKE_TO_LAUNCH,
+        IntakeWristState.STOWED,
+        ElevatorLiftState.STOWED,
+        IntakeHoldState.INTAKE_TO_LAUNCH,
+        "Intake To Launch"),
     DOWNOFF(
         IntakeFlywheelState.OFF,
         IntakeWristState.DOWN,
