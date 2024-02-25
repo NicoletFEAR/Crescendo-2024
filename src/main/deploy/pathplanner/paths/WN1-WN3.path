@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.35364650909482,
-        "y": 4.422605624474577
+        "x": 2.2870846462383128,
+        "y": 4.415270235950092
       },
       "prevControl": {
-        "x": 1.7897196154752668,
-        "y": 5.18627848066507
+        "x": 1.6299258587373322,
+        "y": 5.070942326880862
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,31 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake and WN3 Launch",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "wn3Launch"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 1.75,
@@ -39,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -25.49000000000001,
+    "rotation": -27.110000000000014,
     "rotateFast": false
   },
   "reversed": false,

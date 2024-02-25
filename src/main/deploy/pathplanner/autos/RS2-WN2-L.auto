@@ -18,21 +18,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "RS2-WN2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "wn2Launch"
           }
         }
       ]

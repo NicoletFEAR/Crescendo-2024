@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
+import frc.robot.commands.sequential.PositionNoteInLauncher;
 import frc.robot.commands.superstructure.SetLedState;
 import frc.robot.commands.superstructure.SetMultiMotorPositionSubsystemState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
@@ -121,7 +122,8 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         new WaitCommand(.01),
         setSuperstructureState(IntakeSuperstructureState.STOWED)
           .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)),
-        new SetLedState(LEDState.BLUE)
+        new SetLedState(LEDState.BLUE),
+        new PositionNoteInLauncher()
       );
     }
 

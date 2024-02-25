@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.lib.utilities.PolarCoordinate;
 import frc.robot.RobotContainer;
+import frc.robot.commands.sequential.PositionNoteInLauncher;
 import frc.robot.commands.superstructure.SetLedState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
@@ -92,7 +93,8 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         new WaitCommand(.01),
         setSuperstructureState(LauncherSuperstructureState.STOWED)
         .alongWith(RobotContainer.m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED)),
-        new SetLedState(LEDState.BLUE)
+        new SetLedState(LEDState.BLUE),
+        new PositionNoteInLauncher()
       );
     }
 
