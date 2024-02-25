@@ -9,6 +9,8 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.lib.utilities.GeometryUtils;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.templates.PositionSubsystem;
 
@@ -45,7 +47,9 @@ public class LauncherWrist extends PositionSubsystem {
 
     @Override
     public void subsystemPeriodic() {
-        LauncherWristState.FIELD_BASED_PITCH.setPosition(calculatePitch());
+        LauncherWristState.FIELD_BASED_PITCH.setPosition(GeometryUtils.interpolatePitch(
+            Math.abs(RobotContainer.m_drivebase.calculateAngleToSpeaker()),
+            RobotContainer.m_drivebase.calculateDistanceToSpeaker(RobotContainer.m_drivebase.getPose())));
 
         // SmartDashboard.putNumber("Wrist position", m_encoder.getPosition());
         // SmartDashboard.putNumber("Intended Position", m_desiredState.getPosition());
@@ -74,6 +78,9 @@ public class LauncherWrist extends PositionSubsystem {
         DOWN(0, 0, "Down"),
         UP(45, 0, "Up"),
         SUBWOOFER(91.44, 0, "Subwoofer"), // use when against base of speaker
+        WING_NOTE_1(56.66, 0, "Wing Note 1"),
+        WING_NOTE_2(56.66, 0, "Wing Note 2"),
+        WING_NOTE_3(56.66, 0, "Wing Note 3"),
         PODIUM(56.66, 0, "podium"), // use when against base of podium
         FIELD_BASED_PITCH(0, 0, "Field Based Pitch"),
         TRANSITION(0, 0, "Transition"),
@@ -154,8 +161,8 @@ public class LauncherWrist extends PositionSubsystem {
 
             kLauncherWristConstants.kDefaultSlot = 0;
 
-            kLauncherWristConstants.kMaxVelocity = 100;
-            kLauncherWristConstants.kMaxAcceleration = 50;
+            kLauncherWristConstants.kMaxVelocity = 200;
+            kLauncherWristConstants.kMaxAcceleration = 175;
 
             kLauncherWristConstants.kMaxPosition = 100;
             kLauncherWristConstants.kMinPosition = 20;

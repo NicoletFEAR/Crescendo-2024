@@ -5,11 +5,17 @@ import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
 
+import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest.RobotCentric;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotContainer;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.MotorConstants;
+import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherConstants;
 import frc.robot.subsystems.templates.VelocitySubsystem;
 
 public class LauncherFlywheel extends VelocitySubsystem {
@@ -33,7 +39,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
         // setFeedforward(m_flywheelFeedForward.calculate(getVelocity()));
 
 
-        // // LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(calculateRPM());
+        LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(new double[] {calculateRPM(), calculateRPM()});
         // SmartDashboard.putNumber("Top Encoder Speed", m_encoders[0].getVelocity());
         // SmartDashboard.putNumber("Bottom Encoder Speed", m_encoders[1].getVelocity());
         // SmartDashboard.putNumber("Intended Speed", m_desiredState.getVelocity()[0]);
@@ -45,24 +51,34 @@ public class LauncherFlywheel extends VelocitySubsystem {
     }
 
     public double calculateRPM() {
-        // double distance = SwerveDrive.getInstance().getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
+        double distance;
 
-        // if (distance > 0 && distance < LauncherConstants.kDistanceRPMMap.lastKey()) {
-        //     double lowerRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.floorKey(distance));
-        //     double upperRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.ceilingKey(distance));
-        //     return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
-        // } else {
-        //     return 0;
-        // }
-        return 0;
+        if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
+            distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kRedSpeakerPosition);
+        } else {
+            distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
+        }
+        
+        if (distance > 0 && distance < LauncherConstants.kDistanceRPMMap.lastKey()) {
+            double lowerRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.floorKey(distance));
+            double upperRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.ceilingKey(distance));
+            return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
+        } else {
+            return 0;
+        }
     }
 
     public enum LauncherFlywheelState implements VelocitySubsystemState {
         OFF(new double[] {0, 0}, "Off"),
         IDLE(new double[] {2500, 2500}, "Idle"),
+        WING_NOTE_1(new double[] {5000, 5000}, "Wing Note 1"),
+        WING_NOTE_2(new double[] {5000, 5000}, "Wing Note 2"),
+        WING_NOTE_3(new double[] {5000, 5000}, "Wing Note 3"),
+        ADJUST_NOTE_IN(new double[] {-500, -500}, "Adjust Note In"),
+        ADJUST_NOTE_OUT(new double[] {500, 500}, "Adjust Note Out"),
         RUNNING(new double[] {5000, 5000}, "Running"), // arbitrary testing value
         SUBWOOFER(new double[] {5000, 5000}, "Subwoofer"), // used for when against the base of the speaker
-        PODIUM(new double[] {5000, 5000}, "PODIUM"), // used for when against the base of the PODIUM
+        PODIUM(new double[] {5000, 5000}, "Podium"), // used for when against the base of the PODIUM
         TRANSITION(new double[] {0, 0}, "Transition"),
         FIELD_BASED_VELOCITY(new double[] {0, 0}, "Field Based Velocity"),
         INTAKING(new double[] {-500, -500}, "Intaking"), // used when intaking through launch

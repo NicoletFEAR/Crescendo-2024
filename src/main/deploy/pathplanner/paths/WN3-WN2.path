@@ -8,11 +8,27 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9191454599125413,
-        "y": 4.844224463223702
+        "x": 2.3351571027466376,
+        "y": 4.687064509264155
       },
       "isLocked": false,
       "linkedName": "RS3-WN3"
+    },
+    {
+      "anchor": {
+        "x": 2.5108064630543674,
+        "y": 5.084586745750069
+      },
+      "prevControl": {
+        "x": 2.593963101463227,
+        "y": 4.926589132773235
+      },
+      "nextControl": {
+        "x": 2.418359431313457,
+        "y": 5.260236106057798
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,15 +36,21 @@
         "y": 5.539426141915347
       },
       "prevControl": {
-        "x": 1.9376348662607235,
-        "y": 5.260236106057798
+        "x": 2.399870024965275,
+        "y": 5.380417247320982
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "RS2-WN2"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.65,
+      "rotationDegrees": 58.47544251911027,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {

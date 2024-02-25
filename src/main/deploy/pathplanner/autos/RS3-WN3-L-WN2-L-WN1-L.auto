@@ -22,6 +22,12 @@
           "data": {
             "pathName": "WN3-WN2"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "WN2-WN1"
+          }
         }
       ]
     }

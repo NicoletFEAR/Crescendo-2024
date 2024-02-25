@@ -13,6 +13,7 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
+import frc.robot.commands.waits.WaitForLaunchNote;
 import frc.robot.subsystems.intake.IntakeSuperstructure;
 import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
@@ -36,7 +37,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
   public static LauncherSuperstructure getInstance() {
     if (m_instance == null) {
-      m_instance = new LauncherSuperstructure(LauncherSuperstructureState.OFF, "Launcher");
+      m_instance = new LauncherSuperstructure(LauncherSuperstructureState.STOW, "Launcher");
     }
 
     return m_instance;
@@ -47,24 +48,38 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     LauncherSuperstructureState launcherDesiredState = (LauncherSuperstructureState) desiredState;
 
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
-    if(launcherDesiredState == LauncherSuperstructureState.OFF) {
-      outputCommand.addCommands(new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
-      .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState))
-      .alongWith(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)));
-    } else if (launcherDesiredState == LauncherSuperstructureState.RUNNING || launcherDesiredState == LauncherSuperstructureState.SUBWOOFER){
-      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.EJECTING));
-      outputCommand.addCommands(new WaitCommand(.02));
-      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.OFF));
-      outputCommand.addCommands(new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
-      .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState)));
-      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState));
+    if (launcherDesiredState == LauncherSuperstructureState.STOW) {
+      outputCommand.addCommands(
+        new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
+          .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState))
+          .alongWith(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState))
+      );
+    } else if (launcherDesiredState == LauncherSuperstructureState.RUNNING) {
+      outputCommand.addCommands(
+        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.THRU_LAUNCHER_INTAKING));
+        new WaitCommand(.02);
+        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.OFF);
+        new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
+          .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState),
+        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)
+      );
+    } else{
+      outputCommand.addCommands(
+        new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
+          .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState)),
+        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState));
     }
-    else{
-      outputCommand.addCommands(new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
-      .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState)));
-      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState));
-    }
+
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = launcherDesiredState));
+
+    if (launcherDesiredState == LauncherSuperstructureState.THRU_INTAKE_INTAKING) {
+      outputCommand.addCommands(
+        new WaitForLaunchNote(),
+        new WaitCommand(.01),
+        setSuperstructureState(LauncherSuperstructureState.STOW)
+        .alongWith(RobotContainer.m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED))
+      );
+    }
 
     return outputCommand;
   }
@@ -81,19 +96,17 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
   @Override
   public void superstructurePeriodic() {
 
-    if (m_desiredState == LauncherSuperstructureState.INTAKING && !m_launcherBeamBreak.get() && m_noteInLauncher == false) {
-      new SequentialCommandGroup(
-      new WaitCommand(.01),
-      setSuperstructureState(LauncherSuperstructureState.OFF)
-      .alongWith(IntakeSuperstructure.getInstance().setSuperstructureState(IntakeSuperstructureState.STOWED))).schedule();
-      m_noteInLauncher = true;
-    }
+    // if (m_desiredState == LauncherSuperstructureState.THRU_INTAKE_INTAKING && !m_launcherBeamBreak.get() && m_noteInLauncher == false) {
+    //   new SequentialCommandGroup(
+    //   new WaitCommand(.01),
+    //   setSuperstructureState(LauncherSuperstructureState.STOW)
+    //   .alongWith(IntakeSuperstructure.getInstance().setSuperstructureState(IntakeSuperstructureState.STOWED))).schedule();
+    //   m_noteInLauncher = true;
+    // }
 
     if (!m_launcherBeamBreak.get() && !m_noteInLauncher) {
       m_noteInLauncher = true;
-    }
-
-    if (m_launcherBeamBreak.get() && m_noteInLauncher) {
+    } if (m_launcherBeamBreak.get() && m_noteInLauncher) {
       m_noteInLauncher = false;
     }
 
@@ -103,7 +116,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
   }
 
   public enum LauncherSuperstructureState implements SuperstructureState {
-    OFF(
+    STOW(
         LauncherFlywheelState.OFF,
         LauncherWristState.DOWN,
         LauncherHoldState.OFF,
@@ -118,10 +131,10 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         LauncherWristState.UP,
         LauncherHoldState.LAUNCHING,
         "Running"),
-    INTAKING( // should be used for intaking through the launch but isnt
+    THRU_INTAKE_INTAKING(
         LauncherFlywheelState.OFF,
         LauncherWristState.LAUNCH,
-        LauncherHoldState.INTAKING,
+        LauncherHoldState.THRU_INTAKE_INTAKING,
         "Intaking"),
     TRANSITION(
       LauncherFlywheelState.TRANSITION,
@@ -133,6 +146,36 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherWristState.PODIUM,
       LauncherHoldState.LAUNCHING,
       "Subwoofer"
+    ),
+    WING_NOTE_1( // use when against base of podium
+      LauncherFlywheelState.WING_NOTE_1,
+      LauncherWristState.WING_NOTE_1,
+      LauncherHoldState.LAUNCHING,
+      "Wing Note 1"
+    ),
+    WING_NOTE_2( // use when against base of podium
+      LauncherFlywheelState.WING_NOTE_2,
+      LauncherWristState.WING_NOTE_2,
+      LauncherHoldState.LAUNCHING,
+      "Wing Note 2"
+    ),
+    WING_NOTE_3( // use when against base of podium
+      LauncherFlywheelState.WING_NOTE_3,
+      LauncherWristState.WING_NOTE_3,
+      LauncherHoldState.LAUNCHING,
+      "Wing Note 3"
+    ),
+    FIELD_BASED_PREP(
+      LauncherFlywheelState.FIELD_BASED_VELOCITY,
+      LauncherWristState.FIELD_BASED_PITCH,
+      LauncherHoldState.OFF,
+      "Field Based Prep"
+    ),
+    FIELD_BASED_LAUNCH(
+      LauncherFlywheelState.FIELD_BASED_VELOCITY,
+      LauncherWristState.FIELD_BASED_PITCH,
+      LauncherHoldState.LAUNCHING,
+      "Field Based Launch"
     ),
     SUBWOOFER( // use when against base of speaker
       LauncherFlywheelState.SUBWOOFER,

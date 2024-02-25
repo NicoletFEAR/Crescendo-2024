@@ -33,6 +33,7 @@
       "/FMSInfo": "FMSInfo",
       "/Shuffleboard/Info/Field": "Field2d",
       "/Shuffleboard/Main/Auto Picker": "String Chooser",
+      "/Shuffleboard/Main/Field": "Field2d",
       "/SmartDashboard/Mech2d": "Mechanism2d"
     },
     "windows": {

@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
 import frc.lib.utilities.GeometryUtils;
@@ -103,6 +104,8 @@ public class SwerveDrive extends SubsystemBase {
     robotRelativeChassisSpeeds = new ChassisSpeeds(0, 0, 0);
 
     // m_snapToAngleController = new PIDController(.06, 0, 0);
+
+    RobotContainer.mainTab.add(m_field);
 
     PathPlannerLogging.setLogTargetPoseCallback(
         (targetPose) -> {
@@ -335,7 +338,7 @@ public class SwerveDrive extends SubsystemBase {
 
     robotRelativeChassisSpeeds = DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
 
-    // m_field.setRobotPose(poseEstimator.getEstimatedPosition());
+    m_field.setRobotPose(poseEstimator.getEstimatedPosition());
     // m_field.getObject("path").setPoses(ppPath);
 
     // SmartDashboard.putNumber("Angle To Speaker", calculateAngleToSpeaker());

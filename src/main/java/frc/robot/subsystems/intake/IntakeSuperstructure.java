@@ -9,6 +9,7 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.superstructure.SetMultiMotorPositionSubsystemState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
+import frc.robot.commands.waits.WaitForIntakeNote;
 import frc.robot.subsystems.intake.IntakeFlywheel.IntakeFlywheelState;
 import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 import frc.robot.subsystems.intake.IntakeWrist.IntakeWristState;
@@ -48,18 +49,16 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
   @Override
   public void superstructurePeriodic() {
-    if (m_currentState == IntakeSuperstructureState.AUTO_INTAKING && timeOfFlightBlocked() && !isNoteInIntake) {
-      RobotContainer.m_intakeWrist.setDesiredState(IntakeWristState.STOWED, true);
-      RobotContainer.m_intakeFlywheel.setState(IntakeFlywheelState.OFF);
-      RobotContainer.m_elevatorLift.setDesiredState(ElevatorLiftState.DOWN, true);
-      isNoteInIntake = true;
-    }
+    // if (m_currentState == IntakeSuperstructureState.TELE_INTAKING && timeOfFlightBlocked() && !isNoteInIntake) {
+    //   RobotContainer.m_intakeWrist.setDesiredState(IntakeWristState.STOWED, true);
+    //   RobotContainer.m_intakeFlywheel.setState(IntakeFlywheelState.OFF);
+    //   RobotContainer.m_elevatorLift.setDesiredState(ElevatorLiftState.DOWN, true);
+    //   isNoteInIntake = true;
+    // }
     
     if ( isNoteInIntake && !timeOfFlightBlocked()){
       isNoteInIntake = false;
-    }
-
-    if ( !isNoteInIntake && timeOfFlightBlocked()){
+    } if ( !isNoteInIntake && timeOfFlightBlocked()){
       isNoteInIntake = true;
     }
 
@@ -76,18 +75,29 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
     if (intakeDesiredState == IntakeSuperstructureState.STOWED) {
-      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState));
-      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState));
-      outputCommand.addCommands(new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState));
-      outputCommand.addCommands(new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState));
+      outputCommand.addCommands(
+        new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
+        new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState),
+        new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState),
+        new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
+      );
     } else {
       outputCommand.addCommands(
         new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
-          .alongWith(new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState)));
-      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState));
-      outputCommand.addCommands(new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState));
+          .alongWith(new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState)),
+        new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
+        new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState)
+      );
     }
+    
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = intakeDesiredState));
+
+    if (intakeDesiredState == IntakeSuperstructureState.TELE_INTAKING) {
+      outputCommand.addCommands(
+        new WaitForIntakeNote(),
+        setSuperstructureState(IntakeSuperstructureState.STOWED)
+      );
+    }
 
     return outputCommand;
   }
@@ -110,13 +120,13 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         ElevatorLiftState.DOWN,
         IntakeHoldState.OFF,
         "Travel"),
-    INTAKING( // note should pass through here and be stoped in the launcher hold by the beam break logic in the launcher superstructure
+    AUTO_INTAKING( // note should pass through here and be stoped in the launcher hold by the beam break logic in the launcher superstructure
         IntakeFlywheelState.INTAKING,
         IntakeWristState.DOWN,
         ElevatorLiftState.DOWN,
         IntakeHoldState.INTAKING,
         "Intaking"),
-    AUTO_INTAKING( // note should stop in take flyhweels by the tof logic in this class
+    TELE_INTAKING( // note should stop in take flyhweels by the tof logic in this class
         IntakeFlywheelState.INTAKING,
         IntakeWristState.DOWN,
         ElevatorLiftState.DOWN,

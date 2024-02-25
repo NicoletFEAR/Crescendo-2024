@@ -12,9 +12,33 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferLaunch"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "RS2-WN2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "wn2Launch"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
           }
         },
         {
@@ -24,9 +48,27 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "wn1Launch"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "WN1-WN3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "wn3Launch"
           }
         }
       ]
