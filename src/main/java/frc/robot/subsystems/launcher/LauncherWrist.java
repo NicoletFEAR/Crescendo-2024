@@ -8,7 +8,6 @@ import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.utilities.GeometryUtils;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.MotorConstants;

@@ -4,7 +4,6 @@ import com.playingwithfusion.TimeOfFlight;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.superstructure.SetMultiMotorPositionSubsystemState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
@@ -13,7 +12,6 @@ import frc.robot.commands.waits.WaitForIntakeNote;
 import frc.robot.subsystems.intake.IntakeFlywheel.IntakeFlywheelState;
 import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 import frc.robot.subsystems.intake.IntakeWrist.IntakeWristState;
-import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.intake.ElevatorLift.ElevatorLiftState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
 
@@ -89,7 +87,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState)
       );
     }
-    
+
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = intakeDesiredState));
 
     if (intakeDesiredState == IntakeSuperstructureState.TELE_INTAKING) {

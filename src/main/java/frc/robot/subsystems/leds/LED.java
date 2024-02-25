@@ -209,9 +209,9 @@ public class LED extends SubsystemBase {
         YELLOW(255,255,25, "Yellow", null),
         WHITE(255, 255, 255, "White", null),
 
-        BLUE_WIPE(0, 0, 255, "Blue Wipe", () -> LED.runEffect(wiperEffect, 0.4)),
-        ORANGE_WIPE(255, 102, 25, "Orange Wipe", () -> LED.runEffect(wiperEffect, 0.4)),
-        YELLOW_WIPE(255, 255, 25, "Yellow Wipe", () -> LED.runEffect(wiperEffect, 0.4)),
+        BLUE_WIPE(0, 0, 255, "Blue Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
+        ORANGE_WIPE(255, 102, 25, "Orange Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
+        YELLOW_WIPE(255, 255, 25, "Yellow Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
         ;
 
         // RAINBOW(0, 0, 0, "Rainbow",  LED::rainbow),
