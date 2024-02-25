@@ -3,9 +3,11 @@ package frc.robot.subsystems.leds;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class LED extends SubsystemBase {
     
@@ -74,7 +76,7 @@ public class LED extends SubsystemBase {
         }
       }
     
-      public void setRGB(int r, int g, int b) {
+      public static void setRGB(int r, int g, int b) {
         for (int i = 0; i < m_ledBuffer.getLength(); i++) {
           m_ledBuffer.setRGB(i, r, g, b);
         }
@@ -199,6 +201,18 @@ public class LED extends SubsystemBase {
     
         return outputList;
       } 
+
+      public static void setLedToLauncherVelocity() {
+        int velPercent = (int) (RobotContainer.m_launcherFlywheel.getVelocity()[0] / RobotContainer.m_launcherFlywheel.getDesiredState().getVelocity()[0]);
+
+        velPercent = MathUtil.clamp(velPercent, 0, 1);
+
+        int red = m_currentState.red * velPercent;
+        int green = m_currentState.green * velPercent;
+        int blue = m_currentState.blue * velPercent;
+        
+        setRGB(red, green, blue);
+      }
     
       public enum LEDState {
         OFF(0, 0, 0, "Off", null),
@@ -209,10 +223,14 @@ public class LED extends SubsystemBase {
         YELLOW(255,255,25, "Yellow", null),
         WHITE(255, 255, 255, "White", null),
 
+        GREEN_BLINKING(0, 255, 0, "Green Blinking", () -> LED.flash(0.35)),
+
+        REVVING(0, 255, 0, "Revving", LED::setLedToLauncherVelocity),
+        LAUNCHING(0, 255, 0, "Launching", () -> LED.flash(0.1)),
+
         BLUE_WIPE(0, 0, 255, "Blue Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
         ORANGE_WIPE(255, 102, 25, "Orange Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
-        YELLOW_WIPE(255, 255, 25, "Yellow Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
-        ;
+        YELLOW_WIPE(255, 255, 25, "Yellow Wipe", () -> LED.runEffect(wiperEffect, 0.02));
 
         // RAINBOW(0, 0, 0, "Rainbow",  LED::rainbow),
         // TEAL_WIPE(0, 122, 133, "Teal Wipe", () ->  LED.runEffect(wiperEffect, .04)),

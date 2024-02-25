@@ -89,6 +89,10 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     return m_currentState;
   }
 
+  public VelocitySubsystemState getDesiredState() {
+    return m_desiredState;
+  }
+
   public void setFeedforward(double[] feedforward) {
     m_arbFeedforward = feedforward;
   }

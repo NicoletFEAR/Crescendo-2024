@@ -5,6 +5,7 @@ import com.playingwithfusion.TimeOfFlight;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
+import frc.robot.commands.superstructure.SetLedState;
 import frc.robot.commands.superstructure.SetMultiMotorPositionSubsystemState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
@@ -12,6 +13,7 @@ import frc.robot.commands.waits.WaitForIntakeNote;
 import frc.robot.subsystems.intake.IntakeFlywheel.IntakeFlywheelState;
 import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 import frc.robot.subsystems.intake.IntakeWrist.IntakeWristState;
+import frc.robot.subsystems.leds.LED.LEDState;
 import frc.robot.subsystems.intake.ElevatorLift.ElevatorLiftState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
 
@@ -74,17 +76,21 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
     if (intakeDesiredState == IntakeSuperstructureState.STOWED) {
       outputCommand.addCommands(
+        new SetLedState(LEDState.GREEN_BLINKING),
         new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
         new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState),
         new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState),
-        new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
+        new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState),
+        new SetLedState(LEDState.GREEN)
       );
     } else {
       outputCommand.addCommands(
+        new SetLedState(LEDState.GREEN_BLINKING),
         new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState, this, intakeDesiredState)
           .alongWith(new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState, this, intakeDesiredState)),
         new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
-        new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState)
+        new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState),
+        new SetLedState(LEDState.GREEN)
       );
     }
 
@@ -93,7 +99,8 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     if (intakeDesiredState == IntakeSuperstructureState.TELE_INTAKING) {
       outputCommand.addCommands(
         new WaitForIntakeNote(),
-        setSuperstructureState(IntakeSuperstructureState.STOWED)
+        setSuperstructureState(IntakeSuperstructureState.STOWED),
+        new SetLedState(LEDState.BLUE)
       );
     }
 

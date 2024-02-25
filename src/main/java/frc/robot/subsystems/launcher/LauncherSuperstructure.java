@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.lib.utilities.PolarCoordinate;
 import frc.robot.RobotContainer;
+import frc.robot.commands.superstructure.SetLedState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
@@ -18,6 +19,7 @@ import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureStat
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
+import frc.robot.subsystems.leds.LED.LEDState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
 
 public class LauncherSuperstructure extends SuperstructureSubsystem {
@@ -49,9 +51,11 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
     if (launcherDesiredState == LauncherSuperstructureState.STOW) {
       outputCommand.addCommands(
+        new SetLedState(LEDState.GREEN_BLINKING),
         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState))
-          .alongWith(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState))
+          .alongWith(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)),
+        new SetLedState(LEDState.GREEN)
       );
     } else if (launcherDesiredState == LauncherSuperstructureState.RUNNING) {
       outputCommand.addCommands(
@@ -62,11 +66,14 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState),
         new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)
       );
-    } else{
+    } else {
       outputCommand.addCommands(
+        new SetLedState(LEDState.REVVING),
         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState)),
-        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState));
+        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState),
+        new SetLedState(LEDState.LAUNCHING)
+      );
     }
 
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = launcherDesiredState));
@@ -76,7 +83,8 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         new WaitForLaunchNote(),
         new WaitCommand(.01),
         setSuperstructureState(LauncherSuperstructureState.STOW)
-        .alongWith(RobotContainer.m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED))
+        .alongWith(RobotContainer.m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED)),
+        new SetLedState(LEDState.BLUE)
       );
     }
 

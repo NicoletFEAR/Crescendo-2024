@@ -20,6 +20,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
+import frc.robot.commands.superstructure.SetLedState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.subsystems.intake.ElevatorLift;
@@ -158,10 +159,10 @@ public class RobotContainer {
     m_driverController.options().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
 
     /// LEDS /////
-    m_driverController.pov(0).onTrue(new InstantCommand(() -> m_led.setState(LEDState.OFF)));
-    m_driverController.pov(90).onTrue(new InstantCommand(() -> m_led.setState(LEDState.BLUE)));
-    m_driverController.pov(180).onTrue(new InstantCommand(() -> m_led.setState(LEDState.ORANGE_WIPE)));
-    m_driverController.pov(270).onTrue(new InstantCommand(() -> m_led.setState(LEDState.BLUE_WIPE)));
+    m_driverController.pov(0).onTrue(new SetLedState(LEDState.OFF));
+    m_driverController.pov(90).onTrue(new SetLedState(LEDState.BLUE));
+    m_driverController.pov(180).onTrue(new SetLedState(LEDState.ORANGE_WIPE));
+    m_driverController.pov(270).onTrue(new SetLedState(LEDState.BLUE_WIPE));
     
     ///// INTAKE /////
     m_operatorController.a().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TELE_INTAKING));
