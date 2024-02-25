@@ -66,20 +66,28 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState),
         new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)
       );
-    } else {
+    } else if (launcherDesiredState == LauncherSuperstructureState.THRU_INTAKE_INTAKING) {
+      outputCommand.addCommands(
+        new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
+          .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState)),
+        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)
+      );
+    }
+     else {
       outputCommand.addCommands(
         new SetLedState(LEDState.REVVING),
         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState)),
         new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState),
-        new SetLedState(LEDState.LAUNCHING)
+        new SetLedState(LEDState.GREEN_FLASHING)
       );
     }
-
+ 
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = launcherDesiredState));
 
     if (launcherDesiredState == LauncherSuperstructureState.THRU_INTAKE_INTAKING) {
       outputCommand.addCommands(
+        new SetLedState(LEDState.GREEN_BLINKING),
         new WaitForLaunchNote(),
         new WaitCommand(.01),
         setSuperstructureState(LauncherSuperstructureState.STOW)

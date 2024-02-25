@@ -98,6 +98,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
     if (intakeDesiredState == IntakeSuperstructureState.TELE_INTAKING) {
       outputCommand.addCommands(
+        new SetLedState(LEDState.GREEN_BLINKING),
         new WaitForIntakeNote(),
         setSuperstructureState(IntakeSuperstructureState.STOWED),
         new SetLedState(LEDState.BLUE)
