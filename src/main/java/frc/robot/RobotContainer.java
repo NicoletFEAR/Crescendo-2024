@@ -86,7 +86,7 @@ public class RobotContainer {
 
     // NAMED COMMANDS FOR AUTO \\
     NamedCommands.registerCommand("intake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.AUTO_INTAKING)
-      .alongWith(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.THRU_INTAKE_INTAKING)));
+      .andThen(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.THRU_INTAKE_INTAKING)));
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
     NamedCommands.registerCommand("wn1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_1));
     NamedCommands.registerCommand("wn2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_2));
@@ -170,12 +170,15 @@ public class RobotContainer {
     ///// INTAKE /////
     m_operatorController.a().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TELE_INTAKING));
 
+    m_operatorController.rightStick().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TOF_INTAKING));
+
     m_operatorController.b().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED));
     
     m_operatorController.x().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.AMP_PREPARE));
 
     m_operatorController.y().onTrue(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.EJECTING)
-      .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.EJECTING)));
+      .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.EJECTING))
+      .alongWith(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)));
     m_operatorController.y().onFalse(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF)
       .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF)));
 

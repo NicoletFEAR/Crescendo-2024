@@ -79,6 +79,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         new SetLedState(LEDState.REVVING),
         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState, this, launcherDesiredState)
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState, this, launcherDesiredState)),
+        new WaitCommand(.1),
         new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState),
         new SetLedState(LEDState.GREEN_FLASHING)
       );
@@ -135,7 +136,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
   public enum LauncherSuperstructureState implements SuperstructureState {
     STOWED(
         LauncherFlywheelState.OFF,
-        LauncherWristState.DOWN,
+        LauncherWristState.UP,
         LauncherHoldState.OFF,
         "Off"),
     IDLE(
@@ -150,17 +151,17 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         "Running"),
     THRU_INTAKE_INTAKING(
         LauncherFlywheelState.OFF,
-        LauncherWristState.DOWN,
+        LauncherWristState.UP,
         LauncherHoldState.THRU_INTAKE_INTAKING,
         "Thru Intake Intaking"),
     INTAKE_TO_LAUNCH(
-        LauncherFlywheelState.OFF,
-        LauncherWristState.DOWN,
+        LauncherFlywheelState.ADJUST_NOTE_OUT,
+        LauncherWristState.UP,
         LauncherHoldState.THRU_INTAKE_INTAKING,
         "INTAKE_TO_LAUNCH"),
     LAUNCH_TO_INTAKE(
         LauncherFlywheelState.INTAKING,
-        LauncherWristState.DOWN,
+        LauncherWristState.UP,
         LauncherHoldState.THRU_LAUNCHER_INTAKING,
         "Launch To Intake"),
     TRANSITION(

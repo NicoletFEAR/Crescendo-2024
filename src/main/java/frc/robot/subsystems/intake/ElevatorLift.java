@@ -78,7 +78,8 @@ public class ElevatorLift extends MultiMotorPositionSubsystem {
     public enum ElevatorLiftState implements MultiMotorPositionSubsystemState {
       STOWED(new double[] {0, 0}, new double[] {0, 0}, "Down"),
       TRANSITION(new double[] {0, 0}, new double[] {0, 0}, "Transition"),
-      AMP(new double[] {178, 178}, new double[] {0, 0}, "Amp"),
+      AMP(new double[] {27, 27}, new double[] {0, 0}, "Amp"),
+      // AMP(new double[] {178, 178}, new double[] {0, 0}, "Amp"),
       MANUAL(new double[] {0, 0}, new double[] {0, 0}, "Manual");
   
       private double[] position;
@@ -130,7 +131,7 @@ public static class ElevatorLiftConstants {
     kElevatorLiftMotorConstants[0].kMotorType = MotorType.kBrushless;
     kElevatorLiftMotorConstants[0].kCurrentLimit = 80;
     kElevatorLiftMotorConstants[0].kInverted = false;
-    kElevatorLiftMotorConstants[0].kKp = 0.1;
+    kElevatorLiftMotorConstants[0].kKp = 0.14;
     kElevatorLiftMotorConstants[0].kKi = 0.0;
     kElevatorLiftMotorConstants[0].kKd = 0.0;
 
@@ -196,7 +197,7 @@ public static class ElevatorLiftConstants {
     kElevatorLiftConstants.kManualControlMode = ManualControlMode.TRIGGERS;
 
     // Multiplied by controller inputs
-    kElevatorLiftConstants.kManualMultiplier = .5;
+    kElevatorLiftConstants.kManualMultiplier = 1;
 
     // Deadband for controller
     kElevatorLiftConstants.kManualDeadBand = .1;

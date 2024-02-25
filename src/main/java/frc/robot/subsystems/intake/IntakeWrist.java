@@ -45,9 +45,11 @@ public class IntakeWrist extends PositionSubsystem {
     public void outputTelemetry() { }
 
     public enum IntakeWristState implements PositionSubsystemState {
-        DOWN(17, 0, "Down"),
+        DOWN(18, 0, "Down"),
         STOWED(0, 0, "Up"),
-        AMP(12.5, 0, "Amp"),
+        AMP(4.6, 0, "Amp"),
+        // AMP(12.5, 0, "Amp"),
+        NOTE_TO_LAUNCHER(6, 0, "Note To Launcher"),
         TRAVEL(3.74, 0, "Travel"),
         TRANSITION(0, 0, "Transition"),
         LAUNCHING(6.5, 0, "Launching"), // this is the angle where the note is minimanlly bent when being passed to the launcher superstructure

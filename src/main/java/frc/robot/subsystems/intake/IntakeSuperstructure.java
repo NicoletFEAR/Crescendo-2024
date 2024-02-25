@@ -66,9 +66,9 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
       isNoteInIntake = true;
     }
 
-    if(RobotContainer.m_intakeFlywheel.getCurrentState() == IntakeFlywheelState.OFF && RobotContainer.m_intakeWrist.atSetpoint() && RobotContainer.m_elevatorLift.atSetpoint() && getCurrentState() != IntakeSuperstructureState.STOWED) {
-      setCurrentState(IntakeSuperstructureState.STOWED);
-    }
+    // if(RobotContainer.m_intakeFlywheel.getCurrentState() == IntakeFlywheelState.OFF && RobotContainer.m_intakeWrist.atSetpoint() && RobotContainer.m_elevatorLift.atSetpoint() && getCurrentState() != IntakeSuperstructureState.STOWED) {
+    //   setCurrentState(IntakeSuperstructureState.TRAVEL);
+    // }
 
   }
 
@@ -78,18 +78,18 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
-    if (intakeDesiredState == IntakeSuperstructureState.AMP_PREPARE) {
-      outputCommand.addCommands(
-        new WaitForIntakeNote()
-          .raceWith(
-            setSuperstructureState(IntakeSuperstructureState.LAUNCH_TO_INTAKE),
-            RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_TO_INTAKE)),
-        setSuperstructureState(IntakeSuperstructureState.STOWED)
-          .andThen(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED))
-      );
-    }
+    // if (intakeDesiredState == IntakeSuperstructureState.AMP_PREPARE) {
+    //   outputCommand.addCommands(
+    //     new WaitForIntakeNote()
+    //       .raceWith(
+    //         setSuperstructureState(IntakeSuperstructureState.LAUNCH_TO_INTAKE),
+    //         RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_TO_INTAKE)),
+    //     setSuperstructureState(IntakeSuperstructureState.STOWED)
+    //       .andThen(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED))
+    //   );
+    // }
 
-    if (intakeDesiredState == IntakeSuperstructureState.STOWED) {
+    if (intakeDesiredState == IntakeSuperstructureState.STOWED || intakeDesiredState == IntakeSuperstructureState.TRAVEL || intakeDesiredState == IntakeSuperstructureState.INTAKE_TO_LAUNCH) {
       outputCommand.addCommands(
         new SetLedState(LEDState.GREEN_BLINKING),
         new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
@@ -115,15 +115,23 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
       outputCommand.addCommands(
         new SetLedState(LEDState.GREEN_BLINKING),
         new WaitForIntakeNote(),
-        setSuperstructureState(IntakeSuperstructureState.STOWED),
         setSuperstructureState(IntakeSuperstructureState.INTAKE_TO_LAUNCH)
           .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.INTAKE_TO_LAUNCH)),
         new WaitForLaunchNote(),
-        new WaitCommand(.01),
-        setSuperstructureState(IntakeSuperstructureState.STOWED)
+        new WaitCommand(.1),
+        setSuperstructureState(IntakeSuperstructureState.TRAVEL)
           .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)),
         new SetLedState(LEDState.BLUE),
         new PositionNoteInLauncher()
+      );
+    }
+
+    if (intakeDesiredState == IntakeSuperstructureState.TOF_INTAKING) {
+      outputCommand.addCommands(
+        new SetLedState(LEDState.GREEN_BLINKING),
+        new WaitForIntakeNote(),
+        setSuperstructureState(IntakeSuperstructureState.STOWED),
+        new SetLedState(LEDState.BLUE)
       );
     }
 
@@ -154,12 +162,18 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         ElevatorLiftState.STOWED,
         IntakeHoldState.INTAKING,
         "Intaking"),
-    TELE_INTAKING( // note should stop in take flyhweels by the tof logic in this class
+    TELE_INTAKING( 
         IntakeFlywheelState.INTAKING,
         IntakeWristState.DOWN,
         ElevatorLiftState.STOWED,
         IntakeHoldState.OFF,
         "Auto Intaking"),
+    TOF_INTAKING( // note should stop in take flyhweels by the tof logic in this class
+        IntakeFlywheelState.INTAKING,
+        IntakeWristState.DOWN,
+        ElevatorLiftState.STOWED,
+        IntakeHoldState.OFF,
+        "Tof Intaking"),
     AMP_PREPARE(
         IntakeFlywheelState.OFF,
         IntakeWristState.AMP,
@@ -179,14 +193,20 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         IntakeHoldState.EJECTING,
         "Ejecting"),
     LAUNCH_TO_INTAKE(
-        IntakeFlywheelState.AMP,
+        IntakeFlywheelState.OFF,
         IntakeWristState.STOWED,
         ElevatorLiftState.STOWED,
         IntakeHoldState.EJECTING,
         "Launch To Intake"),
+    INTAKE_TO_LAUNCH_PREPARE(
+        IntakeFlywheelState.OFF,
+        IntakeWristState.NOTE_TO_LAUNCHER,
+        ElevatorLiftState.STOWED,
+        IntakeHoldState.OFF,
+        "Intake To Launch"),
     INTAKE_TO_LAUNCH(
         IntakeFlywheelState.INTAKE_TO_LAUNCH,
-        IntakeWristState.STOWED,
+        IntakeWristState.DOWN,
         ElevatorLiftState.STOWED,
         IntakeHoldState.INTAKE_TO_LAUNCH,
         "Intake To Launch"),
