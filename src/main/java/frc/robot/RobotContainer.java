@@ -156,7 +156,7 @@ public class RobotContainer {
 
     m_driverController.create().onTrue(new InstantCommand(m_drivebase::zeroGyroscope));
 
-    m_driverController.options().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
+    m_driverController.cross().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
 
     /// LEDS /////
     m_driverController.pov(0).onTrue(new SetLedState(LEDState.OFF));
