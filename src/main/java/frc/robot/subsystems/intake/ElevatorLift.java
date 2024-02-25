@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.templates.MultiMotorPositionSubsystem;
@@ -32,6 +33,10 @@ public class ElevatorLift extends MultiMotorPositionSubsystem {
 
     @Override
     public void subsystemPeriodic() {
+      SmartDashboard.putNumber("right intend", this.getCurrentState().getPosition()[0]);
+      SmartDashboard.putNumber("left intend", this.getCurrentState().getPosition()[1]);
+      SmartDashboard.putNumber("right current", this.getPosition()[0]);
+      SmartDashboard.putNumber("left current", this.getPosition()[1]);
     }
 
     @Override
@@ -73,7 +78,7 @@ public class ElevatorLift extends MultiMotorPositionSubsystem {
     public enum ElevatorLiftState implements MultiMotorPositionSubsystemState {
       DOWN(new double[] {0, 0}, new double[] {0, 0}, "Down"),
       TRANSITION(new double[] {0, 0}, new double[] {0, 0}, "Transition"),
-      AMP(new double[] {195, 195}, new double[] {0, 0}, "Amp"),
+      AMP(new double[] {178, 178}, new double[] {0, 0}, "Amp"),
       MANUAL(new double[] {0, 0}, new double[] {0, 0}, "Manual");
   
       private double[] position;
@@ -137,7 +142,7 @@ public static class ElevatorLiftConstants {
     kElevatorLiftMotorConstants[1].kMotorType = MotorType.kBrushless;
     kElevatorLiftMotorConstants[1].kCurrentLimit = 80;
     kElevatorLiftMotorConstants[1].kInverted = true;
-    kElevatorLiftMotorConstants[1].kKp = 0.1;
+    kElevatorLiftMotorConstants[1].kKp = 0.14;
     kElevatorLiftMotorConstants[1].kKi = 0.0;
     kElevatorLiftMotorConstants[1].kKd = 0.0;
     }
@@ -180,18 +185,18 @@ public static class ElevatorLiftConstants {
     kElevatorLiftConstants.kDefaultSlot = 0; 
 
     // Max velocity and acceleration for trapezoidal motion profile
-    kElevatorLiftConstants.kMaxVelocity = 10.0; 
-    kElevatorLiftConstants.kMaxAcceleration = 5.0;
+    kElevatorLiftConstants.kMaxVelocity = 125.0; 
+    kElevatorLiftConstants.kMaxAcceleration = 100.0;
 
     // Max/Min positions the subsystem should be able to move
-    kElevatorLiftConstants.kMaxPosition = 190;
+    kElevatorLiftConstants.kMaxPosition = 178;
     kElevatorLiftConstants.kMinPosition = 0;
 
     // Enum which is found in SubsystemConstants
     kElevatorLiftConstants.kManualControlMode = ManualControlMode.TRIGGERS;
 
     // Multiplied by controller inputs
-    kElevatorLiftConstants.kManualMultiplier = .2;
+    kElevatorLiftConstants.kManualMultiplier = .5;
 
     // Deadband for controller
     kElevatorLiftConstants.kManualDeadBand = .1;

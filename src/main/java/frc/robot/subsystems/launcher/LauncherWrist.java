@@ -8,6 +8,7 @@ import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.templates.PositionSubsystem;
 
@@ -28,6 +29,9 @@ public class LauncherWrist extends PositionSubsystem {
 
         // m_feedforward = new ArmFeedforward(m_constants.kLeaderConstants.kKs, m_constants.kLeaderConstants.kKg, m_constants.kLeaderConstants.kKv);
 
+
+   
+
         // zero(m_launcherWristAbsoluteEncoder.getAbsolutePosition().getValue());
     }
 
@@ -43,7 +47,8 @@ public class LauncherWrist extends PositionSubsystem {
     public void subsystemPeriodic() {
         LauncherWristState.FIELD_BASED_PITCH.setPosition(calculatePitch());
 
-
+        // SmartDashboard.putNumber("Wrist position", m_encoder.getPosition());
+        // SmartDashboard.putNumber("Intended Position", m_desiredState.getPosition());
 
         // setFeedforward(m_feedforward.calculate(m_setpoint.position, m_setpoint.velocity));
     }
@@ -68,11 +73,11 @@ public class LauncherWrist extends PositionSubsystem {
     public enum LauncherWristState implements PositionSubsystemState {
         DOWN(0, 0, "Down"),
         UP(45, 0, "Up"),
-        SUBWOOFER(77, 0, "Subwoofer"), // should clean this up
+        SUBWOOFER(91.44, 0, "Subwoofer"), // use when against base of speaker
+        PODIUM(56.66, 0, "podium"), // use when against base of podium
         FIELD_BASED_PITCH(0, 0, "Field Based Pitch"),
         TRANSITION(0, 0, "Transition"),
-        LAUNCH(50, 0, "Launch"),
-
+        LAUNCH(50, 0, "Launch"), // this is the arbitrary value used for testing
         MANUAL(0, 0, "Manual");
     
         private double position;

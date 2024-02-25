@@ -9,6 +9,7 @@ import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.templates.PositionSubsystem;
 
@@ -35,7 +36,10 @@ public class IntakeWrist extends PositionSubsystem {
     }
 
     @Override
-    public void subsystemPeriodic() {}
+    public void subsystemPeriodic() {
+        SmartDashboard.putNumber("wrist intend", getCurrentState().getPosition());
+        SmartDashboard.putNumber("wrist current", getPosition());
+    }
 
     @Override
     public void outputTelemetry() { }
@@ -43,7 +47,7 @@ public class IntakeWrist extends PositionSubsystem {
     public enum IntakeWristState implements PositionSubsystemState {
         DOWN(17, 0, "Down"),
         STOWED(0, 0, "Up"),
-        AMP(13, 0, "Amp"),
+        AMP(12.5, 0, "Amp"),
         TRAVEL(3.74, 0, "Travel"),
         TRANSITION(0, 0, "Transition"),
         LAUNCHING(6.5, 0, "Launching"), // this is the angle where the note is minimanlly bent when being passed to the launcher superstructure
@@ -96,7 +100,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristLeaderConstants.kMotorType = MotorType.kBrushless;
             kIntakeWristLeaderConstants.kCurrentLimit = 20;
             kIntakeWristLeaderConstants.kInverted = true;
-            kIntakeWristLeaderConstants.kKp = 0.1;
+            kIntakeWristLeaderConstants.kKp = 0.14;
             kIntakeWristLeaderConstants.kKi = 0.0;
             kIntakeWristLeaderConstants.kKd = 0.0;
         }
@@ -145,8 +149,8 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristConstants.kDefaultSlot = 0; 
 
             // Max velocity and acceleration for trapezoidal motion profile
-            kIntakeWristConstants.kMaxVelocity = 20; 
-            kIntakeWristConstants.kMaxAcceleration = 10;
+            kIntakeWristConstants.kMaxVelocity = 120; 
+            kIntakeWristConstants.kMaxAcceleration = 100;
 
             // Max/Min positions the subsystem should be able to move
             kIntakeWristConstants.kMaxPosition = 17.0;
@@ -156,7 +160,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristConstants.kManualControlMode = ManualControlMode.BUMPERS;
 
             // Multiplied by controller inputs
-            kIntakeWristConstants.kManualMultiplier = .05;
+            kIntakeWristConstants.kManualMultiplier = .2;
 
             // Deadband for controller
             kIntakeWristConstants.kManualDeadBand = .1;

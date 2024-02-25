@@ -39,8 +39,8 @@ public class LauncherHold extends VoltageSubsystem {
     public enum LauncherHoldState implements VoltageSubsystemState {
         OFF(0, "Off"),
         LAUNCHING(-12, "Launching"),
-        EJECTING(6, "Intaking"),
-        INTAKING(-6, "Intaking");
+        EJECTING(6, "Intaking"), // this should be called intaking, for when we intake through launch or need to intake the note after pushing it out
+        INTAKING(-6, "Intaking"); // this should be called ejecting, for pushing out note a bit for consistent launches
         
         private double voltage;
         private String name;

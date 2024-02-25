@@ -8,6 +8,7 @@ import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConsta
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.templates.VelocitySubsystem;
 
@@ -32,7 +33,10 @@ public class LauncherFlywheel extends VelocitySubsystem {
         // setFeedforward(m_flywheelFeedForward.calculate(getVelocity()));
 
 
-        // LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(calculateRPM());
+        // // LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(calculateRPM());
+        // SmartDashboard.putNumber("Top Encoder Speed", m_encoders[0].getVelocity());
+        // SmartDashboard.putNumber("Bottom Encoder Speed", m_encoders[1].getVelocity());
+        // SmartDashboard.putNumber("Intended Speed", m_desiredState.getVelocity()[0]);
     }
 
     @Override
@@ -56,11 +60,15 @@ public class LauncherFlywheel extends VelocitySubsystem {
     public enum LauncherFlywheelState implements VelocitySubsystemState {
         OFF(new double[] {0, 0}, "Off"),
         IDLE(new double[] {2500, 2500}, "Idle"),
-        RUNNING(new double[] {5000, 5000}, "Running"),
+        RUNNING(new double[] {5000, 5000}, "Running"), // arbitrary testing value
+        SUBWOOFER(new double[] {5000, 5000}, "Subwoofer"), // used for when against the base of the speaker
+        PODIUM(new double[] {5000, 5000}, "PODIUM"), // used for when against the base of the PODIUM
         TRANSITION(new double[] {0, 0}, "Transition"),
         FIELD_BASED_VELOCITY(new double[] {0, 0}, "Field Based Velocity"),
-        INTAKING(new double[] {-500, -500}, "Intaking"),
+        INTAKING(new double[] {-500, -500}, "Intaking"), // used when intaking through launch
         MANUAL(new double[] {0, 0}, "Manual");
+
+        // see if slowing down the bottom flyhweeel helps with tubmle
     
         private double[] velocity;
         private String name;
@@ -97,10 +105,10 @@ public class LauncherFlywheel extends VelocitySubsystem {
             kTopLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
             kTopLauncherFlywheelConstants.kCurrentLimit = 80;
             kTopLauncherFlywheelConstants.kInverted = false;
-            kTopLauncherFlywheelConstants.kKp = 0.00001;
+            kTopLauncherFlywheelConstants.kKp = 0.00025;
             kTopLauncherFlywheelConstants.kKi = 0.0;
             kTopLauncherFlywheelConstants.kKd = 0.0;
-            kTopLauncherFlywheelConstants.kKff = 0.0001675;
+            kTopLauncherFlywheelConstants.kKff = 0.00015;
         }
 
         public static final SparkConstants kBottomLauncherFlywheelConstants = new SparkConstants();
@@ -113,10 +121,10 @@ public class LauncherFlywheel extends VelocitySubsystem {
             kBottomLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
             kBottomLauncherFlywheelConstants.kCurrentLimit = 80;
             kBottomLauncherFlywheelConstants.kInverted = false;
-            kBottomLauncherFlywheelConstants.kKp = 0.00001;
+            kBottomLauncherFlywheelConstants.kKp = 0.00025;
             kBottomLauncherFlywheelConstants.kKi = 0.0;
             kBottomLauncherFlywheelConstants.kKd = 0.0;
-            kBottomLauncherFlywheelConstants.kKff = 0.0001675;
+            kBottomLauncherFlywheelConstants.kKff = 0.00015;
         }
 
         public static final VelocitySubsystemConstants kLauncherFlywheelConstants =
@@ -134,7 +142,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
             kLauncherFlywheelConstants.kDefaultSlot = 0;
 
-            kLauncherFlywheelConstants.kSetpointTolerance = 3000;
+            kLauncherFlywheelConstants.kSetpointTolerance = 200;
 
             kLauncherFlywheelConstants.kInitialState = LauncherFlywheelState.OFF;
             kLauncherFlywheelConstants.kTransitionState = LauncherFlywheelState.TRANSITION;
