@@ -13,6 +13,7 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -24,6 +25,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
+import frc.robot.subsystems.Limelight;
 import frc.lib.utilities.GeometryUtils;
 import frc.lib.utilities.SwerveModuleConstants;
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class SwerveDrive extends SubsystemBase {
 
   private SwerveModuleState[] moduleStates;
 
-  private SwerveModule[] m_SwerveMods;
+  private SwerveModule[] m_swerveMods;
 
   private ChassisSpeeds robotRelativeChassisSpeeds;
 
@@ -72,7 +74,7 @@ public class SwerveDrive extends SubsystemBase {
       SwerveModuleConstants backLeftModuleConstants,
       SwerveModuleConstants backRightModuleConstants) {
 
-    m_SwerveMods =
+    m_swerveMods =
         new SwerveModule[] {
           new SwerveModule(0, frontLeftModuleConstants),
           new SwerveModule(1, frontRightModuleConstants),
@@ -209,8 +211,8 @@ public class SwerveDrive extends SubsystemBase {
   public void setSwerveModuleStates(SwerveModuleState[] states, boolean isOpenLoop) {
     SwerveDriveKinematics.desaturateWheelSpeeds(states, DriveConstants.kMaxMetersPerSecond);
 
-    for (int i = 0; i < m_SwerveMods.length; i++) {
-      SwerveModule module = m_SwerveMods[i];
+    for (int i = 0; i < m_swerveMods.length; i++) {
+      SwerveModule module = m_swerveMods[i];
       states[i] = new SwerveModuleState(states[i].speedMetersPerSecond, states[i].angle);
       module.setDesiredState(states[i], isOpenLoop);
     }
@@ -221,24 +223,28 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public SwerveModule getSwerveModule(int moduleNumber) {
-    return m_SwerveMods[moduleNumber];
+    return m_swerveMods[moduleNumber];
+  }
+
+  public SwerveModule[] getSwerveModules() {
+    return m_swerveMods;
   }
 
   public SwerveModuleState[] getModuleStates() {
     return new SwerveModuleState[] {
-      m_SwerveMods[0].getState(),
-      m_SwerveMods[1].getState(),
-      m_SwerveMods[2].getState(),
-      m_SwerveMods[3].getState()
+      m_swerveMods[0].getState(),
+      m_swerveMods[1].getState(),
+      m_swerveMods[2].getState(),
+      m_swerveMods[3].getState()
     };
   }
 
   public SwerveModulePosition[] getModulePositions() {
     return new SwerveModulePosition[] {
-      m_SwerveMods[0].getPosition(),
-      m_SwerveMods[1].getPosition(),
-      m_SwerveMods[2].getPosition(),
-      m_SwerveMods[3].getPosition()
+      m_swerveMods[0].getPosition(),
+      m_swerveMods[1].getPosition(),
+      m_swerveMods[2].getPosition(),
+      m_swerveMods[3].getPosition()
     };
   }
 
@@ -303,7 +309,7 @@ public class SwerveDrive extends SubsystemBase {
 
   /** Resets each SwerveModule to the absolute position. */
   public void resetAngleToAbsolute() {
-    for (SwerveModule mod : m_SwerveMods) {
+    for (SwerveModule mod : m_swerveMods) {
       mod.resetAngleToAbsolute();
     }
   }
@@ -361,21 +367,12 @@ public class SwerveDrive extends SubsystemBase {
     // if (poseEstimator
     //         .getEstimatedPosition()
     //         .getTranslation()
-    //         .getDistance(Limelight.getInstance().getLimelightPose().getTranslation())
-    //     <= 2.5 &&
-    //     Limelight.getInstance().getLimelightPose().getTranslation().getDistance(new Translation2d(0, 0)) > 1.5) {
+    //         .getDistance(Limelight.getLaunchLimelight().getLimelightPose().getTranslation())
+    //           <= 2.5 &&
+    //     Limelight.getLaunchLimelight().getLimelightPose().getTranslation().getDistance(new Translation2d(0, 0)) > 0.5) {
     //   poseEstimator.addVisionMeasurement(
-    //       Limelight.getInstance().getLimelightPose(),
-    //       Timer.getFPGATimestamp() - (Limelight.getInstance().getBotPose()[6] / 1000.0),
-    //       VecBuilder.fill(
-    //           1
-    //               - Math.pow(
-    //                   Limelight.getInstance().getA(),
-    //                   apriltagTrustMultiplier
-    //                       .get()), // Higher the multiplier the closer it has to be to the tag to
-    //           // trust it
-    //           1 - Math.pow(Limelight.getInstance().getA(), apriltagTrustMultiplier.get()),
-    //           0.9));
+    //       Limelight.getLaunchLimelight().getLimelightPose(),
+    //       Timer.getFPGATimestamp() - (Limelight.getLaunchLimelight().getBotPose()[6] / 1000.0));
     // }
 
   }

@@ -15,6 +15,8 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
@@ -113,7 +115,12 @@ public class SwerveModule {
    * @return The current position of the module.
    */
   public SwerveModulePosition getPosition() {
-    return new SwerveModulePosition(getDriveMeters(), getHeadingRotation2d());
+    if (DriverStation.isTeleop() && DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
+      return new SwerveModulePosition(-getDriveMeters(), getHeadingRotation2d());
+    } else {
+      return new SwerveModulePosition(getDriveMeters(), getHeadingRotation2d());
+    }
+    
   }
 
   public void resetAngleToAbsolute() {

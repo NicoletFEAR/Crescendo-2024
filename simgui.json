@@ -32,8 +32,8 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/Shuffleboard/Info/Field": "Field2d",
-      "/Shuffleboard/Main/Auto Picker": "String Chooser",
       "/Shuffleboard/Main/Field": "Field2d",
+      "/Shuffleboard/Main/SendableChooser[0]": "String Chooser",
       "/SmartDashboard/Mech2d": "Mechanism2d"
     },
     "windows": {
@@ -56,7 +56,7 @@
           "visible": true
         }
       },
-      "/Shuffleboard/Main/Auto Picker": {
+      "/Shuffleboard/Main/SendableChooser[0]": {
         "window": {
           "visible": true
         }

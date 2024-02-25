@@ -91,7 +91,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("wn2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_2));
     NamedCommands.registerCommand("wn3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_3));
 
-    autoChooser = AutoBuilder.buildAutoChooser();
+    autoChooser = AutoBuilder.buildAutoChooser("None");
+
+    mainTab.add(autoChooser);
 
     // CONFIGURE DEFAULT COMMANDS \\
     m_drivebase.setDefaultCommand(
