@@ -15,6 +15,7 @@ import com.revrobotics.SparkPIDController.ArbFFUnits;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Mode;
@@ -297,6 +298,12 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
     if (!(m_profileStartTime == -1)) {
       runToSetpoint();
     }
+
+    SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
+    SmartDashboard.putString(m_constants.kSubsystemName + " Desired State", m_desiredState.getName());
+
+    SmartDashboard.putNumber(m_constants.kSubsystemName + " Current Position", getPosition()[0]);
+    SmartDashboard.putNumber(m_constants.kSubsystemName + " Desired Position", m_desiredState.getPosition()[0]);
 
     subsystemPeriodic();
   }

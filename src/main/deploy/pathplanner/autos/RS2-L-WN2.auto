@@ -22,6 +22,18 @@
           "data": {
             "pathName": "RS2-WN2"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "WN2-RS2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferLaunch"
+          }
         }
       ]
     }

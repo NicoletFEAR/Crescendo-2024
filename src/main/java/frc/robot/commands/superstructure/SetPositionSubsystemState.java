@@ -6,45 +6,25 @@ package frc.robot.commands.superstructure;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.templates.PositionSubsystem;
-import frc.robot.subsystems.templates.SuperstructureSubsystem;
 import frc.robot.subsystems.templates.PositionSubsystem.PositionSubsystemState;
-import frc.robot.subsystems.templates.SuperstructureSubsystem.SuperstructureState;
 
 public class SetPositionSubsystemState extends Command {
   /** Creates a new SetMechState. */
   private PositionSubsystem m_subsystem;
   private PositionSubsystemState m_subsystemState;
 
-  private SuperstructureSubsystem m_superstructure;
-  private SuperstructureState m_superstructureState;
-
-  public SetPositionSubsystemState(PositionSubsystem subsystem, PositionSubsystemState subsystemState, SuperstructureSubsystem superstructure, SuperstructureState superstructureState) {
-    m_subsystem = subsystem;
-    m_subsystemState = subsystemState;
-    m_superstructure = superstructure;
-    m_superstructureState = superstructureState;
-
-    addRequirements(m_subsystem);
-  }
-
   public SetPositionSubsystemState(PositionSubsystem subsystem, PositionSubsystemState subsystemState) {
     m_subsystem = subsystem;
     m_subsystemState = subsystemState;
-    m_superstructure = null;
-    m_superstructureState = null;
 
     addRequirements(m_subsystem);
   }
+
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     m_subsystem.setDesiredState(m_subsystemState, true);
-    if (m_superstructure != null) {
-      m_superstructure.setDesiredState(m_superstructureState);
-      m_superstructure.setCurrentState(m_superstructure.getTransitionState());
-    }
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -13,7 +13,6 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -25,7 +24,6 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
-import frc.robot.subsystems.Limelight;
 import frc.lib.utilities.GeometryUtils;
 import frc.lib.utilities.SwerveModuleConstants;
 import java.util.ArrayList;
@@ -37,7 +35,7 @@ public class SwerveDrive extends SubsystemBase {
 
   private final Pigeon2 m_pigeon = new Pigeon2(Constants.DriveConstants.kPigeon, "CANivore");
 
-  private Pose2d targetPPPose = new Pose2d(0, 0, new Rotation2d(0));
+  // private Pose2d targetPPPose = new Pose2d(0, 0, new Rotation2d(0));
   public static List<Pose2d> ppPath = new ArrayList<>();
 
   public final Field2d m_field = new Field2d();
@@ -109,10 +107,10 @@ public class SwerveDrive extends SubsystemBase {
 
     RobotContainer.mainTab.add(m_field);
 
-    PathPlannerLogging.setLogTargetPoseCallback(
-        (targetPose) -> {
-          targetPPPose = targetPose;
-        });
+    // PathPlannerLogging.setLogTargetPoseCallback(
+    //     (targetPose) -> {
+    //       targetPPPose = targetPose;
+    //     });
 
     PathPlannerLogging.setLogActivePathCallback(
         (activePath) -> {
@@ -170,6 +168,10 @@ public class SwerveDrive extends SubsystemBase {
 
   public void zeroGyroscope() {
     m_pigeon.setYaw(0);
+  }
+
+  public void setGyro(double value) {
+    m_pigeon.setYaw(value);
   }
 
   public void drive(

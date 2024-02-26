@@ -9,6 +9,8 @@ import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Mode;
@@ -116,6 +118,8 @@ public abstract class VoltageSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     subsystemPeriodic();
+
+    SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
   }
 
   public abstract void subsystemPeriodic();

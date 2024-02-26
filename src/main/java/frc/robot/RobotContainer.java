@@ -20,7 +20,6 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
-import frc.robot.commands.superstructure.SetLedState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.subsystems.intake.ElevatorLift;
@@ -39,7 +38,6 @@ import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.leds.LED;
-import frc.robot.subsystems.leds.LED.LEDState;
 import frc.robot.subsystems.swerve.SwerveDrive;
 
 /*
@@ -85,13 +83,11 @@ public class RobotContainer {
   public RobotContainer() {
 
     // NAMED COMMANDS FOR AUTO \\
-    NamedCommands.registerCommand("intake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.AUTO_INTAKING)
-      .andThen(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.THRU_INTAKE_INTAKING)));
+    NamedCommands.registerCommand("intake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.BEAM_BREAK_INTAKING));
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
-    NamedCommands.registerCommand("wn1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_1));
-    NamedCommands.registerCommand("wn2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_2));
-    NamedCommands.registerCommand("wn3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_3));
-
+    NamedCommands.registerCommand("resetGyro60", new InstantCommand(() -> m_drivebase.setGyro(60)));
+    NamedCommands.registerCommand("resetGyro-60", new InstantCommand(() -> m_drivebase.setGyro(-60)));
+    
     autoChooser = AutoBuilder.buildAutoChooser("None");
 
     mainTab.add(autoChooser);
@@ -160,15 +156,9 @@ public class RobotContainer {
     m_driverController.create().onTrue(new InstantCommand(m_drivebase::zeroGyroscope));
 
     m_driverController.cross().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
-
-    /// LEDS /////
-    m_driverController.pov(0).onTrue(new SetLedState(LEDState.OFF));
-    m_driverController.pov(90).onTrue(new SetLedState(LEDState.BLUE));
-    m_driverController.pov(180).onTrue(new SetLedState(LEDState.ORANGE_WIPE));
-    m_driverController.pov(270).onTrue(new SetLedState(LEDState.BLUE_WIPE));
     
     ///// INTAKE /////
-    m_operatorController.a().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TELE_INTAKING));
+    m_operatorController.a().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.BEAM_BREAK_INTAKING));
 
     m_operatorController.rightStick().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TOF_INTAKING));
 
@@ -187,9 +177,6 @@ public class RobotContainer {
     ///// LAUNCH /////
     m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
     m_operatorController.pov(180).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
-
-    m_operatorController.pov(0).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.PODIUM));
-    m_operatorController.pov(0).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
 
     m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
     m_operatorController.pov(270).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.OFF));

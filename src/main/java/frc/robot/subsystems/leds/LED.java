@@ -6,8 +6,12 @@ import java.util.Arrays;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
+import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
 public class LED extends SubsystemBase {
     
@@ -22,9 +26,9 @@ public class LED extends SubsystemBase {
       ));
     
     
-      private static ArrayList<Double> cometEffect = new ArrayList<>(Arrays.asList(
-        0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9
-      ));
+      // private static ArrayList<Double> cometEffect = new ArrayList<>(Arrays.asList(
+      //   0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9
+      // ));
     
     
       
@@ -69,7 +73,7 @@ public class LED extends SubsystemBase {
         return m_instance;
       }
     
-      public void setState(LEDState desiredState) {
+      public static void setState(LEDState desiredState) {
         m_currentState = desiredState;
         if (desiredState.ledRunnable == null) {
           setRGB(desiredState.red, desiredState.green, desiredState.blue);
@@ -177,6 +181,47 @@ public class LED extends SubsystemBase {
           hasEffect = false;
           setState(m_currentState);
         } 
+
+        updateBasedOnMechs();
+
+        SmartDashboard.putString("LED State", getCurrentState().name());
+      }
+
+      public void updateBasedOnMechs() {
+        LEDState desiredState = null;
+
+        if (DriverStation.isEnabled()) {
+          if (RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.TRANSITION ||
+                RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.TRANSITION) {
+            if (RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.AMP_PREPARE) {
+              desiredState = LEDState.ORANGE_BLINKING;
+            } else if (RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TOF_INTAKING ||
+                RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING) {
+              desiredState = LEDState.RED_BLINKING;
+            } else if (RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.SUBWOOFER) {
+              desiredState = LEDState.BLUE_REVVING;
+            } else if (RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.STOWED ||
+                        RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.STOWED) {
+              desiredState = LEDState.GREEN_BLINKING;
+            }
+          } else if (RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.SUBWOOFER) {
+            desiredState = LEDState.BLUE_FLASHING;
+          } else if (RobotContainer.m_intakeSuperstructure.timeOfFlightBlocked() || RobotContainer.m_launcherSuperstructure.getNoteInLauncher()) {
+            desiredState = LEDState.BLUE;
+          } else if (RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.TOF_INTAKING ||
+                      RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING) {
+              desiredState = LEDState.RED;
+          } else if (RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.AMP_PREPARE) {
+            desiredState = LEDState.ORANGE;
+          } else if (RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.STOWED ||
+                        RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.STOWED) {
+              desiredState = LEDState.GREEN;
+          }
+        }
+
+        if (desiredState != null && m_currentState != desiredState) {
+          setState(desiredState);
+        }
       }
     
       private ArrayList<Double> createLoopingEffect(ArrayList<Double> initialList, int targetLength) {
@@ -223,17 +268,22 @@ public class LED extends SubsystemBase {
         YELLOW(255,255,25, "Yellow", null),
         WHITE(255, 255, 255, "White", null),
 
-        GREEN_BLINKING(0, 255, 0, "Green Blinking", () -> LED.flash(0.35)),
+        ORANGE_BLINKING(255, 102, 25, "Orange Blinking", () -> LED.flash(0.15)),
+        GREEN_BLINKING(0, 255, 0, "Green Blinking", () -> LED.flash(0.15)),
+        RED_BLINKING(255, 0, 0, "Red Blinking", () -> LED.flash(0.15)),
 
-        REVVING(0, 255, 0, "Revving", LED::setLedToLauncherVelocity),
-        GREEN_FLASHING(0, 255, 0, "Launching", () -> LED.flash(0.1)),
+        GREEN_REVVING(0, 255, 0, "Revving", LED::setLedToLauncherVelocity),
+        BLUE_REVVING(0, 0, 255, "Blue Revving", LED::setLedToLauncherVelocity),
+
+        GREEN_FLASHING(0, 255, 0, "Green Flashing", () -> LED.flash(0.05)),
+        BLUE_FLASHING(0, 0, 255, "Blue Flashing", () -> LED.flash(0.05)),
 
         BLUE_WIPE(0, 0, 255, "Blue Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
         ORANGE_WIPE(255, 102, 25, "Orange Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
-        YELLOW_WIPE(255, 255, 25, "Yellow Wipe", () -> LED.runEffect(wiperEffect, 0.02));
+        YELLOW_WIPE(255, 255, 25, "Yellow Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
 
         // RAINBOW(0, 0, 0, "Rainbow",  LED::rainbow),
-        // TEAL_WIPE(0, 122, 133, "Teal Wipe", () ->  LED.runEffect(wiperEffect, .04)),
+        TEAL(0, 122, 133, "Teal", null);
         // TEAL_RAIN(0, 122, 133, "Teal Rain", () ->  LED.runEffect(rainEffect, .2)),
         // TEAL_PULSE(0, 122, 133, "Teal Pulse", () ->  LED.pulse(.01)),
         // BLUE_FLASH(0, 0, 255, "Blue Flash", () ->  LED.flash(.2)),

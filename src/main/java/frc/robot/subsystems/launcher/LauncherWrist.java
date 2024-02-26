@@ -76,7 +76,7 @@ public class LauncherWrist extends PositionSubsystem {
     public enum LauncherWristState implements PositionSubsystemState {
         DOWN(0, 0, "Down"),
         UP(45, 0, "Up"),
-        SUBWOOFER(91.44, 0, "Subwoofer"), // use when against base of speaker
+        SUBWOOFER(100, 0, "Subwoofer"), // use when against base of speaker
         WING_NOTE_1(56.66, 0, "Wing Note 1"),
         WING_NOTE_2(56.66, 0, "Wing Note 2"),
         WING_NOTE_3(56.66, 0, "Wing Note 3"),
@@ -133,7 +133,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristLeaderConstants.kMotorType = MotorType.kBrushless;
             kLauncherWristLeaderConstants.kCurrentLimit = 80;
             kLauncherWristLeaderConstants.kInverted = false;
-            kLauncherWristLeaderConstants.kKp = 0.06;
+            kLauncherWristLeaderConstants.kKp = 0.07;
             kLauncherWristLeaderConstants.kKi = 0.0;
             kLauncherWristLeaderConstants.kKd = 0.0;
             kLauncherWristLeaderConstants.kKff = 0.0;
@@ -156,12 +156,12 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristConstants.kHomePosition = 0;
             kLauncherWristConstants.kPositionConversionFactor = 360/100;
 
-            kLauncherWristConstants.kSetpointTolerance = .5;
+            kLauncherWristConstants.kSetpointTolerance = .25;
 
             kLauncherWristConstants.kDefaultSlot = 0;
 
-            kLauncherWristConstants.kMaxVelocity = 200;
-            kLauncherWristConstants.kMaxAcceleration = 175;
+            kLauncherWristConstants.kMaxVelocity = 300;
+            kLauncherWristConstants.kMaxAcceleration = 275;
 
             kLauncherWristConstants.kMaxPosition = 100;
             kLauncherWristConstants.kMinPosition = 20;

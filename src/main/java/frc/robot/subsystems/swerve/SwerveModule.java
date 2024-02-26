@@ -47,7 +47,7 @@ public class SwerveModule {
   double m_lastAngle;
   double m_lastPercentOutput;
 
-  private int m_moduleNumber;
+  // private int m_moduleNumber;
 
   /**
    * Constructs a SwerveModule.
@@ -56,7 +56,7 @@ public class SwerveModule {
    * @param swerveModuleConstants Swerve modules constants to setup swerve module
    */
   public SwerveModule(int moduleNumber, SwerveModuleConstants swerveModuleConstants) {
-    m_moduleNumber = moduleNumber;
+    // m_moduleNumber = moduleNumber;
 
     m_driveMotor =
         new CANSparkFlex(

@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.templates.MultiMotorPositionSubsystem;
@@ -32,12 +31,7 @@ public class ElevatorLift extends MultiMotorPositionSubsystem {
     }
 
     @Override
-    public void subsystemPeriodic() {
-      SmartDashboard.putNumber("right intend", this.getCurrentState().getPosition()[0]);
-      SmartDashboard.putNumber("left intend", this.getCurrentState().getPosition()[1]);
-      SmartDashboard.putNumber("right current", this.getPosition()[0]);
-      SmartDashboard.putNumber("left current", this.getPosition()[1]);
-    }
+    public void subsystemPeriodic() {}
 
     @Override
     public void outputTelemetry() {

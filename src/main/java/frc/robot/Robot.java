@@ -17,6 +17,8 @@ import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.leds.LED;
+import frc.robot.subsystems.leds.LED.LEDState;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -75,7 +77,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    LED.setState(LEDState.TEAL);
+  }
 
   /** This function is called periodically when disabled. */
   @Override

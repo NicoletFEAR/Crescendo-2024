@@ -9,7 +9,6 @@ import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.templates.PositionSubsystem;
 
@@ -36,10 +35,7 @@ public class IntakeWrist extends PositionSubsystem {
     }
 
     @Override
-    public void subsystemPeriodic() {
-        SmartDashboard.putNumber("wrist intend", getCurrentState().getPosition());
-        SmartDashboard.putNumber("wrist current", getPosition());
-    }
+    public void subsystemPeriodic() {}
 
     @Override
     public void outputTelemetry() { }
@@ -145,7 +141,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristConstants.kPositionConversionFactor = 1.0; 
 
             // Tolerance for atSetpoint()
-            kIntakeWristConstants.kSetpointTolerance = 1.5; 
+            kIntakeWristConstants.kSetpointTolerance = .5; 
 
             // PID Slot, make more if more than one set of pid constants are used
             kIntakeWristConstants.kDefaultSlot = 0; 

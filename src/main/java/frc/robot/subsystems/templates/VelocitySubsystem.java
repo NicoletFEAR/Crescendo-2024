@@ -13,6 +13,7 @@ import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.SparkPIDController.ArbFFUnits;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
@@ -144,6 +145,9 @@ public abstract class VelocitySubsystem extends SubsystemBase {
         m_currentState.setVelocity(getVelocity());
     }
 
+    SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
+    SmartDashboard.putString(m_constants.kSubsystemName + " Desired State", m_desiredState.getName());
+    
     subsystemPeriodic();
   }
 

@@ -16,6 +16,7 @@ import com.revrobotics.SparkPIDController.ArbFFUnits;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Mode;
@@ -36,7 +37,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
   protected TrapezoidProfile m_profile;
   protected TrapezoidProfile m_unzeroedProfile;
   protected TrapezoidProfile.State m_goal = new TrapezoidProfile.State();
-  protected TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
+  protected TrapezoidProfile.State m_setpoint;
 
   protected double m_profileStartPosition = 0;
   protected double m_profileStartVelocity = 0;
@@ -140,6 +141,8 @@ public abstract class PositionSubsystem extends SubsystemBase {
             new TrapezoidProfile.Constraints(
                 m_constants.kMaxVelocity * .01, m_constants.kMaxAcceleration * .01));
 
+    m_setpoint = new TrapezoidProfile.State(m_constants.kInitialState.getPosition(), m_constants.kInitialState.getVelocity());
+
     m_pidController.setReference(
         m_currentState.getPosition(),
         ControlType.kPosition,
@@ -152,6 +155,7 @@ public abstract class PositionSubsystem extends SubsystemBase {
 
   public void runToSetpoint() {
 
+    System.out.println(m_profileStartPosition);
     if (m_hasBeenZeroed) {
       m_setpoint =
           m_profile.calculate(
@@ -305,6 +309,13 @@ public abstract class PositionSubsystem extends SubsystemBase {
     if (!(m_profileStartTime == -1)) {
       runToSetpoint();
     }
+
+    SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
+    SmartDashboard.putString(m_constants.kSubsystemName + " Desired State", m_desiredState.getName());
+
+
+    SmartDashboard.putNumber(m_constants.kSubsystemName + " Current Position", getPosition());
+    SmartDashboard.putNumber(m_constants.kSubsystemName + " Desired Position", m_desiredState.getPosition());
 
     subsystemPeriodic();
   }

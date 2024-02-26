@@ -22,9 +22,9 @@ public class Limelight extends SubsystemBase {
   private NetworkTableInstance m_visionTable;
   private NetworkTableEntry m_tv;
   private NetworkTableEntry m_ta;
-  private NetworkTableEntry m_tl;
-  private NetworkTableEntry m_cl;
-  private NetworkTableEntry m_tcornxy;
+  // private NetworkTableEntry m_tl;
+  // private NetworkTableEntry m_cl;
+  // private NetworkTableEntry m_tcornxy;
   private NetworkTableEntry m_botpose;
   private NetworkTableEntry m_targetpose_robotspace;
 
@@ -54,9 +54,9 @@ public class Limelight extends SubsystemBase {
     m_visionTable = NetworkTableInstance.getDefault();
     m_tv = m_visionTable.getEntry("tv");
     m_ta = m_visionTable.getEntry("ta");
-    m_tl = m_visionTable.getEntry("tl");
-    m_cl = m_visionTable.getEntry("cl");
-    m_tcornxy = m_visionTable.getEntry("tcornxy");
+    // m_tl = m_visionTable.getEntry("tl");
+    // m_cl = m_visionTable.getEntry("cl");
+    // m_tcornxy = m_visionTable.getEntry("tcornxy");
     m_botpose = m_visionTable.getEntry("botpose");
     m_targetpose_robotspace = m_visionTable.getEntry("targetpose_robotspace");
 
@@ -96,9 +96,9 @@ public class Limelight extends SubsystemBase {
     currentData = m_visionTable.getTable(camName);
     m_tv = currentData.getEntry("tv");
     m_ta = currentData.getEntry("ta");
-    m_tl = currentData.getEntry("tl");
-    m_cl = currentData.getEntry("cl");
-    m_tcornxy = currentData.getEntry("tcornxy");
+    // m_tl = currentData.getEntry("tl");
+    // m_cl = currentData.getEntry("cl");
+    // m_tcornxy = currentData.getEntry("tcornxy");
     m_botpose = currentData.getEntry("botpose_wpiblue");
     m_targetpose_robotspace = currentData.getEntry("targetpose_robotspace");
 
