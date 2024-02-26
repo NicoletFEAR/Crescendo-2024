@@ -173,15 +173,19 @@ public class RobotContainer {
       .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF)));
 
     m_operatorController.start().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL));
+
+    m_operatorController.back().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.CLIMB_PREPARE));
   
     ///// LAUNCH /////
     m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
     m_operatorController.pov(180).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
 
-    m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
-    m_operatorController.pov(270).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.OFF));
-    m_operatorController.pov(270).onTrue(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF));
-    m_operatorController.pov(90).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
+    ///// SIGNALS /////
+
+    // m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
+    // m_operatorController.pov(270).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.OFF));
+    // m_operatorController.pov(270).onTrue(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF));
+    // m_operatorController.pov(90).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
 }
 
   public Command getAutonomousCommand() {

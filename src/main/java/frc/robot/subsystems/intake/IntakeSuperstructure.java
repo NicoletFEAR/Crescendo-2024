@@ -179,12 +179,12 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         ElevatorLiftState.AMP,
         IntakeHoldState.OFF,
         "Amp Prepare"),
-    AMP_SHOOT(
-      IntakeFlywheelState.AMP,
-      IntakeWristState.AMP,
-      ElevatorLiftState.AMP,
-      IntakeHoldState.AMP,
-      "Amp Prepare"),
+    CLIMB_PREPARE(
+      IntakeFlywheelState.OFF,
+      IntakeWristState.TRAVEL,
+      ElevatorLiftState.CLIMB,
+      IntakeHoldState.OFF,
+      "Climb Prepare"),
     EJECT(
         IntakeFlywheelState.EJECTING,
         IntakeWristState.DOWN,
