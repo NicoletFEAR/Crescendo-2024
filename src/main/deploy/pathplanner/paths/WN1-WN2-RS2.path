@@ -16,22 +16,6 @@
     },
     {
       "anchor": {
-        "x": 2.6679664170139152,
-        "y": 6.083014688551899
-      },
-      "prevControl": {
-        "x": 2.4276041344875483,
-        "y": 6.314132267904176
-      },
-      "nextControl": {
-        "x": 2.908328699540282,
-        "y": 5.851897109199623
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
         "x": 1.289059442979394,
         "y": 5.542181421689331
       },
@@ -44,23 +28,7 @@
       "linkedName": "WN2-RS2"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.95,
-      "rotationDegrees": -63.55000000000001,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 1.85,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.65,
-      "rotationDegrees": -63.55000000000001,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
