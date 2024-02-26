@@ -154,8 +154,6 @@ public abstract class PositionSubsystem extends SubsystemBase {
   }
 
   public void runToSetpoint() {
-
-    System.out.println(m_profileStartPosition);
     if (m_hasBeenZeroed) {
       m_setpoint =
           m_profile.calculate(

@@ -20,6 +20,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
+import frc.robot.commands.superstructure.SetLEDState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.subsystems.intake.ElevatorLift;
@@ -38,6 +39,7 @@ import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.leds.LED;
+import frc.robot.subsystems.leds.LED.LEDState;
 import frc.robot.subsystems.swerve.SwerveDrive;
 
 /*
@@ -181,6 +183,10 @@ public class RobotContainer {
     m_operatorController.pov(180).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
 
     ///// SIGNALS /////
+
+    m_operatorController.pov(270).onTrue(new SetLEDState(LEDState.BLUE_WIPE, 3));
+    m_operatorController.pov(90).onTrue(new SetLEDState(LEDState.ORANGE_WIPE, 100));
+    m_operatorController.pov(90).onFalse(new SetLEDState(LEDState.ORANGE_WIPE, -1));
 
     // m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
     // m_operatorController.pov(270).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.OFF));

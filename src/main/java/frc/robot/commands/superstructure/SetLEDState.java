@@ -13,14 +13,16 @@ import frc.robot.subsystems.leds.LED.LEDState;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SetLEDState extends InstantCommand {
   LEDState m_state;
-  public SetLEDState(LEDState state) {
+  double m_seconds;
 
+  public SetLEDState(LEDState state, double seconds) {
     m_state = state;
+    m_seconds = seconds;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      LED.setState(m_state);
+      LED.setState(m_state, m_seconds);
   }
 }

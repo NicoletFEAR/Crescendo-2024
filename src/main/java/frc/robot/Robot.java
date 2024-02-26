@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
-    LED.setState(LEDState.TEAL);
+    LED.setState(LEDState.RED);
   }
 
   /** This function is called periodically when disabled. */

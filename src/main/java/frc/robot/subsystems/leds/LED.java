@@ -15,9 +15,9 @@ import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructu
 
 public class LED extends SubsystemBase {
     
-    private static ArrayList<Double> wiperEffect = new ArrayList<>(Arrays.asList(
-        0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
-      ));
+    // private static ArrayList<Double> wiperEffect = new ArrayList<>(Arrays.asList(
+    //     0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+    //   ));
     
     
       // Size has to be divisible by length of led
@@ -29,6 +29,10 @@ public class LED extends SubsystemBase {
       // private static ArrayList<Double> cometEffect = new ArrayList<>(Arrays.asList(
       //   0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9
       // ));
+
+    private static ArrayList<Double> wiperEffect = new ArrayList<>(Arrays.asList(
+      0.1, 0.4, 0.8, 1.0, 1.0, 1.0, 1.0, 0.8, 0.4, 0.1
+    ));
     
     
       
@@ -51,11 +55,22 @@ public class LED extends SubsystemBase {
       private static double pulseMultiplier = 1.0;
     
       private static boolean pulseIncreasing = false;
+
+      private static double m_effectRunTime = -1;
+
+      // Robot States
+
+      private static boolean transition = false;
+      private static boolean intaking = false;
+      private static boolean noteInRobot = false;
+      private static boolean ampPrepare = false;
+      private static boolean launching = false;
+      private static boolean stowed = false;
       
       public LED(AddressableLED led, int length) {
         m_led = led;
     
-        wiperEffect = setToLength(wiperEffect, length);
+        wiperEffect = createLoopingEffect(wiperEffect, length);
         rainEffect = createLoopingEffect(rainEffect, length);
     
         m_ledBuffer = new AddressableLEDBuffer(length);
@@ -78,6 +93,11 @@ public class LED extends SubsystemBase {
         if (desiredState.ledRunnable == null) {
           setRGB(desiredState.red, desiredState.green, desiredState.blue);
         }
+      }
+
+      public static void setState(LEDState desiredState, double seconds) {
+        setState(desiredState);
+        m_effectRunTime = seconds;
       }
     
       public static void setRGB(int r, int g, int b) {
@@ -184,38 +204,65 @@ public class LED extends SubsystemBase {
 
         updateBasedOnMechs();
 
+        if (m_effectRunTime > 0) {
+          m_effectRunTime -= 0.02;
+        } else if (m_effectRunTime != -1 && m_effectRunTime <= 0) {
+          m_effectRunTime = -1;
+        }
+
         SmartDashboard.putString("LED State", getCurrentState().name());
       }
 
       public void updateBasedOnMechs() {
         LEDState desiredState = null;
 
-        if (DriverStation.isEnabled()) {
-          if (RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.TRANSITION ||
-                RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.TRANSITION) {
-            if (RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.AMP_PREPARE) {
-              desiredState = LEDState.ORANGE_BLINKING;
-            } else if (RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TOF_INTAKING ||
-                RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING) {
-              desiredState = LEDState.RED_BLINKING;
-            } else if (RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.SUBWOOFER) {
-              desiredState = LEDState.BLUE_REVVING;
-            } else if (RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.STOWED ||
-                        RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.STOWED) {
-              desiredState = LEDState.GREEN_BLINKING;
+        transition = RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.TRANSITION ||
+                RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.TRANSITION;
+        noteInRobot = RobotContainer.m_launcherSuperstructure.getNoteInLauncher() || RobotContainer.m_intakeSuperstructure.timeOfFlightBlocked();
+        ampPrepare = RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.AMP_PREPARE;
+        launching = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.SUBWOOFER;
+        intaking = RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TOF_INTAKING ||
+                RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING;
+        stowed = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.STOWED ||
+                        RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.STOWED ||
+                        RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TRAVEL;
+        
+
+
+
+        if (DriverStation.isEnabled() && m_effectRunTime == -1) {
+          if (transition) {
+            if (noteInRobot) {
+              if (launching) {
+                desiredState = LEDState.GREEN_REVVING;
+              } else if (ampPrepare || stowed) {
+                desiredState = LEDState.GREEN_BLINKING;
+              } else if (intaking) {
+                desiredState = LEDState.RED_BLINKING;
+              }
+            } else {
+              if (ampPrepare || launching) {
+                desiredState = LEDState.RED_BLINKING;
+              } else if (intaking || stowed) {
+                desiredState = LEDState.TEAL_BLINKING;
+              }
             }
-          } else if (RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.SUBWOOFER) {
-            desiredState = LEDState.BLUE_FLASHING;
-          } else if (RobotContainer.m_intakeSuperstructure.timeOfFlightBlocked() || RobotContainer.m_launcherSuperstructure.getNoteInLauncher()) {
-            desiredState = LEDState.BLUE;
-          } else if (RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.TOF_INTAKING ||
-                      RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING) {
-              desiredState = LEDState.RED;
-          } else if (RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.AMP_PREPARE) {
-            desiredState = LEDState.ORANGE;
-          } else if (RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.STOWED ||
-                        RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.STOWED) {
-              desiredState = LEDState.GREEN;
+          } else {
+            if (noteInRobot) {
+              if (launching) {
+                desiredState = LEDState.GREEN_FLASHING;
+              } else if (ampPrepare || stowed) {
+                desiredState = LEDState.GREEN;
+              }  else if (intaking) {
+                desiredState = LEDState.RED;
+              }
+            } else {
+              if (ampPrepare || launching) {
+                desiredState = LEDState.RED;
+              } else if (stowed || intaking) {
+                desiredState = LEDState.TEAL;
+              }
+            }
           }
         }
 
@@ -271,6 +318,7 @@ public class LED extends SubsystemBase {
         ORANGE_BLINKING(255, 102, 25, "Orange Blinking", () -> LED.flash(0.15)),
         GREEN_BLINKING(0, 255, 0, "Green Blinking", () -> LED.flash(0.15)),
         RED_BLINKING(255, 0, 0, "Red Blinking", () -> LED.flash(0.15)),
+        TEAL_BLINKING(0, 122, 133, "Teal Blinking", () -> LED.flash(0.15)),
 
         GREEN_REVVING(0, 255, 0, "Revving", LED::setLedToLauncherVelocity),
         BLUE_REVVING(0, 0, 255, "Blue Revving", LED::setLedToLauncherVelocity),
@@ -278,8 +326,10 @@ public class LED extends SubsystemBase {
         GREEN_FLASHING(0, 255, 0, "Green Flashing", () -> LED.flash(0.05)),
         BLUE_FLASHING(0, 0, 255, "Blue Flashing", () -> LED.flash(0.05)),
 
-        BLUE_WIPE(0, 0, 255, "Blue Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
-        ORANGE_WIPE(255, 102, 25, "Orange Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
+        BLUE_WIPE(0, 0, 255, "Blue Wipe", () -> LED.runEffect(wiperEffect, 0.04)),
+        ORANGE_WIPE(255, 102, 25, "Orange Wipe", () -> LED.runEffect(wiperEffect, 0.04)),
+
+
         YELLOW_WIPE(255, 255, 25, "Yellow Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
 
         // RAINBOW(0, 0, 0, "Rainbow",  LED::rainbow),
