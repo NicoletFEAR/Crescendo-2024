@@ -87,6 +87,7 @@ public class RobotContainer {
 
     // NAMED COMMANDS FOR AUTO \\
     NamedCommands.registerCommand("intake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.BEAM_BREAK_INTAKING));
+    NamedCommands.registerCommand("fastIntake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING));
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
     NamedCommands.registerCommand("idle", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
     NamedCommands.registerCommand("stow", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));

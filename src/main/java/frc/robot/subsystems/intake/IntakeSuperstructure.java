@@ -4,6 +4,7 @@ import com.playingwithfusion.TimeOfFlight;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
@@ -96,6 +97,16 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
         new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState)
       );
+    } else if (intakeDesiredState == IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING) {
+        outputCommand.addCommands(
+          new ParallelCommandGroup(
+            new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
+            new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState),
+            new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState),
+            new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState),
+            RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.INTAKE_TO_LAUNCH)
+          )
+        );
     }
 
      else {
@@ -119,7 +130,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = intakeDesiredState));
 
-    if (intakeDesiredState == IntakeSuperstructureState.BEAM_BREAK_INTAKING) {
+    if (intakeDesiredState == IntakeSuperstructureState.BEAM_BREAK_INTAKING || intakeDesiredState == IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING) {
       outputCommand.addCommands(
         new WaitForLaunchNote(),
         new WaitCommand(.1),
@@ -163,6 +174,12 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         IntakeHoldState.INTAKING,
         "Auto Intaking"),
     BEAM_BREAK_INTAKING( 
+        IntakeFlywheelState.INTAKING,
+        IntakeWristState.DOWN,
+        ElevatorLiftState.STOWED,
+        IntakeHoldState.INTAKING,
+        "Beam Break Intaking"),
+    FAST_BEAM_BREAK_INTAKING( 
         IntakeFlywheelState.INTAKING,
         IntakeWristState.DOWN,
         ElevatorLiftState.STOWED,
