@@ -32,6 +32,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
   protected double[] m_arbFeedforward;
 
   protected double simpos = 0;
+  protected boolean isStopping = false;
 
   protected VelocitySubsystem(final VelocitySubsystemConstants constants) {
 
@@ -80,7 +81,10 @@ public abstract class VelocitySubsystem extends SubsystemBase {
       m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
       m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
 
-      m_motors[i].burnFlash();
+      if (!(m_motors[i].getPIDController().getP() == m_constants.kMotorConstants[i].kKp)) {
+        m_motors[i].burnFlash();
+      }
+      
     }
 
     setName(m_constants.kSubsystemName);
@@ -103,7 +107,10 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     for (int i = 0; i < m_pidControllers.length; i++) {
       m_pidControllers[i].setReference(m_desiredState.getVelocity()[i], ControlType.kVelocity, m_constants.kDefaultSlot, m_arbFeedforward[i], ArbFFUnits.kVoltage);
       if (desiredState.getVelocity()[i] == 0) {
+        isStopping = true;
         m_motors[i].stopMotor();
+      } else {
+        isStopping = false;
       }
     }
   }
@@ -116,6 +123,10 @@ public abstract class VelocitySubsystem extends SubsystemBase {
         output = false;
         break;
       }
+    }
+
+    if (isStopping == true) {
+      return true;
     }
 
     return output;

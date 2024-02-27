@@ -4,12 +4,13 @@
   "holonomicMode": true,
   "pathFolders": [
     "Center Paths",
-    "Wing Note 3",
+    "Fake Start Pos",
     "Start Pos 1",
     "Start Pos 2",
     "Start Pos 3",
     "Wing Note 1",
-    "Wing Note 2"
+    "Wing Note 2",
+    "Wing Note 3"
   ],
   "autoFolders": [
     "Start Pos 3",

@@ -3,52 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.289059442979394,
-        "y": 5.25
+        "x": 0.46,
+        "y": 4.13
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3842846515935527,
-        "y": 4.392153196623273
+        "x": 0.8881455952028015,
+        "y": 3.7242082525648916
       },
       "isLocked": false,
-      "linkedName": "WN2-RS2"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.4148382676223257,
-        "y": 3.7
+        "x": 0.74,
+        "y": 4.481469854735888
       },
       "prevControl": {
-        "x": 1.5950797094176201,
-        "y": 3.688289163454219
+        "x": 1.089420170354311,
+        "y": 4.143697023393387
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RS2-WN3"
+      "linkedName": "StartPos3"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 1.75,
@@ -57,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": -60.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Start Pos 2",
+  "folder": "Fake Start Pos",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

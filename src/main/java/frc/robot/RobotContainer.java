@@ -23,6 +23,7 @@ import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetLEDState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
+import frc.robot.commands.waits.WaitForLaunchNote;
 import frc.robot.subsystems.intake.ElevatorLift;
 import frc.robot.subsystems.intake.IntakeFlywheel;
 import frc.robot.subsystems.intake.IntakeHold;
@@ -87,6 +88,9 @@ public class RobotContainer {
     // NAMED COMMANDS FOR AUTO \\
     NamedCommands.registerCommand("intake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.BEAM_BREAK_INTAKING));
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
+    NamedCommands.registerCommand("stow", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
+    NamedCommands.registerCommand("waitForLauncherNote", new WaitForLaunchNote());
+    NamedCommands.registerCommand("keepNoteInLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.KEEP_NOTE_IN_LAUNCH));
     NamedCommands.registerCommand("resetGyro60", new InstantCommand(() -> m_drivebase.setGyro(60)));
     NamedCommands.registerCommand("resetGyro-60", new InstantCommand(() -> m_drivebase.setGyro(-60)));
     
@@ -122,7 +126,7 @@ public class RobotContainer {
       strafeAxis,
       rotationAxis,
       true,
-      DriveConstants.kSprintSpeed,
+      DriveConstants.kSlowSpeed,
       true));
 
     m_driverController.R1().onFalse(new TeleopSwerve(
@@ -178,6 +182,9 @@ public class RobotContainer {
     m_operatorController.start().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL));
 
     m_operatorController.back().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.CLIMB_PREPARE));
+
+    m_operatorController.leftStick().onTrue(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.INTAKE_TO_LAUNCH));
+    m_operatorController.leftStick().onFalse(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF));
   
     ///// LAUNCH /////
     m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));

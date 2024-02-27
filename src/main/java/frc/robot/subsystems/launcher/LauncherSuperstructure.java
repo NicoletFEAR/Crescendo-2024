@@ -13,6 +13,7 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
+import frc.robot.commands.waits.WaitForLaunchNote;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
@@ -72,8 +73,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState)),
         new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)
       );
-    }
-     else {
+    } else {
       outputCommand.addCommands(
         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState)
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState)),
@@ -81,6 +81,14 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)
       );
     }
+
+    if (launcherDesiredState == LauncherSuperstructureState.KEEP_NOTE_IN_LAUNCH) {
+      outputCommand.addCommands(
+        new WaitForLaunchNote().andThen(
+        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.OFF)).unless(this::getNoteInLauncher)
+      );
+    }
+
  
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = launcherDesiredState));
 
@@ -118,7 +126,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         "Stowed"),
     IDLE(
         LauncherFlywheelState.IDLE,
-        LauncherWristState.UP,
+        LauncherWristState.SUBWOOFER,
         LauncherHoldState.OFF,
         "Idle"),
     RUNNING( // arbitrary testing speed
@@ -131,6 +139,11 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         LauncherWristState.UP,
         LauncherHoldState.THRU_INTAKE_INTAKING,
         "Thru Intake Intaking"),
+    KEEP_NOTE_IN_LAUNCH(
+        LauncherFlywheelState.OFF,
+        LauncherWristState.UP,
+        LauncherHoldState.THRU_INTAKE_INTAKING,
+        "Keep Note In Launch"),
     INTAKE_TO_LAUNCH(
         LauncherFlywheelState.OFF,
         LauncherWristState.UP,

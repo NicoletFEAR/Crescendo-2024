@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.3813806186170927,
-        "y": 4.539149258478698
+        "x": 2.4148382676223257,
+        "y": 3.7
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0208371948275423,
-        "y": 5.09383144892416
+        "x": 2.0542948438327753,
+        "y": 4.254682190445463
       },
       "isLocked": false,
       "linkedName": "RS2-WN3"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 1.289059442979394,
-        "y": 5.542181421689331
+        "y": 5.25
       },
       "prevControl": {
         "x": 1.7989643186493578,
-        "y": 5.287970215580071
+        "y": 4.99578879389074
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Keep Note In",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "keepNoteInLaunch"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 1.75,

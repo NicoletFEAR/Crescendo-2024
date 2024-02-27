@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.325912399572547,
-        "y": 6.850325052001455
+        "x": 2.976958421819838,
+        "y": 6.733731013824367
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6787831773841715,
-        "y": 6.878059161521617
+        "x": 2.3298291996314626,
+        "y": 6.761465123344529
       },
       "isLocked": false,
       "linkedName": "RS1-WN1"
@@ -30,10 +30,28 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Keep Note In",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "keepNoteInLaunch"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.75,
+    "maxVelocity": 1.5,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -48,5 +66,5 @@
     "rotation": 12.593329956103126,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

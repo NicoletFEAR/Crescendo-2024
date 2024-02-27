@@ -89,6 +89,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
           .alongWith(
             setSuperstructureState(IntakeSuperstructureState.LAUNCH_TO_INTAKE),
             RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_TO_INTAKE)).unless(() -> this.timeOfFlightBlocked() || !RobotContainer.m_launcherSuperstructure.getNoteInLauncher()),
+        new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, IntakeFlywheelState.OFF),
         new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState)
           .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED), 
             new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState)),
@@ -121,7 +122,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     if (intakeDesiredState == IntakeSuperstructureState.BEAM_BREAK_INTAKING) {
       outputCommand.addCommands(
         new WaitForLaunchNote(),
-        new WaitCommand(.01),
+        new WaitCommand(.1),
         setSuperstructureState(IntakeSuperstructureState.TRAVEL)
         .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED))
       );
@@ -130,7 +131,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     if (intakeDesiredState == IntakeSuperstructureState.TOF_INTAKING) {
       outputCommand.addCommands(
         new WaitForIntakeNote(),
-        setSuperstructureState(IntakeSuperstructureState.STOWED)
+        setSuperstructureState(IntakeSuperstructureState.TRAVEL)
       );
     }
 
@@ -165,7 +166,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         IntakeFlywheelState.INTAKING,
         IntakeWristState.DOWN,
         ElevatorLiftState.STOWED,
-        IntakeHoldState.OFF,
+        IntakeHoldState.INTAKING,
         "Beam Break Intaking"),
     TOF_INTAKING( // note should stop in take flyhweels by the tof logic in this class
         IntakeFlywheelState.INTAKING,
@@ -192,7 +193,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         IntakeHoldState.EJECTING,
         "Ejecting"),
     LAUNCH_TO_INTAKE(
-        IntakeFlywheelState.EJECTING,
+        IntakeFlywheelState.LAUNCH_TO_INTAKE,
         IntakeWristState.NOTE_TO_LAUNCHER,
         ElevatorLiftState.STOWED,
         IntakeHoldState.EJECTING,

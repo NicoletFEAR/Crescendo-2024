@@ -327,7 +327,7 @@ public class LED extends SubsystemBase {
         BLUE_FLASHING(0, 0, 255, "Blue Flashing", () -> LED.flash(0.05)),
 
         BLUE_WIPE(0, 0, 255, "Blue Wipe", () -> LED.runEffect(wiperEffect, 0.04)),
-        ORANGE_WIPE(255, 102, 25, "Orange Wipe", () -> LED.runEffect(wiperEffect, 0.04)),
+        ORANGE_WIPE(255, 25, 0, "Orange Wipe", () -> LED.runEffect(wiperEffect)),
 
 
         YELLOW_WIPE(255, 255, 25, "Yellow Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
