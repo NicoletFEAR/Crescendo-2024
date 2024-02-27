@@ -95,6 +95,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("keepNoteInLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.KEEP_NOTE_IN_LAUNCH));
     NamedCommands.registerCommand("resetGyro60", new InstantCommand(() -> m_drivebase.setGyro(60)));
     NamedCommands.registerCommand("addGyro60", new InstantCommand(() -> m_drivebase.addGyro(60)));
+    NamedCommands.registerCommand("addGyro-60", new InstantCommand(() -> m_drivebase.addGyro(-60)));
     NamedCommands.registerCommand("resetGyro-60", new InstantCommand(() -> m_drivebase.setGyro(-60)));
     
     autoChooser = AutoBuilder.buildAutoChooser("None");
@@ -163,6 +164,8 @@ public class RobotContainer {
       true));
 
     m_driverController.create().onTrue(new InstantCommand(m_drivebase::zeroGyroscope));
+
+    m_driverController.options().onTrue(new InstantCommand(m_drivebase::resetAngleToAbsolute));
 
     m_driverController.cross().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
     

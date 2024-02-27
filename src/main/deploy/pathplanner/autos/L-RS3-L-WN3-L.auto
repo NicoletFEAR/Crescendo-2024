@@ -2,21 +2,15 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.46,
-      "y": 4.13
+      "x": 0.74,
+      "y": 4.48
     },
-    "rotation": 0.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "FixGyroPath"
-          }
-        },
         {
           "type": "named",
           "data": {
@@ -51,6 +45,12 @@
           "type": "named",
           "data": {
             "name": "stow"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "addGyro-60"
           }
         }
       ]
