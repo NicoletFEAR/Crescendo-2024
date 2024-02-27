@@ -88,10 +88,12 @@ public class RobotContainer {
     // NAMED COMMANDS FOR AUTO \\
     NamedCommands.registerCommand("intake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.BEAM_BREAK_INTAKING));
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
+    NamedCommands.registerCommand("idle", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
     NamedCommands.registerCommand("stow", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
     NamedCommands.registerCommand("waitForLauncherNote", new WaitForLaunchNote());
     NamedCommands.registerCommand("keepNoteInLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.KEEP_NOTE_IN_LAUNCH));
     NamedCommands.registerCommand("resetGyro60", new InstantCommand(() -> m_drivebase.setGyro(60)));
+    NamedCommands.registerCommand("addGyro60", new InstantCommand(() -> m_drivebase.addGyro(60)));
     NamedCommands.registerCommand("resetGyro-60", new InstantCommand(() -> m_drivebase.setGyro(-60)));
     
     autoChooser = AutoBuilder.buildAutoChooser("None");

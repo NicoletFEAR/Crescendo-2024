@@ -73,6 +73,10 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState)),
         new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)
       );
+    } else if (launcherDesiredState == LauncherSuperstructureState.IDLE) {
+      outputCommand.addCommands(
+        new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState)
+      );
     } else {
       outputCommand.addCommands(
         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState)
@@ -85,7 +89,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     if (launcherDesiredState == LauncherSuperstructureState.KEEP_NOTE_IN_LAUNCH) {
       outputCommand.addCommands(
         new WaitForLaunchNote().andThen(
-        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.OFF)).unless(this::getNoteInLauncher)
+        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.OFF))
       );
     }
 
@@ -125,7 +129,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         LauncherHoldState.OFF,
         "Stowed"),
     IDLE(
-        LauncherFlywheelState.IDLE,
+        LauncherFlywheelState.OFF,
         LauncherWristState.SUBWOOFER,
         LauncherHoldState.OFF,
         "Idle"),

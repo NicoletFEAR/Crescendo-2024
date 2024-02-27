@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.976958421819838,
-        "y": 6.733731013824367
+        "x": 2.9652475852740565,
+        "y": 6.8391285427364
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.922983132699502,
-        "y": 6.604911811820771
+        "x": 1.9112722961537205,
+        "y": 6.710309340732804
       },
       "isLocked": false,
       "linkedName": "RS1-WN1"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 1.289059442979394,
-        "y": 5.25
+        "y": 5.45
       },
       "prevControl": {
         "x": 1.6536338921465275,
-        "y": 6.125357005398935
+        "y": 6.325357005398935
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,11 +47,28 @@
           ]
         }
       }
+    },
+    {
+      "name": "Idle",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "idle"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.75,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.75,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -66,5 +83,5 @@
     "rotation": 13.069317896282147,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

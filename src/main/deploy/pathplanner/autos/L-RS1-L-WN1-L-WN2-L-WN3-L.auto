@@ -2,21 +2,15 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.47,
-      "y": 6.96
+      "x": 0.74,
+      "y": 6.62
     },
-    "rotation": 0.0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "FixGyroPath2"
-          }
-        },
         {
           "type": "named",
           "data": {
@@ -75,6 +69,24 @@
           "type": "named",
           "data": {
             "name": "subwooferLaunch"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stow"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "addGyro60"
           }
         }
       ]

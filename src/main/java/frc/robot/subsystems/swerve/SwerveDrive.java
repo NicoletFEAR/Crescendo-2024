@@ -174,6 +174,10 @@ public class SwerveDrive extends SubsystemBase {
     m_pigeon.setYaw(value);
   }
 
+  public void addGyro(double value) {
+    m_pigeon.setYaw(m_pigeon.getYaw().getValue() + value);
+  }
+
   public void drive(
       double throttle, double strafe, double rotation, boolean isOpenLoop, boolean fieldRelative) {
 
