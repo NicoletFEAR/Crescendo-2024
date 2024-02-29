@@ -60,7 +60,12 @@ public class TurnToAngle extends Command {
   @Override
   public void initialize() {
     if (m_targetAngle == 0) {
-      m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
+      if(m_drivebase.calculateAngleToSpeaker() < 0){
+        m_targetAngle = m_drivebase.calculateAngleToSpeaker() + 180;
+      }
+      else{
+        m_targetAngle = m_drivebase.calculateAngleToSpeaker() - 180;
+      }
     }
   }
 

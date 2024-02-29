@@ -12,6 +12,12 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "FixGyroPath"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "subwooferLaunch"
@@ -33,18 +39,6 @@
           "type": "named",
           "data": {
             "name": "subwooferLaunch"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stow"
           }
         },
         {

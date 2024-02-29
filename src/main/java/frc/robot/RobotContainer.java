@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.drivebase.TeleopSwerve;
+import frc.robot.commands.drivebase.TurnToAngle;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetLEDState;
@@ -168,6 +169,8 @@ public class RobotContainer {
     m_driverController.options().onTrue(new InstantCommand(m_drivebase::resetAngleToAbsolute));
 
     m_driverController.cross().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
+    m_driverController.circle().whileTrue(new TurnToAngle(m_drivebase));
+
     
     ///// INTAKE /////
     m_operatorController.a().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.BEAM_BREAK_INTAKING));
@@ -195,6 +198,9 @@ public class RobotContainer {
     ///// LAUNCH /////
     m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
     m_operatorController.pov(180).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
+
+    m_operatorController.pov(0).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.PODIUM));
+    m_operatorController.pov(0).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
 
     ///// SIGNALS /////
 

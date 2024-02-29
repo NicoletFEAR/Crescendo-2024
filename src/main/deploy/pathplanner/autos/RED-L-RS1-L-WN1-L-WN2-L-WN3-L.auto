@@ -20,13 +20,49 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RS1-WN1"
+            "pathName": "RS1-WN14-piece"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "WN1-RS1"
+            "pathName": "WN1-WN2-RS2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferLaunch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RS2-WN2-4piece"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "WN2-RS24-piece"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferLaunch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RS2-WN3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "WN3-RS2"
           }
         },
         {
@@ -50,7 +86,7 @@
         {
           "type": "named",
           "data": {
-            "name": "addGyro60"
+            "name": "addGyro-60"
           }
         }
       ]

@@ -332,7 +332,13 @@ public class SwerveDrive extends SubsystemBase {
     double hypot = getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
     double adjacent = getPose().getTranslation().getX() - DriveConstants.kBlueSpeakerPosition.getX();
 
-    return getPose().getY() > DriveConstants.kBlueSpeakerPosition.getY() ? Math.toDegrees(Math.acos(adjacent / hypot)) : -Math.toDegrees(Math.acos(adjacent / hypot));
+
+    if(getPose().getY() > DriveConstants.kBlueSpeakerPosition.getY()){
+      return Math.toDegrees(Math.acos(adjacent / hypot));
+    }
+    else{
+      return -Math.toDegrees(Math.acos(adjacent / hypot));
+    }
   }
 
   public double calculateDistanceToSpeaker(Pose2d robotPose) {
