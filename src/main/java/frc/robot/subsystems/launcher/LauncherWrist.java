@@ -76,7 +76,7 @@ public class LauncherWrist extends PositionSubsystem {
     public enum LauncherWristState implements PositionSubsystemState {
         DOWN(0, 0, "Down"),
         UP(45, 0, "Up"),
-        SUBWOOFER(110, 0, "Subwoofer"), // use when against base of speaker
+        SUBWOOFER(45, 0, "Subwoofer"), // use when against base of speaker
         WING_NOTE_1(56.66, 0, "Wing Note 1"),
         WING_NOTE_2(56.66, 0, "Wing Note 2"),
         WING_NOTE_3(56.66, 0, "Wing Note 3"),

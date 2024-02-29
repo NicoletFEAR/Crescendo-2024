@@ -19,12 +19,12 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
-import frc.robot.subsystems.Limelight;
 import frc.lib.utilities.GeometryUtils;
 import frc.lib.utilities.SwerveModuleConstants;
 import java.util.ArrayList;
@@ -330,11 +330,6 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public double calculateAngleToSpeaker() {
-    // Limelight asd = Limelight.getLaunchLimelight();
-    
-    // Pose2d ghirgw = asd.getLimelightPose();
-    
-    // updateEstimatorWithPose(Limelight.getLaunchLimelight().getLimelightPose());
 
     double hypot = getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
     double adjacent = getPose().getTranslation().getX() - DriveConstants.kBlueSpeakerPosition.getX();
@@ -361,6 +356,7 @@ public class SwerveDrive extends SubsystemBase {
     poseEstimator.update(getYaw(), getModulePositions());
 
     robotRelativeChassisSpeeds = DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
+    SmartDashboard.putNumber("swerve gyro", getYawDegrees());
 
     m_field.setRobotPose(poseEstimator.getEstimatedPosition());
     // m_field.getObject("path").setPoses(ppPath);

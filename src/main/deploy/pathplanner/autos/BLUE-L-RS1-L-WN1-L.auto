@@ -20,13 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RS1-WN1"
+            "pathName": "BLUE-WN1-RS1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "WN1-RS1"
+            "pathName": "BLUE-WN1-RS1"
           }
         },
         {

@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.74,
+        "y": 6.6192074726491805
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.4311279977766789,
+        "y": 6.897682725465309
+      },
+      "isLocked": false,
+      "linkedName": "StartPos1"
+    },
+    {
+      "anchor": {
+        "x": 2.9322404798655763,
+        "y": 7.1239327094038805
+      },
+      "prevControl": {
+        "x": 2.0305060658404006,
+        "y": 6.924848488125595
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "REDRS1-WN1"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6,
+      "rotationDegrees": 15.46,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 1.5,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 450.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 15.46,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Start Pos 1",
+  "previewStartingState": {
+    "rotation": 60.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

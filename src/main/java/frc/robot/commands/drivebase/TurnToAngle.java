@@ -11,11 +11,11 @@ import frc.lib.utilities.GeometryUtils;
 
 public class TurnToAngle extends Command {
   /** Creates a new TurnToAngle. */
-  private PIDController angleController;
+  private PIDController angleController = new PIDController(.1, 0, 0);;
 
   private SwerveDrive m_drivebase;
   private double m_targetAngle = 0;
-  private double deadBand = .5;
+  private double deadBand = 1;
 
   /**
    *
@@ -32,8 +32,6 @@ public class TurnToAngle extends Command {
     m_drivebase = drivebase;
     m_targetAngle = targetAngle;
 
-    angleController = new PIDController(.1, 0, 0);
-
     addRequirements(m_drivebase);
   }
 
@@ -49,8 +47,7 @@ public class TurnToAngle extends Command {
   public TurnToAngle(SwerveDrive drivebase) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivebase = drivebase;
-
-    angleController = new PIDController(.1, 0, 0);
+    m_targetAngle = 20;
 
     addRequirements(m_drivebase);
   }
@@ -59,22 +56,24 @@ public class TurnToAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_targetAngle == 0) {
-      if(m_drivebase.calculateAngleToSpeaker() < 0){
-        m_targetAngle = m_drivebase.calculateAngleToSpeaker() + 180;
-      }
-      else{
-        m_targetAngle = m_drivebase.calculateAngleToSpeaker() - 180;
-      }
-    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speeds =
-        angleController.calculate(
-            GeometryUtils.getAdjustedYawDegrees(m_drivebase.getYawDegrees(), m_targetAngle), 180);
+    double difference = Math.abs(m_drivebase.getYawDegrees() - m_targetAngle);
+    double speeds;
+
+    if(difference < deadBand){
+      difference = 0.0;
+      speeds = difference;
+    }
+    else if(difference  < 30){
+      speeds = (difference / 60) + 0.2 * (Math.abs(difference)/difference);
+    }
+    else{
+      speeds = difference * 0.65;
+    }
 
     m_drivebase.drive(0, 0, speeds, true, true);
   }
