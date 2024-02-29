@@ -190,7 +190,11 @@ public class RobotContainer {
       .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF))
       .andThen(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF)));
 
-    m_operatorController.start().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED));
+    m_operatorController.start().onTrue(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.INTAKING)
+      .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.INTAKING)));
+      
+    m_operatorController.start().onFalse(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF)
+      .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF)));
 
     m_operatorController.back().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.CLIMB_PREPARE));
 
@@ -202,7 +206,7 @@ public class RobotContainer {
     m_operatorController.pov(180).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
 
     m_operatorController.pov(0).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.PODIUM));
-    m_operatorController.pov(0).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
+    m_operatorController.pov(0).onFalse(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL).andThen(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING)));
 
     ///// SIGNALS /////
 
