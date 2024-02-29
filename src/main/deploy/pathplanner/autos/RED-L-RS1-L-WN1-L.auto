@@ -12,18 +12,6 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "FixGyroPath2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "resetGyro60"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "subwooferLaunch"

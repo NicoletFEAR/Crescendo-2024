@@ -68,6 +68,12 @@
         {
           "type": "named",
           "data": {
+            "name": "addGyro60"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "subwooferLaunch"
           }
         },
@@ -81,12 +87,6 @@
           "type": "named",
           "data": {
             "name": "stow"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "addGyro60"
           }
         }
       ]
