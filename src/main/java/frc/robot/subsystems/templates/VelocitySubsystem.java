@@ -156,8 +156,8 @@ public abstract class VelocitySubsystem extends SubsystemBase {
         m_currentState.setVelocity(getVelocity());
     }
 
-    SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
-    SmartDashboard.putString(m_constants.kSubsystemName + " Desired State", m_desiredState.getName());
+    // SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
+    // SmartDashboard.putString(m_constants.kSubsystemName + " Desired State", m_desiredState.getName());
     
     subsystemPeriodic();
   }

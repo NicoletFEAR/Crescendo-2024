@@ -210,7 +210,7 @@ public class LED extends SubsystemBase {
           m_effectRunTime = -1;
         }
 
-        SmartDashboard.putString("LED State", getCurrentState().name());
+        // SmartDashboard.putString("LED State", getCurrentState().name());
       }
 
       public void updateBasedOnMechs() {

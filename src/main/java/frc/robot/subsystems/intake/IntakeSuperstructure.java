@@ -62,7 +62,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
       isNoteInIntake = true;
     }
 
-    SmartDashboard.putBoolean("TOF Blocked", timeOfFlightBlocked());
+    // SmartDashboard.putBoolean("TOF Blocked", timeOfFlightBlocked());
   }
 
   @Override

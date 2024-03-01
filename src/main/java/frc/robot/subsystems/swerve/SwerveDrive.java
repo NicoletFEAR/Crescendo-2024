@@ -356,7 +356,7 @@ public class SwerveDrive extends SubsystemBase {
     poseEstimator.update(getYaw(), getModulePositions());
 
     robotRelativeChassisSpeeds = DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
-    SmartDashboard.putNumber("swerve gyro", getYawDegrees());
+    // SmartDashboard.putNumber("swerve gyro", getYawDegrees());
 
     m_field.setRobotPose(poseEstimator.getEstimatedPosition());
     // m_field.getObject("path").setPoses(ppPath);
