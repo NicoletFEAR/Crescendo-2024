@@ -11,7 +11,6 @@ import frc.lib.utilities.GeometryUtils;
 
 public class TurnToAngle extends Command {
   /** Creates a new TurnToAngle. */
-  private PIDController angleController = new PIDController(.1, 0, 0);;
 
   private SwerveDrive m_drivebase;
   private double m_targetAngle = 0;
@@ -61,7 +60,7 @@ public class TurnToAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double difference = Math.abs(m_drivebase.getYawDegrees() - m_targetAngle);
+    double difference = (m_drivebase.getYawDegrees() - m_targetAngle);
     double speeds;
 
     if(difference < deadBand){
@@ -69,10 +68,10 @@ public class TurnToAngle extends Command {
       speeds = difference;
     }
     else if(difference  < 30){
-      speeds = (difference / 60) + 0.2 * (Math.abs(difference)/difference);
+      speeds = (difference / 60);
     }
     else{
-      speeds = difference * 0.65;
+      speeds = difference * 0.5;
     }
 
     m_drivebase.drive(0, 0, speeds, true, true);
