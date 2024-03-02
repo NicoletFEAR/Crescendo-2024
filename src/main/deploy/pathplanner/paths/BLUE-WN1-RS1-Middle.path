@@ -3,42 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.74,
-        "y": 6.6192074726491805
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 1.4311279977766789,
-        "y": 6.897682725465309
-      },
-      "isLocked": false,
-      "linkedName": "StartPos1"
-    },
-    {
-      "anchor": {
         "x": 2.99,
         "y": 7.0
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.3428707778116244,
+        "y": 7.0277341095201615
+      },
+      "isLocked": false,
+      "linkedName": "RS1-WN1"
+    },
+    {
+      "anchor": {
+        "x": 0.7450681568009773,
+        "y": 6.619207472647067
+      },
       "prevControl": {
-        "x": 2.088265585974824,
-        "y": 6.8009157787217145
+        "x": 1.244282128201893,
+        "y": 6.794856832954798
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RS1-WN1"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.6,
-      "rotationDegrees": 15.46,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
+      "name": "Keep Note In",
       "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
@@ -47,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "intake"
+                "name": "keepNoteInLaunch"
               }
             }
           ]
@@ -56,20 +50,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.5,
-    "maxAcceleration": 1.0,
-    "maxAngularVelocity": 360.0,
-    "maxAngularAcceleration": 450.0
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.25,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 15.46,
+    "rotation": 60.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Start Pos 1",
+  "folder": "Wing Note 1",
   "previewStartingState": {
-    "rotation": 60.0,
+    "rotation": 12.593329956103126,
     "velocity": 0
   },
   "useDefaultConstraints": false
