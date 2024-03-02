@@ -192,7 +192,7 @@ public static class ElevatorLiftConstants {
     kElevatorLiftConstants.kManualControlMode = ManualControlMode.TRIGGERS;
 
     // Multiplied by controller inputs
-    kElevatorLiftConstants.kManualMultiplier = 1;
+    kElevatorLiftConstants.kManualMultiplier = 1.5; // 1
 
     // Deadband for controller
     kElevatorLiftConstants.kManualDeadBand = .1;

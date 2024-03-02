@@ -160,8 +160,8 @@ public class LauncherWrist extends PositionSubsystem {
 
             kLauncherWristConstants.kDefaultSlot = 0;
 
-            kLauncherWristConstants.kMaxVelocity = 300;
-            kLauncherWristConstants.kMaxAcceleration = 275;
+            kLauncherWristConstants.kMaxVelocity = 350; // 300
+            kLauncherWristConstants.kMaxAcceleration = 325; //275
 
             kLauncherWristConstants.kMaxPosition = 110;
             kLauncherWristConstants.kMinPosition = 20;
