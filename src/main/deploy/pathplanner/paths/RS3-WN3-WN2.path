@@ -3,58 +3,56 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.74,
-        "y": 4.481469854735888
+        "x": 0.75,
+        "y": 4.48552998006897
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1291227694637551,
-        "y": 4.326521085474603
+        "x": 1.1290328301370005,
+        "y": 4.418968117216258
       },
       "isLocked": false,
-      "linkedName": "StartPos3"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.4,
-        "y": 4.090218928278769
+        "x": 2.362891212268179,
+        "y": 4.104648209297162
       },
       "prevControl": {
-        "x": 1.568182123389149,
-        "y": 4.090218928278769
+        "x": 2.312891212268179,
+        "y": 4.104648209297162
+      },
+      "nextControl": {
+        "x": 2.4128912122681787,
+        "y": 4.104648209297162
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.94,
+        "y": 5.55
+      },
+      "prevControl": {
+        "x": 1.9492447031740912,
+        "y": 4.939849590509991
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RS3-WN3"
+      "linkedName": "WN2Prepare"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.8,
+      "waypointRelativePos": 0.55,
       "rotationDegrees": 0,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "intake",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 1.75,
@@ -72,5 +70,5 @@
     "rotation": -60.0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

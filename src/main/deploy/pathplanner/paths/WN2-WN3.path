@@ -1,0 +1,74 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.94,
+        "y": 5.55
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.204152038531447,
+        "y": 5.5680022092520876
+      },
+      "isLocked": false,
+      "linkedName": "WN2Prepare"
+    },
+    {
+      "anchor": {
+        "x": 2.5,
+        "y": 5.55
+      },
+      "prevControl": {
+        "x": 2.45,
+        "y": 5.55
+      },
+      "nextControl": {
+        "x": 2.551,
+        "y": 5.55
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.907134664201959,
+        "y": 4.47626576887142
+      },
+      "prevControl": {
+        "x": 1.42548939924588,
+        "y": 5.0859433194487345
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "WN3Prepare"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.3,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 1.75,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -30.639999999999986,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Wing Note 2",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
