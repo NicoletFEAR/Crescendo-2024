@@ -308,13 +308,13 @@ public abstract class PositionSubsystem extends SubsystemBase {
       runToSetpoint();
     }
 
-    // SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
-    // SmartDashboard.putString(m_constants.kSubsystemName + " Desired State", m_desiredState.getName());
+    if (Constants.kInfoMode) {
+      SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
+      SmartDashboard.putString(m_constants.kSubsystemName + " Desired State", m_desiredState.getName());
 
-
-    // SmartDashboard.putNumber(m_constants.kSubsystemName + " Current Position", getPosition());
-    // SmartDashboard.putNumber(m_constants.kSubsystemName + " Desired Position", m_desiredState.getPosition());
-
+      SmartDashboard.putNumber(m_constants.kSubsystemName + " Current Position", getPosition());
+      SmartDashboard.putNumber(m_constants.kSubsystemName + " Desired Position", m_desiredState.getPosition());
+    }
     subsystemPeriodic();
   }
 

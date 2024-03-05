@@ -2,48 +2,42 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.74,
-      "y": 4.48
+      "x": 1.46,
+      "y": 1.48
     },
-    "rotation": -60.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "subwooferLaunch"
+            "pathName": "RS5-CN5-LP2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RS3-WN3"
+            "pathName": "LP3-CN4-LP3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "WN3-RS3"
+            "pathName": "LP3-CN4-LP1"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "subwooferLaunch"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "addGyro60"
+            "pathName": "LP1-CN2-LP1"
           }
         }
       ]
     }
   },
-  "folder": "Start Pos 3",
+  "folder": "Start Pos 5",
   "choreoAuto": false
 }

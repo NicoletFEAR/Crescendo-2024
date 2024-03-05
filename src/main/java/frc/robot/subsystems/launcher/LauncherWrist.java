@@ -17,23 +17,8 @@ public class LauncherWrist extends PositionSubsystem {
 
     private static LauncherWrist m_instance = null;
 
-    // private CANcoder m_launcherWristAbsoluteEncoder;
-
-    // private ArmFeedforward m_feedforward;
-
     public LauncherWrist(PositionSubsystemConstants constants) {
         super(constants);
-
-        // m_launcherWristAbsoluteEncoder = new CANcoder(LauncherConstants.kWristCANCoderId);
-        // m_launcherWristAbsoluteEncoder.optimizeBusUtilization();
-        // m_launcherWristAbsoluteEncoder.getAbsolutePosition().setUpdateFrequency(50);
-
-        // m_feedforward = new ArmFeedforward(m_constants.kLeaderConstants.kKs, m_constants.kLeaderConstants.kKg, m_constants.kLeaderConstants.kKv);
-
-
-   
-
-        // zero(m_launcherWristAbsoluteEncoder.getAbsolutePosition().getValue());
     }
 
     public static LauncherWrist getInstance() {
@@ -49,29 +34,14 @@ public class LauncherWrist extends PositionSubsystem {
         LauncherWristState.FIELD_BASED_PITCH.setPosition(GeometryUtils.interpolatePitch(
             Math.abs(RobotContainer.m_drivebase.calculateAngleToSpeaker()),
             RobotContainer.m_drivebase.calculateDistanceToSpeaker(RobotContainer.m_drivebase.getPose())));
-
-        // SmartDashboard.putNumber("Wrist position", m_encoder.getPosition());
-        // SmartDashboard.putNumber("Intended Position", m_desiredState.getPosition());
-
-        // setFeedforward(m_feedforward.calculate(m_setpoint.position, m_setpoint.velocity));
+        
+        if (m_currentState == LauncherWristState.FIELD_BASED_PITCH) {
+            holdPosition();
+        }
     }
 
     @Override
     public void outputTelemetry() {}
-
-    public double calculatePitch() {
-        // double distance = SwerveDrive.getInstance().getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
-
-        // if (distance > 0 && distance < LauncherConstants.kDistancePitchMap.lastKey()) {
-        //     double lowerPitch = LauncherConstants.kDistancePitchMap.get(LauncherConstants.kDistancePitchMap.floorKey(distance));
-        //     double upperPitch = LauncherConstants.kDistancePitchMap.get(LauncherConstants.kDistancePitchMap.ceilingKey(distance));
-        //     return lowerPitch + (distance - Math.floor(distance)) * (upperPitch - lowerPitch);
-        // } else {
-        //     return 0;
-        // }
-
-        return 0;
-    }
 
     public enum LauncherWristState implements PositionSubsystemState {
         DOWN(0, 0, "Down"),

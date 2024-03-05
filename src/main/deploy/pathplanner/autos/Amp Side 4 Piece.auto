@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.74,
+      "y": 6.62
+    },
+    "rotation": 60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RS1-WN1-WN2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "WN2-WN3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "WN3-L"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Start Pos 1",
+  "choreoAuto": false
+}

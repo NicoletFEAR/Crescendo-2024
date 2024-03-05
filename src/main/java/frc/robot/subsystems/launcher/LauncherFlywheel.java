@@ -5,6 +5,9 @@ import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
 
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.SparkPIDController.ArbFFUnits;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -38,9 +41,12 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
 
         LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(new double[] {calculateRPM(), calculateRPM()});
-        // SmartDashboard.putNumber("Top Encoder Speed", m_encoders[0].getVelocity());
-        // SmartDashboard.putNumber("Bottom Encoder Speed", m_encoders[1].getVelocity());
-        // SmartDashboard.putNumber("Intended Speed", m_desiredState.getVelocity()[0]);
+        
+        if (m_currentState == LauncherFlywheelState.FIELD_BASED_VELOCITY) {
+            for (int i = 0; i < m_pidControllers.length; i++) {
+                m_pidControllers[i].setReference(m_desiredState.getVelocity()[i], ControlType.kVelocity, m_constants.kDefaultSlot, m_arbFeedforward[i], ArbFFUnits.kVoltage);
+            }
+        }
     }
 
     @Override

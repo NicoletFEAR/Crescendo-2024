@@ -299,12 +299,14 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
       runToSetpoint();
     }
 
-    // SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
-    // SmartDashboard.putString(m_constants.kSubsystemName + " Desired State", m_desiredState.getName());
+    if (Constants.kInfoMode) {
+      SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
+      SmartDashboard.putString(m_constants.kSubsystemName + " Desired State", m_desiredState.getName());
 
-    // SmartDashboard.putNumber(m_constants.kSubsystemName + " Current Position", getPosition()[0]);
-    // SmartDashboard.putNumber(m_constants.kSubsystemName + " Desired Position", m_desiredState.getPosition()[0]);
-
+      SmartDashboard.putNumber(m_constants.kSubsystemName + " Current Position", getPosition()[0]);
+      SmartDashboard.putNumber(m_constants.kSubsystemName + " Desired Position", m_desiredState.getPosition()[0]);
+    }
+    
     subsystemPeriodic();
   }
 

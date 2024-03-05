@@ -3,12 +3,12 @@
   "robotLength": 0.8128,
   "holonomicMode": true,
   "pathFolders": [
-    "Center Paths",
-    "Fake Start Pos",
-    "Start Pos 5",
+    "Launch Pos 1",
+    "Launch Pos 3",
     "Start Pos 1",
     "Start Pos 2",
     "Start Pos 3",
+    "Start Pos 5",
     "Wing Note 1",
     "Wing Note 2",
     "Wing Note 3"

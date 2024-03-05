@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.74,
-      "y": 4.48
+      "x": 0.75,
+      "y": 4.49
     },
     "rotation": -60.0
   },
@@ -12,33 +12,21 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "subwooferLaunch"
+            "pathName": "RS3-WN3-WN2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RS3-WN3"
+            "pathName": "WN2-WN1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "WN3-RS3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "subwooferLaunch"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "addGyro-60"
+            "pathName": "WN1-L"
           }
         }
       ]

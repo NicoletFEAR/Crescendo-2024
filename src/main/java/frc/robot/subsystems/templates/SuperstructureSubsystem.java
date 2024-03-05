@@ -3,6 +3,7 @@ package frc.robot.subsystems.templates;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public abstract class SuperstructureSubsystem extends SubsystemBase {
 
@@ -47,8 +48,9 @@ public abstract class SuperstructureSubsystem extends SubsystemBase {
   public void periodic() {
     superstructurePeriodic();
 
-    // SmartDashboard.putString(m_name + " Current State", m_currentState.getName());
-    // SmartDashboard.putString(m_name + " Desired State", m_desiredState.getName());
-
+    if (Constants.kInfoMode) {
+      SmartDashboard.putString(m_name + " Current State", m_currentState.getName());
+      SmartDashboard.putString(m_name + " Desired State", m_desiredState.getName());
+    }
   }
 }
