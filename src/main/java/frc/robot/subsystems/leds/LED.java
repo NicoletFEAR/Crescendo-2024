@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
@@ -210,7 +211,10 @@ public class LED extends SubsystemBase {
           m_effectRunTime = -1;
         }
 
-        // SmartDashboard.putString("LED State", getCurrentState().name());
+        if (Constants.kInfoMode) {
+          SmartDashboard.putString("LED State", getCurrentState().name());
+        }
+        
       }
 
       public void updateBasedOnMechs() {
@@ -253,8 +257,8 @@ public class LED extends SubsystemBase {
                 desiredState = LEDState.GREEN_FLASHING;
               } else if (ampPrepare || stowed) {
                 desiredState = LEDState.GREEN;
-              }  else if (intaking) {
-                desiredState = LEDState.RED;
+              } else if (intaking) {
+                setState(LEDState.GREEN_WIPE, 1);
               }
             } else {
               if (ampPrepare || launching) {
@@ -326,6 +330,7 @@ public class LED extends SubsystemBase {
         GREEN_FLASHING(0, 255, 0, "Green Flashing", () -> LED.flash(0.05)),
         BLUE_FLASHING(0, 0, 255, "Blue Flashing", () -> LED.flash(0.05)),
 
+        GREEN_WIPE(0, 255, 0, "Blue Wipe", () -> LED.runEffect(wiperEffect)),
         BLUE_WIPE(0, 0, 255, "Blue Wipe", () -> LED.runEffect(wiperEffect, 0.04)),
         ORANGE_WIPE(255, 25, 0, "Orange Wipe", () -> LED.runEffect(wiperEffect)),
 

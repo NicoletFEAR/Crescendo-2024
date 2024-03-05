@@ -50,9 +50,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
     }
 
     @Override
-    public void outputTelemetry() {
-        // SmartDashboard.putBoolean("Beam Break", m_beamBreak.get());
-    }
+    public void outputTelemetry() {}
 
     public double calculateRPM() {
         double distance;
