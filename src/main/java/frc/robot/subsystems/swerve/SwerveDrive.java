@@ -181,11 +181,10 @@ public class SwerveDrive extends SubsystemBase {
     m_pigeon.setYaw(m_pigeon.getYaw().getValue() + value);
   }
 
-  public void drive(
-      double throttle, double strafe, double rotation, boolean isOpenLoop, boolean fieldRelative) {
+  public void drive(double throttle, double strafe, double rotation, boolean isOpenLoop, boolean fieldRelative) {
 
     if (throttle + strafe + rotation != 0 && m_xWheels == true) {
-      m_xWheels = false;
+      m_xWheels = false; // this ends the x wheels when Ari starts moving
     }
 
     if (m_xWheels == false) {

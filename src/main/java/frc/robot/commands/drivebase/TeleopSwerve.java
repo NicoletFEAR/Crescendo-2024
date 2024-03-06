@@ -92,5 +92,6 @@ public class TeleopSwerve extends Command {
     m_rotation = rAxis * m_percentSpeed;
 
     m_drivebase.drive(m_throttle, m_strafe, m_rotation, m_openLoop, m_fieldRelative);
+    // m_drivebase.drive(0, 0, 0, m_openLoop, m_fieldRelative);
   }
 }
