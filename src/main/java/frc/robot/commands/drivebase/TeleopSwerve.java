@@ -76,7 +76,7 @@ public class TeleopSwerve extends Command {
     double xAxis = -m_controller.getHID().getRawAxis(m_strafeAxis);
     double rAxis = -m_controller.getHID().getRawAxis(m_rotationAxis);
 
-    // Applies a deadband to the values
+    // Applies a deadband to the values 
     yAxis = MathUtil.applyDeadband(yAxis, STICK_DEAD_BAND);
     xAxis = MathUtil.applyDeadband(xAxis, STICK_DEAD_BAND);
     rAxis = MathUtil.applyDeadband(rAxis, STICK_DEAD_BAND);
