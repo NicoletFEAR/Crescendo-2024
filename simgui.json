@@ -173,7 +173,11 @@
       "Shuffleboard": {
         "Drive Tuning": {
           "open": true
-        }
+        },
+        "Main": {
+          "open": true
+        },
+        "open": true
       },
       "SmartDashboard": {
         "open": true

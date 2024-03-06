@@ -5,6 +5,7 @@
 package frc.robot.commands.drivebase;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.swerve.SwerveDrive;
 import frc.lib.utilities.GeometryUtils;
@@ -14,8 +15,10 @@ public class TurnToAngle extends Command {
   private PIDController angleController;
 
   private SwerveDrive m_drivebase;
-  private double m_targetAngle = 0;
+  private double m_targetAngle = -1;
   private double deadBand = .5;
+
+  private boolean turnToSpeaker = false;
 
   /**
    *
@@ -49,6 +52,7 @@ public class TurnToAngle extends Command {
   public TurnToAngle(SwerveDrive drivebase) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivebase = drivebase;
+    turnToSpeaker = true;
 
     angleController = new PIDController(.1, 0, 0);
 
@@ -59,9 +63,10 @@ public class TurnToAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_targetAngle == 0) {
+    if (m_targetAngle == -1) {
       m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
     }
+    SmartDashboard.putNumber("target angle ", m_targetAngle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -70,14 +75,16 @@ public class TurnToAngle extends Command {
     double speeds =
         angleController.calculate(
             GeometryUtils.getAdjustedYawDegrees(m_drivebase.getYawDegrees(), m_targetAngle), 180);
-
+    SmartDashboard.putNumber("speeds", speeds);
     m_drivebase.drive(0, 0, speeds, true, true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_targetAngle = 0;
+    if (turnToSpeaker) {
+      m_targetAngle = -1;
+    }
   }
 
   // Returns true when the command should end.

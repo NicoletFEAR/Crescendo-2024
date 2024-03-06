@@ -17,6 +17,8 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
@@ -24,7 +26,7 @@ import frc.lib.utilities.CtreUtils;
 import frc.lib.utilities.RevUtils;
 import frc.lib.utilities.SwerveModuleConstants;
 
-public class SwerveModule {
+public class SwerveModule extends SubsystemBase{
   private final int POS_SLOT = 0;
   private final int VEL_SLOT = 0;
 
@@ -47,7 +49,7 @@ public class SwerveModule {
   double m_lastAngle;
   double m_lastPercentOutput;
 
-  // private int m_moduleNumber;
+  private int m_moduleNumber;
 
   /**
    * Constructs a SwerveModule.
@@ -56,7 +58,7 @@ public class SwerveModule {
    * @param swerveModuleConstants Swerve modules constants to setup swerve module
    */
   public SwerveModule(int moduleNumber, SwerveModuleConstants swerveModuleConstants) {
-    // m_moduleNumber = moduleNumber;
+    m_moduleNumber = moduleNumber;
 
     m_driveMotor =
         new CANSparkFlex(
@@ -98,6 +100,11 @@ public class SwerveModule {
 
     RevUtils.setDriveMotorConfig(m_driveMotor);
     RevUtils.setTurnMotorConfig(m_turningMotor);
+  }
+
+  @Override
+  public void periodic(){
+    SmartDashboard.putNumber(m_moduleNumber + "angle", getPosition().angle.getDegrees());
   }
 
   /**

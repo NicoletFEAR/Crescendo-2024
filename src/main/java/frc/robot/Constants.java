@@ -61,7 +61,7 @@ public final class Constants {
     public static double turnkff = 0.0;
 
     public static double kDriveModifier = 2;
-    public static double kTurnModifier = 2;
+    public static double kTurnModifier = 3;
 
     /* The lower this is the more you want odometry to trust the april tags
     Scales based on the percentage of an april tag in view
@@ -95,7 +95,7 @@ public final class Constants {
     public static final double kWheelDiameter = Units.inchesToMeters(3.915); // Wheel diameter
 
     public static final double kMaxRotationRadiansPerSecond =
-        Math.PI * 2.0; // Just kind of find what works, this is from 930 2023
+        Math.PI * 3.0; // Just kind of find what works, this is from 930 2023
 
     public static final double kRegularSpeed = 1; // Regular speed multiplier of robot
 
