@@ -2,19 +2,19 @@ package frc.robot.subsystems.intake;
 
 import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
-import frc.robot.subsystems.templates.SubsystemConstants.VoltageSubsystemConstants;
+import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
 import frc.robot.Constants.MotorConstants;
-import frc.robot.subsystems.templates.VoltageSubsystem;
+import frc.robot.subsystems.templates.VelocitySubsystem;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-public class IntakeFlywheel extends VoltageSubsystem {
+public class IntakeFlywheel extends VelocitySubsystem {
 
     private static IntakeFlywheel m_instance = null;
   
 
-    protected IntakeFlywheel(VoltageSubsystemConstants constants) {
+    protected IntakeFlywheel(VelocitySubsystemConstants constants) {
         super(constants);
     }
 
@@ -32,21 +32,21 @@ public class IntakeFlywheel extends VoltageSubsystem {
     @Override
     public void outputTelemetry() {}
 
-    public enum IntakeFlywheelState implements VoltageSubsystemState {
-        OFF(0, "Off"),
-        INTAKING(-6, "Intaking"),
-        INTAKE_TO_LAUNCH(-3.5, "Intake To Launch"),
-        EJECTING(5, "Out"),
-        LAUNCH_TO_INTAKE(1.5, "Out"),
-        AMP(6, "Amp"),
-        TRANSITION(0, "Transition"),
-        MANUAL(0, "Manual");
+    public enum IntakeFlywheelState implements VelocitySubsystemState {
+        OFF(new double[] {0, 0}, "Off"),
+        INTAKING(new double[] {-300, -300}, "Intaking"), // -6
+        INTAKE_TO_LAUNCH(new double[] {-150, -150}, "Intake To Launch"), // -3.5
+        EJECTING(new double[] {250, 250}, "Out"), // 5
+        LAUNCH_TO_INTAKE(new double[] {50, 50}, "Out"), // 1.5
+        AMP(new double[] {300, 300}, "Amp"), // 6
+        TRANSITION(new double[] {0, 0}, "Transition"),
+        MANUAL(new double[] {0, 0}, "Manual");
         
-        private double voltage;
+        private double[] velocity;
         private String name;
     
-        private IntakeFlywheelState(double voltage, String name) {
-          this.voltage = voltage;
+        private IntakeFlywheelState(double[] velocity, String name) {
+          this.velocity = velocity;
           this.name = name;
         }
 
@@ -56,14 +56,14 @@ public class IntakeFlywheel extends VoltageSubsystem {
         }
 
         @Override
-        public double getVoltage() {
-            return voltage;
+        public double[] getVelocity() {
+            return velocity;
         }
 
-        // @Override
-        // public void setVoltage(double voltage) {
-        //     this.voltage = voltage;
-        // }
+        @Override
+        public void setVelocity(double[] velocity) {
+            this.velocity = velocity;
+        }
     }
 
     
@@ -85,16 +85,16 @@ public class IntakeFlywheel extends VoltageSubsystem {
             kIntakeFlywheelLeaderConstants.kKff = 0.0001675;
         }
 
-        public static final VoltageSubsystemConstants kIntakeFlywheelConstants =
-            new VoltageSubsystemConstants();
+        public static final VelocitySubsystemConstants kIntakeFlywheelConstants =
+            new VelocitySubsystemConstants();
 
         static {
             kIntakeFlywheelConstants.kSubsystemName = "Intake Flywheel";
             kIntakeFlywheelConstants.kSuperstructureName = "Intake";
 
-            kIntakeFlywheelConstants.kSubsystemType = VoltageSubsystemType.INTAKE_FLYWHEELS;
+            kIntakeFlywheelConstants.kSubsystemType = VelocitySubsystemType.INTAKE_FLYWHEELS;
 
-            kIntakeFlywheelConstants.kLeaderConstants = kIntakeFlywheelLeaderConstants;
+            kIntakeFlywheelConstants.kMotorConstants = new SparkConstants[] {kIntakeFlywheelLeaderConstants};
            
             kIntakeFlywheelConstants.kInitialState = IntakeFlywheelState.OFF;
         }

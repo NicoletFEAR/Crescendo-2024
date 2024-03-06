@@ -170,6 +170,7 @@ public abstract class VelocitySubsystem extends SubsystemBase {
 
   public enum VelocitySubsystemType {
     LAUNCHER_FLYWHEEL,
+    INTAKE_FLYWHEELS,
   }
 
   public interface VelocitySubsystemState {

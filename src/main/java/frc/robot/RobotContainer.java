@@ -182,20 +182,20 @@ public class RobotContainer {
     
     m_operatorController.x().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.AMP_PREPARE));
 
-    m_operatorController.y().onTrue(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.EJECTING)
+    m_operatorController.y().onTrue(new SetVelocitySubsystemState(m_intakeFlywheel, IntakeFlywheelState.EJECTING)
       .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.EJECTING)));
       // .andThen(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.THRU_INTAKE_EJECTING)));
       // .alongWith(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)));
       
-    m_operatorController.y().onFalse(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF)
+    m_operatorController.y().onFalse(new SetVelocitySubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF)
       .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF)));
       // .andThen(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF)));
 
-    m_operatorController.start().onTrue(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.INTAKING)
+    m_operatorController.start().onTrue(new SetVelocitySubsystemState(m_intakeFlywheel, IntakeFlywheelState.INTAKING)
       .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.INTAKING))
       .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.THRU_INTAKE_INTAKING)));
       
-    m_operatorController.start().onFalse(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF)
+    m_operatorController.start().onFalse(new SetVelocitySubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF)
       .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF))
       .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF)));
 
@@ -209,11 +209,11 @@ public class RobotContainer {
     m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
     m_operatorController.pov(180).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
       
-    m_operatorController.pov(0).onTrue(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.EJECTING)
+    m_operatorController.pov(0).onTrue(new SetVelocitySubsystemState(m_intakeFlywheel, IntakeFlywheelState.EJECTING)
       .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.INTAKING))
       .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.THRU_INTAKE_INTAKING)));
       
-    m_operatorController.pov(0).onFalse(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF)
+    m_operatorController.pov(0).onFalse(new SetVelocitySubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF)
       .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF))
       .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF)));
 
