@@ -44,6 +44,7 @@ public class LauncherHold extends VoltageSubsystem {
         THRU_LAUNCHER_INTAKING(6, "Thru Launcher Intaking"), // for when we intake through launch or need to intake the note after pushing it out
         THRU_INTAKE_INTAKING(-3, "Thru Intake Intaking"), // for pushing out note a bit for consistent launches
         THRU_INTAKE_EJECTING(3, "Thru Intake Ejecting");
+        
         private double voltage;
         private String name;
     

@@ -33,11 +33,11 @@ public class IntakeHold extends VoltageSubsystem {
 
     public enum IntakeHoldState implements VoltageSubsystemState {
         OFF(0, "Off"),
-        INTAKING(-9, "In"),
+        INTAKING(-9, "Intaking"),
         LAUNCH_IN(4, "Launch In"),
         INTAKE_TO_LAUNCH(-4, "Intake To Launch"),
         AMP(6, "Amp"),
-        EJECTING(6, "Out");
+        EJECTING(6, "Ejecting");
         
         private double voltage;
         private String name;

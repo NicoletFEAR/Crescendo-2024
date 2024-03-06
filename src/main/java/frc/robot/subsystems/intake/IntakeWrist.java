@@ -42,7 +42,7 @@ public class IntakeWrist extends PositionSubsystem {
 
     public enum IntakeWristState implements PositionSubsystemState {
         DOWN(18, 0, "Down"),
-        STOWED(0, 0, "Up"),
+        STOWED(0, 0, "Stowed"),
         AMP(4.6, 0, "Amp"),
         // AMP(12.5, 0, "Amp"),
         NOTE_TO_LAUNCHER(6, 0, "Note To Launcher"),
