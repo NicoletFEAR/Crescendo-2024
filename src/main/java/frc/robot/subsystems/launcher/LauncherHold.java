@@ -38,7 +38,7 @@ public class LauncherHold extends VoltageSubsystem {
 
     public enum LauncherHoldState implements VoltageSubsystemState {
         OFF(0, "Off"),
-        LAUNCHING(-12, "Launching"),
+        LAUNCHING(-6, "Launching"),
         ADJUST_NOTE_IN(2.5, "Note Adjust In"),
         ADJUST_NOTE_OUT(-2.5, "Note Adjust Out"),
         THRU_LAUNCHER_INTAKING(6, "Thru Launcher Intaking"), // for when we intake through launch or need to intake the note after pushing it out

@@ -41,11 +41,13 @@ public class LauncherWrist extends PositionSubsystem {
     }
 
     @Override
-    public void outputTelemetry() {}
+    public void outputTelemetry() {
+
+    }
 
     public enum LauncherWristState implements PositionSubsystemState {
         DOWN(0, 0, "Down"),
-        UP(45, 0, "Up"),
+        UP(0, 0, "Up"),
         SUBWOOFER(110, 0, "Subwoofer"), // use when against base of speaker
         WING_NOTE_1(56.66, 0, "Wing Note 1"),
         WING_NOTE_2(56.66, 0, "Wing Note 2"),
@@ -103,7 +105,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristLeaderConstants.kMotorType = MotorType.kBrushless;
             kLauncherWristLeaderConstants.kCurrentLimit = 80;
             kLauncherWristLeaderConstants.kInverted = false;
-            kLauncherWristLeaderConstants.kKp = 0.07;
+            kLauncherWristLeaderConstants.kKp = 0.02;
             kLauncherWristLeaderConstants.kKi = 0.0;
             kLauncherWristLeaderConstants.kKd = 0.0;
             kLauncherWristLeaderConstants.kKff = 0.0;
@@ -124,7 +126,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristConstants.kFollowerConstants = kWristFollowerConstants;
 
             kLauncherWristConstants.kHomePosition = 0;
-            kLauncherWristConstants.kPositionConversionFactor = 360/100;
+            kLauncherWristConstants.kPositionConversionFactor = 360/25;
 
             kLauncherWristConstants.kSetpointTolerance = .25;
 
@@ -137,7 +139,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristConstants.kMinPosition = 20;
 
             kLauncherWristConstants.kManualControlMode = ManualControlMode.LEFT_X;
-            kLauncherWristConstants.kManualMultiplier = 1;
+            kLauncherWristConstants.kManualMultiplier = .75;
             kLauncherWristConstants.kManualDeadBand = 0.1;
 
             kLauncherWristConstants.kInitialState = LauncherWristState.UP;

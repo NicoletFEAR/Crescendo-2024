@@ -50,7 +50,9 @@ public class LauncherFlywheel extends VelocitySubsystem {
     }
 
     @Override
-    public void outputTelemetry() {}
+    public void outputTelemetry() {
+        
+    }
 
     public double calculateRPM() {
         double distance;
@@ -79,7 +81,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
         ADJUST_NOTE_IN(new double[] {-200, -200}, "Adjust Note In"),
         ADJUST_NOTE_OUT(new double[] {200, 200}, "Adjust Note Out"),
         RUNNING(new double[] {2350, 2350}, "Running"), // arbitrary testing value
-        SUBWOOFER(new double[] {5000, 5000}, "Subwoofer"), // used for when against the base of the speaker
+        SUBWOOFER(new double[] {2500, 2500}, "Subwoofer"), // used for when against the base of the speaker
         PODIUM(new double[] {5000, 5000}, "Podium"), // used for when against the base of the PODIUM
         TRANSITION(new double[] {0, 0}, "Transition"),
         FIELD_BASED_VELOCITY(new double[] {0, 0}, "Field Based Velocity"),

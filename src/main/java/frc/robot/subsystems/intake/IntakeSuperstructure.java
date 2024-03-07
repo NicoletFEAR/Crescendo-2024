@@ -48,7 +48,8 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     //   return false;
     // }
 
-    return SmartDashboard.getBoolean("Is note in intake", false);
+    // return SmartDashboard.getBoolean("Is note in intake", false);
+    return false;
   }
 
   public void outputTelemetry() {
@@ -133,7 +134,6 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     if (intakeDesiredState == IntakeSuperstructureState.BEAM_BREAK_INTAKING || intakeDesiredState == IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING) {
       outputCommand.addCommands(
         new WaitForLaunchNote(),
-        new WaitCommand(.1),
         setSuperstructureState(IntakeSuperstructureState.TRAVEL)
         .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED))
       );
