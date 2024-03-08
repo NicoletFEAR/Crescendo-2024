@@ -110,15 +110,15 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
   @Override
   public void superstructurePeriodic() {
-    // if (!m_launcherBeamBreak.get() && !m_noteInLauncher) {
-    //   m_noteInLauncher = true;
-    // } if (m_launcherBeamBreak.get() && m_noteInLauncher) {
-    //   m_noteInLauncher = false;
-    // }
+    if (!m_launcherBeamBreak.get() && !m_noteInLauncher) {
+      m_noteInLauncher = true;
+    } if (m_launcherBeamBreak.get() && m_noteInLauncher) {
+      m_noteInLauncher = false;
+    }
 
-    m_noteInLauncher = SmartDashboard.getBoolean("note in launcher", m_noteInLauncher);
-    // SmartDashboard.putBoolean("launcher beam break", m_launcherBeamBreak.get());
-    // SmartDashboard.putBoolean("Note In Launcher", m_noteInLauncher);
+    // m_noteInLauncher = SmartDashboard.getBoolean("note in launcher", m_noteInLauncher);
+    SmartDashboard.putBoolean("launcher beam break", m_launcherBeamBreak.get());
+    SmartDashboard.putBoolean("Note In Launcher", m_noteInLauncher);
     
   }
 

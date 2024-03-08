@@ -12,7 +12,8 @@ import frc.lib.utilities.GeometryUtils;
 
 public class TurnToAngle extends Command {
   /** Creates a new TurnToAngle. */
-  private PIDController angleController;
+  private PIDController angleController = new PIDController(.025, 0, 0.001);
+;
 
   private SwerveDrive m_drivebase;
   private double m_targetAngle = -1;
@@ -35,8 +36,6 @@ public class TurnToAngle extends Command {
     m_drivebase = drivebase;
     m_targetAngle = targetAngle;
 
-    angleController = new PIDController(.1, 0, 0);
-
     addRequirements(m_drivebase);
   }
 
@@ -53,8 +52,6 @@ public class TurnToAngle extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivebase = drivebase;
     turnToSpeaker = true;
-
-    angleController = new PIDController(.1, 0, 0);
 
     addRequirements(m_drivebase);
   }

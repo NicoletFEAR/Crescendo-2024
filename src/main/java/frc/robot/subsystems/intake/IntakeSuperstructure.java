@@ -41,15 +41,15 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   }
 
   public boolean timeOfFlightBlocked(){
-    // if(m_intakeTOF.getRange() < IntakeConstants.kTOFNoteThreshold){
-    //   return true;
-    // }
-    // else{
-    //   return false;
-    // }
+    if(m_intakeTOF.getRange() < IntakeConstants.kTOFNoteThreshold){
+      return true;
+    }
+    else{
+      return false;
+    }
 
     // return SmartDashboard.getBoolean("Is note in intake", false);
-    return false;
+    // return false;
   }
 
   public void outputTelemetry() {
@@ -63,7 +63,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
       isNoteInIntake = true;
     }
 
-    // SmartDashboard.putBoolean("TOF Blocked", timeOfFlightBlocked());
+    SmartDashboard.putBoolean("TOF Blocked", timeOfFlightBlocked());
   }
 
   @Override

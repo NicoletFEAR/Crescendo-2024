@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
 import frc.lib.utilities.CtreUtils;
@@ -171,9 +172,10 @@ public class SwerveModule extends SubsystemBase{
 
     double angle = m_desiredState.angle.getDegrees();
 
-    if (m_desiredState.angle.getDegrees() != m_lastAngle && 
+    if ((m_desiredState.angle.getDegrees() != m_lastAngle && 
       Math.abs(m_desiredState.speedMetersPerSecond)
-        >= (DriveConstants.kMaxMetersPerSecond * DriveConstants.kSteerVelocityDeadzone)) {
+        >= (DriveConstants.kMaxMetersPerSecond * DriveConstants.kSteerVelocityDeadzone))
+        || RobotContainer.m_drivebase.getXWheels()) {
           m_turnController.setReference(angle, CANSparkMax.ControlType.kPosition, POS_SLOT);
           m_lastAngle = angle;
     }

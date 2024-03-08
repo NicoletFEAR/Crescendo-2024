@@ -72,7 +72,7 @@ public class ElevatorLift extends MultiMotorPositionSubsystem {
     public enum ElevatorLiftState implements MultiMotorPositionSubsystemState {
       STOWED(new double[] {0, 0}, new double[] {0, 0}, "Down"),
       TRANSITION(new double[] {0, 0}, new double[] {0, 0}, "Transition"),
-      AMP(new double[] {40, 40}, new double[] {0, 0}, "Amp"),
+      AMP(new double[] {30.5, 30.5}, new double[] {0, 0}, "Amp"),
       CLIMB(new double[] {178, 178}, new double[] {0, 0}, "Climb"),
       MANUAL(new double[] {0, 0}, new double[] {0, 0}, "Manual");
   

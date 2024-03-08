@@ -81,7 +81,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
         ADJUST_NOTE_IN(new double[] {-200, -200}, "Adjust Note In"),
         ADJUST_NOTE_OUT(new double[] {200, 200}, "Adjust Note Out"),
         RUNNING(new double[] {2350, 2350}, "Running"), // arbitrary testing value
-        SUBWOOFER(new double[] {2500, 2500}, "Subwoofer"), // used for when against the base of the speaker
+        SUBWOOFER(new double[] {5000, 5000}, "Subwoofer"), // used for when against the base of the speaker
         PODIUM(new double[] {5000, 5000}, "Podium"), // used for when against the base of the PODIUM
         TRANSITION(new double[] {0, 0}, "Transition"),
         FIELD_BASED_VELOCITY(new double[] {0, 0}, "Field Based Velocity"),
@@ -125,10 +125,10 @@ public class LauncherFlywheel extends VelocitySubsystem {
             kTopLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
             kTopLauncherFlywheelConstants.kCurrentLimit = 80;
             kTopLauncherFlywheelConstants.kInverted = false;
-            kTopLauncherFlywheelConstants.kKp = 0.00025;
+            kTopLauncherFlywheelConstants.kKp = 0.0002; //0.00025;
             kTopLauncherFlywheelConstants.kKi = 0.0;
-            kTopLauncherFlywheelConstants.kKd = 0.0;
-            kTopLauncherFlywheelConstants.kKff = 0.00015;
+            kTopLauncherFlywheelConstants.kKd = 0.0002; //0.0;
+            kTopLauncherFlywheelConstants.kKff = 0.000142; //0.00015;
         }
 
         public static final SparkConstants kBottomLauncherFlywheelConstants = new SparkConstants();
@@ -141,10 +141,10 @@ public class LauncherFlywheel extends VelocitySubsystem {
             kBottomLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
             kBottomLauncherFlywheelConstants.kCurrentLimit = 80;
             kBottomLauncherFlywheelConstants.kInverted = false;
-            kBottomLauncherFlywheelConstants.kKp = 0.00025;
+            kBottomLauncherFlywheelConstants.kKp = 0.0002; //0.00025;
             kBottomLauncherFlywheelConstants.kKi = 0.0;
-            kBottomLauncherFlywheelConstants.kKd = 0.0;
-            kBottomLauncherFlywheelConstants.kKff = 0.00015;
+            kBottomLauncherFlywheelConstants.kKd = 0.0002; //0.0;
+            kBottomLauncherFlywheelConstants.kKff = 0.000142; //0.00015;
         }
 
         public static final VelocitySubsystemConstants kLauncherFlywheelConstants =
