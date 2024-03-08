@@ -38,7 +38,7 @@ public class IntakeWrist extends PositionSubsystem {
     public void subsystemPeriodic() {}
 
     @Override
-    public void outputTelemetry() { }
+    public void outputTelemetry() {}
 
     public enum IntakeWristState implements PositionSubsystemState {
         DOWN(18, 0, "Down"),

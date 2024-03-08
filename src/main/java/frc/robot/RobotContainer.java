@@ -217,18 +217,16 @@ public class RobotContainer {
     // m_operatorController.pov(0).onFalse(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF)
     //   .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF))
     //   .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF)));
-
-    m_operatorController.leftBumper().onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.SUBWOOFER));
-    m_operatorController.leftBumper().onFalse(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.OFF));
-
-    m_operatorController.rightBumper().onTrue(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
-    m_operatorController.rightBumper().onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF));
+    m_operatorController.rightBumper().onTrue(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.IMTAKING));
+    m_operatorController.rightBumper().onFalse(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF));
+    
+    m_operatorController.leftBumper().onTrue(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.IMTAKING));
+    m_operatorController.leftBumper().onFalse(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF));
 
     // m_operatorController.pov(0).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.PODIUM));
     // m_operatorController.pov(0).onFalse((new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING)));
 
     ///// SIGNALS /////
-
     // m_operatorController.pov(270).onTrue(new SetLEDState(LEDState.BLUE_WIPE, 3));
     // m_operatorController.pov(90).onTrue(new SetLEDState(LEDState.ORANGE_WIPE, 100));
     // m_operatorController.pov(90).onFalse(new SetLEDState(LEDState.ORANGE_WIPE, -1));
