@@ -392,6 +392,8 @@ public class LimelightHelpers {
         public double avgTagDist;
         public double avgTagArea;
 
+        private final Translation2d fieldCorner = new Translation2d(16.54, 8.02);
+
 
         public PoseEstimate(Pose2d pose, double timestampSeconds, double latency, int tagCount, double tagSpan, double avgTagDist, double avgTagArea) {
             this.pose = pose;
@@ -401,6 +403,19 @@ public class LimelightHelpers {
             this.tagSpan = tagSpan;
             this.avgTagDist = avgTagDist;
             this.avgTagArea = avgTagArea;
+        }
+
+        public boolean isPoseTrustworthy() { 
+            boolean isPoseInField = (pose.getX() < fieldCorner.getX() && pose.getY() < fieldCorner.getY()) && pose.getX() > 0 && pose.getY() > 0;
+            boolean tagValidDist = avgTagDist <= 2.3;
+            boolean enoughTags = tagCount >= 2;
+            boolean enoughArea = avgTagArea >= .5;
+
+            if (isPoseInField && tagValidDist && enoughTags && enoughArea) {
+                return true;
+            }
+
+            return false;
         }
     }
 

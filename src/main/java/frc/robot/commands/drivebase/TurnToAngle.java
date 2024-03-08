@@ -12,7 +12,7 @@ import frc.lib.utilities.GeometryUtils;
 
 public class TurnToAngle extends Command {
   /** Creates a new TurnToAngle. */
-  private PIDController angleController = new PIDController(.025, 0, 0.001);
+  private PIDController angleController = new PIDController(.02, 0, 0.001);
 ;
 
   private SwerveDrive m_drivebase;
@@ -62,8 +62,8 @@ public class TurnToAngle extends Command {
   public void initialize() {
     if (m_targetAngle == -1) {
       m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
+      m_targetAngle -= 180;
     }
-    SmartDashboard.putNumber("target angle ", m_targetAngle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -72,7 +72,6 @@ public class TurnToAngle extends Command {
     double speeds =
         angleController.calculate(
             GeometryUtils.getAdjustedYawDegrees(m_drivebase.getYawDegrees(), m_targetAngle), 180);
-    SmartDashboard.putNumber("speeds", speeds);
     m_drivebase.drive(0, 0, speeds, true, true);
   }
 

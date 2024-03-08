@@ -30,6 +30,8 @@ import frc.robot.subsystems.Limelight;
 import frc.lib.utilities.GeometryUtils;
 import frc.lib.utilities.LimelightHelpers;
 import frc.lib.utilities.SwerveModuleConstants;
+import frc.lib.utilities.LimelightHelpers.PoseEstimate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,7 @@ public class SwerveDrive extends SubsystemBase {
 
   private SwerveDrivePoseEstimator poseEstimator;
 
-  private Pose2d limelightPose;
+  private PoseEstimate limelightPose;
 
   /**
    *
@@ -102,8 +104,8 @@ public class SwerveDrive extends SubsystemBase {
             getYaw(),
             getModulePositions(),
             new Pose2d(),
-            VecBuilder.fill(0.1, 0.1, 0.1),
-            VecBuilder.fill(0.9, 0.9, 0.9));
+            VecBuilder.fill(0.1, 0.1, 0.0),
+            VecBuilder.fill(0.9, 0.9, 1.0));
 
     m_pigeon.setYaw(0);
 
@@ -340,16 +342,31 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public double calculateAngleToSpeaker() {
+    var alliance = DriverStation.getAlliance();
 
-    double hypot = getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
-    double adjacent = getPose().getTranslation().getX() - DriveConstants.kBlueSpeakerPosition.getX();
+    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+      double hypot = getPose().getTranslation().getDistance(DriveConstants.kRedSpeakerPosition);
+      double adjacent = getPose().getTranslation().getX() - DriveConstants.kRedSpeakerPosition.getX();
 
-    if(getPose().getY() > DriveConstants.kBlueSpeakerPosition.getY()){
-      return Math.toDegrees(Math.acos(adjacent / hypot));
+      if(getPose().getY() > DriveConstants.kRedSpeakerPosition.getY()){
+        return Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+      else{
+        return -Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+    } else {
+      double hypot = getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
+      double adjacent = getPose().getTranslation().getX() - DriveConstants.kBlueSpeakerPosition.getX();
+
+      if(getPose().getY() > DriveConstants.kBlueSpeakerPosition.getY()){
+        return Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+      else{
+        return -Math.toDegrees(Math.acos(adjacent / hypot));
+      }
     }
-    else{
-      return -Math.toDegrees(Math.acos(adjacent / hypot));
-    }
+
+
   }
 
   public double calculateDistanceToSpeaker(Pose2d robotPose) {
@@ -363,7 +380,7 @@ public class SwerveDrive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    poseEstimator.update(getYaw(), getModulePositions());
+    poseEstimator.updateWithTime(Timer.getFPGATimestamp(), getYaw(), getModulePositions());
 
     robotRelativeChassisSpeeds = DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
     // SmartDashboard.putNumber("swerve gyro", getYawDegrees());
@@ -388,19 +405,24 @@ public class SwerveDrive extends SubsystemBase {
 
     // SmartDashboard.putNumber("Pitch", GeometryUtils.interpolatePitch(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose())));
 
-    limelightPose = LimelightHelpers.getBotPose2d_wpiBlue("limelight-launch");
+    limelightPose = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-launch");
 
-    if (poseEstimator
-            .getEstimatedPosition()
-            .getTranslation()
-            .getDistance(limelightPose.getTranslation())
-              <= 2.5 && limelightPose.getTranslation().getDistance(new Translation2d(0, 0)) > 0.5) {
-      poseEstimator.addVisionMeasurement(
-          limelightPose,
-          Timer.getFPGATimestamp() - (LimelightHelpers.getBotPose("limelight-launch")[6] / 1000.0));
+    // if (poseEstimator
+    //         .getEstimatedPosition()
+    //         .getTranslation()
+    //         .getDistance(limelightPose.getTranslation())
+    //           <= 2.5 && limelightPose.getTranslation().getDistance(new Translation2d(0, 0)) > 0.5) {
+    //   poseEstimator.addVisionMeasurement(
+    //       limelightPose,
+    //       Timer.getFPGATimestamp() - (LimelightHelpers.getBotPose("limelight-launch")[6] / 1000.0));
+    // }
+
+
+    if (limelightPose.isPoseTrustworthy()) {
+      poseEstimator.addVisionMeasurement(limelightPose.pose, limelightPose.timestampSeconds);
     }
 
-    m_field.getObject("Limelight-Launch-Pose").setPose(limelightPose);
+    m_field.getObject("Limelight-Launch-Pose").setPose(limelightPose.pose);
   }
 
   public void realPeriodic() {
