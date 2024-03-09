@@ -3,67 +3,51 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.285789472479845,
-        "y": 4.890447979094157
+        "x": 3.601681437597109,
+        "y": 2.32042049669685
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.729535224836215,
-        "y": 4.529904555304607
-      },
-      "isLocked": false,
-      "linkedName": "LaunchPos2"
-    },
-    {
-      "anchor": {
-        "x": 7.6693508341971635,
-        "y": 4.086158802948237
-      },
-      "prevControl": {
-        "x": 7.541133484684887,
-        "y": 3.602878024017348
-      },
-      "nextControl": {
-        "x": 7.79756818370944,
-        "y": 4.569439581879126
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 6.513762937435784,
-        "y": 6.314132267904176
-      },
-      "prevControl": {
-        "x": 7.327930567515445,
-        "y": 5.808486701413144
-      },
-      "nextControl": {
-        "x": 5.699595307356123,
-        "y": 6.819777834395208
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 4.02,
-        "y": 6.55
-      },
-      "prevControl": {
         "x": 4.757269334358488,
-        "y": 6.767122723434636
+        "y": 1.7472488999032059
+      },
+      "isLocked": false,
+      "linkedName": "LaunchPos3"
+    },
+    {
+      "anchor": {
+        "x": 7.697084943719436,
+        "y": 0.8690020983645582
+      },
+      "prevControl": {
+        "x": 7.72481905324171,
+        "y": 0.5731715967936452
+      },
+      "nextControl": {
+        "x": 7.669082731111518,
+        "y": 1.1676923661823442
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.885123121597594,
+        "y": 1.42368428881002
+      },
+      "prevControl": {
+        "x": 6.495273531087411,
+        "y": 1.2480349285029937
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LaunchPos1"
+      "linkedName": "PoopPoint3"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.1,
-      "rotationDegrees": 0.0,
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": -4.537772507906731,
       "rotateFast": false
     }
   ],
@@ -85,7 +69,7 @@
             {
               "type": "named",
               "data": {
-                "name": "launchPos1LaunchPrepare"
+                "name": "poopPos3LaunchPrepare"
               }
             }
           ]
@@ -101,13 +85,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 14.25,
+    "rotation": -47.882963452539585,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Launch Pos 2",
+  "folder": "Launch Pos 3",
   "previewStartingState": {
-    "rotation": -12.089999999999975,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": false

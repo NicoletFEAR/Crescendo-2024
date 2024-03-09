@@ -1,0 +1,298 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.601681437597109,
+        "y": 2.32042049669685
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.50766234865803,
+        "y": 1.4421736951582023
+      },
+      "isLocked": false,
+      "linkedName": "LaunchPos3"
+    },
+    {
+      "anchor": {
+        "x": 7.715574350067619,
+        "y": 0.8042891761459202
+      },
+      "prevControl": {
+        "x": 7.599723239332579,
+        "y": 0.6980923246388008
+      },
+      "nextControl": {
+        "x": 7.826510788156713,
+        "y": 0.9059809110609214
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.086934534229428,
+        "y": 2.9028367966645843
+      },
+      "prevControl": {
+        "x": 7.651042534124692,
+        "y": 2.17289907308942
+      },
+      "nextControl": {
+        "x": 6.522826534334164,
+        "y": 3.6327745202397486
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.792676089856684,
+        "y": 4.067669396600055
+      },
+      "prevControl": {
+        "x": 5.785073230645876,
+        "y": 4.018250811717234
+      },
+      "nextControl": {
+        "x": 5.800278949067492,
+        "y": 4.117087981482877
+      },
+      "isLocked": false,
+      "linkedName": "PoopPoint2"
+    },
+    {
+      "anchor": {
+        "x": 7.817266084982619,
+        "y": 2.7734109522273105
+      },
+      "prevControl": {
+        "x": 7.737163560344406,
+        "y": 2.653257165269992
+      },
+      "nextControl": {
+        "x": 7.90971311672353,
+        "y": 2.912081499838676
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.792676089856684,
+        "y": 4.067669396600055
+      },
+      "prevControl": {
+        "x": 5.814080407092893,
+        "y": 4.022482504655026
+      },
+      "nextControl": {
+        "x": 5.771271772620475,
+        "y": 4.112856288545085
+      },
+      "isLocked": false,
+      "linkedName": "PoopPoint2"
+    },
+    {
+      "anchor": {
+        "x": 7.706329646893527,
+        "y": 4.132382318818692
+      },
+      "prevControl": {
+        "x": 7.419743848496706,
+        "y": 3.84579652042187
+      },
+      "nextControl": {
+        "x": 8.03454915973131,
+        "y": 4.460601831656473
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.040711018358973,
+        "y": 5.694737155240077
+      },
+      "prevControl": {
+        "x": 7.654049466489309,
+        "y": 5.2593795870594615
+      },
+      "nextControl": {
+        "x": 6.427372570228637,
+        "y": 6.130094723420692
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.801920793030774,
+        "y": 6.471292221863723
+      },
+      "prevControl": {
+        "x": 5.751424385851515,
+        "y": 6.336635136039948
+      },
+      "nextControl": {
+        "x": 5.857389012070904,
+        "y": 6.61920747265104
+      },
+      "isLocked": false,
+      "linkedName": "PoopPoint1"
+    },
+    {
+      "anchor": {
+        "x": 7.743308459589892,
+        "y": 5.981322953636898
+      },
+      "prevControl": {
+        "x": 7.762345949853911,
+        "y": 6.0275568585600965
+      },
+      "nextControl": {
+        "x": 7.7242709693258735,
+        "y": 5.935089048713699
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.801920793030774,
+        "y": 6.471292221863723
+      },
+      "prevControl": {
+        "x": 5.903612527941359,
+        "y": 6.295642861557854
+      },
+      "nextControl": {
+        "x": 5.697831076304788,
+        "y": 6.651083550759966
+      },
+      "isLocked": false,
+      "linkedName": "PoopPoint1"
+    },
+    {
+      "anchor": {
+        "x": 7.70632964688911,
+        "y": 7.284826101185595
+      },
+      "prevControl": {
+        "x": 7.67982969988895,
+        "y": 7.32722601638585
+      },
+      "nextControl": {
+        "x": 7.732829593889269,
+        "y": 7.24242618598534
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.801920793030774,
+        "y": 6.471292221863723
+      },
+      "prevControl": {
+        "x": 6.962131041379199,
+        "y": 6.582228659952816
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "PoopPoint1"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 4.0,
+      "rotationDegrees": -35.340106921557656,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.95,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 3.0,
+      "rotationDegrees": -36.379999999999995,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 6.0,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 5.0,
+      "rotationDegrees": -36.379999999999995,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 8.0,
+      "rotationDegrees": -17.100000000000023,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 9.0,
+      "rotationDegrees": -18.778033222405625,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 11.0,
+      "rotationDegrees": 17.14,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 10.0,
+      "rotationDegrees": -17.525568373722823,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Intake Then Prepare",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "fastIntake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "poopPos2LaunchPrepare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.1,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -16.073574164689283,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Launch Pos 3",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
