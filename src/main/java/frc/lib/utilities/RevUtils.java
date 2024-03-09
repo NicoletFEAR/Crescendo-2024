@@ -32,7 +32,7 @@ public final class RevUtils {
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
 
-    motorController.setSmartCurrentLimit(60, 35);
+    motorController.setSmartCurrentLimit(80);
     motorController.burnFlash();
   }
 

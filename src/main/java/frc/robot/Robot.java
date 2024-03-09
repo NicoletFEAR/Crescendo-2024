@@ -13,12 +13,16 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.leds.LED;
 import frc.robot.subsystems.leds.LED.LEDState;
 
@@ -55,7 +59,8 @@ public class Robot extends TimedRobot {
   /** This function is called once when autonomous is enabled. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    CommandScheduler.getInstance().cancelAll();
+    m_autonomousCommand = new WaitCommand(0.01).andThen(m_robotContainer.getAutonomousCommand());
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -70,6 +75,8 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
+    CommandScheduler.getInstance().cancelAll();
+
     RobotContainer.m_drivebase.updateEstimatorWithPose(RobotContainer.m_drivebase.getPose());
 
     if (RobotContainer.m_drivebase.getIsSetGyroRequestPresent()) {
@@ -100,6 +107,9 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     LED.setState(LEDState.RED);
+    Command disabledCommand = new PathPlannerAuto("Dummy-Auto-Fix-Auto").ignoringDisable(true);
+    disabledCommand.schedule();
+    // disabledCommand.cancel();
   }
 
   /** This function is called periodically when disabled. */

@@ -172,6 +172,8 @@ public class SwerveModule extends SubsystemBase{
 
     double angle = m_desiredState.angle.getDegrees();
 
+    
+
     if ((m_desiredState.angle.getDegrees() != m_lastAngle && 
       Math.abs(m_desiredState.speedMetersPerSecond)
         >= (DriveConstants.kMaxMetersPerSecond * DriveConstants.kSteerVelocityDeadzone))

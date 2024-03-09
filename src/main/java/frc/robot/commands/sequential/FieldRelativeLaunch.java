@@ -5,9 +5,13 @@
 package frc.robot.commands.sequential;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.lib.utilities.LimelightHelpers;
 import frc.robot.RobotContainer;
+import frc.robot.commands.drivebase.KeepResettingPoseWithVision;
+import frc.robot.commands.drivebase.ResetPoseWithVision;
 import frc.robot.commands.drivebase.TurnToAngle;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
@@ -18,15 +22,23 @@ public class FieldRelativeLaunch extends SequentialCommandGroup {
   /** Creates a new FieldRelativeLaunch. */
   public FieldRelativeLaunch() {
     addCommands(
-      // Turns then X wheels when done turning, and while doing that rev up wheels
-      new SequentialCommandGroup(new TurnToAngle(RobotContainer.m_drivebase),
-        new InstantCommand(RobotContainer.m_drivebase::toggleXWheels))
-      .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_PREP)),
+      new ResetPoseWithVision(),
 
-      // Launch then wait till done launching then go back to zero
-      RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_LAUNCH),
-      new WaitCommand(.1),
-      RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
+      new ParallelRaceGroup(
+        new KeepResettingPoseWithVision(),
+
+        new SequentialCommandGroup(
+            // Turns then X wheels when done turning, and while doing that rev up wheels
+            new SequentialCommandGroup(new TurnToAngle(RobotContainer.m_drivebase),
+              new InstantCommand(RobotContainer.m_drivebase::toggleXWheels))
+            .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_PREP)),
+
+            // Launch then wait till done launching then go back to zero
+            RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_LAUNCH),
+            new WaitCommand(.1),
+            RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
+        )
+      )
     );
   }
 }

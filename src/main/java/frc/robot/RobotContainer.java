@@ -156,7 +156,7 @@ public class RobotContainer {
     autoChooser.addOption("Source Side 5 Piece Center", AutoBuilder.buildAuto("Source Side 5 Piece Center"));
     autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
 
-    autoChooser.addOption("Start Pos 5 Amp Shove Center", AutoBuilder.buildAuto("Start Pos 5 Amp Shove Center"));
+    autoChooser.addOption("Start Pos 5 5 Piece Amp Shove Center", AutoBuilder.buildAuto("Start Pos 5 5 Piece Amp Shove Center"));
 
     mainTab.add(autoChooser);
 

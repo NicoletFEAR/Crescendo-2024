@@ -358,6 +358,10 @@ public class SwerveDrive extends SubsystemBase {
     isGyroRequestAmpSide = isAmpSide;
   }
 
+  public void addVisionEstimate(Pose2d estimate, double timeStamp) {
+    poseEstimator.addVisionMeasurement(estimate, timeStamp);
+  }
+
   public double calculateAngleToSpeaker() {
     var alliance = DriverStation.getAlliance();
 
@@ -436,12 +440,13 @@ public class SwerveDrive extends SubsystemBase {
 
     if (Constants.kInfoMode) {
       SmartDashboard.putBoolean("Is Pose Trustworthy", limelightPose.isPoseTrustworthy());
+      SmartDashboard.putNumber("Bot Ta", LimelightHelpers.getTA("limelight-launch"));
       m_field.getObject("Limelight-Launch-Pose").setPose(limelightPose.pose);
     }
 
-    if (limelightPose.isPoseTrustworthy()) {
-      poseEstimator.addVisionMeasurement(limelightPose.pose, limelightPose.timestampSeconds);
-    }
+    // if (limelightPose.isPoseTrustworthy()) {
+    //   poseEstimator.addVisionMeasurement(limelightPose.pose, limelightPose.timestampSeconds);
+    // }
    
   }
 

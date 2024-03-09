@@ -408,14 +408,12 @@ public class LimelightHelpers {
 
         public boolean isPoseTrustworthy() { 
             boolean isPoseInField = (pose.getX() < fieldCorner.getX() && pose.getY() < fieldCorner.getY()) && pose.getX() > 0 && pose.getY() > 0;
-            boolean tagValidDist = avgTagDist <= 2.3;
-            boolean enoughTags = tagCount >= 2;
-            boolean enoughArea = avgTagArea >= .5;
+            boolean enoughArea = getTA("limelight-launch") > .15;
             boolean robotNotMovingMuch = RobotContainer.m_drivebase.getChassisSpeeds().vxMetersPerSecond < .25
                                         && RobotContainer.m_drivebase.getChassisSpeeds().vyMetersPerSecond < .25
                                         && RobotContainer.m_drivebase.getChassisSpeeds().omegaRadiansPerSecond < (Math.PI * 2) * .25;
 
-            if (isPoseInField && tagValidDist && enoughTags && enoughArea && robotNotMovingMuch) {
+            if (isPoseInField && enoughArea && robotNotMovingMuch) {
                 return true;
             }
 
