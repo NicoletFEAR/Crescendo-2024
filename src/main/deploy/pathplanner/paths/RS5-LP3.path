@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.46,
+        "y": 2.043079401474119
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.2350374250298048,
+        "y": 2.0985476205186653
+      },
+      "isLocked": false,
+      "linkedName": "StartPos5"
+    },
+    {
+      "anchor": {
+        "x": 3.601681437597109,
+        "y": 2.32042049669685
+      },
+      "prevControl": {
+        "x": 2.8251263709734626,
+        "y": 2.246462871304121
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "LaunchPos3"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Prepare",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "launchPos3LaunchPrepare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.1,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -42.389999999999986,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Start Pos 5",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

@@ -16,6 +16,8 @@ import frc.robot.commands.waits.WaitForLaunchNote;
 import frc.robot.subsystems.intake.IntakeFlywheel.IntakeFlywheelState;
 import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 import frc.robot.subsystems.intake.IntakeWrist.IntakeWristState;
+import frc.robot.subsystems.launcher.LauncherHold;
+import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.intake.ElevatorLift.ElevatorLiftState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
@@ -100,18 +102,15 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
       );
     } else if (intakeDesiredState == IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING) {
         outputCommand.addCommands(
-          new ParallelCommandGroup(
-            new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
-            new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState),
-            new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState),
-            new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState),
-            RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.INTAKE_TO_LAUNCH)
-          )
-        );
-    }
-
-     else {
-        if (intakeDesiredState == IntakeSuperstructureState.BEAM_BREAK_INTAKING) {
+          new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState)
+            .alongWith(
+              new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState), 
+              new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
+              new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState),
+              RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.INTAKE_TO_LAUNCH))
+            );
+    } else {
+        if (intakeDesiredState == IntakeSuperstructureState.BEAM_BREAK_INTAKING ) {
           outputCommand.addCommands(
             new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState)
             .alongWith(new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState))
@@ -131,11 +130,20 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = intakeDesiredState));
 
-    if (intakeDesiredState == IntakeSuperstructureState.BEAM_BREAK_INTAKING || intakeDesiredState == IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING) {
+    if (intakeDesiredState == IntakeSuperstructureState.BEAM_BREAK_INTAKING) {
       outputCommand.addCommands(
         new WaitForLaunchNote(),
         setSuperstructureState(IntakeSuperstructureState.TRAVEL)
         .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED))
+      );
+    } else if (intakeDesiredState == IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING) {
+        outputCommand.addCommands(
+        new WaitForLaunchNote(),
+        new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, IntakeFlywheelState.OFF)
+        .alongWith(
+          new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.OFF),
+          new SetVoltageSubsystemState(RobotContainer.m_intakeHold, IntakeHoldState.OFF)
+        )
       );
     }
 

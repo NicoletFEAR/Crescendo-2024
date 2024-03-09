@@ -3,51 +3,51 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.94,
-        "y": 5.55
+        "x": 5.801920793030774,
+        "y": 6.471292221863723
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.122528929742544,
-        "y": 5.541275082550165
+        "x": 6.624699375524877,
+        "y": 6.748633317086454
       },
       "isLocked": false,
-      "linkedName": "WN2Prepare"
+      "linkedName": "PoopPoint1"
     },
     {
       "anchor": {
-        "x": 2.3,
-        "y": 5.55
+        "x": 7.743308459589892,
+        "y": 7.220113178965097
       },
       "prevControl": {
-        "x": 2.2499999999999996,
-        "y": 5.55
+        "x": 7.696623186408354,
+        "y": 7.202211076631428
       },
       "nextControl": {
-        "x": 2.35,
-        "y": 5.55
+        "x": 7.78999373277143,
+        "y": 7.238015281298767
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.001396935052691,
-        "y": 6.37353346947036
+        "x": 5.801920793030774,
+        "y": 6.471292221863723
       },
       "prevControl": {
-        "x": 2.122528929740373,
-        "y": 6.129238204422979
+        "x": 6.615454672350786,
+        "y": 6.7393886139123635
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "WN1Prepare"
+      "linkedName": "PoopPoint1"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.2,
-      "rotationDegrees": 0,
+      "waypointRelativePos": 1.05,
+      "rotationDegrees": 20.98,
       "rotateFast": false
     }
   ],
@@ -69,7 +69,7 @@
             {
               "type": "named",
               "data": {
-                "name": "wingNote1LaunchPrepare"
+                "name": "poopPos1LaunchPrepare"
               }
             }
           ]
@@ -78,21 +78,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.75,
+    "maxVelocity": 6.1,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 23.47,
+    "rotation": -14.930000000000007,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Wing Note 2",
+  "folder": "Poop Pos 1",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -14.930000000000007,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

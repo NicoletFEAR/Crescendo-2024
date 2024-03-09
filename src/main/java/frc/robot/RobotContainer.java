@@ -21,11 +21,9 @@ import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.drivebase.TurnToAngle;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
-import frc.robot.commands.superstructure.SetLEDState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
-import frc.robot.commands.waits.WaitForLaunchNote;
 import frc.robot.subsystems.intake.ElevatorLift;
 import frc.robot.subsystems.intake.IntakeFlywheel;
 import frc.robot.subsystems.intake.IntakeHold;
@@ -43,7 +41,6 @@ import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
 import frc.robot.subsystems.leds.LED;
-import frc.robot.subsystems.leds.LED.LEDState;
 import frc.robot.subsystems.swerve.SwerveDrive;
 
 /*
@@ -90,17 +87,55 @@ public class RobotContainer {
   public RobotContainer() {
 
     // NAMED COMMANDS FOR AUTO \\
-    NamedCommands.registerCommand("intake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.BEAM_BREAK_INTAKING));
+
+    // Use for auto
     NamedCommands.registerCommand("fastIntake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING));
+
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
-    NamedCommands.registerCommand("idle", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE));
-    NamedCommands.registerCommand("stow", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
-    NamedCommands.registerCommand("waitForLauncherNote", new WaitForLaunchNote());
-    NamedCommands.registerCommand("keepNoteInLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.KEEP_NOTE_IN_LAUNCH));
-    NamedCommands.registerCommand("resetGyro60", new InstantCommand(() -> m_drivebase.setGyro(60)));
-    NamedCommands.registerCommand("addGyro60", new InstantCommand(() -> m_drivebase.addGyro(60)));
-    NamedCommands.registerCommand("addGyro-60", new InstantCommand(() -> m_drivebase.addGyro(-60)));
-    NamedCommands.registerCommand("resetGyro-60", new InstantCommand(() -> m_drivebase.setGyro(-60)));
+
+    NamedCommands.registerCommand("wingNote1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_1)));
+    NamedCommands.registerCommand("wingNote1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_1));
+
+    NamedCommands.registerCommand("wingNote2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_2)));
+    NamedCommands.registerCommand("wingNote2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_2));
+
+    NamedCommands.registerCommand("wingNote3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_3)));
+    NamedCommands.registerCommand("wingNote3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_3));
+
+    NamedCommands.registerCommand("launchPos1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_1)));
+    NamedCommands.registerCommand("launchPos1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_1));
+  
+    NamedCommands.registerCommand("launchPos2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_2)));
+    NamedCommands.registerCommand("launchPos2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_2));
+
+    NamedCommands.registerCommand("launchPos3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_3)));
+    NamedCommands.registerCommand("launchPos3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_3));
+
+    NamedCommands.registerCommand("poopPos1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_1)));
+    NamedCommands.registerCommand("poopPos1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_1));
+  
+    NamedCommands.registerCommand("poopPos2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_2)));
+    NamedCommands.registerCommand("poopPos2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_2));
+
+    NamedCommands.registerCommand("poopPos3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_3)));
+    NamedCommands.registerCommand("poopPos3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_3));
+
+    NamedCommands.registerCommand("addGyroAmpSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, true)));
+    NamedCommands.registerCommand("addGyroSourceSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, false)));
+
+    NamedCommands.registerCommand("stow", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
+    .andThen(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL)));
+
+
     
     autoChooser = AutoBuilder.buildAutoChooser("None");
 
@@ -211,6 +246,12 @@ public class RobotContainer {
     ///// LAUNCH /////
     m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
     m_operatorController.pov(180).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
+
+    m_operatorController.pov(0).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.SUBWOOFER));
+    m_operatorController.pov(0).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
+
+    m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.OFF)
+    .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF)));
       
     // m_operatorController.pov(0).onTrue(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.EJECTING)
     //   .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.INTAKING)).3

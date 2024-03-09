@@ -3,51 +3,51 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.94,
-        "y": 5.55
+        "x": 4.285789472479845,
+        "y": 4.890447979094157
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.122528929742544,
-        "y": 5.541275082550165
+        "x": 4.563130567702576,
+        "y": 4.492925742608242
       },
       "isLocked": false,
-      "linkedName": "WN2Prepare"
+      "linkedName": "LaunchPos2"
     },
     {
       "anchor": {
-        "x": 2.3,
-        "y": 5.55
+        "x": 7.6693508341971635,
+        "y": 4.086158802948237
       },
       "prevControl": {
-        "x": 2.2499999999999996,
-        "y": 5.55
+        "x": 7.6693508341971635,
+        "y": 4.036158802948237
       },
       "nextControl": {
-        "x": 2.35,
-        "y": 5.55
+        "x": 7.6693508341971635,
+        "y": 4.136158802948238
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.001396935052691,
-        "y": 6.37353346947036
+        "x": 4.285789472479845,
+        "y": 4.890447979094157
       },
       "prevControl": {
-        "x": 2.122528929740373,
-        "y": 6.129238204422979
+        "x": 4.581619974050758,
+        "y": 4.492925742608242
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "WN1Prepare"
+      "linkedName": "LaunchPos2"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.2,
-      "rotationDegrees": 0,
+      "waypointRelativePos": 1.05,
+      "rotationDegrees": 0.0,
       "rotateFast": false
     }
   ],
@@ -69,7 +69,7 @@
             {
               "type": "named",
               "data": {
-                "name": "wingNote1LaunchPrepare"
+                "name": "launchPos2LaunchPrepare"
               }
             }
           ]
@@ -78,21 +78,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.75,
+    "maxVelocity": 6.1,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 23.47,
+    "rotation": -8.579999999999984,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Wing Note 2",
+  "folder": "Launch Pos 2",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -8.579999999999984,
     "velocity": 0
   },
-  "useDefaultConstraints": true
-}
+  "useDefaultConstraints": false
+}}

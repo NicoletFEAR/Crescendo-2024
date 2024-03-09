@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 2.335157102750085,
-        "y": 5.565311310801402
+        "x": 1.94,
+        "y": 5.55
       },
       "prevControl": {
-        "x": 2.076305413875536,
-        "y": 5.10307615209685
+        "x": 1.681148311125451,
+        "y": 5.087764841295448
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "WN2Prepare"
     }
   ],
   "rotationTargets": [
@@ -52,7 +52,31 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake Then Prepare",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "fastIntake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "wingNote1LaunchPrepare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 1.75,

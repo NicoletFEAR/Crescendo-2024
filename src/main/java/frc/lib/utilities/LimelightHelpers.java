@@ -3,6 +3,7 @@ package frc.lib.utilities;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.RobotContainer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -410,8 +411,11 @@ public class LimelightHelpers {
             boolean tagValidDist = avgTagDist <= 2.3;
             boolean enoughTags = tagCount >= 2;
             boolean enoughArea = avgTagArea >= .5;
+            boolean robotNotMovingMuch = RobotContainer.m_drivebase.getChassisSpeeds().vxMetersPerSecond < .25
+                                        && RobotContainer.m_drivebase.getChassisSpeeds().vyMetersPerSecond < .25
+                                        && RobotContainer.m_drivebase.getChassisSpeeds().omegaRadiansPerSecond < (Math.PI * 2) * .25;
 
-            if (isPoseInField && tagValidDist && enoughTags && enoughArea) {
+            if (isPoseInField && tagValidDist && enoughTags && enoughArea && robotNotMovingMuch) {
                 return true;
             }
 

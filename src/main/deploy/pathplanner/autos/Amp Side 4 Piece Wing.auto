@@ -1,0 +1,73 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.74,
+      "y": 6.62
+    },
+    "rotation": 60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "addGyroAmpSide"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferLaunch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RS1-WN1-WN2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "wingNote2Launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "WN2-WN3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "wingNote3Launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "WN3-L"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "wingNote2Launch"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stow"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Start Pos 1",
+  "choreoAuto": false
+}

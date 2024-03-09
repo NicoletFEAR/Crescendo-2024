@@ -2,42 +2,48 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.46,
-      "y": 1.48
+      "x": 0.74,
+      "y": 6.62
     },
-    "rotation": 0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "RS5-CN5-LP2"
+            "name": "addGyroAmpSide"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferLaunch"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LP3-CN4-LP3"
+            "pathName": "RS1-WN1-LP1"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "LP3-CN4-LP1"
+            "name": "launchPos1Launch"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "LP1-CN2-LP1"
+            "name": "stow"
           }
         }
       ]
     }
   },
-  "folder": "Start Pos 5",
+  "folder": "Start Pos 1",
   "choreoAuto": false
 }

@@ -12,21 +12,33 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "RS3-WN3-WN2"
+            "name": "addGyroSourceSide"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferLaunch"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "WN2-WN1"
+            "pathName": "RS3-WN3-LP3"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "WN1-L"
+            "name": "launchPos3Launch"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stow"
           }
         }
       ]

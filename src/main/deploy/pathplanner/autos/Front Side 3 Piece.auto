@@ -1,0 +1,55 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3,
+      "y": 5.54
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferLaunch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RS2-LP2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "launchPos2Launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LP2-CN3-LP2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "launchPos2Launch"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stow"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Start Pos 2",
+  "choreoAuto": false
+}

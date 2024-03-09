@@ -12,7 +12,7 @@
         "y": 4.418968117216258
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StartPos3"
     },
     {
       "anchor": {
@@ -52,7 +52,31 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake Then Prepare",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "fastIntake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "wingNote2LaunchPrepare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 1.75,

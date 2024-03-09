@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.6370881930953045,
-        "y": 4.659330399741881
+        "x": 4.285789472479845,
+        "y": 4.890447979094157
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.291890061257599,
-        "y": 4.1878505378632385
+        "x": 5.94059134064214,
+        "y": 4.418968117215514
       },
       "isLocked": false,
       "linkedName": "LaunchPos2"
@@ -48,12 +48,12 @@
     },
     {
       "anchor": {
-        "x": 5.016121023235211,
-        "y": 6.323376971077088
+        "x": 4.02,
+        "y": 6.55
       },
       "prevControl": {
-        "x": 5.885123121597594,
-        "y": 6.44355811234145
+        "x": 4.889002098362383,
+        "y": 6.670181141264362
       },
       "nextControl": null,
       "isLocked": false,
@@ -68,22 +68,46 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake Then Prepare",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "fastIntake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "launchPos1LaunchPrepare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 6.1,
-    "maxAcceleration": 6.0,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 7.32,
+    "rotation": 14.25,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Launch Pos 3",
+  "folder": "Launch Pos 2",
   "previewStartingState": {
-    "rotation": -12.094757077012106,
+    "rotation": -12.089999999999975,
     "velocity": 0
   },
   "useDefaultConstraints": false

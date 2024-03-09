@@ -4,7 +4,10 @@
   "holonomicMode": true,
   "pathFolders": [
     "Launch Pos 1",
+    "Launch Pos 2",
     "Launch Pos 3",
+    "Poop Pos 1",
+    "Poop Pos 2",
     "Start Pos 1",
     "Start Pos 2",
     "Start Pos 3",

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.46,
-        "y": 1.4754546265849295
+        "x": 0.46,
+        "y": 2.043079401474119
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.942576445662694,
-        "y": 1.4237117009078715
+        "x": 0.9425764456626925,
+        "y": 1.9913364757970609
       },
       "isLocked": false,
       "linkedName": "StartPos5"
@@ -20,24 +20,24 @@
         "y": 0.7765550666262372
       },
       "prevControl": {
-        "x": 7.65678002537449,
-        "y": 0.783250961426307
+        "x": 7.706329646895006,
+        "y": 0.8265550666262368
       },
       "nextControl": {
-        "x": 7.755879268415522,
-        "y": 0.7698591718261674
+        "x": 7.706329646895006,
+        "y": 0.7265550666262376
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.553885864529964,
-        "y": 2.2094840586103466
+        "x": 3.601681437597109,
+        "y": 2.32042049669685
       },
       "prevControl": {
-        "x": 5.182525680366676,
-        "y": 1.5531101332472939
+        "x": 4.230321253433821,
+        "y": 1.664046571333797
       },
       "nextControl": null,
       "isLocked": false,
@@ -52,10 +52,34 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake Then Prepare",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "fastIntake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "launchPos3LaunchPrepare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 6.1,
-    "maxAcceleration": 6.0,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

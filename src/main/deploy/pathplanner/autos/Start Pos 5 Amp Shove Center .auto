@@ -1,0 +1,85 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.46,
+      "y": 2.04
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RS5-LP3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "launchPos3Launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LP3-CN4-PP2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "poopPos2Launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "PP2-CN3-PP2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "poopPos2Launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "PP2-CN2-PP1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "poopPos1Launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "PP1-CN1-PP1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "poopPos1Launch"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stow"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Start Pos 5",
+  "choreoAuto": false
+}

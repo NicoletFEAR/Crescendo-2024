@@ -62,6 +62,10 @@ public class SwerveDrive extends SubsystemBase {
 
   private PoseEstimate limelightPose;
 
+  private boolean isSetGyroRequestPresent;
+  
+  private boolean isGyroRequestAmpSide;
+
   /**
    *
    *
@@ -105,7 +109,7 @@ public class SwerveDrive extends SubsystemBase {
             getModulePositions(),
             new Pose2d(),
             VecBuilder.fill(0.1, 0.1, 0.0),
-            VecBuilder.fill(0.9, 0.9, 1.0));
+            VecBuilder.fill(0.9, 0.9, 100.0));
 
     m_pigeon.setYaw(0);
 
@@ -341,6 +345,19 @@ public class SwerveDrive extends SubsystemBase {
     return m_xWheels;
   }
 
+  public boolean getIsSetGyroRequestPresent() {
+    return isSetGyroRequestPresent;
+  }
+
+  public boolean getIsGyroRequestAmpSide() {
+    return isGyroRequestAmpSide;
+  }
+
+  public void setGyroRequest(boolean requestPresent, boolean isAmpSide) {
+    isSetGyroRequestPresent = requestPresent;
+    isGyroRequestAmpSide = isAmpSide;
+  }
+
   public double calculateAngleToSpeaker() {
     var alliance = DriverStation.getAlliance();
 
@@ -417,12 +434,15 @@ public class SwerveDrive extends SubsystemBase {
     //       Timer.getFPGATimestamp() - (LimelightHelpers.getBotPose("limelight-launch")[6] / 1000.0));
     // }
 
+    if (Constants.kInfoMode) {
+      SmartDashboard.putBoolean("Is Pose Trustworthy", limelightPose.isPoseTrustworthy());
+      m_field.getObject("Limelight-Launch-Pose").setPose(limelightPose.pose);
+    }
 
     if (limelightPose.isPoseTrustworthy()) {
       poseEstimator.addVisionMeasurement(limelightPose.pose, limelightPose.timestampSeconds);
     }
-
-    m_field.getObject("Limelight-Launch-Pose").setPose(limelightPose.pose);
+   
   }
 
   public void realPeriodic() {

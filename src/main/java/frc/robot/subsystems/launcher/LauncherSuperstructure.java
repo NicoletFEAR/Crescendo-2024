@@ -14,6 +14,7 @@ import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.commands.waits.WaitForLaunchNote;
+import frc.robot.commands.waits.WaitForNoLaunchNote;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
@@ -81,8 +82,10 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       outputCommand.addCommands(
         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState)
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState)),
-        new WaitCommand(.1),
-        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)
+        new WaitCommand(.04),
+        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState),
+        new WaitForNoLaunchNote(),
+        new WaitCommand(.04)
       );
     }
 
@@ -169,23 +172,59 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherHoldState.LAUNCHING,
       "Podium"
     ),
-    WING_NOTE_1( // use when against base of podium
+    WING_NOTE_1( 
       LauncherFlywheelState.WING_NOTE_1,
       LauncherWristState.WING_NOTE_1,
       LauncherHoldState.LAUNCHING,
       "Wing Note 1"
     ),
-    WING_NOTE_2( // use when against base of podium
+    WING_NOTE_2( 
       LauncherFlywheelState.WING_NOTE_2,
       LauncherWristState.WING_NOTE_2,
       LauncherHoldState.LAUNCHING,
       "Wing Note 2"
     ),
-    WING_NOTE_3( // use when against base of podium
+    WING_NOTE_3( 
       LauncherFlywheelState.WING_NOTE_3,
       LauncherWristState.WING_NOTE_3,
       LauncherHoldState.LAUNCHING,
       "Wing Note 3"
+    ),
+    LAUNCH_POS_1(
+      LauncherFlywheelState.LAUNCH_POS_1,
+      LauncherWristState.LAUNCH_POS_1,
+      LauncherHoldState.LAUNCHING,
+      "Launch Pos 1"
+    ),
+    LAUNCH_POS_2(
+      LauncherFlywheelState.LAUNCH_POS_2,
+      LauncherWristState.LAUNCH_POS_2,
+      LauncherHoldState.LAUNCHING,
+      "Launch Pos 2"
+    ),
+    LAUNCH_POS_3(
+      LauncherFlywheelState.LAUNCH_POS_3,
+      LauncherWristState.LAUNCH_POS_3,
+      LauncherHoldState.LAUNCHING,
+      "Launch Pos 3"
+    ),
+    POOP_POS_1( 
+      LauncherFlywheelState.LAUNCH_POS_1,
+      LauncherWristState.LAUNCH_POS_1,
+      LauncherHoldState.LAUNCHING,
+      "Poop Pos 1"
+    ),
+    POOP_POS_2( 
+      LauncherFlywheelState.LAUNCH_POS_2,
+      LauncherWristState.LAUNCH_POS_2,
+      LauncherHoldState.LAUNCHING,
+      "Poop Pos 2"
+    ),
+    POOP_POS_3(
+      LauncherFlywheelState.LAUNCH_POS_3,
+      LauncherWristState.LAUNCH_POS_3,
+      LauncherHoldState.LAUNCHING,
+      "Poop Pos 3"
     ),
     FIELD_BASED_PREP(
       LauncherFlywheelState.FIELD_BASED_VELOCITY,

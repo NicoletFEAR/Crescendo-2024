@@ -52,6 +52,12 @@ public class LauncherWrist extends PositionSubsystem {
         WING_NOTE_1(56.66, 0, "Wing Note 1"),
         WING_NOTE_2(56.66, 0, "Wing Note 2"),
         WING_NOTE_3(56.66, 0, "Wing Note 3"),
+        LAUNCH_POS_1(56.66, 0, "Launch Pos 1"),
+        LAUNCH_POS_2(56.66, 0, "Launch Pos 2"),
+        LAUNCH_POS_3(56.66, 0, "Launch Pos 3"),
+        POOP_POS_1(56.66, 0, "Poop Pos 1"),
+        POOP_POS_2(56.66, 0, "Poop Pos 2"),
+        POOP_POS_3(56.66, 0, "Poop Pos 3"),
         PODIUM(45.66, 0, "podium"), // use when against base of podium
         FIELD_BASED_PITCH(0, 0, "Field Based Pitch"),
         TRANSITION(0, 0, "Transition"),
@@ -105,7 +111,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristLeaderConstants.kMotorType = MotorType.kBrushless;
             kLauncherWristLeaderConstants.kCurrentLimit = 80;
             kLauncherWristLeaderConstants.kInverted = false;
-            kLauncherWristLeaderConstants.kKp = 0.035;
+            kLauncherWristLeaderConstants.kKp = 0.0375;
             kLauncherWristLeaderConstants.kKi = 0.0;
             kLauncherWristLeaderConstants.kKd = 0.0;
             kLauncherWristLeaderConstants.kKff = 0.0;
@@ -136,7 +142,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristConstants.kMaxAcceleration = 1500; //275
 
             kLauncherWristConstants.kMaxPosition = 110;
-            kLauncherWristConstants.kMinPosition = 20;
+            kLauncherWristConstants.kMinPosition = 0;
 
             kLauncherWristConstants.kManualControlMode = ManualControlMode.LEFT_X;
             kLauncherWristConstants.kManualMultiplier = .75;

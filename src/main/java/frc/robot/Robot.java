@@ -14,6 +14,8 @@
 package frc.robot;
 
 import edu.wpi.first.net.PortForwarder;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -69,6 +71,25 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     RobotContainer.m_drivebase.updateEstimatorWithPose(RobotContainer.m_drivebase.getPose());
+
+    if (RobotContainer.m_drivebase.getIsSetGyroRequestPresent()) {
+      var alliance = DriverStation.getAlliance();
+
+      if (RobotContainer.m_drivebase.getIsGyroRequestAmpSide()) {
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+          RobotContainer.m_drivebase.addGyro(-60);
+        } else {
+          RobotContainer.m_drivebase.addGyro(60);
+        }
+      } else {
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+          RobotContainer.m_drivebase.addGyro(60);
+        } else {
+          RobotContainer.m_drivebase.addGyro(-60);
+        }
+      }
+      RobotContainer.m_drivebase.setGyroRequest(false, false);
+    }
   }
 
   /** This function is called periodically during operator control. */
