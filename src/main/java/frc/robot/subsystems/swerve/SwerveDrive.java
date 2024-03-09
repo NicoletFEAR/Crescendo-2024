@@ -445,11 +445,6 @@ public class SwerveDrive extends SubsystemBase {
    
   }
 
-  public void realPeriodic() {
-    
-
-  }
-
   @Override
   public void simulationPeriodic() {
     m_simyaw = 

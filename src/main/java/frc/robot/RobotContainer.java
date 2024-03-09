@@ -137,7 +137,26 @@ public class RobotContainer {
 
 
     
-    autoChooser = AutoBuilder.buildAutoChooser("None");
+    autoChooser = new SendableChooser<>();
+
+    autoChooser.addOption("Amp Side 4 Piece Wing", AutoBuilder.buildAuto("Amp Side 4 Piece Wing"));
+    autoChooser.addOption("Amp Side 3 Piece Center", AutoBuilder.buildAuto("Amp Side 3 Piece Center"));
+    autoChooser.addOption("Amp Side 4 Piece Center", AutoBuilder.buildAuto("Amp Side 4 Piece Center"));
+    autoChooser.addOption("Amp Side 5 Piece Center", AutoBuilder.buildAuto("Amp Side 5 Piece Center"));
+    autoChooser.addOption("Amp Side 2 Piece", AutoBuilder.buildAuto("Amp Side 2 Piece"));
+
+    autoChooser.addOption("Front Side 2 Piece", AutoBuilder.buildAuto("Front Side 2 Piece"));
+    autoChooser.addOption("Front Side 3 Piece", AutoBuilder.buildAuto("Front Side 3 Piece"));
+    autoChooser.addOption("Front Side 4 Piece", AutoBuilder.buildAuto("Front Side 4 Piece"));
+    autoChooser.addOption("Front Side 5 Piece", AutoBuilder.buildAuto("Front Side 5 Piece"));
+
+    autoChooser.addOption("Source Side 4 Piece Wing", AutoBuilder.buildAuto("Source Side 4 Piece Wing"));
+    autoChooser.addOption("Source Side 3 Piece Center", AutoBuilder.buildAuto("Source Side 3 Piece Center"));
+    autoChooser.addOption("Source Side 4 Piece Center", AutoBuilder.buildAuto("Source Side 4 Piece Center"));
+    autoChooser.addOption("Source Side 5 Piece Center", AutoBuilder.buildAuto("Source Side 5 Piece Center"));
+    autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
+
+    autoChooser.addOption("Start Pos 5 Amp Shove Center", AutoBuilder.buildAuto("Start Pos 5 Amp Shove Center"));
 
     mainTab.add(autoChooser);
 
