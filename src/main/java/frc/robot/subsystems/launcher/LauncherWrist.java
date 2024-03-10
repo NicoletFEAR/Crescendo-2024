@@ -48,10 +48,10 @@ public class LauncherWrist extends PositionSubsystem {
     public enum LauncherWristState implements PositionSubsystemState {
         DOWN(0, 0, "Down"),
         UP(0, 0, "Up"),
-        SUBWOOFER(110, 0, "Subwoofer"), // use when against base of speaker
-        WING_NOTE_1(56.66, 0, "Wing Note 1"),
-        WING_NOTE_2(56.66, 0, "Wing Note 2"),
-        WING_NOTE_3(56.66, 0, "Wing Note 3"),
+        SUBWOOFER(115, 0, "Subwoofer"), // use when against base of speaker
+        WING_NOTE_1(90, 0, "Wing Note 1"),
+        WING_NOTE_2(95, 0, "Wing Note 2"),
+        WING_NOTE_3(95, 0, "Wing Note 3"),
         LAUNCH_POS_1(56.66, 0, "Launch Pos 1"),
         LAUNCH_POS_2(56.66, 0, "Launch Pos 2"),
         LAUNCH_POS_3(56.66, 0, "Launch Pos 3"),
@@ -111,8 +111,8 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristLeaderConstants.kMotorType = MotorType.kBrushless;
             kLauncherWristLeaderConstants.kCurrentLimit = 80;
             kLauncherWristLeaderConstants.kInverted = false;
-            kLauncherWristLeaderConstants.kKp = 0.0375;
-            kLauncherWristLeaderConstants.kKi = 0.0;
+            kLauncherWristLeaderConstants.kKp = 0.06;
+            kLauncherWristLeaderConstants.kKi = 0.00001;
             kLauncherWristLeaderConstants.kKd = 0.0;
             kLauncherWristLeaderConstants.kKff = 0.0;
         }

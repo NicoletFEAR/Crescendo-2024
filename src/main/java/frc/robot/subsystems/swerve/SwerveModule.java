@@ -76,6 +76,7 @@ public class SwerveModule extends SubsystemBase{
     m_driveMotor.restoreFactoryDefaults();
     m_driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     m_driveMotor.setInverted(true); // MK4i drive motor is inverted
+    // m_driveMotor.
 
     m_turningMotor.restoreFactoryDefaults();
     m_turningMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -105,7 +106,10 @@ public class SwerveModule extends SubsystemBase{
 
   @Override
   public void periodic(){
-    SmartDashboard.putNumber(m_moduleNumber + "angle", getPosition().angle.getDegrees());
+    if (Constants.kInfoMode) {
+      SmartDashboard.putNumber(m_moduleNumber + "angle", getPosition().angle.getDegrees());
+    }
+    
   }
 
   /**

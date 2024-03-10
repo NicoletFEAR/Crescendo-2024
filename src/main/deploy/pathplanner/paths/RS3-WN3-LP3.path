@@ -32,32 +32,16 @@
     },
     {
       "anchor": {
-        "x": 2.5570299789248225,
-        "y": 3.023017937927768
+        "x": 1.907134664201959,
+        "y": 4.47626576887142
       },
       "prevControl": {
-        "x": 2.122528929742544,
-        "y": 3.3650719553691366
-      },
-      "nextControl": {
-        "x": 2.989185811996798,
-        "y": 2.682810154445575
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 3.601681437597109,
-        "y": 2.32042049669685
-      },
-      "prevControl": {
-        "x": 3.037754543977556,
-        "y": 2.6809639204863998
+        "x": 2.086934844340443,
+        "y": 4.379852868122284
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LaunchPos3"
+      "linkedName": "WN3Prepare"
     }
   ],
   "rotationTargets": [
@@ -85,7 +69,7 @@
             {
               "type": "named",
               "data": {
-                "name": "launchPos3LaunchPrepare"
+                "name": "wingNote3Launch"
               }
             }
           ]
@@ -94,14 +78,14 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 6.1,
-    "maxAcceleration": 4.5,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 1.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.379999999999995,
+    "rotation": -23.648582363566362,
     "rotateFast": false
   },
   "reversed": false,

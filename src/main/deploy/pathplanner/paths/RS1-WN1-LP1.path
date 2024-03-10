@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 4.02,
-        "y": 6.55
+        "x": 2.2977299021711968,
+        "y": 6.5932009752708876
       },
       "prevControl": {
-        "x": 3.4098495905099924,
-        "y": 6.531510593651818
+        "x": 2.70760918127355,
+        "y": 6.745441850366047
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LaunchPos1"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -69,7 +69,7 @@
             {
               "type": "named",
               "data": {
-                "name": "launchPos1LaunchPrepare"
+                "name": "wingNote1LaunchPrepare"
               }
             }
           ]
@@ -78,14 +78,14 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 6.1,
-    "maxAcceleration": 4.5,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 14.25,
+    "rotation": 28.926425835253575,
     "rotateFast": false
   },
   "reversed": false,

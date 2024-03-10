@@ -406,7 +406,10 @@ public class SwerveDrive extends SubsystemBase {
     robotRelativeChassisSpeeds = DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
     // SmartDashboard.putNumber("swerve gyro", getYawDegrees());
 
-    m_field.setRobotPose(poseEstimator.getEstimatedPosition());
+    if (Constants.kInfoMode) {
+      m_field.setRobotPose(poseEstimator.getEstimatedPosition());
+    }
+    
     // m_field.getObject("path").setPoses(ppPath);
 
     // SmartDashboard.putNumber("Angle To Speaker", calculateAngleToSpeaker());
@@ -426,7 +429,7 @@ public class SwerveDrive extends SubsystemBase {
 
     // SmartDashboard.putNumber("Pitch", GeometryUtils.interpolatePitch(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose())));
 
-    limelightPose = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-launch");
+    // limelightPose = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-launch");
 
     // if (poseEstimator
     //         .getEstimatedPosition()
@@ -439,9 +442,9 @@ public class SwerveDrive extends SubsystemBase {
     // }
 
     if (Constants.kInfoMode) {
-      SmartDashboard.putBoolean("Is Pose Trustworthy", limelightPose.isPoseTrustworthy());
-      SmartDashboard.putNumber("Bot Ta", LimelightHelpers.getTA("limelight-launch"));
-      m_field.getObject("Limelight-Launch-Pose").setPose(limelightPose.pose);
+      // SmartDashboard.putBoolean("Is Pose Trustworthy", limelightPose.isPoseTrustworthy());
+      // SmartDashboard.putNumber("Bot Ta", LimelightHelpers.getTA("limelight-launch"));
+      // m_field.getObject("Limelight-Launch-Pose").setPose(limelightPose.pose);
     }
 
     // if (limelightPose.isPoseTrustworthy()) {

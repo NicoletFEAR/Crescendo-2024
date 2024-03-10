@@ -17,31 +17,31 @@
     {
       "anchor": {
         "x": 2.41217114898567,
-        "y": 4.1316578306917995
+        "y": 4.0
       },
       "prevControl": {
         "x": 2.41217114898567,
-        "y": 4.0816578306918
+        "y": 3.95
       },
       "nextControl": {
         "x": 2.41217114898567,
-        "y": 4.181657830691799
+        "y": 4.05
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.94,
-        "y": 5.55
+        "x": 1.3,
+        "y": 5.35
       },
       "prevControl": {
-        "x": 1.681148311125451,
-        "y": 5.087764841295448
+        "x": 1.7975420566225764,
+        "y": 5.190011918485376
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "WN2Prepare"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -64,12 +64,6 @@
               "type": "named",
               "data": {
                 "name": "fastIntake"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "wingNote1LaunchPrepare"
               }
             }
           ]

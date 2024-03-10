@@ -50,13 +50,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "WN3-L"
+            "pathName": "WN3-RS2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "wingNote2Launch"
+            "name": "subwooferLaunch"
           }
         },
         {

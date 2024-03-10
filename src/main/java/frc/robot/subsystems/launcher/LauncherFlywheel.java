@@ -75,9 +75,10 @@ public class LauncherFlywheel extends VelocitySubsystem {
     public enum LauncherFlywheelState implements VelocitySubsystemState {
         OFF(new double[] {0, 0}, "Off"),
         IDLE(new double[] {0, 0}, "Idle"),
-        WING_NOTE_1(new double[] {5000, 5000}, "Wing Note 1"),
-        WING_NOTE_2(new double[] {5000, 5000}, "Wing Note 2"),
-        WING_NOTE_3(new double[] {5000, 5000}, "Wing Note 3"),
+        TESTING(new double[] {4000, 4000}, "Testing"),
+        WING_NOTE_1(new double[] {4000, 4000}, "Wing Note 1"),
+        WING_NOTE_2(new double[] {4000, 4000}, "Wing Note 2"),
+        WING_NOTE_3(new double[] {4000, 4000}, "Wing Note 3"),
         LAUNCH_POS_1(new double[] {5000, 5000}, "Launch Pos 1"),
         LAUNCH_POS_2(new double[] {5000, 5000}, "Launch Pos 2"),
         LAUNCH_POS_3(new double[] {5000, 5000}, "Launch Pos 3"),

@@ -12,9 +12,22 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "subwooferLaunch"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "subwooferLaunch"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intakeDown"
+                }
+              }
+            ]
           }
         },
         {
@@ -26,7 +39,7 @@
         {
           "type": "named",
           "data": {
-            "name": "launchPos2Launch"
+            "name": "wingNote2Launch"
           }
         },
         {
