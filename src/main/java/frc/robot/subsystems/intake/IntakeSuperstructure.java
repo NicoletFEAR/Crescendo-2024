@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.superstructure.SetMultiMotorPositionSubsystemState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
@@ -65,7 +66,11 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
       isNoteInIntake = true;
     }
 
-    SmartDashboard.putBoolean("TOF Blocked", timeOfFlightBlocked());
+    if (Constants.kInfoMode) {
+      SmartDashboard.putBoolean("TOF Blocked", timeOfFlightBlocked());
+      SmartDashboard.putNumber("TOF Output", m_intakeTOF.getRange());
+    }
+
   }
 
   @Override
