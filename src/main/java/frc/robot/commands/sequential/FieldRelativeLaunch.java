@@ -13,6 +13,8 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.drivebase.KeepResettingPoseWithVision;
 import frc.robot.commands.drivebase.ResetPoseWithVision;
 import frc.robot.commands.drivebase.TurnToAngle;
+import frc.robot.commands.superstructure.SetPositionSubsystemState;
+import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -20,7 +22,7 @@ import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructu
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class FieldRelativeLaunch extends SequentialCommandGroup {
   /** Creates a new FieldRelativeLaunch. */
-  public FieldRelativeLaunch() {
+  public FieldRelativeLaunch(LauncherSuperstructureState desiredState) {
     addCommands(
       new ResetPoseWithVision(),
 
@@ -31,10 +33,11 @@ public class FieldRelativeLaunch extends SequentialCommandGroup {
             // Turns then X wheels when done turning, and while doing that rev up wheels
             new SequentialCommandGroup(new TurnToAngle(RobotContainer.m_drivebase),
               new InstantCommand(RobotContainer.m_drivebase::toggleXWheels))
-            .alongWith(RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_PREP)),
+            .alongWith(new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, desiredState.launcherFlywheelState),
+                       new SetPositionSubsystemState(RobotContainer.m_launcherWrist, desiredState.launcherWristState)),
 
             // Launch then wait till done launching then go back to zero
-            RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_LAUNCH),
+            RobotContainer.m_launcherSuperstructure.setSuperstructureState(desiredState),
             new WaitCommand(.1),
             RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
         )

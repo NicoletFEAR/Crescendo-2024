@@ -62,6 +62,9 @@ public abstract class VoltageSubsystem extends SubsystemBase {
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 500);
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 500);
 
+    try {
+      Thread.sleep(200);
+    } catch (Exception e) {}
     m_leader.burnFlash();
 
     for (int i = 0; i < m_constants.kFollowerConstants.length; i++) {
@@ -86,6 +89,9 @@ public abstract class VoltageSubsystem extends SubsystemBase {
       m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
       m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
 
+      try {
+        Thread.sleep(200);
+      } catch (Exception e) {}
       m_followers[i].burnFlash();
     }
 

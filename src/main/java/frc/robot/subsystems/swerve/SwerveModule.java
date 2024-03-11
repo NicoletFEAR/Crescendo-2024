@@ -70,7 +70,7 @@ public class SwerveModule extends SubsystemBase{
 
     m_angleEncoder = new CANcoder(swerveModuleConstants.cancoderID, "CANivore");
     m_angleEncoder.optimizeBusUtilization();
-    m_angleEncoder.getAbsolutePosition().setUpdateFrequency(50);
+    m_angleEncoder.getAbsolutePosition().setUpdateFrequency(100);
     m_angleOffset = swerveModuleConstants.angleOffset;
 
     m_driveMotor.restoreFactoryDefaults();
@@ -157,6 +157,20 @@ public class SwerveModule extends SubsystemBase{
   public double getDriveMetersPerSecond() {
     if (Constants.kCurrentMode == Mode.REAL) return m_driveEncoder.getVelocity();
     else return m_simDriveEncoderVelocity;
+  }
+
+  public void burnFlash() {
+    try {
+      Thread.sleep(200);
+    } catch (Exception e) {}
+
+    System.out.println(m_driveMotor.burnFlash());
+
+    try {
+      Thread.sleep(200);
+    } catch (Exception e) {}
+
+    System.out.println(m_turningMotor.burnFlash());
   }
 
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {

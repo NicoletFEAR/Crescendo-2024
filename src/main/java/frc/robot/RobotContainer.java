@@ -19,6 +19,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.drivebase.TurnToAngle;
+import frc.robot.commands.sequential.FieldRelativeLaunch;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
@@ -270,7 +271,7 @@ public class RobotContainer {
     m_operatorController.pov(0).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.TESTING));
     m_operatorController.pov(0).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
 
-    m_operatorController.pov(270).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
+    m_operatorController.pov(270).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.PODIUM));
 
     m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.OFF)
     .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF)));

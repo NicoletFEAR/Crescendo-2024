@@ -94,13 +94,16 @@ public abstract class PositionSubsystem extends SubsystemBase {
     }
 
       
-    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 100);
+    m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
     m_leader.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
 
+    try {
+      Thread.sleep(200);
+    } catch (Exception e) {}
     m_leader.burnFlash();
 
 
@@ -127,6 +130,9 @@ public abstract class PositionSubsystem extends SubsystemBase {
       m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
       m_followers[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
 
+      try {
+        Thread.sleep(200);
+      } catch (Exception e) {}
       m_followers[i].burnFlash();
     }
 

@@ -95,6 +95,9 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
       m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 200);
       m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 200);
 
+      try {
+        Thread.sleep(200);
+      } catch (Exception e) {}
       m_motors[i].burnFlash();
     }
 

@@ -82,9 +82,10 @@ public abstract class VelocitySubsystem extends SubsystemBase {
       m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
       m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
 
-      if (!(m_motors[i].getPIDController().getP() == m_constants.kMotorConstants[i].kKp)) {
-        m_motors[i].burnFlash();
-      }
+      try {
+        Thread.sleep(200);
+      } catch (Exception e) {}
+      m_motors[i].burnFlash();
       
     }
 

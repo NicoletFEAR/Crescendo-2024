@@ -31,9 +31,13 @@ public final class RevUtils {
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus7, 65534);
 
-    motorController.setSmartCurrentLimit(60, 35);
-    motorController.burnFlash();
+    motorController.setSmartCurrentLimit(80);
+    // try {
+    //   Thread.sleep(200);
+    // } catch (Exception e) {}
+    // motorController.burnFlash();
   }
 
   /**
@@ -48,8 +52,8 @@ public final class RevUtils {
     motorController.getPIDController().setI(DriveConstants.turnki);
     motorController.getPIDController().setD(DriveConstants.turnkd);
 
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 250);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
@@ -57,7 +61,10 @@ public final class RevUtils {
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
 
     motorController.setSmartCurrentLimit(40, 25);
-    motorController.burnFlash();
+    // try {
+    //   Thread.sleep(200);
+    // } catch (Exception e) {}
+    // motorController.burnFlash();
   }
 
   public static SwerveModuleState optimize(
