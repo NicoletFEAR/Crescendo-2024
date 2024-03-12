@@ -32,7 +32,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   public IntakeSuperstructure(SuperstructureState initialState, String name) {
     super(initialState, name);
 
-    SmartDashboard.putBoolean("Is note in intake", false);
+    RobotContainer.mainTab.add("TOF Blocked", timeOfFlightBlocked()).withPosition(0, 1).withSize(1, 4);
   }
 
   public static IntakeSuperstructure getInstance() {
@@ -67,9 +67,10 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     }
 
     if (Constants.kInfoMode) {
-      SmartDashboard.putBoolean("TOF Blocked", timeOfFlightBlocked());
-      SmartDashboard.putNumber("TOF Output", m_intakeTOF.getRange());
+      SmartDashboard.putNumber(m_name + "/" + "TOF Range", m_intakeTOF.getRange());
     }
+
+    
 
   }
 

@@ -126,7 +126,7 @@ public abstract class VoltageSubsystem extends SubsystemBase {
     subsystemPeriodic();
 
     if (Constants.kInfoMode) {
-      SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
+      SmartDashboard.putString(m_constants.kSubsystemName + "/Current State", m_currentState.getName());
     }
     
   }

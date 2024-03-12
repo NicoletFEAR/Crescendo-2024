@@ -122,7 +122,7 @@ public class SwerveDrive extends SubsystemBase {
     // m_snapToAngleController = new PIDController(.06, 0, 0);
 
     if (Constants.kInfoMode) {
-      RobotContainer.mainTab.add(m_field);
+      RobotContainer.mainTab.add(m_field).withPosition(2, 0).withSize(8, 5);
     }
 
     // PathPlannerLogging.setLogTargetPoseCallback(
@@ -193,7 +193,12 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public void addGyro(double value) {
-    m_pigeon.setYaw(m_pigeon.getYaw().getValue() + value);
+    if (Constants.kCurrentMode == Mode.REAL) {
+      m_pigeon.setYaw(m_pigeon.getYaw().getValue() + value);
+    } else {
+      m_simyaw += value;
+    }
+    
   }
 
   public void drive(double throttle, double strafe, double rotation, boolean isOpenLoop, boolean fieldRelative) {
@@ -362,6 +367,10 @@ public class SwerveDrive extends SubsystemBase {
     isGyroRequestAmpSide = isAmpSide;
   }
 
+  public void resetPoseEstimator(SwerveDrivePoseEstimator estimator) {
+    poseEstimator = estimator;
+  }
+
   public void addVisionEstimate(Pose2d estimate, double timeStamp) {
     poseEstimator.addVisionMeasurement(estimate, timeStamp);
   }
@@ -413,6 +422,8 @@ public class SwerveDrive extends SubsystemBase {
     if (Constants.kInfoMode) {
       m_field.setRobotPose(poseEstimator.getEstimatedPosition());
     }
+
+
     
     // m_field.getObject("path").setPoses(ppPath);
 

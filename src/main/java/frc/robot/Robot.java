@@ -13,9 +13,15 @@
 
 package frc.robot;
 
+import java.util.function.Consumer;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -23,7 +29,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.leds.LED;
 import frc.robot.subsystems.leds.LED.LEDState;
 
@@ -69,10 +77,12 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     CommandScheduler.getInstance().cancelAll();
 
-    m_autonomousCommand = new WaitCommand(0.01).andThen(m_robotContainer.getAutonomousCommand());
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
+      m_autonomousCommand = new WaitCommand(0.01).andThen(m_autonomousCommand);
+
       m_autonomousCommand.schedule();
     }
   }
@@ -86,7 +96,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     CommandScheduler.getInstance().cancelAll();
 
-    RobotContainer.m_drivebase.updateEstimatorWithPose(RobotContainer.m_drivebase.getPose());
+    
 
     if (RobotContainer.m_drivebase.getIsSetGyroRequestPresent()) {
       var alliance = DriverStation.getAlliance();
@@ -94,6 +104,7 @@ public class Robot extends TimedRobot {
       if (RobotContainer.m_drivebase.getIsGyroRequestAmpSide()) {
         if (alliance.isPresent() && alliance.get() == Alliance.Red) {
           RobotContainer.m_drivebase.addGyro(-60);
+          // RobotContainer.m_drivebase.updateEstimatorWithPose(new Pose2d(RobotContainer.m_drivebase.getPose().getTranslation(), Rotation2d.fromDegrees(RobotContainer.m_drivebase.getYawDegrees() - 60)));
         } else {
           RobotContainer.m_drivebase.addGyro(60);
         }
@@ -106,6 +117,17 @@ public class Robot extends TimedRobot {
       }
       RobotContainer.m_drivebase.setGyroRequest(false, false);
     }
+
+    RobotContainer.m_drivebase.resetPoseEstimator(
+    new SwerveDrivePoseEstimator(
+      DriveConstants.kDriveKinematics,
+      Rotation2d.fromDegrees(RobotContainer.m_drivebase.getYawDegrees()),
+      RobotContainer.m_drivebase.getModulePositions(),
+      RobotContainer.m_drivebase.getPose(),
+      VecBuilder.fill(0.1, 0.1, 0.0),
+      VecBuilder.fill(0.9, 0.9, 100.0))
+    );
+    // RobotContainer.m_drivebase.updateEstimatorWithPose(RobotContainer.m_drivebase.getPose());
   }
 
   /** This function is called periodically during operator control. */

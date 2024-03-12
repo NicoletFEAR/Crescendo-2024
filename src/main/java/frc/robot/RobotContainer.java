@@ -141,6 +141,8 @@ public class RobotContainer {
     
     autoChooser = new SendableChooser<>();
 
+    autoChooser.setDefaultOption("None", new InstantCommand());
+
     autoChooser.addOption("Amp Side 4 Piece Wing", AutoBuilder.buildAuto("Amp Side 4 Piece Wing"));
     autoChooser.addOption("Amp Side 3 Piece Center", AutoBuilder.buildAuto("Amp Side 3 Piece Center"));
     autoChooser.addOption("Amp Side 4 Piece Center", AutoBuilder.buildAuto("Amp Side 4 Piece Center"));
@@ -160,7 +162,7 @@ public class RobotContainer {
 
     autoChooser.addOption("Start Pos 5 5 Piece Amp Shove Center", AutoBuilder.buildAuto("Start Pos 5 5 Piece Amp Shove Center"));
 
-    mainTab.add(autoChooser);
+    mainTab.add("Auto Chooser", autoChooser).withPosition(0, 0).withSize(2, 1);
 
     // CONFIGURE DEFAULT COMMANDS \\
     m_drivebase.setDefaultCommand(

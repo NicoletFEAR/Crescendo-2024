@@ -31,10 +31,9 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
-      "/Shuffleboard/Info/Field": "Field2d",
+      "/Shuffleboard/Main/Auto Chooser": "String Chooser",
       "/Shuffleboard/Main/Field": "Field2d",
-      "/Shuffleboard/Main/SendableChooser[0]": "String Chooser",
-      "/SmartDashboard/Mech2d": "Mechanism2d"
+      "/Shuffleboard/Main/SendableChooser[0]": "String Chooser"
     },
     "windows": {
       "/Shuffleboard/Info/Field": {
@@ -51,12 +50,24 @@
         },
         "right": 2961,
         "top": 79,
-        "width": 16.541748046875,
+        "width": 16.541748046875
+      },
+      "/Shuffleboard/Main/Auto Chooser": {
         "window": {
           "visible": true
         }
       },
-      "/Shuffleboard/Main/SendableChooser[0]": {
+      "/Shuffleboard/Main/Field": {
+        "Robot": {
+          "length": 0.8100000023841858,
+          "width": 0.8100000023841858
+        },
+        "bottom": 1476,
+        "height": 8.210550308227539,
+        "left": 150,
+        "right": 2961,
+        "top": 79,
+        "width": 16.541748046875,
         "window": {
           "visible": true
         }

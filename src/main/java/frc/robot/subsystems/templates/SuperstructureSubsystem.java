@@ -49,8 +49,8 @@ public abstract class SuperstructureSubsystem extends SubsystemBase {
     superstructurePeriodic();
 
     if (Constants.kInfoMode) {
-      SmartDashboard.putString(m_name + " Current State", m_currentState.getName());
-      SmartDashboard.putString(m_name + " Desired State", m_desiredState.getName());
+      SmartDashboard.putString(m_name + "/Current State", m_currentState.getName());
+      SmartDashboard.putString(m_name + "/Desired State", m_desiredState.getName());
     }
   }
 }

@@ -212,7 +212,7 @@ public class LED extends SubsystemBase {
         }
 
         if (Constants.kInfoMode) {
-          SmartDashboard.putString("LED State", getCurrentState().name());
+          SmartDashboard.putString("LED/LED State", getCurrentState().name());
         }
         
       }
@@ -254,7 +254,7 @@ public class LED extends SubsystemBase {
           } else {
             if (noteInRobot) {
               if (launching) {
-                desiredState = LEDState.GREEN_FLASHING;
+                setState(LEDState.GREEN_FLASHING, .75);
               } else if (ampPrepare || stowed) {
                 desiredState = LEDState.GREEN;
               } else if (intaking) {

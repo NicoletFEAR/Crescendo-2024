@@ -107,7 +107,7 @@ public class SwerveModule extends SubsystemBase{
   @Override
   public void periodic(){
     if (Constants.kInfoMode) {
-      SmartDashboard.putNumber(m_moduleNumber + "angle", getPosition().angle.getDegrees());
+      SmartDashboard.putNumber("Swerve/" + "angle " + m_moduleNumber, getPosition().angle.getDegrees());
     }
     
   }
@@ -127,11 +127,11 @@ public class SwerveModule extends SubsystemBase{
    * @return The current position of the module.
    */
   public SwerveModulePosition getPosition() {
-    if (DriverStation.isTeleop() && DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
-      return new SwerveModulePosition(-getDriveMeters(), getHeadingRotation2d());
-    } else {
+    // if (DriverStation.isTeleop() && DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
+      // return new SwerveModulePosition(-getDriveMeters(), getHeadingRotation2d());
+    // } else {
       return new SwerveModulePosition(getDriveMeters(), getHeadingRotation2d());
-    }
+    // }
     
   }
 

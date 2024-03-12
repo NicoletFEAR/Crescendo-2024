@@ -159,10 +159,10 @@ public abstract class VelocitySubsystem extends SubsystemBase {
     }
 
     if (Constants.kInfoMode) {
-      SmartDashboard.putNumber(m_constants.kSubsystemName + " Desired Velocity", m_desiredState.getVelocity()[0]);
-      SmartDashboard.putNumber(m_constants.kSubsystemName + " Current Velocity", getVelocity()[0]);
-      SmartDashboard.putString(m_constants.kSubsystemName + " Current State", m_currentState.getName());
-      SmartDashboard.putString(m_constants.kSubsystemName + " Desired State", m_desiredState.getName());
+      SmartDashboard.putNumber(m_constants.kSubsystemName + "/Desired Velocity", m_desiredState.getVelocity()[0]);
+      SmartDashboard.putNumber(m_constants.kSubsystemName + "/Current Velocity", getVelocity()[0]);
+      SmartDashboard.putString(m_constants.kSubsystemName + "/Current State", m_currentState.getName());
+      SmartDashboard.putString(m_constants.kSubsystemName + "/Desired State", m_desiredState.getName());
     }
     subsystemPeriodic();
   }
