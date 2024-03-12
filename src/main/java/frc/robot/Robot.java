@@ -50,6 +50,12 @@ public class Robot extends TimedRobot {
     for (int port = 5800; port <= 5807; port++) {
       PortForwarder.add(port, "limelight.local", port);
     }
+
+
+    Command disabledCommand = new PathPlannerAuto("Dummy-Auto-Fix-Auto").ignoringDisable(true);
+    disabledCommand.schedule();
+    Timer.delay(1);
+    disabledCommand.cancel();
   }
 
   /** This function is called periodically during all modes. */
@@ -110,10 +116,10 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     LED.setState(LEDState.RED);
-    Command disabledCommand = new PathPlannerAuto("Dummy-Auto-Fix-Auto").ignoringDisable(true);
-    disabledCommand.schedule();
-    Timer.delay(1);
-    disabledCommand.cancel();
+    // Command disabledCommand = new PathPlannerAuto("Dummy-Auto-Fix-Auto").ignoringDisable(true);
+    // disabledCommand.schedule();
+    // Timer.delay(1);
+    // disabledCommand.cancel();
 
   }
 

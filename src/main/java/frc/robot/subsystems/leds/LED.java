@@ -299,13 +299,13 @@ public class LED extends SubsystemBase {
       } 
 
       public static void setLedToLauncherVelocity() {
-        int velPercent = (int) (RobotContainer.m_launcherFlywheel.getVelocity()[0] / RobotContainer.m_launcherFlywheel.getDesiredState().getVelocity()[0]);
+        double velPercent = RobotContainer.m_launcherFlywheel.getVelocity()[0] / RobotContainer.m_launcherFlywheel.getDesiredState().getVelocity()[0];
 
         velPercent = MathUtil.clamp(velPercent, 0, 1);
 
-        int red = m_currentState.red * velPercent;
-        int green = m_currentState.green * velPercent;
-        int blue = m_currentState.blue * velPercent;
+        int red = (int) (m_currentState.red * velPercent);
+        int green = (int) (m_currentState.green * velPercent);
+        int blue = (int) (m_currentState.blue * velPercent);
         
         setRGB(red, green, blue);
       }
