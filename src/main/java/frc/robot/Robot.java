@@ -45,6 +45,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  boolean autonInitCommandRun = false;
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -60,10 +62,10 @@ public class Robot extends TimedRobot {
     }
 
 
-    Command disabledCommand = new PathPlannerAuto("Dummy-Auto-Fix-Auto").ignoringDisable(true);
-    disabledCommand.schedule();
-    Timer.delay(1);
-    disabledCommand.cancel();
+    // Command disabledCommand = new PathPlannerAuto("Dummy-Auto-Fix-Auto").ignoringDisable(true);
+    // disabledCommand.schedule();
+    // Timer.delay(1);
+    // disabledCommand.cancel();
   }
 
   /** This function is called periodically during all modes. */
@@ -75,7 +77,6 @@ public class Robot extends TimedRobot {
   /** This function is called once when autonomous is enabled. */
   @Override
   public void autonomousInit() {
-    CommandScheduler.getInstance().cancelAll();
 
     m_autonomousCommand = new WaitCommand(0.01).andThen(m_robotContainer.getAutonomousCommand());
 
@@ -93,17 +94,12 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    CommandScheduler.getInstance().cancelAll();
-
-    
-
     if (RobotContainer.m_drivebase.getIsSetGyroRequestPresent()) {
       var alliance = DriverStation.getAlliance();
 
       if (RobotContainer.m_drivebase.getIsGyroRequestAmpSide()) {
         if (alliance.isPresent() && alliance.get() == Alliance.Red) {
           RobotContainer.m_drivebase.addGyro(-60);
-          // RobotContainer.m_drivebase.updateEstimatorWithPose(new Pose2d(RobotContainer.m_drivebase.getPose().getTranslation(), Rotation2d.fromDegrees(RobotContainer.m_drivebase.getYawDegrees() - 60)));
         } else {
           RobotContainer.m_drivebase.addGyro(60);
         }
@@ -117,15 +113,15 @@ public class Robot extends TimedRobot {
       RobotContainer.m_drivebase.setGyroRequest(false, false);
     }
 
-    // RobotContainer.m_drivebase.resetPoseEstimator(
-    // new SwerveDrivePoseEstimator(
-    //   DriveConstants.kDriveKinematics,
-    //   Rotation2d.fromDegrees(RobotContainer.m_drivebase.getYawDegrees()),
-    //   RobotContainer.m_drivebase.getModulePositions(),
-    //   RobotContainer.m_drivebase.getPose(),
-    //   VecBuilder.fill(0.1, 0.1, 0.0),
-    //   VecBuilder.fill(0.9, 0.9, 100.0))
-    // );
+    RobotContainer.m_drivebase.resetPoseEstimator(
+    new SwerveDrivePoseEstimator(
+      DriveConstants.kDriveKinematics,
+      Rotation2d.fromDegrees(RobotContainer.m_drivebase.getYawDegrees()),
+      RobotContainer.m_drivebase.getModulePositions(),
+      RobotContainer.m_drivebase.getPose(),
+      VecBuilder.fill(0.1, 0.1, 0.0),
+      VecBuilder.fill(0.9, 0.9, 100.0))
+    );
     // RobotContainer.m_drivebase.updateEstimatorWithPose(RobotContainer.m_drivebase.getPose());
   }
 
@@ -137,10 +133,12 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     LED.setState(LEDState.RED);
-    // Command disabledCommand = new PathPlannerAuto("Dummy-Auto-Fix-Auto").ignoringDisable(true);
-    // disabledCommand.schedule();
-    // Timer.delay(1);
-    // disabledCommand.cancel();
+
+    if (autonInitCommandRun == false) {
+      Command autonInitCommand = new PathPlannerAuto("1 Meter Auto").ignoringDisable(true);
+      autonInitCommand.schedule();
+      autonInitCommandRun = true;
+    }
 
   }
 

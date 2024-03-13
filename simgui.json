@@ -52,11 +52,6 @@
         "top": 79,
         "width": 16.541748046875
       },
-      "/Shuffleboard/Main/Auto Chooser": {
-        "window": {
-          "visible": true
-        }
-      },
       "/Shuffleboard/Main/Field": {
         "Robot": {
           "length": 0.8100000023841858,

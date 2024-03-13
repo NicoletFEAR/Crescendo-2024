@@ -73,11 +73,11 @@ public class SwerveModule extends SubsystemBase{
     m_angleEncoder.getAbsolutePosition().setUpdateFrequency(100);
     m_angleOffset = swerveModuleConstants.angleOffset;
 
-    m_driveMotor.restoreFactoryDefaults();
+    // m_driveMotor.restoreFactoryDefaults();
     m_driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     m_driveMotor.setInverted(true); // MK4i drive motor is inverted
 
-    m_turningMotor.restoreFactoryDefaults();
+    // m_turningMotor.restoreFactoryDefaults();
     m_turningMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
     m_turningMotor.setSmartCurrentLimit(25);

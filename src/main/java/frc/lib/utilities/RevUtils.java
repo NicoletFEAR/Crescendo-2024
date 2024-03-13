@@ -36,7 +36,7 @@ public final class RevUtils {
 
     motorController.setSmartCurrentLimit(120);
 
-    motorController.setClosedLoopRampRate(0.5);
+    motorController.setClosedLoopRampRate(0.0);
     motorController.setOpenLoopRampRate(0.0);
 
     motorController.setSecondaryCurrentLimit(120, 0);
