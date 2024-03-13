@@ -292,6 +292,6 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   }
 
   public static final class IntakeConstants{
-    public static final double kTOFNoteThreshold = 230;
+    public static final double kTOFNoteThreshold = 200;
   }
 }
