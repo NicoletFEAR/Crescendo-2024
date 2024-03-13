@@ -303,11 +303,19 @@ public class LED extends SubsystemBase {
 
         velPercent = MathUtil.clamp(velPercent, 0, 1);
 
-        int red = (int) (m_currentState.red * velPercent);
-        int green = (int) (m_currentState.green * velPercent);
-        int blue = (int) (m_currentState.blue * velPercent);
+        double ledAmount = (int) ((LEDConstants.kLedStripLength / 2) * velPercent);
+
+        for (int i = 0; i < LEDConstants.kLedStripLength / 2; i++) {
+          if (i <= ledAmount) {
+            m_ledBuffer.setRGB(i, m_currentState.red, m_currentState.green, m_currentState.blue);
+            m_ledBuffer.setRGB(i + LEDConstants.kLedStripLength / 2, m_currentState.red, m_currentState.green, m_currentState.blue);
+          } else {
+            m_ledBuffer.setRGB(i, 0, 0, 0);
+            m_ledBuffer.setRGB(i + LEDConstants.kLedStripLength / 2, 0, 0, 0);
+          }
+        }
         
-        setRGB(red, green, blue);
+        m_led.setData(m_ledBuffer);
       }
     
       public enum LEDState {
