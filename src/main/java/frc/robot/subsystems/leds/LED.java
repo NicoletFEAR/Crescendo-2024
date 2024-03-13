@@ -335,8 +335,8 @@ public class LED extends SubsystemBase {
         GREEN_REVVING(0, 255, 0, "Revving", LED::setLedToLauncherVelocity),
         BLUE_REVVING(0, 0, 255, "Blue Revving", LED::setLedToLauncherVelocity),
 
-        GREEN_FLASHING(0, 255, 0, "Green Flashing", () -> LED.flash(0.05)),
-        BLUE_FLASHING(0, 0, 255, "Blue Flashing", () -> LED.flash(0.05)),
+        GREEN_FLASHING(0, 255, 0, "Green Flashing", () -> LED.flash(0.04)),
+        BLUE_FLASHING(0, 0, 255, "Blue Flashing", () -> LED.flash(0.04)),
 
         GREEN_WIPE(0, 255, 0, "Blue Wipe", () -> LED.runEffect(wiperEffect)),
         BLUE_WIPE(0, 0, 255, "Blue Wipe", () -> LED.runEffect(wiperEffect, 0.04)),
