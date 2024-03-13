@@ -72,6 +72,11 @@
           "visible": true
         }
       },
+      "/Shuffleboard/Main/SendableChooser[0]": {
+        "window": {
+          "visible": true
+        }
+      },
       "/SmartDashboard/Mech2d": {
         "window": {
           "visible": true

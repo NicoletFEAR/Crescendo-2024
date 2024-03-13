@@ -130,10 +130,10 @@ public class SwerveDrive extends SubsystemBase {
     //       targetPPPose = targetPose;
     //     });
 
-    PathPlannerLogging.setLogActivePathCallback(
-        (activePath) -> {
-          ppPath = activePath;
-        });
+    // PathPlannerLogging.setLogActivePathCallback(
+    //     (activePath) -> {
+    //       ppPath = activePath;
+    //     });
 
     AutoBuilder.configureHolonomic(
         this::getPose, // Robot pose supplier
