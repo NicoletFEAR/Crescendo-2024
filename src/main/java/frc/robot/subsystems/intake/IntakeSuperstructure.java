@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.commands.superstructure.SetMultiMotorPositionSubsystemState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
+import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.commands.waits.WaitForIntakeNote;
 import frc.robot.commands.waits.WaitForLaunchNote;
@@ -18,8 +20,11 @@ import frc.robot.subsystems.intake.IntakeFlywheel.IntakeFlywheelState;
 import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 import frc.robot.subsystems.intake.IntakeWrist.IntakeWristState;
 import frc.robot.subsystems.launcher.LauncherHold;
+import frc.robot.subsystems.launcher.LauncherWrist;
+import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
+import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
 import frc.robot.subsystems.intake.ElevatorLift.ElevatorLiftState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
 
@@ -113,7 +118,10 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
               new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState), 
               new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
               new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState),
-              RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.INTAKE_TO_LAUNCH))
+              new SetPositionSubsystemState(RobotContainer.m_launcherWrist, LauncherWristState.UP),
+              new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.THRU_INTAKE_INTAKING))
+              // new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, LauncherFlywheelState.RUNNING))
+              // RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.INTAKE_TO_LAUNCH))
             );
     } else {
         if (intakeDesiredState == IntakeSuperstructureState.BEAM_BREAK_INTAKING ) {

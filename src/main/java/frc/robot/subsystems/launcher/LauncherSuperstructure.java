@@ -83,7 +83,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       outputCommand.addCommands(
         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState)
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState)),
-        new WaitCommand(.04),
+        new WaitCommand(.02),
         new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState),
         new WaitForNoLaunchNote(),
         new WaitCommand(.04)

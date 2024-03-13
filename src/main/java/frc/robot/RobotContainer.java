@@ -94,6 +94,7 @@ public class RobotContainer {
     // Use for auto
     NamedCommands.registerCommand("fastIntake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING));
     NamedCommands.registerCommand("intakeDown", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF));
+    NamedCommands.registerCommand("runLaunch", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
 
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
 

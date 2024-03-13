@@ -65,11 +65,22 @@
               "data": {
                 "name": "fastIntake"
               }
-            },
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Run Launch",
+      "waypointRelativePos": 1.45,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
             {
               "type": "named",
               "data": {
-                "name": "poopPos2LaunchPrepare"
+                "name": "runLaunch"
               }
             }
           ]

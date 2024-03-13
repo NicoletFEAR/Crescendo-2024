@@ -54,10 +54,10 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake Then Prepare",
-      "waypointRelativePos": 0.55,
+      "name": "Intake",
+      "waypointRelativePos": 0,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
@@ -65,11 +65,22 @@
               "data": {
                 "name": "fastIntake"
               }
-            },
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Run Wheels",
+      "waypointRelativePos": 1.45,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
             {
               "type": "named",
               "data": {
-                "name": "poopPos2LaunchPrepare"
+                "name": "runLaunch"
               }
             }
           ]
