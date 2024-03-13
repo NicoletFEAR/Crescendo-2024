@@ -77,11 +77,10 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     CommandScheduler.getInstance().cancelAll();
 
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = new WaitCommand(0.01).andThen(m_robotContainer.getAutonomousCommand());
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
-      m_autonomousCommand = new WaitCommand(0.01).andThen(m_autonomousCommand);
 
       m_autonomousCommand.schedule();
     }
@@ -118,15 +117,15 @@ public class Robot extends TimedRobot {
       RobotContainer.m_drivebase.setGyroRequest(false, false);
     }
 
-    RobotContainer.m_drivebase.resetPoseEstimator(
-    new SwerveDrivePoseEstimator(
-      DriveConstants.kDriveKinematics,
-      Rotation2d.fromDegrees(RobotContainer.m_drivebase.getYawDegrees()),
-      RobotContainer.m_drivebase.getModulePositions(),
-      RobotContainer.m_drivebase.getPose(),
-      VecBuilder.fill(0.1, 0.1, 0.0),
-      VecBuilder.fill(0.9, 0.9, 100.0))
-    );
+    // RobotContainer.m_drivebase.resetPoseEstimator(
+    // new SwerveDrivePoseEstimator(
+    //   DriveConstants.kDriveKinematics,
+    //   Rotation2d.fromDegrees(RobotContainer.m_drivebase.getYawDegrees()),
+    //   RobotContainer.m_drivebase.getModulePositions(),
+    //   RobotContainer.m_drivebase.getPose(),
+    //   VecBuilder.fill(0.1, 0.1, 0.0),
+    //   VecBuilder.fill(0.9, 0.9, 100.0))
+    // );
     // RobotContainer.m_drivebase.updateEstimatorWithPose(RobotContainer.m_drivebase.getPose());
   }
 

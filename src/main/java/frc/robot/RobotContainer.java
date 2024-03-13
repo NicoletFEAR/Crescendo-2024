@@ -8,8 +8,10 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.WidgetType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -160,9 +162,9 @@ public class RobotContainer {
     autoChooser.addOption("Source Side 5 Piece Center", AutoBuilder.buildAuto("Source Side 5 Piece Center"));
     autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
 
-    autoChooser.addOption("Start Pos 5 5 Piece Amp Shove Center", AutoBuilder.buildAuto("Start Pos 5 5 Piece Amp Shove Center"));
+    autoChooser.addOption("Center 5 Piece", AutoBuilder.buildAuto("Center 5 Piece"));
 
-    mainTab.add("Auto Chooser", autoChooser).withPosition(0, 0).withSize(2, 1);
+    mainTab.add(autoChooser).withPosition(0, 0).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
 
     // CONFIGURE DEFAULT COMMANDS \\
     m_drivebase.setDefaultCommand(

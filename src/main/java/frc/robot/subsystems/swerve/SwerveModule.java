@@ -76,13 +76,13 @@ public class SwerveModule extends SubsystemBase{
     m_driveMotor.restoreFactoryDefaults();
     m_driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     m_driveMotor.setInverted(true); // MK4i drive motor is inverted
-    // m_driveMotor.
 
     m_turningMotor.restoreFactoryDefaults();
     m_turningMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
     m_turningMotor.setSmartCurrentLimit(25);
     m_turningMotor.enableVoltageCompensation(12.6);
+    m_turningMotor.disableVoltageCompensation();
     m_turningMotor.setInverted(true); // MK4i Steer Motor is inverted
 
     m_angleEncoder.getConfigurator().apply(new CANcoderConfiguration());
@@ -107,6 +107,7 @@ public class SwerveModule extends SubsystemBase{
   @Override
   public void periodic(){
     if (Constants.kInfoMode) {
+      SmartDashboard.putNumber("Swerve/" + "distance" + m_moduleNumber, getPosition().distanceMeters);
       SmartDashboard.putNumber("Swerve/" + "angle " + m_moduleNumber, getPosition().angle.getDegrees());
     }
     

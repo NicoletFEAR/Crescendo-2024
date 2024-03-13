@@ -212,20 +212,20 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       "Launch Pos 3"
     ),
     POOP_POS_1( 
-      LauncherFlywheelState.LAUNCH_POS_1,
-      LauncherWristState.LAUNCH_POS_1,
+      LauncherFlywheelState.POOP_POS_1,
+      LauncherWristState.POOP_POS_1,
       LauncherHoldState.LAUNCHING,
       "Poop Pos 1"
     ),
     POOP_POS_2( 
-      LauncherFlywheelState.LAUNCH_POS_2,
-      LauncherWristState.LAUNCH_POS_2,
+      LauncherFlywheelState.POOP_POS_2,
+      LauncherWristState.POOP_POS_2,
       LauncherHoldState.LAUNCHING,
       "Poop Pos 2"
     ),
     POOP_POS_3(
-      LauncherFlywheelState.LAUNCH_POS_3,
-      LauncherWristState.LAUNCH_POS_3,
+      LauncherFlywheelState.POOP_POS_3,
+      LauncherWristState.POOP_POS_3,
       LauncherHoldState.LAUNCHING,
       "Poop Pos 3"
     ),

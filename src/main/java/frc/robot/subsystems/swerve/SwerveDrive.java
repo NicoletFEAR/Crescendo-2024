@@ -268,12 +268,16 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public SwerveModulePosition[] getModulePositions() {
-    return new SwerveModulePosition[] {
-      m_swerveMods[0].getPosition(),
-      m_swerveMods[1].getPosition(),
-      m_swerveMods[2].getPosition(),
-      m_swerveMods[3].getPosition()
-    };
+    // if (m_swerveMods[0].getDriveMetersPerSecond() + m_swerveMods[1].getDriveMetersPerSecond() +
+    // m_swerveMods[2].getDriveMetersPerSecond() + m_swerveMods[3].getDriveMetersPerSecond() < 32) {
+      return new SwerveModulePosition[] {
+        m_swerveMods[0].getPosition(),
+        m_swerveMods[1].getPosition(),
+        m_swerveMods[2].getPosition(),
+        m_swerveMods[3].getPosition()
+      };
+    // }
+
   }
 
   public void updateEstimatorWithPose(Pose2d updatedPose) {

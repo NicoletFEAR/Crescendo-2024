@@ -82,9 +82,9 @@ public class LauncherFlywheel extends VelocitySubsystem {
         LAUNCH_POS_1(new double[] {5000, 5000}, "Launch Pos 1"),
         LAUNCH_POS_2(new double[] {5000, 5000}, "Launch Pos 2"),
         LAUNCH_POS_3(new double[] {5000, 5000}, "Launch Pos 3"),
-        POOP_POS_1(new double[] {5000, 5000}, "Poop Pos 1"),
-        POOP_POS_2(new double[] {5000, 5000}, "Poop Pos 2"),
-        POOP_POS_3(new double[] {5000, 5000}, "Poop Pos 3"),
+        POOP_POS_1(new double[] {4000, 4000}, "Poop Pos 1"),
+        POOP_POS_2(new double[] {4000, 4000}, "Poop Pos 2"),
+        POOP_POS_3(new double[] {4000, 4000}, "Poop Pos 3"),
         ADJUST_NOTE_IN(new double[] {-200, -200}, "Adjust Note In"),
         ADJUST_NOTE_OUT(new double[] {200, 200}, "Adjust Note Out"),
         RUNNING(new double[] {4000, 4000}, "Running"), // arbitrary testing value

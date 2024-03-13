@@ -199,6 +199,12 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         ElevatorLiftState.STOWED,
         IntakeHoldState.INTAKING,
         "Beam Break Intaking"),
+    AMP_SHOOT_AUTO_INTAKE( 
+        IntakeFlywheelState.INTAKING,
+        IntakeWristState.DOWN,
+        ElevatorLiftState.STOWED,
+        IntakeHoldState.INTAKING,
+        "Beam Break Intaking"),
     TOF_INTAKING( // note should stop in take flyhweels by the tof logic in this class
         IntakeFlywheelState.INTAKING,
         IntakeWristState.DOWN,

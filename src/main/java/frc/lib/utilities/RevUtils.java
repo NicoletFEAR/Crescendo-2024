@@ -2,6 +2,7 @@ package frc.lib.utilities;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -24,7 +25,7 @@ public final class RevUtils {
 
     motorController.setOpenLoopRampRate(DriveConstants.driverampRate);
 
-    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+    motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
@@ -33,7 +34,16 @@ public final class RevUtils {
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
     motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus7, 65534);
 
-    motorController.setSmartCurrentLimit(80);
+    motorController.setSmartCurrentLimit(120);
+
+    motorController.setClosedLoopRampRate(0.5);
+    motorController.setOpenLoopRampRate(0.0);
+
+    motorController.setSecondaryCurrentLimit(120, 0);
+
+    motorController.disableVoltageCompensation();
+    motorController.enableSoftLimit(SoftLimitDirection.kForward, false);
+    motorController.enableSoftLimit(SoftLimitDirection.kReverse, false);
     // try {
     //   Thread.sleep(200);
     // } catch (Exception e) {}

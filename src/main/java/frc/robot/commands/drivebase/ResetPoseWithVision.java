@@ -19,6 +19,6 @@ public class ResetPoseWithVision extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.m_drivebase.updateEstimatorWithPose(LimelightHelpers.getBotPose2d_wpiBlue("limelight-launch"));
+    // RobotContainer.m_drivebase.updateEstimatorWithPose(LimelightHelpers.getBotPose2d_wpiBlue("limelight-launch"));
   }
 }

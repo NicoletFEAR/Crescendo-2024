@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.034610429581219,
-        "y": 4.1878505378632385
+        "x": 0.68,
+        "y": 4.438407050851191
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.044132016191959,
-        "y": 4.221131469289966
+        "x": 1.7456861256661171,
+        "y": 1.4989870778600332
       },
       "isLocked": false,
-      "linkedName": "PoopPoint2"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.942353117231199,
-        "y": 4.286166175756032
+        "x": 8.036039809597451,
+        "y": 2.1079505782406716
       },
       "prevControl": {
-        "x": 7.942353117231199,
-        "y": 4.3361661757560315
+        "x": 7.566924987748431,
+        "y": 1.2199832368835952
       },
       "nextControl": {
-        "x": 7.942353117231199,
-        "y": 4.236166175756032
+        "x": 8.363943232879333,
+        "y": 2.7286249151670923
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 4.1878505378632385
       },
       "prevControl": {
-        "x": 6.047829897461597,
-        "y": 4.221131469289966
+        "x": 6.197438471909753,
+        "y": 3.841154387016335
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,7 +47,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 1.05,
-      "rotationDegrees": 0,
+      "rotationDegrees": 40.0,
       "rotateFast": false
     }
   ],
@@ -55,7 +55,7 @@
   "eventMarkers": [
     {
       "name": "Intake Then Prepare",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "sequential",
         "data": {
@@ -85,13 +85,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.379999999999995,
+    "rotation": -39.83606175898768,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Poop Pos 2",
+  "folder": "Start Pos 3",
   "previewStartingState": {
-    "rotation": -36.379999999999995,
+    "rotation": -60.0,
     "velocity": 0
   },
   "useDefaultConstraints": false
