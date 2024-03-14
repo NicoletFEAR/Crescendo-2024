@@ -221,16 +221,23 @@ public class LED extends SubsystemBase {
         LEDState desiredState = null;
 
         transition = RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.TRANSITION ||
-                RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.TRANSITION;
+                      RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.TRANSITION;
         noteInRobot = RobotContainer.m_launcherSuperstructure.getNoteInLauncher() || RobotContainer.m_intakeSuperstructure.timeOfFlightBlocked();
         ampPrepare = RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.AMP_PREPARE;
-        launching = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.SUBWOOFER;
+        launching = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.SUBWOOFER ||
+                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.PODIUM ||
+                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.POOP_POS_1 ||
+                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.POOP_POS_2 ||
+                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_1 ||
+                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_2 ||
+                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_3 ||
+                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.PASS;
         intaking = RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TOF_INTAKING ||
-                RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING;
+                    RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING;
         stowed = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.STOWED ||
-                        RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.STOWED ||
-                        RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TRAVEL;
-        
+                  RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.STOWED ||
+                  RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TRAVEL;
+  
 
 
 
@@ -254,6 +261,7 @@ public class LED extends SubsystemBase {
           } else {
             if (noteInRobot) {
               if (launching) {
+                SmartDashboard.putBoolean("Launching", false);
                 setState(LEDState.GREEN_FLASHING, .75);
               } else if (ampPrepare || stowed) {
                 desiredState = LEDState.GREEN;

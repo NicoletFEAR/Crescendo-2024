@@ -85,6 +85,8 @@ public class Robot extends TimedRobot {
 
       m_autonomousCommand.schedule();
     }
+
+    LED.setState(LEDState.GREEN_REVVING, .2);
   }
 
   /** This function is called periodically during autonomous. */

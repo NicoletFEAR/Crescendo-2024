@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 2.5,
-        "y": 5.55
+        "x": 2.6679664170139152,
+        "y": 5.657758342543713
       },
       "prevControl": {
-        "x": 2.45,
-        "y": 5.55
+        "x": 2.6179664170139154,
+        "y": 5.657758342543713
       },
       "nextControl": {
-        "x": 2.551,
-        "y": 5.55
+        "x": 2.7189664170139154,
+        "y": 5.657758342543713
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 4.47626576887142
       },
       "prevControl": {
-        "x": 1.42548939924588,
-        "y": 5.0859433194487345
+        "x": 1.9746136789570874,
+        "y": 5.01062912035734
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,7 +46,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.3,
+      "waypointRelativePos": 0.45,
       "rotationDegrees": 0,
       "rotateFast": false
     }
@@ -91,7 +91,7 @@
   "reversed": false,
   "folder": "Wing Note 2",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 19.911518714177724,
     "velocity": 0
   },
   "useDefaultConstraints": false

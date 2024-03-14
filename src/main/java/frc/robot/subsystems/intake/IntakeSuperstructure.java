@@ -38,6 +38,8 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     super(initialState, name);
 
     RobotContainer.mainTab.add("TOF Blocked", timeOfFlightBlocked()).withPosition(0, 1).withSize(1, 4);
+
+    // SmartDashboard.putBoolean("Is note in intake", false);
   }
 
   public static IntakeSuperstructure getInstance() {
@@ -118,8 +120,15 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
               new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState), 
               new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
               new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState),
-              new SetPositionSubsystemState(RobotContainer.m_launcherWrist, LauncherWristState.UP),
-              new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.THRU_INTAKE_INTAKING))
+              new SequentialCommandGroup(
+                new InstantCommand(() -> RobotContainer.m_launcherSuperstructure.setDesiredState(LauncherSuperstructureState.INTAKE_TO_LAUNCH)).alongWith(
+                  new InstantCommand(() -> RobotContainer.m_launcherSuperstructure.setCurrentState(LauncherSuperstructureState.TRANSITION)), 
+                  new SetPositionSubsystemState(RobotContainer.m_launcherWrist, LauncherWristState.UP),
+                  new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.THRU_INTAKE_INTAKING)),
+                new InstantCommand(() -> RobotContainer.m_launcherSuperstructure.setCurrentState(LauncherSuperstructureState.INTAKE_TO_LAUNCH))
+                )
+              )
+
               // new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, LauncherFlywheelState.RUNNING))
               // RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.INTAKE_TO_LAUNCH))
             );
@@ -156,7 +165,9 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, IntakeFlywheelState.OFF)
         .alongWith(
           new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.OFF),
-          new SetVoltageSubsystemState(RobotContainer.m_intakeHold, IntakeHoldState.OFF)
+          new SetVoltageSubsystemState(RobotContainer.m_intakeHold, IntakeHoldState.OFF),
+          new InstantCommand(() -> RobotContainer.m_launcherSuperstructure.setCurrentState(LauncherSuperstructureState.STOWED)),
+          new InstantCommand(() -> RobotContainer.m_launcherSuperstructure.setDesiredState(LauncherSuperstructureState.STOWED))
         )
       );
     }

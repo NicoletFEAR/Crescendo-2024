@@ -23,6 +23,6 @@ public class SetLEDState extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      LED.setState(m_state, m_seconds);
+    LED.setState(m_state, m_seconds);
   }
 }

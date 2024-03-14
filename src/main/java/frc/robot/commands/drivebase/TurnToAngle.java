@@ -60,7 +60,7 @@ public class TurnToAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_targetAngle == -1) {
+    if (turnToSpeaker) {
       m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
       m_targetAngle -= 175;
     }
@@ -78,15 +78,14 @@ public class TurnToAngle extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (turnToSpeaker) {
-      m_targetAngle = -1;
-    }
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Math.abs(m_drivebase.getYawDegrees() - m_targetAngle) < deadBand) {
+    if (Math.abs(GeometryUtils.getAdjustedYawDegrees(m_drivebase.getYawDegrees(), m_targetAngle) - 180) < deadBand) {
+      m_drivebase.drive(0, 0, 0, true, true);
       return true;
     } else {
       return false;
