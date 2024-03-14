@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.superstructure.SetLEDState;
 import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
@@ -233,12 +234,11 @@ public class LED extends SubsystemBase {
                       RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_3 ||
                       RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.PASS;
         intaking = RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TOF_INTAKING ||
-                    RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING;
+                    RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING ||
+                    RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING;
         stowed = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.STOWED ||
                   RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.STOWED ||
                   RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TRAVEL;
-  
-
 
 
         if (DriverStation.isEnabled() && m_effectRunTime == -1) {
@@ -260,10 +260,7 @@ public class LED extends SubsystemBase {
             }
           } else {
             if (noteInRobot) {
-              if (launching) {
-                SmartDashboard.putBoolean("Launching", false);
-                setState(LEDState.GREEN_FLASHING, .75);
-              } else if (ampPrepare || stowed) {
+              if (ampPrepare || stowed) {
                 desiredState = LEDState.GREEN;
               } else if (intaking) {
                 setState(LEDState.GREEN_WIPE, 1);
@@ -311,6 +308,10 @@ public class LED extends SubsystemBase {
 
         velPercent = MathUtil.clamp(velPercent, 0, 1);
 
+        if (velPercent >= 1 && !RobotContainer.m_launcherSuperstructure.getNoteInLauncher()) {
+          setState(LEDState.GREEN_FLASHING, 1.25);
+        }
+
         double ledAmount = (int) ((LEDConstants.kLedStripLength / 2) * velPercent);
 
         for (int i = 0; i < LEDConstants.kLedStripLength / 2; i++) {
@@ -335,15 +336,15 @@ public class LED extends SubsystemBase {
         YELLOW(255,255,25, "Yellow", null),
         WHITE(255, 255, 255, "White", null),
 
-        ORANGE_BLINKING(255, 102, 25, "Orange Blinking", () -> LED.flash(0.15)),
-        GREEN_BLINKING(0, 255, 0, "Green Blinking", () -> LED.flash(0.15)),
-        RED_BLINKING(255, 0, 0, "Red Blinking", () -> LED.flash(0.15)),
-        TEAL_BLINKING(0, 122, 133, "Teal Blinking", () -> LED.flash(0.15)),
+        ORANGE_BLINKING(255, 102, 25, "Orange Blinking", () -> LED.flash(0.1)),
+        GREEN_BLINKING(0, 255, 0, "Green Blinking", () -> LED.flash(0.1)),
+        RED_BLINKING(255, 0, 0, "Red Blinking", () -> LED.flash(0.1)),
+        TEAL_BLINKING(0, 122, 133, "Teal Blinking", () -> LED.flash(0.1)),
 
         GREEN_REVVING(0, 255, 0, "Revving", LED::setLedToLauncherVelocity),
         BLUE_REVVING(0, 0, 255, "Blue Revving", LED::setLedToLauncherVelocity),
 
-        GREEN_FLASHING(0, 255, 0, "Green Flashing", () -> LED.flash(0.04)),
+        GREEN_FLASHING(0, 255, 0, "Green Flashing", () -> LED.flash(0.03)),
         BLUE_FLASHING(0, 0, 255, "Blue Flashing", () -> LED.flash(0.04)),
 
         GREEN_WIPE(0, 255, 0, "Blue Wipe", () -> LED.runEffect(wiperEffect)),

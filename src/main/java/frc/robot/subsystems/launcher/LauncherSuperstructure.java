@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.lib.utilities.PolarCoordinate;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.superstructure.SetLEDState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
@@ -19,6 +20,7 @@ import frc.robot.commands.waits.WaitForNoLaunchNote;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
+import frc.robot.subsystems.leds.LED.LEDState;
 import frc.robot.subsystems.templates.SuperstructureSubsystem;
 
 public class LauncherSuperstructure extends SuperstructureSubsystem {
@@ -54,8 +56,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
     outputCommand.addCommands(
-      new InstantCommand(() -> m_currentState = LauncherSuperstructureState.TRANSITION).alongWith(
-      new InstantCommand(() -> m_desiredState = launcherDesiredState)));
+      new InstantCommand(() -> {m_currentState = LauncherSuperstructureState.TRANSITION; m_desiredState = launcherDesiredState;}));
 
 
     if (launcherDesiredState == LauncherSuperstructureState.STOWED) {
@@ -101,7 +102,6 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       );
     }
 
- 
     outputCommand.addCommands(new InstantCommand(() -> m_currentState = launcherDesiredState));
 
     return outputCommand;
