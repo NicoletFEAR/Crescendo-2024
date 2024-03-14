@@ -49,7 +49,7 @@ public class LauncherWrist extends PositionSubsystem {
         DOWN(0, 0, "Down"),
         UP(0, 0, "Up"),
         SUBWOOFER(115, 0, "Subwoofer"), // use when against base of speaker
-        WING_NOTE_1(90, 0, "Wing Note 1"),
+        WING_NOTE_1(85, 0, "Wing Note 1"),
         WING_NOTE_2(95, 0, "Wing Note 2"),
         WING_NOTE_3(95, 0, "Wing Note 3"),
         LAUNCH_POS_1(56.66, 0, "Launch Pos 1"),

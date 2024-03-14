@@ -8,6 +8,7 @@ import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -73,29 +74,112 @@ public class SwerveModule extends SubsystemBase{
     m_angleEncoder.getAbsolutePosition().setUpdateFrequency(100);
     m_angleOffset = swerveModuleConstants.angleOffset;
 
+    boolean redoSet = true;
+    REVLibError error;
     // m_driveMotor.restoreFactoryDefaults();
-    m_driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-    m_driveMotor.setInverted(true); // MK4i drive motor is inverted
+    while(redoSet){
+      error = m_driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+      if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
+
+    while(redoSet){
+      m_driveMotor.setInverted(true); // MK4i drive motor is inverted
+      if(m_driveMotor.getInverted() == true){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
 
     // m_turningMotor.restoreFactoryDefaults();
-    m_turningMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    while(redoSet){
+      error = m_turningMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+      if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
 
-    m_turningMotor.setSmartCurrentLimit(25);
-    m_turningMotor.enableVoltageCompensation(12.6);
-    m_turningMotor.disableVoltageCompensation();
-    m_turningMotor.setInverted(true); // MK4i Steer Motor is inverted
+    while(redoSet){
+      error = m_turningMotor.setSmartCurrentLimit(25);
+      if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
+    
+    while(redoSet){
+      error = m_turningMotor.enableVoltageCompensation(12.6);
+      if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
+
+    while(redoSet){
+      error = m_turningMotor.disableVoltageCompensation();
+      if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
+    
+    while(redoSet){
+      m_turningMotor.setInverted(true); // MK4i Steer Motor is inverted
+      if(m_turningMotor.getInverted() == true){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
 
     m_angleEncoder.getConfigurator().apply(new CANcoderConfiguration());
     m_angleEncoder.getConfigurator().apply(CtreUtils.generateCanCoderConfig());
 
     m_driveEncoder = m_driveMotor.getEncoder();
-    m_driveEncoder.setPositionConversionFactor(DriveConstants.kDriveRevToMeters);
-    m_driveEncoder.setVelocityConversionFactor(DriveConstants.kDriveRpmToMetersPerSecond);
-    m_driveEncoder.setPosition(0);
 
+    while(redoSet){
+      error = m_driveEncoder.setPositionConversionFactor(DriveConstants.kDriveRevToMeters);
+      if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
+    
+    while(redoSet){
+      error = m_driveEncoder.setVelocityConversionFactor(DriveConstants.kDriveRpmToMetersPerSecond);
+      if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
+    
+    while(redoSet){
+      error = m_driveEncoder.setPosition(0);
+      if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
+    
     m_turnEncoder = m_turningMotor.getEncoder();
-    m_turnEncoder.setPositionConversionFactor(DriveConstants.kTurnRotationsToDegrees);
-    m_turnEncoder.setVelocityConversionFactor(DriveConstants.kTurnRotationsToDegrees / 60);
+
+    while(redoSet){
+      error = m_turnEncoder.setPositionConversionFactor(DriveConstants.kTurnRotationsToDegrees);
+      if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
+
+    while(redoSet){
+      error = m_turnEncoder.setVelocityConversionFactor(DriveConstants.kTurnRotationsToDegrees / 60);
+      if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
 
     m_driveController = m_driveMotor.getPIDController();
     m_turnController = m_turningMotor.getPIDController();

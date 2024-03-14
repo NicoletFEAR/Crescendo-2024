@@ -12,7 +12,7 @@
         "y": 2.5062034739454107
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "StartPos3Real"
     },
     {
       "anchor": {
@@ -89,8 +89,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 4.0,
+    "maxVelocity": 6.0,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
