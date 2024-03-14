@@ -89,7 +89,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
         ADJUST_NOTE_OUT(new double[] {200, 200}, "Adjust Note Out"),
         RUNNING(new double[] {4000, 4000}, "Running"), // arbitrary testing value
         SUBWOOFER(new double[] {5000, 5000}, "Subwoofer"), // used for when against the base of the speaker
-        PODIUM(new double[] {5000, 5000}, "Podium"), // used for when against the base of the PODIUM
+        PODIUM(new double[] {4000, 4000}, "Podium"), // used for when against the base of the PODIUM
         TRANSITION(new double[] {0, 0}, "Transition"),
         FIELD_BASED_VELOCITY(new double[] {0, 0}, "Field Based Velocity"),
         INTAKING(new double[] {-500, -500}, "Intaking"), // used when intaking through launch

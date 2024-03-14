@@ -241,6 +241,12 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherHoldState.LAUNCHING,
       "Field Based Launch"
     ),
+    PASS( // use when against base of speaker
+      LauncherFlywheelState.SUBWOOFER,
+      LauncherWristState.UP,
+      LauncherHoldState.LAUNCHING,
+      "Pass"
+    ),
     SUBWOOFER( // use when against base of speaker
       LauncherFlywheelState.SUBWOOFER,
       LauncherWristState.SUBWOOFER,

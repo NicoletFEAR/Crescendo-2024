@@ -145,7 +145,7 @@ public class SwerveDrive extends SubsystemBase {
             // your Constants class
             DriveConstants.kPathPlannerTranslationPID, // Translation PID constants
             DriveConstants.kPathPlannerRotationPID, // Rotation PID constants
-            DriveConstants.kMaxMetersPerSecond, // Max module speed, in m/s
+            5, // Max module speed, in m/s
             DriveConstants
                 .kDriveBaseRadius, // Drive base radius in meters. Distance from robot center to
             // furthest module.

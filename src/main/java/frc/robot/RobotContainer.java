@@ -273,10 +273,11 @@ public class RobotContainer {
     m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
     m_operatorController.pov(180).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
 
-    m_operatorController.pov(0).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.TESTING));
-    m_operatorController.pov(0).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
+    m_operatorController.pov(0).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.PASS));
+    m_operatorController.pov(0).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
 
-    m_operatorController.pov(270).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.PODIUM));
+    m_operatorController.pov(270).onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED));
+    m_operatorController.pov(270).onFalse(new FieldRelativeLaunch(LauncherSuperstructureState.PODIUM));
 
     m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.OFF)
     .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF)));

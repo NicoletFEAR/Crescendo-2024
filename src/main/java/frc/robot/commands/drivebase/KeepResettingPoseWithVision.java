@@ -25,7 +25,7 @@ public class KeepResettingPoseWithVision extends Command {
   public void execute() {
     m_estimate = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-launch");
     if (m_estimate.isPoseTrustworthy()) {
-      // RobotContainer.m_drivebase.addVisionEstimate(m_estimate.pose, m_estimate.timestampSeconds);
+      RobotContainer.m_drivebase.addVisionEstimate(m_estimate.pose, m_estimate.timestampSeconds);
     }
 
   }

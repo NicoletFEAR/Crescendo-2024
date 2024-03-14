@@ -31,7 +31,7 @@ public class FieldRelativeLaunch extends SequentialCommandGroup {
 
         new SequentialCommandGroup(
             // Turns then X wheels when done turning, and while doing that rev up wheels
-            new SequentialCommandGroup(new TurnToAngle(RobotContainer.m_drivebase),
+            new SequentialCommandGroup(new TurnToAngle(RobotContainer.m_drivebase, -10),
               new InstantCommand(RobotContainer.m_drivebase::toggleXWheels))
             .alongWith(new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, desiredState.launcherFlywheelState),
                        new SetPositionSubsystemState(RobotContainer.m_launcherWrist, desiredState.launcherWristState)),

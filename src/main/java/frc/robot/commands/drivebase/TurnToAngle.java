@@ -12,12 +12,12 @@ import frc.lib.utilities.GeometryUtils;
 
 public class TurnToAngle extends Command {
   /** Creates a new TurnToAngle. */
-  private PIDController angleController = new PIDController(.02, 0, 0.001);
+  private PIDController angleController = new PIDController(.02, 0.025, 0.001);
 ;
 
   private SwerveDrive m_drivebase;
   private double m_targetAngle = -1;
-  private double deadBand = .5;
+  private double deadBand = 1;
 
   private boolean turnToSpeaker = false;
 
@@ -62,7 +62,7 @@ public class TurnToAngle extends Command {
   public void initialize() {
     if (m_targetAngle == -1) {
       m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
-      m_targetAngle -= 180;
+      m_targetAngle -= 175;
     }
   }
 

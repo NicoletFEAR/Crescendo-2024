@@ -50,15 +50,15 @@ public class LauncherWrist extends PositionSubsystem {
         UP(0, 0, "Up"),
         SUBWOOFER(115, 0, "Subwoofer"), // use when against base of speaker
         WING_NOTE_1(85, 0, "Wing Note 1"),
-        WING_NOTE_2(95, 0, "Wing Note 2"),
-        WING_NOTE_3(95, 0, "Wing Note 3"),
+        WING_NOTE_2(93, 0, "Wing Note 2"),
+        WING_NOTE_3(90, 0, "Wing Note 3"),
         LAUNCH_POS_1(56.66, 0, "Launch Pos 1"),
         LAUNCH_POS_2(56.66, 0, "Launch Pos 2"),
         LAUNCH_POS_3(56.66, 0, "Launch Pos 3"),
         POOP_POS_1(0, 0, "Poop Pos 1"),
         POOP_POS_2(0, 0, "Poop Pos 2"),
         POOP_POS_3(0, 0, "Poop Pos 3"),
-        PODIUM(45.66, 0, "podium"), // use when against base of podium
+        PODIUM(68.3, 0, "podium"), // use when against base of podium
         FIELD_BASED_PITCH(0, 0, "Field Based Pitch"),
         TRANSITION(0, 0, "Transition"),
         LAUNCH(50, 0, "Launch"), // this is the arbitrary value used for testing
