@@ -243,7 +243,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     ),
     PASS( // use when against base of speaker
       LauncherFlywheelState.SUBWOOFER,
-      LauncherWristState.UP,
+      LauncherWristState.PASS,
       LauncherHoldState.LAUNCHING,
       "Pass"
     ),

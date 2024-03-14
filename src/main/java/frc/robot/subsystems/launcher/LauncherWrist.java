@@ -55,6 +55,7 @@ public class LauncherWrist extends PositionSubsystem {
         LAUNCH_POS_1(56.66, 0, "Launch Pos 1"),
         LAUNCH_POS_2(56.66, 0, "Launch Pos 2"),
         LAUNCH_POS_3(56.66, 0, "Launch Pos 3"),
+        PASS(70, 0, "Pass"),
         POOP_POS_1(0, 0, "Poop Pos 1"),
         POOP_POS_2(0, 0, "Poop Pos 2"),
         POOP_POS_3(0, 0, "Poop Pos 3"),
