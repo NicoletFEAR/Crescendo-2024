@@ -254,6 +254,7 @@ public class SwerveModule extends SubsystemBase{
     if (Constants.kInfoMode) {
       SmartDashboard.putNumber("Swerve/" + "distance" + m_moduleNumber, getPosition().distanceMeters);
       SmartDashboard.putNumber("Swerve/" + "angle " + m_moduleNumber, getPosition().angle.getDegrees());
+      SmartDashboard.putNumber("Swerve/" + "Applied Output " + m_moduleNumber, m_driveMotor.getAppliedOutput());
     }
     
   }
@@ -325,6 +326,7 @@ public class SwerveModule extends SubsystemBase{
     if (isOpenLoop) {
       double percentOutput = m_desiredState.speedMetersPerSecond / DriveConstants.kMaxMetersPerSecond;
       if (percentOutput != m_lastPercentOutput) {
+        SmartDashboard.putNumber("Swerve/" + "Desired Output " + m_moduleNumber, percentOutput);
         m_driveMotor.set(percentOutput);
         m_lastPercentOutput = percentOutput;
       }

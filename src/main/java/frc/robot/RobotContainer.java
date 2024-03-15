@@ -147,9 +147,9 @@ public class RobotContainer {
     autoChooser.setDefaultOption("None", new InstantCommand());
 
     autoChooser.addOption("Amp Side 4 Piece Wing", AutoBuilder.buildAuto("Amp Side 4 Piece Wing"));
-    // autoChooser.addOption("Amp Side 3 Piece Center", AutoBuilder.buildAuto("Amp Side 3 Piece Center"));
+    autoChooser.addOption("Amp Side 3 Piece Center", AutoBuilder.buildAuto("Amp Side 3 Piece Center"));
     // autoChooser.addOption("Amp Side 4 Piece Center", AutoBuilder.buildAuto("Amp Side 4 Piece Center"));
-    autoChooser.addOption("Amp Side 5 Piece Center", AutoBuilder.buildAuto("Amp Side 5 Piece Center"));
+    // autoChooser.addOption("Amp Side 5 Piece Center", AutoBuilder.buildAuto("Amp Side 5 Piece Center"));
     autoChooser.addOption("Amp Side 2 Piece", AutoBuilder.buildAuto("Amp Side 2 Piece"));
 
     autoChooser.addOption("Front Side 2 Piece", AutoBuilder.buildAuto("Front Side 2 Piece"));
