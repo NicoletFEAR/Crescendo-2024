@@ -26,8 +26,8 @@ public class FieldRelativeLaunch extends SequentialCommandGroup {
     addCommands(
       new ResetPoseWithVision(),
 
-      new ParallelRaceGroup(
-        new KeepResettingPoseWithVision(),
+      // new ParallelRaceGroup(
+      //   new KeepResettingPoseWithVision(),
 
         new SequentialCommandGroup(
             // Turns then X wheels when done turning, and while doing that rev up wheels
@@ -41,7 +41,7 @@ public class FieldRelativeLaunch extends SequentialCommandGroup {
             new WaitCommand(.1),
             RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
         )
-      )
-    );
+      );
+    // );
   }
 }

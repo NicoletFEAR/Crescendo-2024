@@ -23,9 +23,15 @@ public class ResetPoseWithVision extends InstantCommand {
   @Override
   public void initialize() {
     estimate = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-launch");
-    if (estimate.isPoseTrustworthy()) {
+    // if (estimate.isPoseTrustworthy()) {
       RobotContainer.m_drivebase.updateEstimatorWithPose(estimate.pose);
-    }
+    // }
     
+    if(estimate.isPoseTrustworthy()){
+      System.out.println("Pose is trustworthy");
+    }
+    else{
+      System.out.println("Pose is not trustworthy");
+    }
   }
 }

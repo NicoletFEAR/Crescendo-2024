@@ -5,6 +5,8 @@
 package frc.robot.commands.drivebase;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.swerve.SwerveDrive;
@@ -62,7 +64,19 @@ public class TurnToAngle extends Command {
   public void initialize() {
     if (turnToSpeaker) {
       m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
-      m_targetAngle -= 175;
+
+      var alliance = DriverStation.getAlliance();
+
+      if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+        m_targetAngle += 5;
+      } else {
+        m_targetAngle -= 175;
+      }
+      
+      /*
+       *  this part is here instead of the constructor because the constructor happens on robot init, 
+       *    but initialize happens when ari first presses the button
+       */
     }
   }
 
