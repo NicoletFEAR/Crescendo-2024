@@ -76,22 +76,33 @@ public class SwerveModule extends SubsystemBase{
 
     boolean redoSet = true;
     REVLibError error;
+    int tries = 0;
     // m_driveMotor.restoreFactoryDefaults();
     while(redoSet){
       error = m_driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       m_driveMotor.setInverted(true); // MK4i drive motor is inverted
       if(m_driveMotor.getInverted() == true){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     // m_turningMotor.restoreFactoryDefaults();
     while(redoSet){
@@ -99,7 +110,12 @@ public class SwerveModule extends SubsystemBase{
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
+    tries = 0;
     redoSet = true;
 
     while(redoSet){
@@ -107,32 +123,52 @@ public class SwerveModule extends SubsystemBase{
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
     
     while(redoSet){
       error = m_turningMotor.enableVoltageCompensation(12.6);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = m_turningMotor.disableVoltageCompensation();
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
     
     while(redoSet){
       m_turningMotor.setInverted(true); // MK4i Steer Motor is inverted
       if(m_turningMotor.getInverted() == true){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     m_angleEncoder.getConfigurator().apply(new CANcoderConfiguration());
     m_angleEncoder.getConfigurator().apply(CtreUtils.generateCanCoderConfig());
@@ -144,24 +180,39 @@ public class SwerveModule extends SubsystemBase{
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
     
     while(redoSet){
       error = m_driveEncoder.setVelocityConversionFactor(DriveConstants.kDriveRpmToMetersPerSecond);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
     
     while(redoSet){
       error = m_driveEncoder.setPosition(0);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
     
     m_turnEncoder = m_turningMotor.getEncoder();
 
@@ -170,16 +221,26 @@ public class SwerveModule extends SubsystemBase{
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = m_turnEncoder.setVelocityConversionFactor(DriveConstants.kTurnRotationsToDegrees / 60);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     m_driveController = m_driveMotor.getPIDController();
     m_turnController = m_turningMotor.getPIDController();

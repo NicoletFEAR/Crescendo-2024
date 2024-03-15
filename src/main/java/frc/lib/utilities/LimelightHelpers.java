@@ -413,10 +413,9 @@ public class LimelightHelpers {
                                         && RobotContainer.m_drivebase.getChassisSpeeds().vyMetersPerSecond < .25
                                         && RobotContainer.m_drivebase.getChassisSpeeds().omegaRadiansPerSecond < (Math.PI * 2) * .25;
 
-            System.out.println("is Pose in Field? " + isPoseInField + " pose x " + pose.getX() + " field x " + fieldCorner.getX() + " pose y " + pose.getY() + "field y " + fieldCorner.getY());
-            System.out.println("is there enough area? " + enoughArea + " ta of launch: " + getTA("limelight-launch"));
-            System.out.println("is robot not moving much? " + robotNotMovingMuch);
-
+            // System.out.println("is Pose in Field? " + isPoseInField + " pose x " + pose.getX() + " field x " + fieldCorner.getX() + " pose y " + pose.getY() + "field y " + fieldCorner.getY());
+            // System.out.println("is there enough area? " + enoughArea + " ta of launch: " + getTA("limelight-launch"));
+            // System.out.println("is robot not moving much? " + robotNotMovingMuch);
 
             if (isPoseInField && enoughArea && robotNotMovingMuch) {
                 return true;

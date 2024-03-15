@@ -21,143 +21,229 @@ public final class RevUtils {
 
     boolean redoSet = true;
     REVLibError error;
+    int tries = 0;
 
     while(redoSet){
       error = motorController.getPIDController().setFF(DriveConstants.drivekff);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.getPIDController().setP(DriveConstants.drivekp);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.getPIDController().setI(DriveConstants.driveki);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.getPIDController().setD(DriveConstants.drivekd);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setOpenLoopRampRate(DriveConstants.driverampRate);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus7, 65534);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
     
 
     while(redoSet){
-      error = motorController.setSmartCurrentLimit(120);
+      error = motorController.setSmartCurrentLimit(80);
       if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+      tries++;
+      if(tries >= 10){
         redoSet = false;
       }
     }
     redoSet = true;
+    tries = 0;
     
     while(redoSet){
-      error = motorController.setSecondaryCurrentLimit(120, 0);
+      error = motorController.setSecondaryCurrentLimit(80, 0);
       if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+      tries++;
+      if(tries >= 10){
         redoSet = false;
       }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setClosedLoopRampRate(0.1);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
-    }
-    redoSet = true;
-
-    while(redoSet){
-      error = motorController.setOpenLoopRampRate(0.0);
-      if(error == REVLibError.kOk){
+      tries++;
+      if(tries >= 10){
         redoSet = false;
       }
     }
     redoSet = true;
+    tries = 0;
+
+    // while(redoSet){
+    //   error = motorController.setOpenLoopRampRate(0.0);
+    //   if(error == REVLibError.kOk){
+    //     redoSet = false;
+    //   }
+    //   tries++;
+    //   if(tries >= 10){
+    //     redoSet = false;
+    //   }
+    // }
+    // redoSet = true;
+    // tries = 0;
     
 
     while(redoSet){
@@ -165,8 +251,13 @@ public final class RevUtils {
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
     
 
     while(redoSet){
@@ -174,8 +265,13 @@ public final class RevUtils {
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
     
 
     while(redoSet){
@@ -183,8 +279,13 @@ public final class RevUtils {
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     // try {
     //   Thread.sleep(200);
@@ -200,102 +301,163 @@ public final class RevUtils {
   public static void setTurnMotorConfig(CANSparkMax motorController) {
     boolean redoSet = true;
     REVLibError error;
+    int tries = 0;
 
     while(redoSet){
       error = motorController.getPIDController().setFF(DriveConstants.turnkff);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.getPIDController().setP(DriveConstants.turnkp);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.getPIDController().setI(DriveConstants.turnki);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.getPIDController().setD(DriveConstants.turnkd);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
     
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65534);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
     
     while(redoSet){
       error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65534);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     while(redoSet){
       error = motorController.setSmartCurrentLimit(40, 25);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
     }
     redoSet = true;
+    tries = 0;
 
     // try {
     //   Thread.sleep(200);

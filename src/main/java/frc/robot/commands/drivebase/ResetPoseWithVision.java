@@ -27,11 +27,11 @@ public class ResetPoseWithVision extends InstantCommand {
       RobotContainer.m_drivebase.updateEstimatorWithPose(estimate.pose);
     // }
     
-    if(estimate.isPoseTrustworthy()){
-      System.out.println("Pose is trustworthy");
-    }
-    else{
-      System.out.println("Pose is not trustworthy");
-    }
+    // if(estimate.isPoseTrustworthy()){
+    //   System.out.println("Pose is trustworthy");
+    // }
+    // else{
+    //   System.out.println("Pose is not trustworthy");
+    // }
   }
 }
