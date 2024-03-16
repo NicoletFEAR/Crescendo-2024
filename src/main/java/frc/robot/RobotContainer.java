@@ -183,7 +183,7 @@ public class RobotContainer {
     // m_elevatorLift.setDefaultCommand(new ManualMultiMotorPositionSubsystem(m_elevatorLift)); // TRIGGERS
     // m_launcherWrist.setDefaultCommand(new ManualPositionSubsystem(m_launcherWrist)); // LEFT X
     // m_intakeWrist.setDefaultCommand(new ManualPositionSubsystem(m_intakeWrist)); // BUMPERS
-    // configureButtonBindings();
+    configureButtonBindings();
   }
 
   private void configureButtonBindings() {
