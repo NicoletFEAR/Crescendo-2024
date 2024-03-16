@@ -77,7 +77,7 @@ public class IntakeFlywheel extends VoltageSubsystem {
             kIntakeFlywheelLeaderConstants.kName = "Intake Flywheel";
             kIntakeFlywheelLeaderConstants.kIdleMode = IdleMode.kBrake;
             kIntakeFlywheelLeaderConstants.kMotorType = MotorType.kBrushless;
-            kIntakeFlywheelLeaderConstants.kCurrentLimit = 80;
+            kIntakeFlywheelLeaderConstants.kCurrentLimit = 60; //80;
             kIntakeFlywheelLeaderConstants.kInverted = false;
             kIntakeFlywheelLeaderConstants.kKp = 0.01; // 0.00001
             kIntakeFlywheelLeaderConstants.kKi = 0.0;

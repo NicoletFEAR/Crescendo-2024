@@ -130,7 +130,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
             kTopLauncherFlywheelConstants.kName = "Top Launcher Flywheel";
             kTopLauncherFlywheelConstants.kIdleMode = IdleMode.kCoast;
             kTopLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
-            kTopLauncherFlywheelConstants.kCurrentLimit = 80;
+            kTopLauncherFlywheelConstants.kCurrentLimit = 40; //80;
             kTopLauncherFlywheelConstants.kInverted = false;
             kTopLauncherFlywheelConstants.kKp = 0.0002; //0.00025;
             kTopLauncherFlywheelConstants.kKi = 0.0;
@@ -146,7 +146,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
             kBottomLauncherFlywheelConstants.kName = "Bottom Launcher Flywheel";
             kBottomLauncherFlywheelConstants.kIdleMode = IdleMode.kCoast;
             kBottomLauncherFlywheelConstants.kMotorType = MotorType.kBrushless;
-            kBottomLauncherFlywheelConstants.kCurrentLimit = 80;
+            kBottomLauncherFlywheelConstants.kCurrentLimit = 40;// 80;
             kBottomLauncherFlywheelConstants.kInverted = false;
             kBottomLauncherFlywheelConstants.kKp = 0.0002; //0.00025;
             kBottomLauncherFlywheelConstants.kKi = 0.0;

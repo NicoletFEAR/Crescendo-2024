@@ -72,7 +72,7 @@ public class IntakeHold extends VoltageSubsystem {
             kIntakeHoldLeaderConstants.kName = "Intake Hold";
             kIntakeHoldLeaderConstants.kIdleMode = IdleMode.kBrake;
             kIntakeHoldLeaderConstants.kMotorType = MotorType.kBrushless;
-            kIntakeHoldLeaderConstants.kCurrentLimit = 80;
+            kIntakeHoldLeaderConstants.kCurrentLimit = 10; //80;
             kIntakeHoldLeaderConstants.kInverted = false;
             kIntakeHoldLeaderConstants.kKp = 0.00001;
             kIntakeHoldLeaderConstants.kKi = 0.0;

@@ -110,7 +110,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristLeaderConstants.kRevMotorType = RevMotorType.CAN_SPARK_MAX;
             kLauncherWristLeaderConstants.kIdleMode = IdleMode.kBrake;
             kLauncherWristLeaderConstants.kMotorType = MotorType.kBrushless;
-            kLauncherWristLeaderConstants.kCurrentLimit = 80;
+            kLauncherWristLeaderConstants.kCurrentLimit = 20; //80;
             kLauncherWristLeaderConstants.kInverted = false;
             kLauncherWristLeaderConstants.kKp = 0.06;
             kLauncherWristLeaderConstants.kKi = 0.0;

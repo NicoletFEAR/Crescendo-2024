@@ -123,7 +123,7 @@ public static class ElevatorLiftConstants {
     kElevatorLiftMotorConstants[0].kName = "Elevator Lift Right";
     kElevatorLiftMotorConstants[0].kIdleMode = IdleMode.kBrake;
     kElevatorLiftMotorConstants[0].kMotorType = MotorType.kBrushless;
-    kElevatorLiftMotorConstants[0].kCurrentLimit = 80;
+    kElevatorLiftMotorConstants[0].kCurrentLimit = 20; //80;
     kElevatorLiftMotorConstants[0].kInverted = false;
     kElevatorLiftMotorConstants[0].kKp = 0.14;
     kElevatorLiftMotorConstants[0].kKi = 0.0;
@@ -135,7 +135,7 @@ public static class ElevatorLiftConstants {
     kElevatorLiftMotorConstants[1].kName = "Elevator Lift Left";
     kElevatorLiftMotorConstants[1].kIdleMode = IdleMode.kBrake;
     kElevatorLiftMotorConstants[1].kMotorType = MotorType.kBrushless;
-    kElevatorLiftMotorConstants[1].kCurrentLimit = 80;
+    kElevatorLiftMotorConstants[1].kCurrentLimit = 20; //80;
     kElevatorLiftMotorConstants[1].kInverted = true;
     kElevatorLiftMotorConstants[1].kKp = 0.14;
     kElevatorLiftMotorConstants[1].kKi = 0.0;
