@@ -19,7 +19,7 @@ public class ForwardAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoDrive(RobotContainer.m_drivebase, 0.5, 0, 0).withTimeout(3)
+      new AutoDrive(RobotContainer.m_drivebase, 0.2, 0, 0).withTimeout(3)
     );
   }
 }
