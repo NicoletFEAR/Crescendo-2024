@@ -37,7 +37,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   public IntakeSuperstructure(SuperstructureState initialState, String name) {
     super(initialState, name);
 
-    RobotContainer.mainTab.add("TOF Blocked", timeOfFlightBlocked()).withPosition(0, 1).withSize(1, 4);
+    // RobotContainer.mainTab.add("TOF Blocked", timeOfFlightBlocked()).withPosition(0, 1).withSize(1, 4);
 
     // SmartDashboard.putBoolean("Is note in intake", false);
   }
