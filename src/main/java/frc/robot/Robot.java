@@ -81,13 +81,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    // m_autonomousCommand = new WaitCommand(0.01).andThen(m_robotContainer.getAutonomousCommand());
+    m_autonomousCommand = new WaitCommand(0.01).andThen(m_robotContainer.getAutonomousCommand());
 
-    // // schedule the autonomous command (example)
-    // if (m_autonomousCommand != null) {
+    // schedule the autonomous command (example)
+    if (m_autonomousCommand != null) {
 
-    //   m_autonomousCommand.schedule();
-    // }
+      m_autonomousCommand.schedule();
+    }
 
     // LED.setState(LEDState.GREEN_REVVING, .2);
   }
