@@ -23,7 +23,7 @@ import frc.robot.commands.auto.ForwardAuto;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.drivebase.TurnToAngle;
 import frc.robot.commands.sequential.FieldRelativeLaunch;
-// import frc.robot.commands.sequential.FieldRelativeLaunch;
+import frc.robot.commands.sequential.FieldRelativeLaunch;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
@@ -87,7 +87,7 @@ public class RobotContainer {
   // public static LED m_led = LED.getInstance();
   
   // SENDABLE CHOOSER \\
-  // public static SendableChooser<Command> autoChooser;
+  public static SendableChooser<Command> autoChooser;
 
   public RobotContainer() {
 
@@ -96,57 +96,57 @@ public class RobotContainer {
     // Use for auto
     // NamedCommands.registerCommand("fastIntake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING));
     // NamedCommands.registerCommand("intakeDown", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF));
-    // NamedCommands.registerCommand("runLaunch", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
+    NamedCommands.registerCommand("runLaunch", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
 
-    // NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
+    NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
 
-    // NamedCommands.registerCommand("wingNote1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_1)));
-    // NamedCommands.registerCommand("wingNote1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_1));
+    NamedCommands.registerCommand("wingNote1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_1)));
+    NamedCommands.registerCommand("wingNote1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_1));
 
-    // NamedCommands.registerCommand("wingNote2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_2)));
-    // NamedCommands.registerCommand("wingNote2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_2));
+    NamedCommands.registerCommand("wingNote2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_2)));
+    NamedCommands.registerCommand("wingNote2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_2));
 
-    // NamedCommands.registerCommand("wingNote3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_3)));
-    // NamedCommands.registerCommand("wingNote3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_3));
+    NamedCommands.registerCommand("wingNote3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_3)));
+    NamedCommands.registerCommand("wingNote3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_3));
 
-    // NamedCommands.registerCommand("launchPos1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_1)));
-    // NamedCommands.registerCommand("launchPos1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_1));
+    NamedCommands.registerCommand("launchPos1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_1)));
+    NamedCommands.registerCommand("launchPos1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_1));
   
-    // NamedCommands.registerCommand("launchPos2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_2)));
-    // NamedCommands.registerCommand("launchPos2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_2));
+    NamedCommands.registerCommand("launchPos2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_2)));
+    NamedCommands.registerCommand("launchPos2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_2));
 
-    // NamedCommands.registerCommand("launchPos3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_3)));
-    // NamedCommands.registerCommand("launchPos3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_3));
+    NamedCommands.registerCommand("launchPos3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_3)));
+    NamedCommands.registerCommand("launchPos3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_3));
 
-    // NamedCommands.registerCommand("poopPos1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_1)));
-    // NamedCommands.registerCommand("poopPos1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_1));
+    NamedCommands.registerCommand("poopPos1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_1)));
+    NamedCommands.registerCommand("poopPos1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_1));
   
-    // NamedCommands.registerCommand("poopPos2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_2)));
-    // NamedCommands.registerCommand("poopPos2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_2));
+    NamedCommands.registerCommand("poopPos2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_2)));
+    NamedCommands.registerCommand("poopPos2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_2));
 
-    // NamedCommands.registerCommand("poopPos3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_3)));
-    // NamedCommands.registerCommand("poopPos3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_3));
+    NamedCommands.registerCommand("poopPos3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_3)));
+    NamedCommands.registerCommand("poopPos3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_3));
 
-    // NamedCommands.registerCommand("addGyroAmpSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, true)));
-    // NamedCommands.registerCommand("addGyroSourceSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, false)));
+    NamedCommands.registerCommand("addGyroAmpSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, true)));
+    NamedCommands.registerCommand("addGyroSourceSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, false)));
 
-    // NamedCommands.registerCommand("stow", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
+    NamedCommands.registerCommand("stow", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
     // .andThen(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL)));
 
 
     
-    // autoChooser = new SendableChooser<>();
+    autoChooser = new SendableChooser<>();
 
-    // autoChooser.setDefaultOption("None", new InstantCommand());
+    autoChooser.setDefaultOption("None", new InstantCommand());
 
     // autoChooser.addOption("Amp Side 4 Piece Wing", AutoBuilder.buildAuto("Amp Side 4 Piece Wing"));
     // autoChooser.addOption("Amp Side 3 Piece Center", AutoBuilder.buildAuto("Amp Side 3 Piece Center"));
@@ -164,6 +164,8 @@ public class RobotContainer {
     // autoChooser.addOption("Source Side 4 Piece Center", AutoBuilder.buildAuto("Source Side 4 Piece Center"));
     // autoChooser.addOption("Source Side 5 Piece Center", AutoBuilder.buildAuto("Source Side 5 Piece Center"));
     // autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
+
+    autoChooser.addOption("Source Side 12 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
 
     // autoChooser.addOption("Center 5 Piece", AutoBuilder.buildAuto("Center 5 Piece"));
 
