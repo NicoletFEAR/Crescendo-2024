@@ -77,7 +77,7 @@ public class LauncherHold extends VoltageSubsystem {
             kLauncherHoldLeaderConstants.kName = "Launcher Hold";
             kLauncherHoldLeaderConstants.kIdleMode = IdleMode.kBrake;
             kLauncherHoldLeaderConstants.kMotorType = MotorType.kBrushless;
-            kLauncherHoldLeaderConstants.kCurrentLimit = 10; //80;
+            kLauncherHoldLeaderConstants.kCurrentLimit = 20; //80;
             kLauncherHoldLeaderConstants.kInverted = false;
         }
 

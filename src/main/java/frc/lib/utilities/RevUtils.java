@@ -194,7 +194,7 @@ public final class RevUtils {
     
 
     while(redoSet){
-      error = motorController.setSmartCurrentLimit(40); //80
+      error = motorController.setSmartCurrentLimit(60); //80
       if(error == REVLibError.kOk){
         redoSet = false;
       }
@@ -207,7 +207,7 @@ public final class RevUtils {
     tries = 0;
     
     while(redoSet){
-      error = motorController.setSecondaryCurrentLimit(40, 0); //80
+      error = motorController.setSecondaryCurrentLimit(60, 0); //80
       if(error == REVLibError.kOk){
         redoSet = false;
       }
