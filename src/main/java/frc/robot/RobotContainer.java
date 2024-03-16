@@ -162,6 +162,8 @@ public class RobotContainer {
     // autoChooser.addOption("Source Side 4 Piece Center", AutoBuilder.buildAuto("Source Side 4 Piece Center"));
     // autoChooser.addOption("Source Side 5 Piece Center", AutoBuilder.buildAuto("Source Side 5 Piece Center"));
     autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
+    autoChooser.addOption("Source Side 1 Piece", AutoBuilder.buildAuto("Source Side 1 Piece"));
+
 
     autoChooser.addOption("Center 5 Piece", AutoBuilder.buildAuto("Center 5 Piece"));
 
