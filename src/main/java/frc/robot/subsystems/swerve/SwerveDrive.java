@@ -122,7 +122,7 @@ public class SwerveDrive extends SubsystemBase {
     // m_snapToAngleController = new PIDController(.06, 0, 0);
 
     if (Constants.kInfoMode) {
-      RobotContainer.mainTab.add(m_field).withPosition(2, 0).withSize(8, 5);
+      // RobotContainer.mainTab.add(m_field).withPosition(2, 0).withSize(8, 5);
     }
 
     // PathPlannerLogging.setLogTargetPoseCallback(
