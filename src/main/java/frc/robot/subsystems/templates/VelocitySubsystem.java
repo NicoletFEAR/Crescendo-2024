@@ -74,8 +74,8 @@ public abstract class VelocitySubsystem extends SubsystemBase {
       m_pidControllers[i].setD(m_constants.kMotorConstants[i].kKd);
       m_pidControllers[i].setFF(m_constants.kMotorConstants[i].kKff);
 
-      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 50);
-      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+      m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus1, 100);
       m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus2, 65534);
       m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65534);
       m_motors[i].setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65534);

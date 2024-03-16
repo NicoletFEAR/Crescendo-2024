@@ -89,7 +89,7 @@ public final class RevUtils {
     tries = 0;
 
     while(redoSet){
-      error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 10);
+      error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
@@ -102,7 +102,7 @@ public final class RevUtils {
     tries = 0;
 
     while(redoSet){
-      error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 20);
+      error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 100);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
@@ -115,7 +115,7 @@ public final class RevUtils {
     tries = 0;
 
     while(redoSet){
-      error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 20);
+      error = motorController.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 100);
       if(error == REVLibError.kOk){
         redoSet = false;
       }
