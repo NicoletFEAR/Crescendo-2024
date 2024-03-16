@@ -29,7 +29,7 @@ import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
-// import frc.robot.subsystems.intake.ElevatorLift;
+import frc.robot.subsystems.intake.ElevatorLift;
 // import frc.robot.subsystems.intake.IntakeFlywheel;
 // import frc.robot.subsystems.intake.IntakeHold;
 // import frc.robot.subsystems.intake.IntakeSuperstructure;
@@ -74,7 +74,7 @@ public class RobotContainer {
   // public static IntakeFlywheel m_intakeFlywheel = IntakeFlywheel.getInstance();
   // public static IntakeHold m_intakeHold = IntakeHold.getInstance();
   // public static IntakeWrist m_intakeWrist = IntakeWrist.getInstance();
-  // public static ElevatorLift m_elevatorLift = ElevatorLift.getInstance();
+  public static ElevatorLift m_elevatorLift = ElevatorLift.getInstance();
 
   public static LauncherSuperstructure m_launcherSuperstructure = LauncherSuperstructure.getInstance();
   public static LauncherFlywheel m_launcherFlywheel = LauncherFlywheel.getInstance();
@@ -181,7 +181,7 @@ public class RobotContainer {
             DriveConstants.kRegularSpeed,
             true));
     
-    // m_elevatorLift.setDefaultCommand(new ManualMultiMotorPositionSubsystem(m_elevatorLift)); // TRIGGERS
+    m_elevatorLift.setDefaultCommand(new ManualMultiMotorPositionSubsystem(m_elevatorLift)); // TRIGGERS
     m_launcherWrist.setDefaultCommand(new ManualPositionSubsystem(m_launcherWrist)); // LEFT X
     // m_intakeWrist.setDefaultCommand(new ManualPositionSubsystem(m_intakeWrist)); // BUMPERS
     configureButtonBindings();
