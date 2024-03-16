@@ -34,8 +34,8 @@ public class IntakeFlywheel extends VoltageSubsystem {
 
     public enum IntakeFlywheelState implements VoltageSubsystemState {
         OFF(0, "Off"),
-        INTAKING(-6, "Intaking"),
-        INTAKE_TO_LAUNCH(-3.5, "Intake To Launch"),
+        INTAKING(-9, "Intaking"),
+        INTAKE_TO_LAUNCH(-5, "Intake To Launch"),
         EJECTING(5, "Out"),
         LAUNCH_TO_INTAKE(1.5, "Out"),
         AMP(6, "Amp"),
