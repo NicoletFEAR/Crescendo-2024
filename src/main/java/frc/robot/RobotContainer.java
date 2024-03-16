@@ -165,11 +165,12 @@ public class RobotContainer {
     // autoChooser.addOption("Source Side 5 Piece Center", AutoBuilder.buildAuto("Source Side 5 Piece Center"));
     // autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
 
-    autoChooser.addOption("Source Side 12 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
+    autoChooser.addOption("Source Side 1 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
+    autoChooser.addOption("Basic Forward Auto", new ForwardAuto());
 
     // autoChooser.addOption("Center 5 Piece", AutoBuilder.buildAuto("Center 5 Piece"));
 
-    // mainTab.add(autoChooser).withPosition(0, 0).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
+    mainTab.add(autoChooser).withPosition(0, 0).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
 
     // CONFIGURE DEFAULT COMMANDS \\
     m_drivebase.setDefaultCommand(
@@ -297,7 +298,6 @@ public class RobotContainer {
 }
 
   public Command getAutonomousCommand() {
-    // return autoChooser.getSelected();
-    return new ForwardAuto();
+    return autoChooser.getSelected();
   }
 }
