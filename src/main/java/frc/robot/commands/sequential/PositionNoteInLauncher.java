@@ -13,7 +13,7 @@
 // import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 // import frc.robot.commands.waits.WaitForLaunchNote;
 // import frc.robot.commands.waits.WaitForNoLaunchNote;
-// import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
+// // import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 // import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 // import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 // import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
@@ -31,20 +31,20 @@
 //       new SetPositionSubsystemState(RobotContainer.m_launcherWrist, LauncherWristState.DOWN),
 
 //       new ParallelCommandGroup(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.ADJUST_NOTE_OUT),
-//         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, LauncherFlywheelState.ADJUST_NOTE_OUT),
-//         new SetVoltageSubsystemState(RobotContainer.m_intakeHold, IntakeHoldState.INTAKE_TO_LAUNCH))
+//         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, LauncherFlywheelState.ADJUST_NOTE_OUT))
+//         // new SetVoltageSubsystemState(RobotContainer.m_intakeHold, IntakeHoldState.INTAKE_TO_LAUNCH))
 //       .alongWith(new WaitForNoLaunchNote()),
 
 //       // Brings note in until beam break is tripped
 //       new ParallelCommandGroup(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.ADJUST_NOTE_IN),
-//         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, LauncherFlywheelState.ADJUST_NOTE_IN),
-//         new SetVoltageSubsystemState(RobotContainer.m_intakeHold, IntakeHoldState.LAUNCH_IN))
+//         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, LauncherFlywheelState.ADJUST_NOTE_IN))
+//         // new SetVoltageSubsystemState(RobotContainer.m_intakeHold, IntakeHoldState.LAUNCH_IN))
 //       .alongWith(new WaitForLaunchNote()),
 
 //       // Brings it in for a set period of time
 //       new ParallelCommandGroup(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.ADJUST_NOTE_IN),
-//         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, LauncherFlywheelState.ADJUST_NOTE_IN),
-//         new SetVoltageSubsystemState(RobotContainer.m_intakeHold, IntakeHoldState.LAUNCH_IN)),
+//         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, LauncherFlywheelState.ADJUST_NOTE_IN))
+//         // new SetVoltageSubsystemState(RobotContainer.m_intakeHold, IntakeHoldState.LAUNCH_IN)),
 
 //       // Wait command for how long to bring it back in for
 //       // You have to tune this!!  
@@ -52,8 +52,8 @@
 
 //       // Stops motors
 //       new ParallelCommandGroup(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.OFF),
-//         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, LauncherFlywheelState.OFF),
-//         new SetVoltageSubsystemState(RobotContainer.m_intakeHold, IntakeHoldState.OFF))
+//         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, LauncherFlywheelState.OFF))
+//         // new SetVoltageSubsystemState(RobotContainer.m_intakeHold, IntakeHoldState.OFF))
 //     );
 //   }
 // }

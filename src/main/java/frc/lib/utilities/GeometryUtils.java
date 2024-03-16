@@ -14,6 +14,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.Trajectory.State;
 // import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherConstants;
+import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,70 +181,70 @@ public class GeometryUtils {
     return input >= 0 ? Math.pow(input, modifier) : -Math.pow(-input, modifier);
   }
 
-  // public static double interpolatePitch(double theta, double r) {
-  //   PolarCoordinate[] coords = findClosestCoordinates(theta, r);
+  public static double interpolatePitch(double theta, double r) {
+    PolarCoordinate[] coords = findClosestCoordinates(theta, r);
 
-  //   PolarCoordinate topLeft = coords[0];
-  //   PolarCoordinate topRight = coords[1];
-  //   PolarCoordinate bottomLeft = coords[2];
-  //   PolarCoordinate bottomRight = coords[3];
+    PolarCoordinate topLeft = coords[0];
+    PolarCoordinate topRight = coords[1];
+    PolarCoordinate bottomLeft = coords[2];
+    PolarCoordinate bottomRight = coords[3];
 
-  //   double topLeftPitch;
-  //   double topRightPitch;
-  //   double bottomLeftPitch;
-  //   double bottomRightPitch;
+    double topLeftPitch;
+    double topRightPitch;
+    double bottomLeftPitch;
+    double bottomRightPitch;
 
-  //   if (LauncherConstants.kDistancePitchMap.get(topLeft) != null) {
-  //     topLeftPitch = LauncherConstants.kDistancePitchMap.get(topLeft);
-  //     topRightPitch = LauncherConstants.kDistancePitchMap.get(topRight);
-  //     bottomLeftPitch = LauncherConstants.kDistancePitchMap.get(bottomLeft);
-  //     bottomRightPitch = LauncherConstants.kDistancePitchMap.get(bottomRight);
+    if (LauncherConstants.kDistancePitchMap.get(topLeft) != null) {
+      topLeftPitch = LauncherConstants.kDistancePitchMap.get(topLeft);
+      topRightPitch = LauncherConstants.kDistancePitchMap.get(topRight);
+      bottomLeftPitch = LauncherConstants.kDistancePitchMap.get(bottomLeft);
+      bottomRightPitch = LauncherConstants.kDistancePitchMap.get(bottomRight);
     
-  //     double pitchTop = topLeftPitch + (topRightPitch - topLeftPitch) * (theta - topLeft.getTheta()) / (topRight.getTheta() - topLeft.getTheta());
-  //     double pitchBottom = bottomLeftPitch + (bottomRightPitch - bottomLeftPitch) * (theta - bottomLeft.getTheta()) / (bottomRight.getTheta() - bottomLeft.getTheta());
+      double pitchTop = topLeftPitch + (topRightPitch - topLeftPitch) * (theta - topLeft.getTheta()) / (topRight.getTheta() - topLeft.getTheta());
+      double pitchBottom = bottomLeftPitch + (bottomRightPitch - bottomLeftPitch) * (theta - bottomLeft.getTheta()) / (bottomRight.getTheta() - bottomLeft.getTheta());
   
-  //     return pitchTop + (pitchBottom - pitchTop) * (r - topLeft.getR()) / (bottomLeft.getR() - topLeft.getR());
-  //   }
+      return pitchTop + (pitchBottom - pitchTop) * (r - topLeft.getR()) / (bottomLeft.getR() - topLeft.getR());
+    }
 
-  //   return 0;
-  // }
+    return 0;
+  }
 
 
-  // public static PolarCoordinate[] findClosestCoordinates(double theta, double r) {
-  //   PolarCoordinate[] closestCoords = new PolarCoordinate[4];
-  //   double closestTopLeftR = Double.POSITIVE_INFINITY;
-  //   double closestTopLeftTheta = Double.POSITIVE_INFINITY;
+  public static PolarCoordinate[] findClosestCoordinates(double theta, double r) {
+    PolarCoordinate[] closestCoords = new PolarCoordinate[4];
+    double closestTopLeftR = Double.POSITIVE_INFINITY;
+    double closestTopLeftTheta = Double.POSITIVE_INFINITY;
 
-  //   double closestBottomRightR = Double.NEGATIVE_INFINITY;
-  //   double closestBottomRightTheta = Double.NEGATIVE_INFINITY;
+    double closestBottomRightR = Double.NEGATIVE_INFINITY;
+    double closestBottomRightTheta = Double.NEGATIVE_INFINITY;
 
-  //   for (PolarCoordinate coord : LauncherConstants.kDistancePitchMap.keySet()) {
-  //     if ((coord.getTheta() > theta && coord.getTheta() < closestTopLeftTheta) || closestTopLeftTheta == coord.getTheta()) {
-  //       if ((coord.getR() > r && coord.getR() < closestTopLeftR) || closestTopLeftR == coord.getR()) { 
-  //         closestTopLeftR = coord.getR();
-  //         closestTopLeftTheta = coord.getTheta();
-  //         closestCoords[0] = coord;
-  //       }
-  //     }
+    for (PolarCoordinate coord : LauncherConstants.kDistancePitchMap.keySet()) {
+      if ((coord.getTheta() > theta && coord.getTheta() < closestTopLeftTheta) || closestTopLeftTheta == coord.getTheta()) {
+        if ((coord.getR() > r && coord.getR() < closestTopLeftR) || closestTopLeftR == coord.getR()) { 
+          closestTopLeftR = coord.getR();
+          closestTopLeftTheta = coord.getTheta();
+          closestCoords[0] = coord;
+        }
+      }
 
-  //     if ((coord.getTheta() < theta && coord.getTheta() > closestBottomRightTheta) || closestBottomRightTheta == coord.getTheta()) {
-  //       if ((coord.getR() < r && coord.getR() > closestBottomRightR) || closestBottomRightR == coord.getR()) { 
-  //         closestBottomRightR = coord.getR();
-  //         closestBottomRightTheta = coord.getTheta();
-  //         closestCoords[3] = coord;
-  //       }
-  //     }
-  //   }
+      if ((coord.getTheta() < theta && coord.getTheta() > closestBottomRightTheta) || closestBottomRightTheta == coord.getTheta()) {
+        if ((coord.getR() < r && coord.getR() > closestBottomRightR) || closestBottomRightR == coord.getR()) { 
+          closestBottomRightR = coord.getR();
+          closestBottomRightTheta = coord.getTheta();
+          closestCoords[3] = coord;
+        }
+      }
+    }
 
-  //   if (closestCoords[0] == null || closestCoords[3] == null) {
-  //     return new PolarCoordinate[] {new PolarCoordinate(0, 0), new PolarCoordinate(0, 0), new PolarCoordinate(0, 0), new PolarCoordinate(0, 0)};
-  //   } else {
-  //     closestCoords[1] = new PolarCoordinate(closestCoords[3].getTheta(), closestCoords[0].getR());
-  //     closestCoords[2] = new PolarCoordinate(closestCoords[0].getTheta(), closestCoords[3].getR());
-  //   }
+    if (closestCoords[0] == null || closestCoords[3] == null) {
+      return new PolarCoordinate[] {new PolarCoordinate(0, 0), new PolarCoordinate(0, 0), new PolarCoordinate(0, 0), new PolarCoordinate(0, 0)};
+    } else {
+      closestCoords[1] = new PolarCoordinate(closestCoords[3].getTheta(), closestCoords[0].getR());
+      closestCoords[2] = new PolarCoordinate(closestCoords[0].getTheta(), closestCoords[3].getR());
+    }
 
-  //   return closestCoords;
-  // }
+    return closestCoords;
+  }
 
 
 
