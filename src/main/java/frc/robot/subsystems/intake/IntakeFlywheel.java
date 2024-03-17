@@ -36,9 +36,9 @@ public class IntakeFlywheel extends VoltageSubsystem {
         OFF(0, "Off"),
         INTAKING(-12, "Intaking"),
         INTAKE_TO_LAUNCH(-12, "Intake To Launch"),
-        EJECTING(5, "Out"),
+        EJECTING(12, "Out"),
         LAUNCH_TO_INTAKE(1.5, "Out"),
-        AMP(6, "Amp"),
+        AMP(12, "Amp"),
         TRANSITION(0, "Transition"),
         MANUAL(0, "Manual");
         
