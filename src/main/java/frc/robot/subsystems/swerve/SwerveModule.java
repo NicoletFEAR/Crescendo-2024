@@ -118,18 +118,18 @@ public class SwerveModule extends SubsystemBase{
     tries = 0;
     redoSet = true;
 
-    // while(redoSet){
-    //   error = m_turningMotor.setSmartCurrentLimit(25);
-    //   if(error == REVLibError.kOk){
-    //     redoSet = false;
-    //   }
-    //   tries++;
-    //   if(tries >= 10){
-    //     redoSet = false;
-    //   }
-    // }
-    // redoSet = true;
-    // tries = 0;
+    while(redoSet){
+      error = m_turningMotor.setSmartCurrentLimit(25);
+      if(error == REVLibError.kOk){
+        redoSet = false;
+      }
+      tries++;
+      if(tries >= 10){
+        redoSet = false;
+      }
+    }
+    redoSet = true;
+    tries = 0;
     
     while(redoSet){
       error = m_turningMotor.enableVoltageCompensation(12.6);
