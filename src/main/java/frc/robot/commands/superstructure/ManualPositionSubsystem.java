@@ -5,7 +5,7 @@
 package frc.robot.commands.superstructure;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.templates.PositionSubsystem;
+import frc.lib.templates.PositionSubsystem;
 
 public class ManualPositionSubsystem extends Command {
 

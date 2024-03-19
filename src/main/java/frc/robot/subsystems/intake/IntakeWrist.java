@@ -1,16 +1,15 @@
 package frc.robot.subsystems.intake;
 
 
-import frc.robot.subsystems.templates.SubsystemConstants.ManualControlMode;
-import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
-import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
-import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
-
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import frc.lib.templates.PositionSubsystem;
+import frc.lib.templates.SubsystemConstants.ManualControlMode;
+import frc.lib.templates.SubsystemConstants.PositionSubsystemConstants;
+import frc.lib.templates.SubsystemConstants.RevMotorType;
+import frc.lib.templates.SubsystemConstants.SparkConstants;
 import frc.robot.Constants.MotorConstants;
-import frc.robot.subsystems.templates.PositionSubsystem;
 
 public class IntakeWrist extends PositionSubsystem {
 

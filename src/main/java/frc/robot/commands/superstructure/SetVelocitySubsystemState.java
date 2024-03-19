@@ -5,8 +5,8 @@
 package frc.robot.commands.superstructure;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.templates.VelocitySubsystem;
-import frc.robot.subsystems.templates.VelocitySubsystem.VelocitySubsystemState;
+import frc.lib.templates.VelocitySubsystem;
+import frc.lib.templates.VelocitySubsystem.VelocitySubsystemState;
 
 public class SetVelocitySubsystemState extends Command {
   /** Creates a new SetMechState. */

@@ -1,11 +1,6 @@
 package frc.robot.subsystems.launcher;
 
 
-import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
-import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
-import frc.robot.subsystems.templates.SubsystemConstants.VelocitySubsystemConstants;
-
-import com.revrobotics.SparkPIDController;
 import com.revrobotics.SparkPIDController.ArbFFUnits;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
@@ -13,11 +8,14 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import frc.lib.templates.VelocitySubsystem;
+import frc.lib.templates.SubsystemConstants.RevMotorType;
+import frc.lib.templates.SubsystemConstants.SparkConstants;
+import frc.lib.templates.SubsystemConstants.VelocitySubsystemConstants;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherConstants;
-import frc.robot.subsystems.templates.VelocitySubsystem;
 
 public class LauncherFlywheel extends VelocitySubsystem {
 

@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.shuffleboard.WidgetType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -27,6 +26,7 @@ import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
+import frc.robot.subsystems.LED;
 import frc.robot.subsystems.intake.ElevatorLift;
 import frc.robot.subsystems.intake.IntakeFlywheel;
 import frc.robot.subsystems.intake.IntakeHold;
@@ -43,7 +43,6 @@ import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
-import frc.robot.subsystems.leds.LED;
 import frc.robot.subsystems.swerve.SwerveDrive;
 
 /*
@@ -162,7 +161,7 @@ public class RobotContainer {
     // autoChooser.addOption("Source Side 4 Piece Center", AutoBuilder.buildAuto("Source Side 4 Piece Center"));
     // autoChooser.addOption("Source Side 5 Piece Center", AutoBuilder.buildAuto("Source Side 5 Piece Center"));
     autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
-    autoChooser.addOption("Source Side 1 Piece", AutoBuilder.buildAuto("Source Side 1 Piece"));
+    // autoChooser.addOption("Source Side 1 Piece", AutoBuilder.buildAuto("Source Side 1 Piece"));
 
 
     autoChooser.addOption("Center 5 Piece", AutoBuilder.buildAuto("Center 5 Piece"));

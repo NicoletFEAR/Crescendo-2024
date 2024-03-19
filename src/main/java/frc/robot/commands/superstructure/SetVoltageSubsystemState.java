@@ -5,8 +5,8 @@
 package frc.robot.commands.superstructure;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.templates.VoltageSubsystem;
-import frc.robot.subsystems.templates.VoltageSubsystem.VoltageSubsystemState;
+import frc.lib.templates.VoltageSubsystem;
+import frc.lib.templates.VoltageSubsystem.VoltageSubsystemState;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

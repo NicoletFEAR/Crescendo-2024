@@ -1,4 +1,4 @@
-package frc.robot.subsystems.templates;
+package frc.lib.templates;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;

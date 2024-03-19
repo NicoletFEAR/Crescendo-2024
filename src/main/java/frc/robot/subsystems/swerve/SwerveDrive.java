@@ -7,30 +7,24 @@ package frc.robot.subsystems.swerve;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.PathPlannerLogging;
 import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
-import frc.robot.subsystems.Limelight;
 import frc.lib.utilities.GeometryUtils;
-import frc.lib.utilities.LimelightHelpers;
 import frc.lib.utilities.SwerveModuleConstants;
-import frc.lib.utilities.LimelightHelpers.PoseEstimate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +54,7 @@ public class SwerveDrive extends SubsystemBase {
 
   private SwerveDrivePoseEstimator poseEstimator;
 
-  private PoseEstimate limelightPose;
+  // private PoseEstimate limelightPose;
 
   private boolean isSetGyroRequestPresent;
   
@@ -121,9 +115,9 @@ public class SwerveDrive extends SubsystemBase {
 
     // m_snapToAngleController = new PIDController(.06, 0, 0);
 
-    // if (Constants.kInfoMode) {
-    //   RobotContainer.mainTab.add(m_field).withPosition(2, 0).withSize(8, 5);
-    // }
+    if (Constants.kInfoMode) {
+      RobotContainer.mainTab.add(m_field).withPosition(2, 0).withSize(8, 5);
+    }
 
     // PathPlannerLogging.setLogTargetPoseCallback(
     //     (targetPose) -> {

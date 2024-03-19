@@ -13,28 +13,24 @@
 
 package frc.robot;
 
-import java.util.function.Consumer;
-
 import com.ctre.phoenix6.SignalLogger;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.leds.LED;
-import frc.robot.subsystems.leds.LED.LEDState;
+import frc.robot.subsystems.LED;
+import frc.robot.subsystems.LED.LEDState;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -140,7 +136,8 @@ public class Robot extends TimedRobot {
     LED.setState(LEDState.RED);
 
     if (autonInitCommandRun == false) {
-      Command autonInitCommand = new PathPlannerAuto("1 Meter Auto").ignoringDisable(true);
+      Command autonInitCommand = FollowPathCommand.warmupCommand();
+      // new PathPlannerAuto("1 Meter Auto").ignoringDisable(true);
       autonInitCommand.schedule();
       autonInitCommandRun = true;
     }

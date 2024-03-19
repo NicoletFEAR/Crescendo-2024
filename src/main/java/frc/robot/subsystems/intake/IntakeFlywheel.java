@@ -1,10 +1,10 @@
 package frc.robot.subsystems.intake;
 
-import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
-import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
-import frc.robot.subsystems.templates.SubsystemConstants.VoltageSubsystemConstants;
+import frc.lib.templates.VoltageSubsystem;
+import frc.lib.templates.SubsystemConstants.RevMotorType;
+import frc.lib.templates.SubsystemConstants.SparkConstants;
+import frc.lib.templates.SubsystemConstants.VoltageSubsystemConstants;
 import frc.robot.Constants.MotorConstants;
-import frc.robot.subsystems.templates.VoltageSubsystem;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;

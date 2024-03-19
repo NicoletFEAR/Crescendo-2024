@@ -1,16 +1,16 @@
-package frc.robot.subsystems.templates;
+package frc.lib.templates;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import frc.robot.subsystems.templates.VoltageSubsystem.VoltageSubsystemState;
-import frc.robot.subsystems.templates.VoltageSubsystem.VoltageSubsystemType;
-import frc.robot.subsystems.templates.MultiMotorPositionSubsystem.MultiMotorPositionSubsystemState;
-import frc.robot.subsystems.templates.MultiMotorPositionSubsystem.MultiMotorPositionSubsystemType;
-import frc.robot.subsystems.templates.PositionSubsystem.PositionSubsystemState;
-import frc.robot.subsystems.templates.PositionSubsystem.PositionSubsystemType;
-import frc.robot.subsystems.templates.VelocitySubsystem.VelocitySubsystemState;
-import frc.robot.subsystems.templates.VelocitySubsystem.VelocitySubsystemType;
+import frc.lib.templates.MultiMotorPositionSubsystem.MultiMotorPositionSubsystemState;
+import frc.lib.templates.MultiMotorPositionSubsystem.MultiMotorPositionSubsystemType;
+import frc.lib.templates.PositionSubsystem.PositionSubsystemState;
+import frc.lib.templates.PositionSubsystem.PositionSubsystemType;
+import frc.lib.templates.VelocitySubsystem.VelocitySubsystemState;
+import frc.lib.templates.VelocitySubsystem.VelocitySubsystemType;
+import frc.lib.templates.VoltageSubsystem.VoltageSubsystemState;
+import frc.lib.templates.VoltageSubsystem.VoltageSubsystemType;
 
 public class SubsystemConstants {
 

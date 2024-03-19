@@ -6,12 +6,12 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.MotorConstants;
+import frc.lib.templates.MultiMotorPositionSubsystem;
+import frc.lib.templates.SubsystemConstants.ManualControlMode;
+import frc.lib.templates.SubsystemConstants.MultiMotorPositionSubsystemConstants;
+import frc.lib.templates.SubsystemConstants.RevMotorType;
+import frc.lib.templates.SubsystemConstants.SparkConstants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.templates.MultiMotorPositionSubsystem;
-import frc.robot.subsystems.templates.SubsystemConstants.ManualControlMode;
-import frc.robot.subsystems.templates.SubsystemConstants.MultiMotorPositionSubsystemConstants;
-import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
-import frc.robot.subsystems.templates.SubsystemConstants.SparkConstants;
 
 public class ElevatorLift extends MultiMotorPositionSubsystem {
 

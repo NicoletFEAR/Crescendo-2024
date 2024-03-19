@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.templates;
+package frc.lib.templates;
 
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
@@ -18,11 +18,11 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.templates.SubsystemConstants.PositionSubsystemConstants;
+import frc.lib.templates.SubsystemConstants.RevMotorType;
 import frc.robot.Constants;
 import frc.robot.Constants.Mode;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.templates.SubsystemConstants.PositionSubsystemConstants;
-import frc.robot.subsystems.templates.SubsystemConstants.RevMotorType;
 
 public abstract class PositionSubsystem extends SubsystemBase {
 
