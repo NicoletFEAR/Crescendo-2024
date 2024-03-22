@@ -82,8 +82,6 @@ public class Robot extends TimedRobot {
 
       m_autonomousCommand.schedule();
     }
-
-    LED.setState(LEDState.GREEN_REVVING, .2);
   }
 
   /** This function is called periodically during autonomous. */
@@ -122,6 +120,8 @@ public class Robot extends TimedRobot {
       VecBuilder.fill(0.9, 0.9, 100.0))
     );
     // RobotContainer.m_drivebase.updateEstimatorWithPose(RobotContainer.m_drivebase.getPose());
+
+    LED.setState(LEDState.TEAL);
   }
 
   /** This function is called periodically during operator control. */
