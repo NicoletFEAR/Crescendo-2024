@@ -46,7 +46,7 @@ public class LauncherWrist extends PositionSubsystem {
 
     public enum LauncherWristState implements PositionSubsystemState {
         DOWN(0, 0, "Down"),
-        UP(0, 0, "Up"),
+        UP(65, 0, "Up"),
         SUBWOOFER(115, 0, "Subwoofer"), // use when against base of speaker
         WING_NOTE_1(85, 0, "Wing Note 1"),
         WING_NOTE_2(93, 0, "Wing Note 2"),
@@ -58,10 +58,9 @@ public class LauncherWrist extends PositionSubsystem {
         POOP_POS_1(0, 0, "Poop Pos 1"),
         POOP_POS_2(0, 0, "Poop Pos 2"),
         POOP_POS_3(0, 0, "Poop Pos 3"),
-        PODIUM(68.3, 0, "podium"), // use when against base of podium
+        PODIUM(68.3, 0, "Podium"), // use when against base of podium
         FIELD_BASED_PITCH(0, 0, "Field Based Pitch"),
         TRANSITION(0, 0, "Transition"),
-        LAUNCH(50, 0, "Launch"), // this is the arbitrary value used for testing
         MANUAL(0, 0, "Manual");
     
         private double position;

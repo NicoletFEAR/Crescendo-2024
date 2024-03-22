@@ -83,8 +83,6 @@ public class LauncherFlywheel extends VelocitySubsystem {
         POOP_POS_1(new double[] {4000, 4000}, "Poop Pos 1"),
         POOP_POS_2(new double[] {4000, 4000}, "Poop Pos 2"),
         POOP_POS_3(new double[] {4000, 4000}, "Poop Pos 3"),
-        ADJUST_NOTE_IN(new double[] {-200, -200}, "Adjust Note In"),
-        ADJUST_NOTE_OUT(new double[] {200, 200}, "Adjust Note Out"),
         RUNNING(new double[] {4000, 4000}, "Running"), // arbitrary testing value
         SUBWOOFER(new double[] {5000, 5000}, "Subwoofer"), // used for when against the base of the speaker
         PODIUM(new double[] {4000, 4000}, "Podium"), // used for when against the base of the PODIUM

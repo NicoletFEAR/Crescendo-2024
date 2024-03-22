@@ -27,6 +27,8 @@ import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.subsystems.LED;
+import frc.robot.subsystems.RobotStateManager;
+import frc.robot.subsystems.RobotStateManager.RobotState;
 import frc.robot.subsystems.intake.ElevatorLift;
 import frc.robot.subsystems.intake.IntakeFlywheel;
 import frc.robot.subsystems.intake.IntakeHold;
@@ -78,7 +80,9 @@ public class RobotContainer {
   public static LauncherHold m_launcherHold = LauncherHold.getInstance();
   public static LauncherWrist m_launcherWrist = LauncherWrist.getInstance();
 
-    public static SwerveDrive m_drivebase = SwerveDrive.getInstance();
+  public static RobotStateManager m_robotStateManager = RobotStateManager.getInstance();
+
+  public static SwerveDrive m_drivebase = SwerveDrive.getInstance();
 
   
   public static LED m_led = LED.getInstance();
@@ -91,7 +95,6 @@ public class RobotContainer {
     // NAMED COMMANDS FOR AUTO \\
 
     // Use for auto
-    NamedCommands.registerCommand("fastIntake", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING));
     NamedCommands.registerCommand("intakeDown", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF));
     NamedCommands.registerCommand("runLaunch", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
 
@@ -238,13 +241,13 @@ public class RobotContainer {
 
     
     ///// INTAKE /////
-    m_operatorController.a().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.BEAM_BREAK_INTAKING));
+    m_operatorController.a().onTrue(m_robotStateManager.setSuperstructureState(RobotState.BEAM_BREAK_INTAKING));
 
-    m_operatorController.rightStick().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TOF_INTAKING));
+    m_operatorController.rightStick().onTrue(m_robotStateManager.setSuperstructureState(RobotState.TOF_INTAKING));
 
-    m_operatorController.b().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL));
+    m_operatorController.b().onTrue(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
     
-    m_operatorController.x().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.AMP_PREPARE));
+    m_operatorController.x().onTrue(m_robotStateManager.setSuperstructureState(RobotState.AMP));
 
     m_operatorController.y().onTrue(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.EJECTING)
       .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.EJECTING))
@@ -264,6 +267,7 @@ public class RobotContainer {
 
 
     m_operatorController.back().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.CLIMB_PREPARE));
+    // m_operatorController.back().onFalse(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL));
 
     m_operatorController.leftStick().onTrue(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.INTAKE_TO_LAUNCH));
     m_operatorController.leftStick().onFalse(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF));

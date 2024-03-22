@@ -6,13 +6,10 @@ import java.util.Arrays;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
-import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
 public class LED extends SubsystemBase {
     
@@ -61,12 +58,12 @@ public class LED extends SubsystemBase {
 
       // Robot States
 
-      private static boolean transition = false;
-      private static boolean intaking = false;
-      private static boolean noteInRobot = false;
-      private static boolean ampPrepare = false;
-      private static boolean launching = false;
-      private static boolean stowed = false;
+      // private static boolean transition = false;
+      // private static boolean intaking = false;
+      // private static boolean noteInRobot = false;
+      // private static boolean ampPrepare = false;
+      // private static boolean launching = false;
+      // private static boolean stowed = false;
       
       public LED(AddressableLED led, int length) {
         m_led = led;
@@ -203,7 +200,7 @@ public class LED extends SubsystemBase {
           setState(m_currentState);
         } 
 
-        updateBasedOnMechs();
+        // updateBasedOnMechs();
 
         if (m_effectRunTime > 0) {
           m_effectRunTime -= 0.02;
@@ -217,67 +214,67 @@ public class LED extends SubsystemBase {
         
       }
 
-      public void updateBasedOnMechs() {
-        LEDState desiredState = null;
+      // public void updateBasedOnMechs() {
+      //   LEDState desiredState = null;
 
-        transition = RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.TRANSITION ||
-                      RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.TRANSITION;
-        noteInRobot = RobotContainer.m_launcherSuperstructure.getNoteInLauncher() || RobotContainer.m_intakeSuperstructure.timeOfFlightBlocked();
-        ampPrepare = RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.AMP_PREPARE;
-        launching = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.SUBWOOFER ||
-                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.PODIUM ||
-                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.POOP_POS_1 ||
-                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.POOP_POS_2 ||
-                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_1 ||
-                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_2 ||
-                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_3 ||
-                      RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.PASS;
-        intaking = RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TOF_INTAKING ||
-                    RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING ||
-                    RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING;
-        stowed = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.STOWED ||
-                  RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.STOWED ||
-                  RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TRAVEL;
+      //   transition = RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.TRANSITION ||
+      //                 RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.TRANSITION;
+      //   noteInRobot = RobotContainer.m_launcherSuperstructure.getNoteInLauncher() || RobotContainer.m_intakeSuperstructure.timeOfFlightBlocked();
+      //   ampPrepare = RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.AMP_PREPARE;
+      //   launching = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.SUBWOOFER ||
+      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.PODIUM ||
+      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.POOP_POS_1 ||
+      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.POOP_POS_2 ||
+      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_1 ||
+      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_2 ||
+      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_3 ||
+      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.PASS;
+      //   intaking = RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TOF_INTAKING ||
+      //               RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING ||
+      //               RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING;
+      //   stowed = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.STOWED ||
+      //             RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.STOWED ||
+      //             RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TRAVEL;
 
 
-        if (DriverStation.isEnabled() && m_effectRunTime == -1) {
-          if (transition) {
-            if (noteInRobot) {
-              if (launching) {
-                desiredState = LEDState.GREEN_REVVING;
-              } else if (ampPrepare || stowed) {
-                desiredState = LEDState.GREEN_BLINKING;
-              } else if (intaking) {
-                desiredState = LEDState.RED_BLINKING;
-              }
-            } else {
-              if (ampPrepare || launching) {
-                desiredState = LEDState.RED_BLINKING;
-              } else if (intaking || stowed) {
-                desiredState = LEDState.TEAL_BLINKING;
-              }
-            }
-          } else {
-            if (noteInRobot) {
-              if (ampPrepare || stowed) {
-                desiredState = LEDState.GREEN;
-              } else if (intaking) {
-                setState(LEDState.GREEN_WIPE, 1);
-              }
-            } else {
-              if (ampPrepare || launching) {
-                desiredState = LEDState.RED;
-              } else if (stowed || intaking) {
-                desiredState = LEDState.TEAL;
-              }
-            }
-          }
-        }
+      //   if (DriverStation.isEnabled() && m_effectRunTime == -1) {
+      //     if (transition) {
+      //       if (noteInRobot) {
+      //         if (launching) {
+      //           desiredState = LEDState.GREEN_REVVING;
+      //         } else if (ampPrepare || stowed) {
+      //           desiredState = LEDState.GREEN_BLINKING;
+      //         } else if (intaking) {
+      //           desiredState = LEDState.RED_BLINKING;
+      //         }
+      //       } else {
+      //         if (ampPrepare || launching) {
+      //           desiredState = LEDState.RED_BLINKING;
+      //         } else if (intaking || stowed) {
+      //           desiredState = LEDState.TEAL_BLINKING;
+      //         }
+      //       }
+      //     } else {
+      //       if (noteInRobot) {
+      //         if (ampPrepare || stowed) {
+      //           desiredState = LEDState.GREEN;
+      //         } else if (intaking) {
+      //           setState(LEDState.GREEN_WIPE, 1);
+      //         }
+      //       } else {
+      //         if (ampPrepare || launching) {
+      //           desiredState = LEDState.RED;
+      //         } else if (stowed || intaking) {
+      //           desiredState = LEDState.TEAL;
+      //         }
+      //       }
+      //     }
+      //   }
 
-        if (desiredState != null && m_currentState != desiredState) {
-          setState(desiredState);
-        }
-      }
+      //   if (desiredState != null && m_currentState != desiredState) {
+      //     setState(desiredState);
+      //   }
+      // }
     
       private ArrayList<Double> createLoopingEffect(ArrayList<Double> initialList, int targetLength) {
         ArrayList<Double> outputList = new ArrayList<>();
@@ -290,17 +287,17 @@ public class LED extends SubsystemBase {
       } 
     
     
-      private ArrayList<Double> setToLength(ArrayList<Double> initialList, int targetLength) {
-        ArrayList<Double> outputList = new ArrayList<>();
+      // private ArrayList<Double> setToLength(ArrayList<Double> initialList, int targetLength) {
+      //   ArrayList<Double> outputList = new ArrayList<>();
     
-        outputList.addAll(initialList);
+      //   outputList.addAll(initialList);
     
-        for (int i = 0; i < targetLength - initialList.size(); i++) {
-          outputList.add(0.0);
-        }
+      //   for (int i = 0; i < targetLength - initialList.size(); i++) {
+      //     outputList.add(0.0);
+      //   }
     
-        return outputList;
-      } 
+      //   return outputList;
+      // } 
 
       public static void setLedToLauncherVelocity() {
         double velPercent = RobotContainer.m_launcherFlywheel.getVelocity()[0] / RobotContainer.m_launcherFlywheel.getDesiredState().getVelocity()[0];

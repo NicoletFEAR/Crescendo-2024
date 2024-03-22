@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.lib.templates.SuperstructureSubsystem;
 import frc.robot.RobotContainer;
 import frc.robot.commands.waits.WaitForIntakeNote;
+import frc.robot.commands.waits.WaitForLaunchNote;
 import frc.robot.subsystems.intake.IntakeSuperstructure;
 import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
@@ -44,12 +45,19 @@ public class RobotStateManager extends SuperstructureSubsystem {
             case AMP:
                 handleAmpCommand(robotDesiredState, outputCommand);
                 break;
+            case BEAM_BREAK_INTAKING:
+                handleBeamBreakIntakingCommand(robotDesiredState, outputCommand);
+                break;
+            case AUTO_INTAKING:
+                handleAutoIntakingCommand(robotDesiredState, outputCommand);
+                break;
+            case TOF_INTAKING:
+                handleTOFIntakingCommand(robotDesiredState, outputCommand);
+                break;
             default:
                 handleDefaultCommand(robotDesiredState, outputCommand);
                 break;
         }
-
-
 
         outputCommand.addCommands(new InstantCommand(() -> m_currentState = robotDesiredState));
 
@@ -61,6 +69,42 @@ public class RobotStateManager extends SuperstructureSubsystem {
             m_intakeSuperstructure.setSuperstructureState(robotDesiredState.intakeSuperstructureState).alongWith(
                 m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
             )
+        );
+    }
+
+    private void handleBeamBreakIntakingCommand(RobotState robotDesiredState, SequentialCommandGroup outputCommand) {
+        outputCommand.addCommands(
+            m_intakeSuperstructure.setSuperstructureState(robotDesiredState.intakeSuperstructureState)
+                .alongWith(
+                    m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
+                ),
+            new WaitForLaunchNote(),
+            m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL)
+                .alongWith(
+                    m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
+                )
+        );
+    }
+
+    private void handleAutoIntakingCommand(RobotState robotDesiredState, SequentialCommandGroup outputCommand) {
+        outputCommand.addCommands(
+            m_intakeSuperstructure.setSuperstructureState(robotDesiredState.intakeSuperstructureState)
+                .alongWith(
+                    m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
+                ),
+            new WaitForLaunchNote(),
+            m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
+        );
+    }
+
+    private void handleTOFIntakingCommand(RobotState robotDesiredState, SequentialCommandGroup outputCommand) {
+        outputCommand.addCommands(
+            m_intakeSuperstructure.setSuperstructureState(robotDesiredState.intakeSuperstructureState)
+                .alongWith(
+                    m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
+                ),
+            new WaitForIntakeNote(),
+            m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL)
         );
     }
 
@@ -95,7 +139,22 @@ public class RobotStateManager extends SuperstructureSubsystem {
         AMP(
             IntakeSuperstructureState.AMP_PREPARE,
             LauncherSuperstructureState.STOWED,
-            "Travel"
+            "Amp"
+        ),
+        BEAM_BREAK_INTAKING(
+            IntakeSuperstructureState.INTAKING,
+            LauncherSuperstructureState.INTAKE_TO_LAUNCH,
+            "Intaking"
+        ),
+        TOF_INTAKING(
+            IntakeSuperstructureState.INTAKING,
+            LauncherSuperstructureState.STOWED,
+            "TOF Intaking"
+        ),
+        AUTO_INTAKING(
+            IntakeSuperstructureState.INTAKING,
+            LauncherSuperstructureState.INTAKE_TO_LAUNCH,
+            "Auto Intaking"
         ),
         TRAVEL(
             IntakeSuperstructureState.TRAVEL,
