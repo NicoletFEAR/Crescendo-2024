@@ -80,8 +80,18 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
     SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
-    outputCommand.addCommands(new InstantCommand(() -> m_desiredState = intakeDesiredState));
-    outputCommand.addCommands(new InstantCommand(() -> m_currentState = IntakeSuperstructureState.TRANSITION));
+    outputCommand.addCommands(
+      new InstantCommand(() -> {m_desiredState = intakeDesiredState; m_currentState = IntakeSuperstructureState.TRANSITION;})
+    );
+
+
+    switch (intakeDesiredState) {
+      case 
+      default:
+        handleDefaultCommand(intakeDesiredState, outputCommand);
+        break;
+
+    }
 
     if (intakeDesiredState == IntakeSuperstructureState.STOWED || intakeDesiredState == IntakeSuperstructureState.TRAVEL || intakeDesiredState == IntakeSuperstructureState.INTAKE_TO_LAUNCH) {
       if (intakeDesiredState == IntakeSuperstructureState.STOWED) {
@@ -173,6 +183,15 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     }
 
     return outputCommand;
+  }
+
+  private void handleDefaultCommand(IntakeSuperstructureState intakeDesiredState, SequentialCommandGroup outputCommand) {
+    outputCommand.addCommands(
+      new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
+      new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState),
+      new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState),
+      new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState)
+    );
   }
 
   @Override 

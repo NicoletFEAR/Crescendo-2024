@@ -136,8 +136,7 @@ public class Robot extends TimedRobot {
     LED.setState(LEDState.RED);
 
     if (autonInitCommandRun == false) {
-      Command autonInitCommand = FollowPathCommand.warmupCommand();
-      // new PathPlannerAuto("1 Meter Auto").ignoringDisable(true);
+      Command autonInitCommand = new PathPlannerAuto("1 Meter Auto").ignoringDisable(true);
       autonInitCommand.schedule();
       autonInitCommandRun = true;
     }

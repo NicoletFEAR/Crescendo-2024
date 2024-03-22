@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.lib.templates.SuperstructureSubsystem;
 import frc.robot.RobotContainer;
+import frc.robot.commands.waits.WaitForIntakeNote;
 import frc.robot.subsystems.intake.IntakeSuperstructure;
 import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
@@ -33,22 +34,49 @@ public class RobotStateManager extends SuperstructureSubsystem {
     public SequentialCommandGroup setSuperstructureState(SuperstructureState desiredState) {
         RobotState robotDesiredState = (RobotState) desiredState;
             
-        SequentialCommandGroup output = new SequentialCommandGroup();
+        SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
-        output.addCommands(new InstantCommand(() -> m_desiredState = robotDesiredState).alongWith(
+        outputCommand.addCommands(new InstantCommand(() -> m_desiredState = robotDesiredState).alongWith(
             new InstantCommand(() -> m_currentState = RobotState.TRANSITION)
         ));
 
-        output.addCommands(
+        switch(robotDesiredState){
+            case AMP:
+                handleAmpCommand(robotDesiredState, outputCommand);
+                break;
+            default:
+                handleDefaultCommand(robotDesiredState, outputCommand);
+                break;
+        }
+
+
+
+        outputCommand.addCommands(new InstantCommand(() -> m_currentState = robotDesiredState));
+
+        return outputCommand;
+    }
+
+    private void handleDefaultCommand(RobotState robotDesiredState, SequentialCommandGroup outputCommand) {
+        outputCommand.addCommands(
             m_intakeSuperstructure.setSuperstructureState(robotDesiredState.intakeSuperstructureState).alongWith(
                 m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
             )
         );
-
-        output.addCommands(new InstantCommand(() -> m_currentState = robotDesiredState));
-
-        return output;
     }
+
+    private void handleAmpCommand(RobotState robotDesiredState, SequentialCommandGroup outputCommand) {
+        outputCommand.addCommands(
+            new WaitForIntakeNote()
+            .alongWith(
+              m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.LAUNCH_TO_INTAKE),
+              m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_TO_INTAKE))
+                .unless(() -> m_intakeSuperstructure.timeOfFlightBlocked() || !m_launcherSuperstructure.getNoteInLauncher()),
+            m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.AMP_PREPARE).alongWith(
+                m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
+            )
+        );
+    }
+
 
     @Override
     public SuperstructureState getTransitionState() {
@@ -63,6 +91,11 @@ public class RobotStateManager extends SuperstructureSubsystem {
             IntakeSuperstructureState.TRANSITION,
             LauncherSuperstructureState.TRANSITION,
             "Transition"
+        ),
+        AMP(
+            IntakeSuperstructureState.AMP_PREPARE,
+            LauncherSuperstructureState.STOWED,
+            "Travel"
         ),
         TRAVEL(
             IntakeSuperstructureState.TRAVEL,
