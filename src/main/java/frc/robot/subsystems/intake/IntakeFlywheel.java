@@ -33,27 +33,25 @@ public class IntakeFlywheel extends VoltageSubsystem {
     public void outputTelemetry() {}
 
     public enum IntakeFlywheelState implements VoltageSubsystemState {
-        OFF(0, "Off"),
-        INTAKING(-12, "Intaking"),
-        SLOW_INTAKING(-8, "Slow Intaking"),
-        INTAKE_TO_LAUNCH(-12, "Intake To Launch"),
-        EJECTING(12, "Out"),
-        LAUNCH_TO_INTAKE(1.5, "Out"),
-        AMP(12, "Amp"),
-        TRANSITION(0, "Transition"),
-        MANUAL(0, "Manual");
+        OFF(0),
+        INTAKING(-12),
+        SLOW_INTAKING(-8),
+        INTAKE_TO_LAUNCH(-12),
+        EJECTING(12),
+        LAUNCH_TO_INTAKE(1.5),
+        AMP(12),
+        TRANSITION(0),
+        MANUAL(0);
         
         private double voltage;
-        private String name;
     
-        private IntakeFlywheelState(double voltage, String name) {
+        private IntakeFlywheelState(double voltage) {
           this.voltage = voltage;
-          this.name = name;
         }
 
         @Override
         public String getName() {
-            return name;
+            return name();
         }
 
         @Override

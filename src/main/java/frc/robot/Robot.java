@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
     );
     // RobotContainer.m_drivebase.updateEstimatorWithPose(RobotContainer.m_drivebase.getPose());
 
-    LED.setState(LEDState.STOW);
+    LED.setState(LEDState.TEAL_STOW);
   }
 
   /** This function is called periodically during operator control. */

@@ -27,7 +27,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
     RobotContainer.mainTab.add("TOF Blocked", getNoteInIntake()).withPosition(0, 1).withSize(1, 4);
 
-    // SmartDashboard.putBoolean("Is note in intake", false);
+    SmartDashboard.putBoolean("Is note in intake", false);
   }
 
   public static IntakeSuperstructure getInstance() {
@@ -39,14 +39,14 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   }
 
   public boolean getNoteInIntake(){
-    if(m_intakeTOF.getRange() < IntakeConstants.kTOFNoteThreshold){
-      return true;
-    }
-    else{
-      return false;
-    }
+    // if(m_intakeTOF.getRange() < IntakeConstants.kTOFNoteThreshold){
+    //   return true;
+    // }
+    // else{
+    //   return false;
+    // }
 
-    // return SmartDashboard.getBoolean("Is note in intake", false);
+    return SmartDashboard.getBoolean("Is note in intake", false);
     // return false;
   }
 
@@ -106,106 +106,91 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
   public enum IntakeSuperstructureState implements SuperstructureState {
     STOWED(
-        IntakeFlywheelState.OFF,
-        IntakeWristState.STOWED,
-        ElevatorLiftState.STOWED,
-        IntakeHoldState.OFF,
-        "Stowed"),
-    TRAVEL(
-        IntakeFlywheelState.OFF,
-        IntakeWristState.TRAVEL,
-        ElevatorLiftState.STOWED,
-        IntakeHoldState.OFF,
-        "Travel"),
-    INTAKING( 
-        IntakeFlywheelState.INTAKING,
-        IntakeWristState.DOWN,
-        ElevatorLiftState.STOWED,
-        IntakeHoldState.INTAKING,
-        "Intaking"),
-    TOF_INTAKING( 
-        IntakeFlywheelState.SLOW_INTAKING,
-        IntakeWristState.DOWN,
-        ElevatorLiftState.STOWED,
-        IntakeHoldState.INTAKING,
-        "TOF Intaking"),
-    BEAM_BREAK_INTAKING( 
-        IntakeFlywheelState.INTAKING,
-        IntakeWristState.DOWN,
-        ElevatorLiftState.STOWED,
-        IntakeHoldState.INTAKING,
-        "Beam Break Intaking"),
-    AMP_PREPARE(
-        IntakeFlywheelState.OFF,
-        IntakeWristState.AMP,
-        ElevatorLiftState.AMP,
-        IntakeHoldState.OFF,
-        "Amp Prepare"),
-    CLIMB_PREPARE(
+      IntakeFlywheelState.OFF,
+      IntakeWristState.STOWED,
+      ElevatorLiftState.STOWED,
+      IntakeHoldState.OFF),
+  TRAVEL(
+      IntakeFlywheelState.OFF,
+      IntakeWristState.TRAVEL,
+      ElevatorLiftState.STOWED,
+      IntakeHoldState.OFF),
+  INTAKING( 
+      IntakeFlywheelState.INTAKING,
+      IntakeWristState.DOWN,
+      ElevatorLiftState.STOWED,
+      IntakeHoldState.INTAKING),
+  TOF_INTAKING( 
+      IntakeFlywheelState.SLOW_INTAKING,
+      IntakeWristState.DOWN,
+      ElevatorLiftState.STOWED,
+      IntakeHoldState.INTAKING),
+  BEAM_BREAK_INTAKING( 
+      IntakeFlywheelState.INTAKING,
+      IntakeWristState.DOWN,
+      ElevatorLiftState.STOWED,
+      IntakeHoldState.INTAKING),
+  AMP_PREPARE(
+      IntakeFlywheelState.OFF,
+      IntakeWristState.AMP,
+      ElevatorLiftState.AMP,
+      IntakeHoldState.OFF),
+  CLIMB_PREPARE(
       IntakeFlywheelState.OFF,
       IntakeWristState.TRAVEL,
       ElevatorLiftState.CLIMB,
-      IntakeHoldState.OFF,
-      "Climb Prepare"),
-    EJECT(
-        IntakeFlywheelState.EJECTING,
-        IntakeWristState.DOWN,
-        ElevatorLiftState.STOWED,
-        IntakeHoldState.EJECTING,
-        "Ejecting"),
-    LAUNCH_TO_INTAKE(
-        IntakeFlywheelState.LAUNCH_TO_INTAKE,
-        IntakeWristState.NOTE_TO_LAUNCHER,
-        ElevatorLiftState.STOWED,
-        IntakeHoldState.EJECTING,
-        "Launch To Intake"),
-    INTAKE_TO_LAUNCH(
-        IntakeFlywheelState.INTAKE_TO_LAUNCH,
-        IntakeWristState.DOWN,
-        ElevatorLiftState.STOWED,
-        IntakeHoldState.INTAKE_TO_LAUNCH,
-        "Intake To Launch"),
-    DOWNOFF(
-        IntakeFlywheelState.OFF,
-        IntakeWristState.DOWN,
-        ElevatorLiftState.STOWED,
-        IntakeHoldState.OFF,
-        "down off"),
-    TRANSITION(
+      IntakeHoldState.OFF),
+  EJECT(
+      IntakeFlywheelState.EJECTING,
+      IntakeWristState.DOWN,
+      ElevatorLiftState.STOWED,
+      IntakeHoldState.EJECTING),
+  LAUNCH_TO_INTAKE(
+      IntakeFlywheelState.LAUNCH_TO_INTAKE,
+      IntakeWristState.NOTE_TO_LAUNCHER,
+      ElevatorLiftState.STOWED,
+      IntakeHoldState.EJECTING),
+  INTAKE_TO_LAUNCH(
+      IntakeFlywheelState.INTAKE_TO_LAUNCH,
+      IntakeWristState.DOWN,
+      ElevatorLiftState.STOWED,
+      IntakeHoldState.INTAKE_TO_LAUNCH),
+  DOWNOFF(
+      IntakeFlywheelState.OFF,
+      IntakeWristState.DOWN,
+      ElevatorLiftState.STOWED,
+      IntakeHoldState.OFF),
+  TRANSITION(
       IntakeFlywheelState.OFF,
       IntakeWristState.TRANSITION,
       ElevatorLiftState.TRANSITION,
-      IntakeHoldState.OFF,
-      "Transition"),
-    LAUNCHING(
+      IntakeHoldState.OFF),
+  LAUNCHING(
       IntakeFlywheelState.INTAKING,
       IntakeWristState.LAUNCHING,
       ElevatorLiftState.STOWED,
-      IntakeHoldState.INTAKING,
-      "Launching");
+      IntakeHoldState.INTAKING);
 
     public IntakeFlywheelState intakeFlywheelState;
     public IntakeWristState intakeWristState;
     public ElevatorLiftState elevatorLiftState;
     public IntakeHoldState intakeHoldState;
-    public String name;
 
     private IntakeSuperstructureState(
         IntakeFlywheelState intakeFlywheelState,
         IntakeWristState intakeWristState,
         ElevatorLiftState elevatorLiftState,
-        IntakeHoldState intakeHoldState,
-        String name) {
+        IntakeHoldState intakeHoldState
+        ) {
       this.intakeFlywheelState = intakeFlywheelState;
       this.intakeWristState = intakeWristState;
       this.elevatorLiftState = elevatorLiftState;
       this.intakeHoldState = intakeHoldState;
-      this.name = name;
     }
 
     @Override
     public String getName() {
-      return name;
+      return name();
     }
   }
 

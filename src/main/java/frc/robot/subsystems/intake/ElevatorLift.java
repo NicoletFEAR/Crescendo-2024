@@ -70,25 +70,23 @@ public class ElevatorLift extends MultiMotorPositionSubsystem {
   }
 
     public enum ElevatorLiftState implements MultiMotorPositionSubsystemState {
-      STOWED(new double[] {0, 0}, new double[] {0, 0}, "Down"),
-      TRANSITION(new double[] {0, 0}, new double[] {0, 0}, "Transition"),
-      AMP(new double[] {30.5, 30.5}, new double[] {0, 0}, "Amp"),
-      CLIMB(new double[] {178, 178}, new double[] {0, 0}, "Climb"),
-      MANUAL(new double[] {0, 0}, new double[] {0, 0}, "Manual");
+      STOWED(new double[] {0, 0}, new double[] {0, 0}),
+      TRANSITION(new double[] {0, 0}, new double[] {0, 0}),
+      AMP(new double[] {30.5, 30.5}, new double[] {0, 0}),
+      CLIMB(new double[] {80, 80}, new double[] {0, 0}),
+      MANUAL(new double[] {0, 0}, new double[] {0, 0});
   
       private double[] position;
       private double[] velocity;
-      private String name;
   
-      private ElevatorLiftState(double[] position, double[] velocity, String name) {
+      private ElevatorLiftState(double[] position, double[] velocity) {
         this.position = position;
         this.velocity = velocity;
-        this.name = name;
       }
 
       @Override
       public String getName() {
-          return name;
+          return name();
       }
 
       @Override

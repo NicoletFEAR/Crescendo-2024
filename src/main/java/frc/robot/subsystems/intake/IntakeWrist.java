@@ -40,29 +40,26 @@ public class IntakeWrist extends PositionSubsystem {
     public void outputTelemetry() {}
 
     public enum IntakeWristState implements PositionSubsystemState {
-        DOWN(18, 0, "Down"),
-        STOWED(0, 0, "Stowed"),
-        AMP(1.20, 0, "Amp"),
-        // AMP(12.5, 0, "Amp"),
-        NOTE_TO_LAUNCHER(6, 0, "Note To Launcher"),
-        TRAVEL(3.74, 0, "Travel"),
-        TRANSITION(0, 0, "Transition"),
-        LAUNCHING(6.5, 0, "Launching"), // this is the angle where the note is minimanlly bent when being passed to the launcher superstructure
-        MANUAL(0, 0, "Manual");
+        DOWN(18, 0),
+        STOWED(0, 0),
+        AMP(1.20, 0),
+        NOTE_TO_LAUNCHER(6, 0),
+        TRAVEL(3.74, 0),
+        TRANSITION(0, 0),
+        LAUNCHING(6.5, 0),
+        MANUAL(0, 0);
     
         private double position;
         private double velocity;
-        private String name;
     
-        private IntakeWristState(double position, double velocity, String name) {
+        private IntakeWristState(double position, double velocity) {
           this.position = position;
           this.velocity = velocity;
-          this.name = name;
         }
 
         @Override
         public String getName() {
-            return name;
+            return name();
         }
 
         @Override

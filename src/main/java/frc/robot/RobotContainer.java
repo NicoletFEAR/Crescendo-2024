@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.drivebase.TeleopSwerve;
+import frc.robot.commands.parallel.SetVoltageStates;
 import frc.robot.commands.sequential.FieldRelativeLaunch;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
@@ -159,6 +160,7 @@ public class RobotContainer {
 
     autoChooser.addOption("Front Sub 1 Wing 1", AutoBuilder.buildAuto("Front Sub 1 Wing 1"));
 
+    autoChooser.addOption("Source Sub 1 Wing 1", AutoBuilder.buildAuto("Source Sub 1 Wing 1"));
     autoChooser.addOption("Source Sub 1 Mid 3 Wing 1", AutoBuilder.buildAuto("Source Sub 1 Mid 3 Wing 1"));
     autoChooser.addOption("Source Sub 1 Mid 3", AutoBuilder.buildAuto("Source Sub 1 Mid 3"));
     autoChooser.addOption("Source Sub 1 Amp 4", AutoBuilder.buildAuto("Source Sub 1 Amp 4"));
@@ -213,7 +215,7 @@ public class RobotContainer {
       strafeAxis,
       rotationAxis,
       true,
-      DriveConstants.kRegularSpeed,
+      DriveConstants.kSlowSpeed,
       false));
 
     m_driverController.L1().onFalse(new TeleopSwerve(
@@ -230,6 +232,32 @@ public class RobotContainer {
 
     m_driverController.cross().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
 
+    m_driverController.square().onTrue(new InstantCommand(() -> m_drivebase.setNoteTracking(true))
+      .alongWith(
+        new TeleopSwerve(
+          m_drivebase,
+          m_driverController,
+          translationAxis,
+          strafeAxis,
+          rotationAxis,
+          true,
+          DriveConstants.kRegularSpeed,
+          false)
+      ));
+
+    m_driverController.square().onTrue(new InstantCommand(() -> m_drivebase.setNoteTracking(false))
+      .alongWith(
+        new TeleopSwerve(
+          m_drivebase,
+          m_driverController,
+          translationAxis,
+          strafeAxis,
+          rotationAxis,
+          true,
+          DriveConstants.kRegularSpeed,
+          true)
+      ));
+
     ///// INTAKE /////
     m_operatorController.a().onTrue(m_robotStateManager.setSuperstructureState(RobotState.BEAM_BREAK_INTAKING));
 
@@ -239,41 +267,31 @@ public class RobotContainer {
     
     m_operatorController.x().onTrue(m_robotStateManager.setSuperstructureState(RobotState.AMP));
 
-    m_operatorController.y().onTrue(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.EJECTING)
-      .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.EJECTING))
-      .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.THRU_INTAKE_EJECTING)));
+    m_operatorController.y().onTrue(new SetVoltageStates(IntakeFlywheelState.EJECTING, IntakeHoldState.EJECTING, LauncherHoldState.THRU_INTAKE_EJECTING));
       
-    m_operatorController.y().onFalse(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF)
-      .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF))
-      .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF)));
+    m_operatorController.y().onFalse(new SetVoltageStates(IntakeFlywheelState.OFF, IntakeHoldState.OFF, LauncherHoldState.OFF));
 
-    m_operatorController.start().onTrue(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.INTAKING)
-      .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.INTAKING))
-      .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.THRU_INTAKE_INTAKING)));
+    m_operatorController.start().onTrue(new SetVoltageStates(IntakeFlywheelState.INTAKING, IntakeHoldState.INTAKING, LauncherHoldState.THRU_INTAKE_INTAKING));
       
-    m_operatorController.start().onFalse(new SetVoltageSubsystemState(m_intakeFlywheel, IntakeFlywheelState.OFF)
-      .alongWith(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF))
-      .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF)));
+    m_operatorController.start().onFalse(new SetVoltageStates(IntakeFlywheelState.OFF, IntakeHoldState.OFF, LauncherHoldState.OFF));
 
-
-    m_operatorController.back().onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.CLIMB_PREPARE));
-    // m_operatorController.back().onFalse(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL));
+    m_operatorController.back().onTrue(m_robotStateManager.setSuperstructureState(RobotState.CLIMB_PREPARE));
+    m_operatorController.back().onFalse(m_robotStateManager.setSuperstructureState(RobotState.CHIN_UP));
 
     m_operatorController.leftStick().onTrue(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.INTAKE_TO_LAUNCH));
     m_operatorController.leftStick().onFalse(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF));
   
     ///// LAUNCH /////
     m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
-    m_operatorController.pov(180).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
+    m_operatorController.pov(180).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
 
     m_operatorController.pov(0).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.PASS));
-    m_operatorController.pov(0).onFalse(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED));
+    m_operatorController.pov(0).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
 
     m_operatorController.pov(270).onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED));
     m_operatorController.pov(270).onFalse(new FieldRelativeLaunch(LauncherSuperstructureState.PODIUM));
 
-    m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.OFF)
-    .alongWith(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF)));
+    m_operatorController.pov(90).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH));
 
     }
 

@@ -45,37 +45,36 @@ public class LauncherWrist extends PositionSubsystem {
     }
 
     public enum LauncherWristState implements PositionSubsystemState {
-        DOWN(0, 0, "Down"),
-        UP(65, 0, "Up"),
-        SUBWOOFER(115, 0, "Subwoofer"), // use when against base of speaker
-        WING_NOTE_1(85, 0, "Wing Note 1"),
-        WING_NOTE_2(93, 0, "Wing Note 2"),
-        WING_NOTE_3(90, 0, "Wing Note 3"),
-        LAUNCH_POS_1(56.66, 0, "Launch Pos 1"),
-        LAUNCH_POS_2(56.66, 0, "Launch Pos 2"),
-        LAUNCH_POS_3(56.66, 0, "Launch Pos 3"),
-        PASS(70, 0, "Pass"),
-        POOP_POS_1(0, 0, "Poop Pos 1"),
-        POOP_POS_2(0, 0, "Poop Pos 2"),
-        POOP_POS_3(0, 0, "Poop Pos 3"),
-        PODIUM(68.3, 0, "Podium"), // use when against base of podium
-        FIELD_BASED_PITCH(0, 0, "Field Based Pitch"),
-        TRANSITION(0, 0, "Transition"),
-        MANUAL(0, 0, "Manual");
+        DOWN(0, 0),
+        UP(65, 0),
+        IDLE(65, 0),
+        SUBWOOFER(115, 0), // use when against base of speaker
+        WING_NOTE_1(85, 0),
+        WING_NOTE_2(93, 0),
+        WING_NOTE_3(90, 0),
+        LAUNCH_POS_1(56.66, 0),
+        LAUNCH_POS_2(56.66, 0),
+        LAUNCH_POS_3(56.66, 0),
+        PASS(70, 0),
+        POOP_POS_1(0, 0),
+        POOP_POS_2(0, 0),
+        POOP_POS_3(0, 0),
+        PODIUM(68.3, 0), // use when against base of podium
+        FIELD_BASED_PITCH(0, 0),
+        TRANSITION(0, 0),
+        MANUAL(0, 0);
     
         private double position;
         private double velocity;
-        private String name;
     
-        private LauncherWristState(double position, double velocity, String name) {
+        private LauncherWristState(double position, double velocity) {
           this.position = position;
           this.velocity = velocity;
-          this.name = name;
         }
 
         @Override
         public String getName() {
-            return name;
+            return name();
         }
 
         @Override

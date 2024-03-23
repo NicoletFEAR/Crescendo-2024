@@ -392,6 +392,10 @@ public class LimelightHelpers {
         public double tagSpan;
         public double avgTagDist;
         public double avgTagArea;
+        
+        public boolean isPoseInField;
+        public boolean enoughArea;
+        boolean robotNotMovingMuch;
 
         private final Translation2d fieldCorner = new Translation2d(16.54, 8.02);
 
@@ -407,9 +411,9 @@ public class LimelightHelpers {
         }
 
         public boolean isPoseTrustworthy() { 
-            boolean isPoseInField = (pose.getX() < fieldCorner.getX() && pose.getY() < fieldCorner.getY()) && pose.getX() > 0 && pose.getY() > 0;
-            boolean enoughArea = getTA("limelight-launch") > .15;
-            boolean robotNotMovingMuch = RobotContainer.m_drivebase.getChassisSpeeds().vxMetersPerSecond < .25
+            isPoseInField = (pose.getX() < fieldCorner.getX() && pose.getY() < fieldCorner.getY()) && pose.getX() > 0 && pose.getY() > 0;
+            enoughArea = getTA("limelight-launch") > .1;
+            robotNotMovingMuch = RobotContainer.m_drivebase.getChassisSpeeds().vxMetersPerSecond < .25
                                         && RobotContainer.m_drivebase.getChassisSpeeds().vyMetersPerSecond < .25
                                         && RobotContainer.m_drivebase.getChassisSpeeds().omegaRadiansPerSecond < (Math.PI * 2) * .25;
 

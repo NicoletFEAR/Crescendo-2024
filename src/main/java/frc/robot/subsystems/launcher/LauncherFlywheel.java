@@ -71,39 +71,36 @@ public class LauncherFlywheel extends VelocitySubsystem {
     }
 
     public enum LauncherFlywheelState implements VelocitySubsystemState {
-        OFF(new double[] {0, 0}, "Off"),
-        IDLE(new double[] {0, 0}, "Idle"),
-        TESTING(new double[] {4000, 4000}, "Testing"),
-        WING_NOTE_1(new double[] {4000, 4000}, "Wing Note 1"),
-        WING_NOTE_2(new double[] {4000, 4000}, "Wing Note 2"),
-        WING_NOTE_3(new double[] {4000, 4000}, "Wing Note 3"),
-        LAUNCH_POS_1(new double[] {5000, 5000}, "Launch Pos 1"),
-        LAUNCH_POS_2(new double[] {5000, 5000}, "Launch Pos 2"),
-        LAUNCH_POS_3(new double[] {5000, 5000}, "Launch Pos 3"),
-        POOP_POS_1(new double[] {4000, 4000}, "Poop Pos 1"),
-        POOP_POS_2(new double[] {4000, 4000}, "Poop Pos 2"),
-        POOP_POS_3(new double[] {4000, 4000}, "Poop Pos 3"),
-        RUNNING(new double[] {4000, 4000}, "Running"), // arbitrary testing value
-        SUBWOOFER(new double[] {5000, 5000}, "Subwoofer"), // used for when against the base of the speaker
-        PODIUM(new double[] {4000, 4000}, "Podium"), // used for when against the base of the PODIUM
-        TRANSITION(new double[] {0, 0}, "Transition"),
-        FIELD_BASED_VELOCITY(new double[] {0, 0}, "Field Based Velocity"),
-        INTAKING(new double[] {-500, -500}, "Intaking"), // used when intaking through launch
-        MANUAL(new double[] {0, 0}, "Manual");
+        OFF(new double[] {0, 0}),
+        IDLE(new double[] {2000, 2000}),
+        TESTING(new double[] {4000, 4000}),
+        WING_NOTE_1(new double[] {4000, 4000}),
+        WING_NOTE_2(new double[] {4000, 4000}),
+        WING_NOTE_3(new double[] {4000, 4000}),
+        LAUNCH_POS_1(new double[] {5000, 5000}),
+        LAUNCH_POS_2(new double[] {5000, 5000}),
+        LAUNCH_POS_3(new double[] {5000, 5000}),
+        POOP_POS_1(new double[] {4000, 4000}),
+        POOP_POS_2(new double[] {4000, 4000}),
+        POOP_POS_3(new double[] {4000, 4000}),
+        RUNNING(new double[] {4000, 4000}), // arbitrary testing value
+        SUBWOOFER(new double[] {5000, 5000}), // used for when against the base of the speaker
+        PODIUM(new double[] {4000, 4000}), // used for when against the base of the PODIUM
+        TRANSITION(new double[] {0, 0}),
+        FIELD_BASED_VELOCITY(new double[] {0, 0}),
+        INTAKING(new double[] {-500, -500}), // used when intaking through launch
+        MANUAL(new double[] {0, 0});
 
-        // see if slowing down the bottom flyhweeel helps with tubmle
     
         private double[] velocity;
-        private String name;
     
-        private LauncherFlywheelState(double[] velocity, String name) {
+        private LauncherFlywheelState(double[] velocity) {
           this.velocity = velocity;
-          this.name = name;
         }
 
         @Override
         public String getName() {
-            return name;
+            return name();
         }
 
         @Override
@@ -165,7 +162,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
             kLauncherFlywheelConstants.kDefaultSlot = 0;
 
-            kLauncherFlywheelConstants.kSetpointTolerance = 200;
+            kLauncherFlywheelConstants.kSetpointTolerance = 100;
 
             kLauncherFlywheelConstants.kInitialState = LauncherFlywheelState.OFF;
             kLauncherFlywheelConstants.kTransitionState = LauncherFlywheelState.TRANSITION;

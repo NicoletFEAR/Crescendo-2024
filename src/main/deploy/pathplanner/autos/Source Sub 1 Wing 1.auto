@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.75,
+      "y": 4.49
+    },
+    "rotation": -60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "addGyroSourceSide"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoStartSubwoofer"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RS3-WN3-RS3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferLaunch"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "travel"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Start Pos 3",
+  "choreoAuto": false
+}

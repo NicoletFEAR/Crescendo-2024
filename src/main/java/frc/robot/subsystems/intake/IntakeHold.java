@@ -32,24 +32,22 @@ public class IntakeHold extends VoltageSubsystem {
     public void outputTelemetry() {}
 
     public enum IntakeHoldState implements VoltageSubsystemState {
-        OFF(0, "Off"),
-        INTAKING(-9, "Intaking"),
-        LAUNCH_IN(4, "Launch In"),
-        INTAKE_TO_LAUNCH(-4, "Intake To Launch"),
-        AMP(6, "Amp"),
-        EJECTING(6, "Ejecting");
+        OFF(0),
+        INTAKING(-9),
+        LAUNCH_IN(4),
+        INTAKE_TO_LAUNCH(-4),
+        AMP(6),
+        EJECTING(6);
         
         private double voltage;
-        private String name;
     
-        private IntakeHoldState(double voltage, String name) {
+        private IntakeHoldState(double voltage) {
           this.voltage = voltage;
-          this.name = name;
         }
 
         @Override
         public String getName() {
-            return name;
+            return name();
         }
 
         @Override

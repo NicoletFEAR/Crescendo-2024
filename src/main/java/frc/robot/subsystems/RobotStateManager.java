@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.lib.templates.SuperstructureSubsystem;
@@ -56,6 +57,15 @@ public class RobotStateManager extends SuperstructureSubsystem {
             case TOF_INTAKING:
                 handleTOFIntakingCommand(robotDesiredState, outputCommand);
                 break;
+            case TRAVEL:
+                handleTravelCommand(robotDesiredState, outputCommand);
+                break;
+            case CLIMB_PREPARE:
+                handleClimbCommand(robotDesiredState, outputCommand);
+                break;
+            case CHIN_UP:
+                handleClimbCommand(robotDesiredState, outputCommand);
+                break;
             default:
                 handleDefaultCommand(robotDesiredState, outputCommand);
                 break;
@@ -74,6 +84,15 @@ public class RobotStateManager extends SuperstructureSubsystem {
         );
     }
 
+    private void handleTravelCommand(RobotState robotDesiredState, SequentialCommandGroup outputCommand) {
+        outputCommand.addCommands(
+            m_intakeSuperstructure.setSuperstructureState(robotDesiredState.intakeSuperstructureState).alongWith(
+                m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState),
+                new SetLEDState(LEDState.TEAL_STOW)
+            )
+        );
+    }
+
     private void handleBeamBreakIntakingCommand(RobotState robotDesiredState, SequentialCommandGroup outputCommand) {
         outputCommand.addCommands(
             m_intakeSuperstructure.setSuperstructureState(robotDesiredState.intakeSuperstructureState)
@@ -81,10 +100,10 @@ public class RobotStateManager extends SuperstructureSubsystem {
                     m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
                 ),
             new WaitForLaunchNote(),
-            new SetLEDState(LEDState.GREEN_FLASHING, 1.0, LEDState.STOW),
+            new SetLEDState(LEDState.BLUE_FLASHING, 1.0, LEDState.GREEN_STOW),
             m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL)
                 .alongWith(
-                    m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
+                    m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE)
                 )
         );
     }
@@ -96,8 +115,8 @@ public class RobotStateManager extends SuperstructureSubsystem {
                     m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
                 ),
             new WaitForLaunchNote(),
-            new SetLEDState(LEDState.GREEN_FLASHING, 1.0, LEDState.STOW),
-            m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
+            new SetLEDState(LEDState.BLUE_FLASHING, 1.0, LEDState.GREEN_STOW),
+            m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE)
         );
     }
 
@@ -108,7 +127,7 @@ public class RobotStateManager extends SuperstructureSubsystem {
                     m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
                 ),
             new WaitForIntakeNote(),
-            new SetLEDState(LEDState.GREEN_FLASHING, 1.0, LEDState.STOW),
+            new SetLEDState(LEDState.BLUE_FLASHING, 1.0, LEDState.GREEN_STOW),
             m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL)
         );
     }
@@ -120,11 +139,21 @@ public class RobotStateManager extends SuperstructureSubsystem {
               m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.LAUNCH_TO_INTAKE),
               m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_TO_INTAKE))
                 .unless(() -> m_intakeSuperstructure.getNoteInIntake() || !m_launcherSuperstructure.getNoteInLauncher()),
-            m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.AMP_PREPARE).alongWith(
-                m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED),
-                new SetLEDState(LEDState.GREEN_ELEVATOR)
+            m_intakeSuperstructure.setSuperstructureState(robotDesiredState.intakeSuperstructureState).alongWith(
+                m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState),
+                new SetLEDState(LEDState.GREEN_ELEVATOR_LEDS)
             ),
-            new SetLEDState(LEDState.STOW)
+            new SetLEDState(LEDState.TEAL_STOW)
+        );
+    }
+
+    private void handleClimbCommand(RobotState robotDesiredState, SequentialCommandGroup outputCommand) {
+        outputCommand.addCommands(
+            m_intakeSuperstructure.setSuperstructureState(robotDesiredState.intakeSuperstructureState).alongWith(
+                m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState),
+                new SetLEDState(LEDState.TEAL_ELEVATOR_LEDS)
+            ),
+            new SetLEDState(LEDState.TEAL_STOW)
         );
     }
 
@@ -135,63 +164,54 @@ public class RobotStateManager extends SuperstructureSubsystem {
     }
 
     @Override
-    public void superstructurePeriodic() {}
+    public void superstructurePeriodic() {
+        SmartDashboard.putString("Robot Current State", m_currentState.getName());
+        SmartDashboard.putString("Robot Desired State", m_desiredState.getName());
+    }
 
     public enum RobotState implements SuperstructureState {
         TRANSITION(
             IntakeSuperstructureState.TRANSITION,
-            LauncherSuperstructureState.TRANSITION,
-            "Transition"
-        ),
+            LauncherSuperstructureState.TRANSITION),
         AUTO_START_SUBWOOFER(
             IntakeSuperstructureState.DOWNOFF,
-            LauncherSuperstructureState.SUBWOOFER,
-            "Auto Start Subwoofer"
-        ),
+            LauncherSuperstructureState.SUBWOOFER),
         AMP(
             IntakeSuperstructureState.AMP_PREPARE,
-            LauncherSuperstructureState.STOWED,
-            "Amp"
-        ),
+            LauncherSuperstructureState.STOWED),
+        CLIMB_PREPARE(
+            IntakeSuperstructureState.CLIMB_PREPARE,
+            LauncherSuperstructureState.STOWED),
         BEAM_BREAK_INTAKING(
             IntakeSuperstructureState.INTAKING,
-            LauncherSuperstructureState.INTAKE_TO_LAUNCH,
-            "Intaking"
-        ),
+            LauncherSuperstructureState.INTAKE_TO_LAUNCH),
         TOF_INTAKING(
             IntakeSuperstructureState.TOF_INTAKING,
-            LauncherSuperstructureState.STOWED,
-            "TOF Intaking"
-        ),
+            LauncherSuperstructureState.STOWED),
         AUTO_INTAKING(
             IntakeSuperstructureState.INTAKING,
-            LauncherSuperstructureState.INTAKE_TO_LAUNCH,
-            "Auto Intaking"
-        ),
+            LauncherSuperstructureState.INTAKE_TO_LAUNCH),
         TRAVEL(
             IntakeSuperstructureState.TRAVEL,
-            LauncherSuperstructureState.STOWED,
-            "Travel"
-        ),
+            LauncherSuperstructureState.STOWED),
+        CHIN_UP(
+            IntakeSuperstructureState.TRAVEL,
+            LauncherSuperstructureState.STOWED),
         STOWED(
             IntakeSuperstructureState.STOWED,
-            LauncherSuperstructureState.STOWED,
-            "Stowed"
-        );
+            LauncherSuperstructureState.STOWED);
 
         public IntakeSuperstructureState intakeSuperstructureState;
         public LauncherSuperstructureState launcherSuperstructureState;
-        public String name;
 
-        private RobotState(IntakeSuperstructureState intakeSuperstructureState, LauncherSuperstructureState launcherSuperstructureState, String name) {
+        private RobotState(IntakeSuperstructureState intakeSuperstructureState, LauncherSuperstructureState launcherSuperstructureState) {
             this.intakeSuperstructureState = intakeSuperstructureState;
             this.launcherSuperstructureState = launcherSuperstructureState;
-            this.name = name;
         }
 
         @Override
         public String getName() {
-            return name;
+            return name();
         }
     }
     

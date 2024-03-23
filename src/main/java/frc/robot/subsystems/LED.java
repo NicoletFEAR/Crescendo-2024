@@ -40,7 +40,7 @@ public class LED extends SubsystemBase {
     
       private static AddressableLEDBuffer m_ledBuffer;
     
-      private static LEDState m_currentState = LEDState.OFF;
+      private static LEDState m_currentState = LEDState.RED;
     
       private static int m_rainbowFirstPixelHue = 0;
     
@@ -57,6 +57,8 @@ public class LED extends SubsystemBase {
       private static double m_effectRunTime = -1;
 
       private static LEDState m_postTimerState = null;
+
+      private static double launcherFrozenVel = 0;
 
       // Robot States
 
@@ -94,6 +96,8 @@ public class LED extends SubsystemBase {
         m_currentState = desiredState;
         if (desiredState.ledRunnable == null) {
           setRGB(desiredState.red, desiredState.green, desiredState.blue);
+        } else if (desiredState == LEDState.GREEN_LAUNCHER_LEDS || desiredState == LEDState.RED_LAUNCHER_LEDS) {
+          launcherFrozenVel = RobotContainer.m_launcherFlywheel.getVelocity()[0];
         }
       }
 
@@ -197,6 +201,9 @@ public class LED extends SubsystemBase {
     
       @Override
       public void periodic() {
+        noteInRobot = RobotContainer.m_launcherSuperstructure.getNoteInLauncher() ||
+              RobotContainer.m_intakeSuperstructure.getNoteInIntake();
+
         if (m_currentState.ledRunnable != null) {
           m_currentState.ledRunnable.run();
           if (!hasEffect) hasEffect = true;
@@ -220,68 +227,6 @@ public class LED extends SubsystemBase {
         
       }
 
-      // public void updateBasedOnMechs() {
-      //   LEDState desiredState = null;
-
-      //   transition = RobotContainer.m_intakeSuperstructure.getCurrentState() == IntakeSuperstructureState.TRANSITION ||
-      //                 RobotContainer.m_launcherSuperstructure.getCurrentState() == LauncherSuperstructureState.TRANSITION;
-      //   noteInRobot = RobotContainer.m_launcherSuperstructure.getNoteInLauncher() || RobotContainer.m_intakeSuperstructure.timeOfFlightBlocked();
-      //   ampPrepare = RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.AMP_PREPARE;
-      //   launching = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.SUBWOOFER ||
-      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.PODIUM ||
-      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.POOP_POS_1 ||
-      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.POOP_POS_2 ||
-      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_1 ||
-      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_2 ||
-      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.WING_NOTE_3 ||
-      //                 RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.PASS;
-      //   intaking = RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TOF_INTAKING ||
-      //               RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.BEAM_BREAK_INTAKING ||
-      //               RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.FAST_BEAM_BREAK_INTAKING;
-      //   stowed = RobotContainer.m_launcherSuperstructure.getDesiredState() == LauncherSuperstructureState.STOWED ||
-      //             RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.STOWED ||
-      //             RobotContainer.m_intakeSuperstructure.getDesiredState() == IntakeSuperstructureState.TRAVEL;
-
-
-      //   if (DriverStation.isEnabled() && m_effectRunTime == -1) {
-      //     if (transition) {
-      //       if (noteInRobot) {
-      //         if (launching) {
-      //           desiredState = LEDState.GREEN_REVVING;
-      //         } else if (ampPrepare || stowed) {
-      //           desiredState = LEDState.GREEN_BLINKING;
-      //         } else if (intaking) {
-      //           desiredState = LEDState.RED_BLINKING;
-      //         }
-      //       } else {
-      //         if (ampPrepare || launching) {
-      //           desiredState = LEDState.RED_BLINKING;
-      //         } else if (intaking || stowed) {
-      //           desiredState = LEDState.TEAL_BLINKING;
-      //         }
-      //       }
-      //     } else {
-      //       if (noteInRobot) {
-      //         if (ampPrepare || stowed) {
-      //           desiredState = LEDState.GREEN;
-      //         } else if (intaking) {
-      //           setState(LEDState.GREEN_WIPE, 1);
-      //         }
-      //       } else {
-      //         if (ampPrepare || launching) {
-      //           desiredState = LEDState.RED;
-      //         } else if (stowed || intaking) {
-      //           desiredState = LEDState.TEAL;
-      //         }
-      //       }
-      //     }
-      //   }
-
-      //   if (desiredState != null && m_currentState != desiredState) {
-      //     setState(desiredState);
-      //   }
-      // }
-    
       private ArrayList<Double> createLoopingEffect(ArrayList<Double> initialList, int targetLength) {
         ArrayList<Double> outputList = new ArrayList<>();
     
@@ -306,7 +251,24 @@ public class LED extends SubsystemBase {
       // } 
 
       public static void setLedToLauncherVelocity() {
-        double velPercent = RobotContainer.m_launcherFlywheel.getVelocity()[0] / RobotContainer.m_launcherFlywheel.getDesiredState().getVelocity()[0];
+        if (noteInRobot && m_currentState != LEDState.GREEN_LAUNCHER_LEDS) {
+          setState(LEDState.GREEN_LAUNCHER_LEDS);
+        } else if (!noteInRobot && m_currentState != LEDState.RED_LAUNCHER_LEDS && RobotContainer.m_launcherFlywheel.getVelocity()[0] < 2000) {
+          setState(LEDState.RED_LAUNCHER_LEDS);
+        }
+
+        double velPercent;
+
+        double currentVel = RobotContainer.m_launcherFlywheel.getVelocity()[0];
+        double intendedVel = RobotContainer.m_launcherFlywheel.getDesiredState().getVelocity()[0];
+
+
+
+        if (currentVel < intendedVel) {
+          velPercent = currentVel / intendedVel;
+        } else {
+          velPercent = (currentVel - intendedVel) / (launcherFrozenVel - intendedVel);
+        }
 
         velPercent = MathUtil.clamp(velPercent, 0, 1);
         double ledAmount = (int) ((LEDConstants.kLedStripLength / 2) * velPercent);
@@ -325,6 +287,13 @@ public class LED extends SubsystemBase {
       }
 
       public static void setLedToElevatorPosition() {
+
+        if (noteInRobot && m_currentState != LEDState.GREEN_ELEVATOR_LEDS) {
+          setState(LEDState.GREEN_ELEVATOR_LEDS);
+        } else if (!noteInRobot && m_currentState != LEDState.TEAL_ELEVATOR_LEDS) {
+          setState(LEDState.TEAL_ELEVATOR_LEDS);
+        }
+
         double velPercent = RobotContainer.m_elevatorLift.getPosition()[0] / RobotContainer.m_elevatorLift.getDesiredState().getPosition()[0];
 
         velPercent = MathUtil.clamp(velPercent, 0, 1);
@@ -344,68 +313,40 @@ public class LED extends SubsystemBase {
       }
 
       public static void setLEDToStow() {
-        noteInRobot = RobotContainer.m_launcherSuperstructure.getNoteInLauncher() ||
-                      RobotContainer.m_intakeSuperstructure.getNoteInIntake();
-
-        if (noteInRobot && m_ledBuffer.getGreen(0) != 255) {
-          setRGB(0, 255, 0);
-        } else if (!noteInRobot && m_ledBuffer.getGreen(0) != 122) {
-          setRGB(0, 122, 133);
+        if (noteInRobot && m_currentState != LEDState.GREEN_STOW) {
+          setState(LEDState.GREEN_STOW);
+        } else if (!noteInRobot && m_currentState != LEDState.TEAL_STOW) {
+          setState(LEDState.TEAL_STOW);
         }
       }
     
       public enum LEDState {
-        OFF(0, 0, 0, "Off", null),
-        BLUE(0, 0, 255, "Blue", null),
-        RED(255, 0, 0, "Red", null),
-        GREEN(0, 255, 0, "Green", null),
-        ORANGE(255, 102, 25, "Orange", null),
-        YELLOW(255,255,25, "Yellow", null),
-        WHITE(255, 255, 255, "White", null),
+        RED(255, 0, 0, null),
+        TEAL(0, 122, 133, null),
+        RED_LAUNCHER_LEDS(255, 0, 0, LED::setLedToLauncherVelocity),
+        GREEN_LAUNCHER_LEDS(0, 255, 0, LED::setLedToLauncherVelocity),
+        GREEN_ELEVATOR_LEDS(0, 255, 0, LED::setLedToElevatorPosition),
+        TEAL_ELEVATOR_LEDS(0, 122, 133, LED::setLedToElevatorPosition),
+        GREEN_STOW(0, 255, 0, LED::setLEDToStow),
+        TEAL_STOW(0, 122, 133, LED::setLEDToStow),
+        GREEN_FLASHING(0, 255, 0, () -> LED.flash(0.03)),
+        RED_FLASHING(255, 0, 0, () -> LED.flash(0.03)),
+        BLUE_FLASHING(0, 0, 255, () -> LED.flash(0.03)),
+        GREEN_WIPE(0, 255, 0, () -> LED.runEffect(wiperEffect));
+        
+        
 
-        ORANGE_BLINKING(255, 102, 25, "Orange Blinking", () -> LED.flash(0.1)),
-        GREEN_BLINKING(0, 255, 0, "Green Blinking", () -> LED.flash(0.1)),
-        RED_BLINKING(255, 0, 0, "Red Blinking", () -> LED.flash(0.1)),
-        TEAL_BLINKING(0, 122, 133, "Teal Blinking", () -> LED.flash(0.1)),
-
-        GREEN_REVVING(0, 255, 0, "Revving", LED::setLedToLauncherVelocity),
-        BLUE_REVVING(0, 0, 255, "Blue Revving", LED::setLedToLauncherVelocity),
-
-        GREEN_ELEVATOR(0, 255, 0, "Green Elevator", LED::setLedToElevatorPosition),
-
-        STOW(0, 0, 0, "Stow", LED::setLEDToStow),
-
-        GREEN_FLASHING(0, 255, 0, "Green Flashing", () -> LED.flash(0.03)),
-        BLUE_FLASHING(0, 0, 255, "Blue Flashing", () -> LED.flash(0.04)),
-
-        GREEN_WIPE(0, 255, 0, "Blue Wipe", () -> LED.runEffect(wiperEffect)),
-        BLUE_WIPE(0, 0, 255, "Blue Wipe", () -> LED.runEffect(wiperEffect, 0.04)),
-        ORANGE_WIPE(255, 25, 0, "Orange Wipe", () -> LED.runEffect(wiperEffect)),
-
-
-        YELLOW_WIPE(255, 255, 25, "Yellow Wipe", () -> LED.runEffect(wiperEffect, 0.02)),
-
-        // RAINBOW(0, 0, 0, "Rainbow",  LED::rainbow),
-        TEAL(0, 122, 133, "Teal", null);
-        // TEAL_RAIN(0, 122, 133, "Teal Rain", () ->  LED.runEffect(rainEffect, .2)),
-        // TEAL_PULSE(0, 122, 133, "Teal Pulse", () ->  LED.pulse(.01)),
-        // BLUE_FLASH(0, 0, 255, "Blue Flash", () ->  LED.flash(.2)),
-        // ORANGE_FLASH(255, 179, 0, "Orange Flash", () ->  LED.flash(.2)),
-    
-        // TEAL_COMET(0, 122, 133, "Teal Comet", () ->  LED.runEffect(cometEffect, .2));
     
         public int red;
         public int green;
         public int blue;
         public Runnable ledRunnable;
-        public String name;
     
-        private LEDState(int red, int green, int blue, String name, Runnable ledRunnable) {
+        private LEDState(int red, int green, int blue, Runnable ledRunnable) {
           this.red = red;
           this.green = green;
           this.blue = blue;
           this.ledRunnable = ledRunnable;
-          this.name = name;
         }
       }
     

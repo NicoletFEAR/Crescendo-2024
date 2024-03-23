@@ -9,6 +9,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -24,6 +25,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
 import frc.lib.utilities.GeometryUtils;
+import frc.lib.utilities.LimelightHelpers;
 import frc.lib.utilities.SwerveModuleConstants;
 
 import java.util.ArrayList;
@@ -41,6 +43,9 @@ public class SwerveDrive extends SubsystemBase {
   public final Field2d m_field = new Field2d();
 
   private boolean m_xWheels = false;
+  private boolean m_targetNote = false;
+
+  private PIDController m_snapToAngleController;
 
   private double m_simyaw = 0;
 
@@ -113,7 +118,7 @@ public class SwerveDrive extends SubsystemBase {
 
     robotRelativeChassisSpeeds = new ChassisSpeeds(0, 0, 0);
 
-    // m_snapToAngleController = new PIDController(.06, 0, 0);
+    m_snapToAngleController = new PIDController(.06, 0, 0);
 
     if (Constants.kInfoMode) {
       RobotContainer.mainTab.add(m_field).withPosition(2, 0).withSize(8, 5);
@@ -201,10 +206,15 @@ public class SwerveDrive extends SubsystemBase {
       m_xWheels = false; // this ends the x wheels when Ari starts moving
     }
 
-    if (m_xWheels == false) {
+    if (!m_xWheels) {
       throttle = throttle * DriveConstants.kMaxMetersPerSecond;
       strafe = strafe * DriveConstants.kMaxMetersPerSecond;
-      rotation = rotation * DriveConstants.kMaxRotationRadiansPerSecond;
+      if (m_targetNote) {
+        rotation = m_snapToAngleController.calculate(0, LimelightHelpers.getTX("limelight-intake")) * DriveConstants.kMaxRotationRadiansPerSecond;
+      } else {
+        rotation = rotation * DriveConstants.kMaxRotationRadiansPerSecond;
+      }
+      
 
       ChassisSpeeds chassisSpeeds =
           fieldRelative
@@ -349,6 +359,10 @@ public class SwerveDrive extends SubsystemBase {
     // System.out.println("toggled");
   }
 
+  public void setNoteTracking(boolean value) {
+    m_targetNote = value;
+  }
+
   public boolean getXWheels() {
     return m_xWheels;
   }
@@ -445,15 +459,6 @@ public class SwerveDrive extends SubsystemBase {
 
     // limelightPose = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-launch");
 
-    // if (poseEstimator
-    //         .getEstimatedPosition()
-    //         .getTranslation()
-    //         .getDistance(limelightPose.getTranslation())
-    //           <= 2.5 && limelightPose.getTranslation().getDistance(new Translation2d(0, 0)) > 0.5) {
-    //   poseEstimator.addVisionMeasurement(
-    //       limelightPose,
-    //       Timer.getFPGATimestamp() - (LimelightHelpers.getBotPose("limelight-launch")[6] / 1000.0));
-    // }
 
     if (Constants.kInfoMode) {
       // SmartDashboard.putBoolean("Is Pose Trustworthy", limelightPose.isPoseTrustworthy());
