@@ -100,7 +100,7 @@ public class LED extends SubsystemBase {
       public static void setState(LEDState desiredState, double seconds, LEDState postTimerState) {
         setState(desiredState);
         m_effectRunTime = seconds;
-        postTimerState = m_postTimerState;
+        m_postTimerState = postTimerState;
       }
     
       public static void setRGB(int r, int g, int b) {
@@ -345,12 +345,12 @@ public class LED extends SubsystemBase {
 
       public static void setLEDToStow() {
         noteInRobot = RobotContainer.m_launcherSuperstructure.getNoteInLauncher() ||
-                      RobotContainer.m_intakeSuperstructure.timeOfFlightBlocked();
+                      RobotContainer.m_intakeSuperstructure.getNoteInIntake();
 
-        if (noteInRobot && m_currentState != LEDState.GREEN) {
-          setState(LEDState.GREEN);
-        } else if (!noteInRobot && m_currentState != LEDState.TEAL) {
-          setState(LEDState.TEAL);
+        if (noteInRobot && m_ledBuffer.getGreen(0) != 255) {
+          setRGB(0, 255, 0);
+        } else if (!noteInRobot && m_ledBuffer.getGreen(0) != 122) {
+          setRGB(0, 122, 133);
         }
       }
     

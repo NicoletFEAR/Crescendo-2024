@@ -119,11 +119,12 @@ public class RobotStateManager extends SuperstructureSubsystem {
             .alongWith(
               m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.LAUNCH_TO_INTAKE),
               m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_TO_INTAKE))
-                .unless(() -> m_intakeSuperstructure.timeOfFlightBlocked() || !m_launcherSuperstructure.getNoteInLauncher()),
+                .unless(() -> m_intakeSuperstructure.getNoteInIntake() || !m_launcherSuperstructure.getNoteInLauncher()),
             m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.AMP_PREPARE).alongWith(
                 m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED),
                 new SetLEDState(LEDState.GREEN_ELEVATOR)
-            )
+            ),
+            new SetLEDState(LEDState.STOW)
         );
     }
 

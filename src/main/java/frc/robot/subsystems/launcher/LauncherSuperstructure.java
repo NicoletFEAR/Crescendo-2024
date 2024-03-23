@@ -61,7 +61,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       case STOWED:
         handleStowCommand(launcherDesiredState, outputCommand);
         break;
-      case THRU_INTAKE_INTAKING:
+      case INTAKE_TO_LAUNCH:
         handleThruIntakeCommand(launcherDesiredState, outputCommand);
         break;
       default:

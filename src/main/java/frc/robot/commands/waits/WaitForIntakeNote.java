@@ -28,6 +28,6 @@ public class WaitForIntakeNote extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.m_intakeSuperstructure.timeOfFlightBlocked();
+    return RobotContainer.m_intakeSuperstructure.getNoteInIntake();
   }
 }
