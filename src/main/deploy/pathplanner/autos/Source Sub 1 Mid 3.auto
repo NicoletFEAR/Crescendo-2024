@@ -20,49 +20,43 @@
         {
           "type": "named",
           "data": {
-            "name": "subwooferLaunch"
+            "name": "autoStartSubwoofer"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RS3-WN3-WN2"
+            "pathName": "RS3-CN4-LP2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "wingNote2Launch"
+            "name": "launchPos2Launch"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "WN2-WN1"
+            "pathName": "LP2-CN3-LP2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "wingNote1Launch"
+            "name": "launchPos2Launch"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "WN1-WN2"
+            "pathName": "LP2-CN2-LP1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "wingNote2Launch"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stow"
+            "name": "launchPos1Launch"
           }
         }
       ]

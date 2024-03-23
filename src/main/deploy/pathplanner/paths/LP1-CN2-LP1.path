@@ -3,59 +3,59 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.1724858834333065,
-        "y": 6.551650026376976
+        "x": 4.02,
+        "y": 6.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.2381157070006465,
-        "y": 7.064731052539028
+        "x": 4.868205772449547,
+        "y": 6.665430988517191
       },
       "isLocked": false,
-      "linkedName": "LaunchPos1Real"
+      "linkedName": "LaunchPos1"
     },
     {
       "anchor": {
-        "x": 7.806510228405074,
-        "y": 5.969500400539262
+        "x": 7.72481905324171,
+        "y": 5.99056765681099
       },
       "prevControl": {
-        "x": 7.806510228405074,
-        "y": 6.019500400539262
+        "x": 7.703954528831985,
+        "y": 5.945128999027601
       },
       "nextControl": {
-        "x": 7.806510228405074,
-        "y": 5.919500400539262
+        "x": 7.745683577651434,
+        "y": 6.036006314594379
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.1724858834333065,
-        "y": 6.551650026376976
+        "x": 4.02,
+        "y": 6.55
       },
       "prevControl": {
-        "x": 3.198647935757412,
-        "y": 7.094331880971454
+        "x": 4.877450475623638,
+        "y": 6.609962769472646
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LaunchPos1Real"
+      "linkedName": "LaunchPos1"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 1.0,
-      "rotationDegrees": -20.556045219583464,
+      "rotationDegrees": -19.025606037568778,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake Then Prepare",
-      "waypointRelativePos": 0.55,
+      "name": "Intake",
+      "waypointRelativePos": 0,
       "command": {
         "type": "sequential",
         "data": {
@@ -63,13 +63,13 @@
             {
               "type": "named",
               "data": {
-                "name": "fastIntake"
+                "name": "intake"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "wingNote3LaunchPrepare"
+                "name": "launchPos1LaunchPrepare"
               }
             }
           ]
@@ -78,20 +78,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 6.1,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 33.0,
+    "rotation": 14.43,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Launch Pos 1",
   "previewStartingState": {
-    "rotation": 33.0,
+    "rotation": 14.43,
     "velocity": 0
   },
   "useDefaultConstraints": false

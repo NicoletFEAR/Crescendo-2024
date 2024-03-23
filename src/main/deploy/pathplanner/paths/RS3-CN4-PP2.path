@@ -63,7 +63,7 @@
             {
               "type": "named",
               "data": {
-                "name": "fastIntake"
+                "name": "intake"
               }
             }
           ]
@@ -89,8 +89,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 6.1,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

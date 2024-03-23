@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.75,
-      "y": 4.49
+      "x": 0.74,
+      "y": 6.62
     },
-    "rotation": -60.0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,19 @@
         {
           "type": "named",
           "data": {
-            "name": "addGyroSourceSide"
+            "name": "addGyroAmpSide"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoStartSubwoofer"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RS1-WN1-RS2"
           }
         },
         {
@@ -26,48 +38,36 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RS3-WN3-LP3"
+            "pathName": "RS2-WN2-RS2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos3Launch"
+            "name": "subwooferLaunch"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LP3-CN4-LP2"
+            "pathName": "RS2-WN3-RS2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos2Launch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LP2-CN3-LP2"
+            "name": "subwooferLaunch"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos2Launch"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stow"
+            "name": "travel"
           }
         }
       ]
     }
   },
-  "folder": "Start Pos 3",
+  "folder": "Start Pos 1",
   "choreoAuto": false
 }

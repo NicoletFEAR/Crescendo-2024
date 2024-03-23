@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.74,
-      "y": 6.62
+      "x": 0.75,
+      "y": 4.49
     },
-    "rotation": 60.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -14,32 +14,43 @@
         {
           "type": "named",
           "data": {
-            "name": "addGyroAmpSide"
+            "name": "addGyroSourceSide"
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "intakeDown"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "subwooferLaunch"
-                }
-              }
-            ]
+            "name": "autoStartSubwoofer"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RS1-WN1-LP1"
+            "pathName": "RS3-CN4-LP2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "launchPos2Launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LP2-CN3-LP2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "launchPos2Launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LP2-CN2-WN3L"
           }
         },
         {
@@ -51,24 +62,18 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LP1-CN2-LP1"
+            "pathName": "WN3L-WN3-WN3L"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "wingNote3Launch"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stow"
           }
         }
       ]
     }
   },
-  "folder": "Start Pos 1",
+  "folder": "Start Pos 3",
   "choreoAuto": false
 }

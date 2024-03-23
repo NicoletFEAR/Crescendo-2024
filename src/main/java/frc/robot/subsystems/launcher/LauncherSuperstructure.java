@@ -12,10 +12,12 @@ import frc.lib.templates.SuperstructureSubsystem;
 import frc.lib.utilities.PolarCoordinate;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.superstructure.SetLEDState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.commands.waits.WaitForNoLaunchNote;
+import frc.robot.subsystems.LED.LEDState;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
@@ -74,11 +76,13 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
   private void handleDefaultCommand(LauncherSuperstructureState launcherDesiredState, SequentialCommandGroup outputCommand) {
       outputCommand.addCommands(
+        new SetLEDState(LEDState.GREEN_REVVING),
         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState)
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState)),
         new WaitCommand(.02),
         new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState),
         new WaitForNoLaunchNote(),
+        new SetLEDState(LEDState.GREEN_FLASHING, 1.0, LEDState.STOW),
         new WaitCommand(.04)
       );
   }

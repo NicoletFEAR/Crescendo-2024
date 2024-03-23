@@ -2,96 +2,72 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.46,
-      "y": 2.04
+      "x": 0.74,
+      "y": 6.62
     },
-    "rotation": 0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "RS5-LP3"
+            "name": "addGyroAmpSide"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos3Launch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LP3-CN5-PP3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "poopPos3Launch"
+            "name": "autoStartSubwoofer"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "PP3-CN4-PP2"
+            "pathName": "RS1-CN2-LP1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "poopPos3Launch"
+            "name": "launchPos1Launch"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "PP2-CN3-PP2"
+            "pathName": "LP1-CN3-WN1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "poopPos2Launch"
+            "name": "launchPos1Launch"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "PP2-CN2-PP1"
+            "pathName": "WN1L-WN1-WN1L"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "poopPos1Launch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "PP1-CN1-PP1"
+            "name": "wingNote1Launch"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "poopPos1Launch"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stow"
+            "name": "travel"
           }
         }
       ]
     }
   },
-  "folder": "Start Pos 5",
+  "folder": "Start Pos 1",
   "choreoAuto": false
 }

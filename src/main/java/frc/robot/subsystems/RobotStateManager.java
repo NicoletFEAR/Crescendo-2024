@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.lib.templates.SuperstructureSubsystem;
 import frc.robot.RobotContainer;
+import frc.robot.commands.superstructure.SetLEDState;
 import frc.robot.commands.waits.WaitForIntakeNote;
 import frc.robot.commands.waits.WaitForLaunchNote;
+import frc.robot.subsystems.LED.LEDState;
 import frc.robot.subsystems.intake.IntakeSuperstructure;
 import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
@@ -79,6 +81,7 @@ public class RobotStateManager extends SuperstructureSubsystem {
                     m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
                 ),
             new WaitForLaunchNote(),
+            new SetLEDState(LEDState.GREEN_FLASHING, 1.0, LEDState.STOW),
             m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL)
                 .alongWith(
                     m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
@@ -93,6 +96,7 @@ public class RobotStateManager extends SuperstructureSubsystem {
                     m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
                 ),
             new WaitForLaunchNote(),
+            new SetLEDState(LEDState.GREEN_FLASHING, 1.0, LEDState.STOW),
             m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
         );
     }
@@ -104,6 +108,7 @@ public class RobotStateManager extends SuperstructureSubsystem {
                     m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
                 ),
             new WaitForIntakeNote(),
+            new SetLEDState(LEDState.GREEN_FLASHING, 1.0, LEDState.STOW),
             m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL)
         );
     }
@@ -116,7 +121,8 @@ public class RobotStateManager extends SuperstructureSubsystem {
               m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_TO_INTAKE))
                 .unless(() -> m_intakeSuperstructure.timeOfFlightBlocked() || !m_launcherSuperstructure.getNoteInLauncher()),
             m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.AMP_PREPARE).alongWith(
-                m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
+                m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED),
+                new SetLEDState(LEDState.GREEN_ELEVATOR)
             )
         );
     }
@@ -136,6 +142,11 @@ public class RobotStateManager extends SuperstructureSubsystem {
             LauncherSuperstructureState.TRANSITION,
             "Transition"
         ),
+        AUTO_START_SUBWOOFER(
+            IntakeSuperstructureState.DOWNOFF,
+            LauncherSuperstructureState.SUBWOOFER,
+            "Auto Start Subwoofer"
+        ),
         AMP(
             IntakeSuperstructureState.AMP_PREPARE,
             LauncherSuperstructureState.STOWED,
@@ -147,7 +158,7 @@ public class RobotStateManager extends SuperstructureSubsystem {
             "Intaking"
         ),
         TOF_INTAKING(
-            IntakeSuperstructureState.INTAKING,
+            IntakeSuperstructureState.TOF_INTAKING,
             LauncherSuperstructureState.STOWED,
             "TOF Intaking"
         ),

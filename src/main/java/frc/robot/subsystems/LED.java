@@ -56,11 +56,15 @@ public class LED extends SubsystemBase {
 
       private static double m_effectRunTime = -1;
 
+      private static LEDState m_postTimerState = null;
+
       // Robot States
+
+
 
       // private static boolean transition = false;
       // private static boolean intaking = false;
-      // private static boolean noteInRobot = false;
+      private static boolean noteInRobot = false;
       // private static boolean ampPrepare = false;
       // private static boolean launching = false;
       // private static boolean stowed = false;
@@ -93,9 +97,10 @@ public class LED extends SubsystemBase {
         }
       }
 
-      public static void setState(LEDState desiredState, double seconds) {
+      public static void setState(LEDState desiredState, double seconds, LEDState postTimerState) {
         setState(desiredState);
         m_effectRunTime = seconds;
+        postTimerState = m_postTimerState;
       }
     
       public static void setRGB(int r, int g, int b) {
@@ -200,12 +205,13 @@ public class LED extends SubsystemBase {
           setState(m_currentState);
         } 
 
-        // updateBasedOnMechs();
+        
 
         if (m_effectRunTime > 0) {
           m_effectRunTime -= 0.02;
         } else if (m_effectRunTime != -1 && m_effectRunTime <= 0) {
           m_effectRunTime = -1;
+          setState(m_postTimerState);
         }
 
         if (Constants.kInfoMode) {
@@ -303,11 +309,6 @@ public class LED extends SubsystemBase {
         double velPercent = RobotContainer.m_launcherFlywheel.getVelocity()[0] / RobotContainer.m_launcherFlywheel.getDesiredState().getVelocity()[0];
 
         velPercent = MathUtil.clamp(velPercent, 0, 1);
-
-        if (velPercent >= 1 && !RobotContainer.m_launcherSuperstructure.getNoteInLauncher()) {
-          setState(LEDState.GREEN_FLASHING, 1.25);
-        }
-
         double ledAmount = (int) ((LEDConstants.kLedStripLength / 2) * velPercent);
 
         for (int i = 0; i < LEDConstants.kLedStripLength / 2; i++) {
@@ -321,6 +322,36 @@ public class LED extends SubsystemBase {
         }
         
         m_led.setData(m_ledBuffer);
+      }
+
+      public static void setLedToElevatorPosition() {
+        double velPercent = RobotContainer.m_elevatorLift.getPosition()[0] / RobotContainer.m_elevatorLift.getDesiredState().getPosition()[0];
+
+        velPercent = MathUtil.clamp(velPercent, 0, 1);
+        double ledAmount = (int) ((LEDConstants.kLedStripLength / 2) * velPercent);
+
+        for (int i = 0; i < LEDConstants.kLedStripLength / 2; i++) {
+          if (i <= ledAmount) {
+            m_ledBuffer.setRGB(i, m_currentState.red, m_currentState.green, m_currentState.blue);
+            m_ledBuffer.setRGB(i + LEDConstants.kLedStripLength / 2, m_currentState.red, m_currentState.green, m_currentState.blue);
+          } else {
+            m_ledBuffer.setRGB(i, 0, 0, 0);
+            m_ledBuffer.setRGB(i + LEDConstants.kLedStripLength / 2, 0, 0, 0);
+          }
+        }
+        
+        m_led.setData(m_ledBuffer);
+      }
+
+      public static void setLEDToStow() {
+        noteInRobot = RobotContainer.m_launcherSuperstructure.getNoteInLauncher() ||
+                      RobotContainer.m_intakeSuperstructure.timeOfFlightBlocked();
+
+        if (noteInRobot && m_currentState != LEDState.GREEN) {
+          setState(LEDState.GREEN);
+        } else if (!noteInRobot && m_currentState != LEDState.TEAL) {
+          setState(LEDState.TEAL);
+        }
       }
     
       public enum LEDState {
@@ -339,6 +370,10 @@ public class LED extends SubsystemBase {
 
         GREEN_REVVING(0, 255, 0, "Revving", LED::setLedToLauncherVelocity),
         BLUE_REVVING(0, 0, 255, "Blue Revving", LED::setLedToLauncherVelocity),
+
+        GREEN_ELEVATOR(0, 255, 0, "Green Elevator", LED::setLedToElevatorPosition),
+
+        STOW(0, 0, 0, "Stow", LED::setLEDToStow),
 
         GREEN_FLASHING(0, 255, 0, "Green Flashing", () -> LED.flash(0.03)),
         BLUE_FLASHING(0, 0, 255, "Blue Flashing", () -> LED.flash(0.04)),

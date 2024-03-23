@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.drivebase.TeleopSwerve;
-import frc.robot.commands.drivebase.TurnToAngle;
 import frc.robot.commands.sequential.FieldRelativeLaunch;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
@@ -95,10 +94,16 @@ public class RobotContainer {
     // NAMED COMMANDS FOR AUTO \\
 
     // Use for auto
-    NamedCommands.registerCommand("intakeDown", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF));
-    NamedCommands.registerCommand("runLaunch", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
 
+    NamedCommands.registerCommand("intakeDown", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF));
+    NamedCommands.registerCommand("intake", m_robotStateManager.setSuperstructureState(RobotState.AUTO_INTAKING));
+    NamedCommands.registerCommand("autoStartSubwoofer", m_robotStateManager.setSuperstructureState(RobotState.AUTO_START_SUBWOOFER));
+    NamedCommands.registerCommand("travel", m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
+
+
+
+    NamedCommands.registerCommand("runLaunch", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
 
     NamedCommands.registerCommand("wingNote1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
       .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_1)));
@@ -148,26 +153,15 @@ public class RobotContainer {
 
     autoChooser.setDefaultOption("None", new InstantCommand());
 
-    autoChooser.addOption("Amp Side 4 Piece Wing", AutoBuilder.buildAuto("Amp Side 4 Piece Wing"));
-    autoChooser.addOption("Amp Side 3 Piece Center", AutoBuilder.buildAuto("Amp Side 3 Piece Center"));
-    // autoChooser.addOption("Amp Side 4 Piece Center", AutoBuilder.buildAuto("Amp Side 4 Piece Center"));
-    // autoChooser.addOption("Amp Side 5 Piece Center", AutoBuilder.buildAuto("Amp Side 5 Piece Center"));
-    autoChooser.addOption("Amp Side 2 Piece", AutoBuilder.buildAuto("Amp Side 2 Piece"));
+    autoChooser.addOption("Amp Sub 1 Mid 2 Wing 1", AutoBuilder.buildAuto("Amp Sub 1 Mid 2 Wing 1"));
+    autoChooser.addOption("Amp Sub 1 Wing 3", AutoBuilder.buildAuto("Amp Sub 1 Wing 3"));
+    autoChooser.addOption("Amp Sub 1 Wing 1", AutoBuilder.buildAuto("Amp Sub 1 Wing 1"));
 
-    autoChooser.addOption("Front Side 2 Piece", AutoBuilder.buildAuto("Front Side 2 Piece"));
-    // autoChooser.addOption("Front Side 3 Piece", AutoBuilder.buildAuto("Front Side 3 Piece"));
-    // autoChooser.addOption("Front Side 4 Piece", AutoBuilder.buildAuto("Front Side 4 Piece"));
-    // autoChooser.addOption("Front Side 5 Piece", AutoBuilder.buildAuto("Front Side 5 Piece"));
+    autoChooser.addOption("Front Sub 1 Wing 1", AutoBuilder.buildAuto("Front Sub 1 Wing 1"));
 
-    // autoChooser.addOption("Source Side 4 Piece Wing", AutoBuilder.buildAuto( "Source Side 4 Piece Wing"));
-    // autoChooser.addOption("Source Side 3 Piece Center", AutoBuilder.buildAuto("Source Side 3 Piece Center"));
-    // autoChooser.addOption("Source Side 4 Piece Center", AutoBuilder.buildAuto("Source Side 4 Piece Center"));
-    // autoChooser.addOption("Source Side 5 Piece Center", AutoBuilder.buildAuto("Source Side 5 Piece Center"));
-    autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
-    // autoChooser.addOption("Source Side 1 Piece", AutoBuilder.buildAuto("Source Side 1 Piece"));
-
-
-    autoChooser.addOption("Center 5 Piece", AutoBuilder.buildAuto("Center 5 Piece"));
+    autoChooser.addOption("Source Sub 1 Mid 3 Wing 1", AutoBuilder.buildAuto("Source Sub 1 Mid 3 Wing 1"));
+    autoChooser.addOption("Source Sub 1 Mid 3", AutoBuilder.buildAuto("Source Sub 1 Mid 3"));
+    autoChooser.addOption("Source Sub 1 Amp 4", AutoBuilder.buildAuto("Source Sub 1 Amp 4"));
 
     mainTab.add(autoChooser).withPosition(0, 0).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
 
@@ -234,12 +228,8 @@ public class RobotContainer {
 
     m_driverController.create().onTrue(new InstantCommand(m_drivebase::zeroGyroscope));
 
-    m_driverController.options().onTrue(new InstantCommand(m_drivebase::resetAngleToAbsolute));
-
     m_driverController.cross().onTrue(new InstantCommand(m_drivebase::toggleXWheels));
-    m_driverController.circle().whileTrue(new TurnToAngle(m_drivebase));
 
-    
     ///// INTAKE /////
     m_operatorController.a().onTrue(m_robotStateManager.setSuperstructureState(RobotState.BEAM_BREAK_INTAKING));
 

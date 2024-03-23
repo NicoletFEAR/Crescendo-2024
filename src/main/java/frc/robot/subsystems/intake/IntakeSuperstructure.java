@@ -123,6 +123,12 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
         ElevatorLiftState.STOWED,
         IntakeHoldState.INTAKING,
         "Intaking"),
+    TOF_INTAKING( 
+        IntakeFlywheelState.SLOW_INTAKING,
+        IntakeWristState.DOWN,
+        ElevatorLiftState.STOWED,
+        IntakeHoldState.INTAKING,
+        "TOF Intaking"),
     BEAM_BREAK_INTAKING( 
         IntakeFlywheelState.INTAKING,
         IntakeWristState.DOWN,

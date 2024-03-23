@@ -214,6 +214,10 @@ public abstract class MultiMotorPositionSubsystem extends SubsystemBase {
     return m_currentState;
   }
 
+  public MultiMotorPositionSubsystemState getDesiredState() {
+    return m_desiredState;
+  }
+
   public void setFeedforward(double feedforward) {
     m_arbFeedforward = feedforward;
   }

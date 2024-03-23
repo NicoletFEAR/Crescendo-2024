@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.74,
-      "y": 6.62
+      "x": 0.68,
+      "y": 4.44
     },
-    "rotation": 60.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -14,60 +14,72 @@
         {
           "type": "named",
           "data": {
-            "name": "addGyroAmpSide"
+            "name": "addGyroSourceSide"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "subwooferLaunch"
+            "name": "autoStartSubwoofer"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RS1-WN1-LP1"
+            "pathName": "RS3-CN4-PP2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos1Launch"
+            "name": "poopPos2Launch"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LP1-CN2-LP1"
+            "pathName": "PP2-CN3-PP2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos1Launch"
+            "name": "poopPos2Launch"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LP1-CN3-LP2"
+            "pathName": "PP2-CN2-PP1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos2Launch"
+            "name": "poopPos1Launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "PP1-CN1-PP1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "stow"
+            "name": "poopPos1Launch"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "travel"
           }
         }
       ]
     }
   },
-  "folder": "Start Pos 1",
+  "folder": "Start Pos 3",
   "choreoAuto": false
 }

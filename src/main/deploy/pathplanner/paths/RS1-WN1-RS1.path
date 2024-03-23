@@ -3,73 +3,72 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.550789412563132,
-        "y": 2.3538781457020823
+        "x": 0.74,
+        "y": 6.618654443414426
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.4567703236240535,
-        "y": 1.4756313441634348
+        "x": 1.0963668774184394,
+        "y": 6.730143910738272
       },
       "isLocked": false,
-      "linkedName": "LaunchPos3"
+      "linkedName": "StartPos1"
     },
     {
       "anchor": {
-        "x": 7.7340637564131445,
-        "y": 2.338909903045033
+        "x": 2.520051166228458,
+        "y": 6.878059161523729
       },
       "prevControl": {
-        "x": 7.641616724669578,
-        "y": 1.904408853862756
+        "x": 2.565366555580291,
+        "y": 6.899190074610764
       },
       "nextControl": {
-        "x": 7.838117578648434,
-        "y": 2.8279628675368373
+        "x": 2.474735776876625,
+        "y": 6.856928248436694
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.034610429581219,
-        "y": 4.1878505378632385
+        "x": 0.74,
+        "y": 6.618654443414426
       },
       "prevControl": {
-        "x": 5.422887962893043,
-        "y": 3.8735306299441428
+        "x": 1.0778774710702572,
+        "y": 6.730143910738272
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "PoopPoint2"
+      "linkedName": "StartPos1"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.0,
-      "rotationDegrees": 15.35,
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": 13.6,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.95,
+      "rotationDegrees": 13.6,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake Then Prepare",
+      "name": "Intake",
       "waypointRelativePos": 0,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "fastIntake"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "poopPos2LaunchPrepare"
+                "name": "intake"
               }
             }
           ]
@@ -78,20 +77,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 6.1,
-    "maxAcceleration": 4.5,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.379999999999995,
+    "rotation": 60.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Launch Pos 3",
+  "folder": "Start Pos 1",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 60.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

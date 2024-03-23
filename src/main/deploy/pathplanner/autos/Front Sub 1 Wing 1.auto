@@ -12,28 +12,15 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "subwooferLaunch"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "intakeDown"
-                }
-              }
-            ]
+            "name": "autoStartSubwoofer"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RS2-LP2"
+            "pathName": "RS2-WN2-RS2"
           }
         },
         {
@@ -45,7 +32,7 @@
         {
           "type": "named",
           "data": {
-            "name": "stow"
+            "name": "travel"
           }
         }
       ]

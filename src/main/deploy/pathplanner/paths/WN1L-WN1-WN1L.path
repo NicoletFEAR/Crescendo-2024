@@ -3,73 +3,72 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.68,
-        "y": 4.438407050851191
+        "x": 2.001396935052691,
+        "y": 6.37353346947036
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1927715345520782,
-        "y": 4.214685234038187
+        "x": 2.3498278798040335,
+        "y": 6.648669774785122
       },
       "isLocked": false,
-      "linkedName": "StartPos3Real"
+      "linkedName": "WN1Prepare"
     },
     {
       "anchor": {
-        "x": 2.45,
-        "y": 4.104648209296419
+        "x": 2.7491990569247657,
+        "y": 6.8483553633454886
       },
       "prevControl": {
-        "x": 2.4214959225896853,
-        "y": 4.145727614975991
+        "x": 2.860135495013858,
+        "y": 6.959291801434581
       },
       "nextControl": {
-        "x": 2.478504077410315,
-        "y": 4.063568803616848
+        "x": 2.6831665828490117,
+        "y": 6.782322889269734
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.907134664201959,
-        "y": 4.47626576887142
+        "x": 2.001396935052691,
+        "y": 6.37353346947036
       },
       "prevControl": {
-        "x": 2.086934844340443,
-        "y": 4.379852868122284
+        "x": 2.331338473455851,
+        "y": 6.622784605897667
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "WN3Prepare"
+      "linkedName": "WN1Prepare"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.95,
-      "rotationDegrees": 0,
+      "waypointRelativePos": 0.55,
+      "rotationDegrees": 40.87,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": 40.87,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake Then Prepare",
+      "name": "Intake",
       "waypointRelativePos": 0,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "fastIntake"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "wingNote3Launch"
+                "name": "intake"
               }
             }
           ]
@@ -78,20 +77,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.5,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -23.648582363566362,
+    "rotation": 23.47,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Start Pos 3",
+  "folder": "Wing Note 1",
   "previewStartingState": {
-    "rotation": -60.0,
+    "rotation": 23.47,
     "velocity": 0
   },
   "useDefaultConstraints": false
