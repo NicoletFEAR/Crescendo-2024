@@ -4,6 +4,7 @@
 
 package frc.robot.commands.drivebase;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -20,7 +21,7 @@ public class TurnToAngle extends Command {
   private double m_targetAngle = -1;
   private double deadBand = 1;
 
-  private boolean turnToSpeaker = false;
+  private AngleToTurn m_angleToTurn = AngleToTurn.OTHER;
 
   /**
    *
@@ -49,10 +50,11 @@ public class TurnToAngle extends Command {
    *
    * @param m_drivebase The swerve drive that moves the robot
    */
-  public TurnToAngle(SwerveDrive drivebase) {
+  public TurnToAngle(SwerveDrive drivebase, AngleToTurn angleToTurn) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivebase = drivebase;
-    turnToSpeaker = true;
+    m_angleToTurn = angleToTurn;
+
 
     addRequirements(m_drivebase);
   }
@@ -61,7 +63,7 @@ public class TurnToAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (turnToSpeaker) {
+    if (m_angleToTurn == AngleToTurn.SPEAKER) {
       m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
 
       var alliance = DriverStation.getAlliance();
@@ -76,6 +78,16 @@ public class TurnToAngle extends Command {
        *  this part is here instead of the constructor because the constructor happens on robot init, 
        *    but initialize happens when ari first presses the button
        */
+    } else if (m_angleToTurn == AngleToTurn.AMP) {
+      m_targetAngle = m_drivebase.calculateAngleToAmp() < 0 ? m_drivebase.calculateAngleToAmp() + 180 : m_drivebase.calculateAngleToAmp() - 180;
+
+      var alliance = DriverStation.getAlliance();
+
+      if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+        m_targetAngle += 5;
+      } else {
+        m_targetAngle -= 175;
+      }
     }
   }
 
@@ -85,6 +97,7 @@ public class TurnToAngle extends Command {
     double speeds =
         angleController.calculate(
             GeometryUtils.getAdjustedYawDegrees(m_drivebase.getYawDegrees(), m_targetAngle), 180);
+    speeds = MathUtil.clamp(speeds, -1, 1);
     m_drivebase.drive(0, 0, speeds, true, true);
   }
 
@@ -103,5 +116,11 @@ public class TurnToAngle extends Command {
     } else {
       return false;
     }
+  }
+
+  public enum AngleToTurn {
+    SPEAKER,
+    AMP,
+    OTHER
   }
 }

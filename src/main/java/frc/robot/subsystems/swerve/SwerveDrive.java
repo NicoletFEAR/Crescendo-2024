@@ -8,6 +8,8 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.ReplanningConfig;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -27,6 +29,7 @@ import frc.robot.Constants.Mode;
 import frc.lib.utilities.GeometryUtils;
 import frc.lib.utilities.LimelightHelpers;
 import frc.lib.utilities.SwerveModuleConstants;
+import frc.lib.utilities.LimelightHelpers.PoseEstimate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,13 +60,15 @@ public class SwerveDrive extends SubsystemBase {
 
   private ChassisSpeeds robotRelativeChassisSpeeds;
 
-  private SwerveDrivePoseEstimator poseEstimator;
+  private SwerveDrivePoseEstimator m_poseEstimator;
 
   // private PoseEstimate limelightPose;
 
   private boolean isSetGyroRequestPresent;
   
   private boolean isGyroRequestAmpSide;
+
+  private PoseEstimate m_poseEstimate;
 
   /**
    *
@@ -105,7 +110,7 @@ public class SwerveDrive extends SubsystemBase {
     }
 
 
-    poseEstimator =
+    m_poseEstimator =
         new SwerveDrivePoseEstimator(
             DriveConstants.kDriveKinematics,
             getYaw(),
@@ -210,7 +215,8 @@ public class SwerveDrive extends SubsystemBase {
       throttle = throttle * DriveConstants.kMaxMetersPerSecond;
       strafe = strafe * DriveConstants.kMaxMetersPerSecond;
       if (m_targetNote) {
-        rotation = m_snapToAngleController.calculate(0, LimelightHelpers.getTX("limelight-intake")) * DriveConstants.kMaxRotationRadiansPerSecond;
+        rotation = MathUtil.clamp(m_snapToAngleController.calculate(0, LimelightHelpers.getTX("limelight-intake")), -1, 1);
+        rotation *= DriveConstants.kMaxRotationRadiansPerSecond;
       } else {
         rotation = rotation * DriveConstants.kMaxRotationRadiansPerSecond;
       }
@@ -251,7 +257,7 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    return poseEstimator.getEstimatedPosition();
+    return m_poseEstimator.getEstimatedPosition();
   }
 
   public SwerveModule getSwerveModule(int moduleNumber) {
@@ -285,7 +291,7 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public void updateEstimatorWithPose(Pose2d updatedPose) {
-    poseEstimator.resetPosition(getYaw(), getModulePositions(), updatedPose);
+    m_poseEstimator.resetPosition(getYaw(), getModulePositions(), updatedPose);
   }
 
   public static SwerveDriveKinematics getSwerveKinematics() {
@@ -381,11 +387,11 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public void resetPoseEstimator(SwerveDrivePoseEstimator estimator) {
-    poseEstimator = estimator;
+    m_poseEstimator = estimator;
   }
 
   public void addVisionEstimate(Pose2d estimate, double timeStamp) {
-    poseEstimator.addVisionMeasurement(estimate, timeStamp);
+    m_poseEstimator.addVisionMeasurement(estimate, timeStamp);
   }
 
   public double calculateAngleToSpeaker() {
@@ -413,6 +419,32 @@ public class SwerveDrive extends SubsystemBase {
       }
     }
 
+  }
+
+  public double calculateAngleToAmp() {
+    var alliance = DriverStation.getAlliance();
+
+    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+      double hypot = getPose().getTranslation().getDistance(DriveConstants.kRedAmpPosition);
+      double adjacent = getPose().getTranslation().getX() - DriveConstants.kRedAmpPosition.getX();
+
+      if(getPose().getY() > DriveConstants.kRedAmpPosition.getY()){
+        return Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+      else{
+        return -Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+    } else {
+      double hypot = getPose().getTranslation().getDistance(DriveConstants.kBlueAmpPosition);
+      double adjacent = getPose().getTranslation().getX() - DriveConstants.kBlueAmpPosition.getX();
+
+      if(getPose().getY() > DriveConstants.kBlueAmpPosition.getY()){
+        return Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+      else{
+        return -Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+    }
 
   }
 
@@ -427,48 +459,25 @@ public class SwerveDrive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    poseEstimator.updateWithTime(Timer.getFPGATimestamp(), getYaw(), getModulePositions());
+    m_poseEstimator.updateWithTime(Timer.getFPGATimestamp(), getYaw(), getModulePositions());
 
     robotRelativeChassisSpeeds = DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
-    // SmartDashboard.putNumber("swerve gyro", getYawDegrees());
 
-    if (Constants.kInfoMode) {
-      m_field.setRobotPose(poseEstimator.getEstimatedPosition());
+    LimelightHelpers.SetRobotOrientation("limelight-launch", getYaw().getDegrees(), 0, 0, 0, 0, 0);
+    m_poseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight_launch");
+
+    if (Math.abs(m_pigeon.getRate()) < 720 && !DriverStation.isAutonomous()) {
+      m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.9,.9,9999999));
+      m_poseEstimator.addVisionMeasurement(m_poseEstimate.pose, m_poseEstimate.timestampSeconds);
     }
 
-
-    
-    // m_field.getObject("path").setPoses(ppPath);
-
-    // SmartDashboard.putNumber("Angle To Speaker", calculateAngleToSpeaker());
-    // SmartDashboard.putNumber("Distance To Speaker", calculateDistanceToSpeaker(getPose()));
-
-    // PolarCoordinate[] coord = GeometryUtils.findClosestCoordinates(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose()));
-
-    // SmartDashboard.putNumberArray("Top Left Coord", new Double[] {coord[0].getTheta(), coord[0].getR()});
-
-    // SmartDashboard.putNumberArray("Top Right Coord", new Double[] {coord[1].getTheta(), coord[1].getR()});
-
-    // SmartDashboard.putNumberArray("Bottom Left Coord", new Double[] {coord[2].getTheta(), coord[2].getR()});
-
-    // SmartDashboard.putNumberArray("Bottom Right Coord", new Double[] {coord[3].getTheta(), coord[3].getR()});
-
-    // SmartDashboard.putNumber("Interpolated Pitch", GeometryUtils.interpolatePitch(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose())));
-
-    // SmartDashboard.putNumber("Pitch", GeometryUtils.interpolatePitch(Math.abs(calculateAngleToSpeaker()), calculateDistanceToSpeaker(getPose())));
-
-    // limelightPose = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-launch");
-
-
     if (Constants.kInfoMode) {
-      // SmartDashboard.putBoolean("Is Pose Trustworthy", limelightPose.isPoseTrustworthy());
-      // SmartDashboard.putNumber("Bot Ta", LimelightHelpers.getTA("limelight-launch"));
-      // m_field.getObject("Limelight-Launch-Pose").setPose(limelightPose.pose);
+
     }
 
-    // if (limelightPose.isPoseTrustworthy()) {
-    //   poseEstimator.addVisionMeasurement(limelightPose.pose, limelightPose.timestampSeconds);
-    // }
+    if (Constants.kInfoMode) {
+      m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
+    }
    
   }
 

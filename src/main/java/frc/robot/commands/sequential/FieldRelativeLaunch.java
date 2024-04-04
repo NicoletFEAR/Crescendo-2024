@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.drivebase.ResetPoseWithVision;
 import frc.robot.commands.drivebase.TurnToAngle;
+import frc.robot.commands.drivebase.TurnToAngle.AngleToTurn;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
@@ -19,14 +20,14 @@ import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructu
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class FieldRelativeLaunch extends SequentialCommandGroup {
   /** Creates a new FieldRelativeLaunch. */
-  public FieldRelativeLaunch(LauncherSuperstructureState desiredState) {
+  public FieldRelativeLaunch(LauncherSuperstructureState desiredState, AngleToTurn angleToTurn) {
     addCommands(
       new ResetPoseWithVision(),
 
 
       new SequentialCommandGroup(
           // Turns then X wheels when done turning, and while doing that rev up wheels
-          new SequentialCommandGroup(new TurnToAngle(RobotContainer.m_drivebase),
+          new SequentialCommandGroup(new TurnToAngle(RobotContainer.m_drivebase, angleToTurn),
             new InstantCommand(RobotContainer.m_drivebase::toggleXWheels))
           .alongWith(new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, desiredState.launcherFlywheelState),
                       new SetPositionSubsystemState(RobotContainer.m_launcherWrist, desiredState.launcherWristState)),
