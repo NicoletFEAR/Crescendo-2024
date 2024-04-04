@@ -14,6 +14,8 @@
 package frc.robot;
 
 import com.ctre.phoenix6.SignalLogger;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.VecBuilder;
@@ -134,7 +136,8 @@ public class Robot extends TimedRobot {
     LED.setState(LEDState.RED);
 
     if (autonInitCommandRun == false) {
-      Command autonInitCommand = new PathPlannerAuto("1 Meter Auto").ignoringDisable(true);
+      Command autonInitCommand = FollowPathCommand.warmupCommand();
+      // new PathPlannerAuto("1 Meter Auto").ignoringDisable(true);
       autonInitCommand.schedule();
       autonInitCommandRun = true;
     }
