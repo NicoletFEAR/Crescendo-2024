@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
-import frc.robot.commands.drivebase.ResetPoseWithVision;
+// import frc.robot.commands.drivebase.ResetPoseWithVision;
 import frc.robot.commands.drivebase.TurnToAngle;
 import frc.robot.commands.drivebase.TurnToAngle.AngleToTurn;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
@@ -22,7 +22,7 @@ public class FieldRelativeLaunch extends SequentialCommandGroup {
   /** Creates a new FieldRelativeLaunch. */
   public FieldRelativeLaunch(LauncherSuperstructureState desiredState, AngleToTurn angleToTurn) {
     addCommands(
-      new ResetPoseWithVision(),
+      // new ResetPoseWithVision(),
 
 
       new SequentialCommandGroup(

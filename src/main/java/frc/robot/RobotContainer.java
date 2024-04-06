@@ -246,7 +246,7 @@ public class RobotContainer {
           false)
       ));
 
-    m_driverController.square().onTrue(new InstantCommand(() -> m_drivebase.setNoteTracking(false))
+    m_driverController.square().onFalse(new InstantCommand(() -> m_drivebase.setNoteTracking(false))
       .alongWith(
         new TeleopSwerve(
           m_drivebase,
