@@ -99,6 +99,8 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("intakeDown", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF));
     NamedCommands.registerCommand("intake", m_robotStateManager.setSuperstructureState(RobotState.AUTO_INTAKING));
+    NamedCommands.registerCommand("tofIntake", m_robotStateManager.setSuperstructureState(RobotState.TOF_INTAKING));
+    NamedCommands.registerCommand("ampPrepare", m_robotStateManager.setSuperstructureState(RobotState.AMP));
     NamedCommands.registerCommand("autoStartSubwoofer", m_robotStateManager.setSuperstructureState(RobotState.AUTO_START_SUBWOOFER));
     NamedCommands.registerCommand("travel", m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
