@@ -18,6 +18,7 @@ import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.commands.waits.WaitForNoLaunchNote;
 import frc.robot.subsystems.LED.LEDState;
+import frc.robot.subsystems.intake.IntakeHold.IntakeHoldState;
 import frc.robot.subsystems.launcher.LauncherFlywheel.LauncherFlywheelState;
 import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherWrist.LauncherWristState;
@@ -35,7 +36,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
     RobotContainer.mainTab.add("Note In Launcher", m_noteInLauncher).withPosition(1, 1).withSize(1, 4);
 
-    SmartDashboard.putBoolean("note in launcher", m_noteInLauncher);
+    // SmartDashboard.putBoolean("note in launcher", m_noteInLauncher);
 
     m_launcherBeamBreak = new DigitalInput(LauncherConstants.kLaunchBeamBreakId);
   }
@@ -83,7 +84,10 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState)
           .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState)),
         new WaitCommand(.02),
-        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState),
+        new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)
+          .alongWith(
+            new InstantCommand(() -> RobotContainer.m_intakeHold.setState(IntakeHoldState.INTAKE_TO_LAUNCH))
+          ),
         new WaitForNoLaunchNote(),
         new SetLEDState(LEDState.GREEN_FLASHING, 1.0, LEDState.TEAL_STOW),
         new WaitCommand(.04)
@@ -107,6 +111,13 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     );
   }
 
+  private void handlePrepareCommand(LauncherSuperstructureState launcherDesiredState, SequentialCommandGroup outputCommand) {
+    outputCommand.addCommands(
+      new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState)
+        .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState))
+    );
+  }
+
   private void handleThruIntakeCommand(LauncherSuperstructureState launcherDesiredState, SequentialCommandGroup outputCommand) {
     outputCommand.addCommands(
       new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState)
@@ -126,13 +137,13 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
   @Override
   public void superstructurePeriodic() {
-    // if (!m_launcherBeamBreak.get() && !m_noteInLauncher) {
-    //   m_noteInLauncher = true;
-    // } if (m_launcherBeamBreak.get() && m_noteInLauncher) {
-    //   m_noteInLauncher = false;
-    // }
+    if (!m_launcherBeamBreak.get() && !m_noteInLauncher) {
+      m_noteInLauncher = true;
+    } if (m_launcherBeamBreak.get() && m_noteInLauncher) {
+      m_noteInLauncher = false;
+    }
 
-    m_noteInLauncher = SmartDashboard.getBoolean("note in launcher", m_noteInLauncher);
+    // m_noteInLauncher = SmartDashboard.getBoolean("note in launcher", m_noteInLauncher);
     if (Constants.kInfoMode) {
       SmartDashboard.putBoolean(m_name + "/" + "launcher beam break", m_launcherBeamBreak.get());
     }
@@ -221,6 +232,10 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherFlywheelState.SUBWOOFER,
       LauncherWristState.SUBWOOFER,
       LauncherHoldState.LAUNCHING),
+    SUBWOOFER_PREPARE(
+      LauncherFlywheelState.SUBWOOFER,
+      LauncherWristState.SUBWOOFER,
+      LauncherHoldState.OFF),
     TRANSITION(
       LauncherFlywheelState.TRANSITION,
       LauncherWristState.TRANSITION,

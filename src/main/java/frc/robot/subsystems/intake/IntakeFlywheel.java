@@ -37,7 +37,7 @@ public class IntakeFlywheel extends VoltageSubsystem {
         INTAKING(-12),
         SLOW_INTAKING(-8),
         INTAKE_TO_LAUNCH(-12),
-        EJECTING(12),
+        EJECTING(6),
         LAUNCH_TO_INTAKE(1.5),
         AMP(12),
         TRANSITION(0),

@@ -27,7 +27,7 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
     RobotContainer.mainTab.add("TOF Blocked", getNoteInIntake()).withPosition(0, 1).withSize(1, 4);
 
-    SmartDashboard.putBoolean("Is note in intake", false);
+    // SmartDashboard.putBoolean("Is note in intake", false);
   }
 
   public static IntakeSuperstructure getInstance() {
@@ -39,14 +39,14 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
   }
 
   public boolean getNoteInIntake(){
-    // if(m_intakeTOF.getRange() < IntakeConstants.kTOFNoteThreshold){
-    //   return true;
-    // }
-    // else{
-    //   return false;
-    // }
+    if(m_intakeTOF.getRange() < IntakeConstants.kTOFNoteThreshold){
+      return true;
+    }
+    else{
+      return false;
+    }
 
-    return SmartDashboard.getBoolean("Is note in intake", false);
+    // return SmartDashboard.getBoolean("Is note in intake", false);
     // return false;
   }
 

@@ -123,7 +123,7 @@ public class SwerveDrive extends SubsystemBase {
 
     robotRelativeChassisSpeeds = new ChassisSpeeds(0, 0, 0);
 
-    m_snapToAngleController = new PIDController(.06, 0, 0);
+    m_snapToAngleController = new PIDController(.02, 0, 0.003);
 
     if (Constants.kInfoMode) {
       RobotContainer.mainTab.add(m_field).withPosition(2, 0).withSize(8, 5);
@@ -215,7 +215,7 @@ public class SwerveDrive extends SubsystemBase {
       throttle = throttle * DriveConstants.kMaxMetersPerSecond;
       strafe = strafe * DriveConstants.kMaxMetersPerSecond;
       if (m_targetNote) {
-        rotation = MathUtil.clamp(m_snapToAngleController.calculate(0, LimelightHelpers.getTX("limelight-intake")), -1, 1);
+        rotation = -MathUtil.clamp(m_snapToAngleController.calculate(0, LimelightHelpers.getTX("limelight-intake")), -1, 1);
         rotation *= DriveConstants.kMaxRotationRadiansPerSecond;
       } else {
         rotation = rotation * DriveConstants.kMaxRotationRadiansPerSecond;

@@ -147,7 +147,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristConstants.kMaxAcceleration = 150;
 
             // Max/Min positions the subsystem should be able to move
-            kIntakeWristConstants.kMaxPosition = 17.0;
+            kIntakeWristConstants.kMaxPosition = 18.0;
             kIntakeWristConstants.kMinPosition = 0.0;
 
             // Enum which is found in SubsystemConstants

@@ -191,6 +191,9 @@
         "open": true
       },
       "SmartDashboard": {
+        "Launcher": {
+          "open": true
+        },
         "open": true
       }
     }
