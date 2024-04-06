@@ -1,0 +1,130 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.02,
+        "y": 6.55
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.6833117089657605,
+        "y": 6.591473363126907
+      },
+      "isLocked": false,
+      "linkedName": "LaunchPos1"
+    },
+    {
+      "anchor": {
+        "x": 6.3381135771280555,
+        "y": 6.138482907596446
+      },
+      "prevControl": {
+        "x": 5.293462118455769,
+        "y": 6.757878020260545
+      },
+      "nextControl": {
+        "x": 7.529109242397753,
+        "y": 5.432317336153351
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.891223710375348,
+        "y": 4.502170445782333
+      },
+      "prevControl": {
+        "x": 7.870359185965623,
+        "y": 4.456731787998944
+      },
+      "nextControl": {
+        "x": 7.912088234785072,
+        "y": 4.547609103565723
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.328868873953963,
+        "y": 6.147727610770538
+      },
+      "prevControl": {
+        "x": 7.077689831055338,
+        "y": 5.63002423302144
+      },
+      "nextControl": {
+        "x": 5.5780428314008885,
+        "y": 6.666817220436861
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.02,
+        "y": 6.55
+      },
+      "prevControl": {
+        "x": 4.729535224836215,
+        "y": 6.591473363126907
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "LaunchPos1"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 2.0,
+      "rotationDegrees": -47.72631099390626,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "launchPos1LaunchPrepare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.1,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 14.43,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Launch Pos 1",
+  "previewStartingState": {
+    "rotation": 14.43,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

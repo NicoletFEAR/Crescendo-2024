@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LP1-CN3-WN1"
+            "pathName": "LP1-CN3-LP1"
           }
         },
         {
@@ -50,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "WN1L-WN1-AMP"
+            "pathName": "LP1-WN1-AMP"
           }
         }
       ]

@@ -1,0 +1,110 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.02,
+        "y": 6.55
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.6571496566416553,
+        "y": 6.683920394867817
+      },
+      "isLocked": false,
+      "linkedName": "LaunchPos1"
+    },
+    {
+      "anchor": {
+        "x": 3.241138013807559,
+        "y": 6.748633317086454
+      },
+      "prevControl": {
+        "x": 3.592870345898349,
+        "y": 6.584820745148247
+      },
+      "nextControl": {
+        "x": 2.889405681716769,
+        "y": 6.912445889024661
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.8544325376939041,
+        "y": 7.525188383710101
+      },
+      "prevControl": {
+        "x": 2.2611994773539092,
+        "y": 7.321804913880098
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": 148.13853345279082,
+      "rotateFast": true
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.05,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 1.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "tofIntake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "ampPrepare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.1,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Launch Pos 1",
+  "previewStartingState": {
+    "rotation": 14.43,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
