@@ -38,7 +38,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
         // setFeedforward(m_flywheelFeedForward.calculate(getVelocity()));
 
 
-        LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(new double[] {calculateRPM(), calculateRPM()});
+        // LauncherFlywheelState.FIELD_BASED_VELOCITY.setVelocity(new double[] {calculateRPM(), calculateRPM()});
         
         if (m_currentState == LauncherFlywheelState.FIELD_BASED_VELOCITY) {
             for (int i = 0; i < m_pidControllers.length; i++) {
@@ -52,23 +52,23 @@ public class LauncherFlywheel extends VelocitySubsystem {
         
     }
 
-    public double calculateRPM() {
-        double distance;
+    // public double calculateRPM() {
+    //     // double distance;
 
-        if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
-            distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kRedSpeakerPosition);
-        } else {
-            distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
-        }
+    //     // if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
+    //     //     distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kRedSpeakerPosition);
+    //     // } else {
+    //     //     distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
+    //     // }
         
-        if (distance > 0 && distance < LauncherConstants.kDistanceRPMMap.lastKey()) {
-            double lowerRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.floorKey(distance));
-            double upperRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.ceilingKey(distance));
-            return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
-        } else {
-            return 0;
-        }
-    }
+    //     // if (distance > 0 && distance < LauncherConstants.kDistanceRPMMap.lastKey()) {
+    //     //     double lowerRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.floorKey(distance));
+    //     //     double upperRPM = LauncherConstants.kDistanceRPMMap.get(LauncherConstants.kDistanceRPMMap.ceilingKey(distance));
+    //     //     return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
+    //     // } else {
+    //     //     return 0;
+    //     // }
+    // }
 
     public enum LauncherFlywheelState implements VelocitySubsystemState {
         OFF(new double[] {0, 0}),
@@ -88,7 +88,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
         PASS(new double[] {6000, 6000}), // used for when against the base of the speaker
         PODIUM(new double[] {6200, 6200}), // used for when against the base of the PODIUM
         TRANSITION(new double[] {0, 0}),
-        FIELD_BASED_VELOCITY(new double[] {0, 0}),
+        FIELD_BASED_VELOCITY(new double[] {5800, 5800}),
         INTAKING(new double[] {-500, -500}), // used when intaking through launch
         MANUAL(new double[] {0, 0});
 
