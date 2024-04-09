@@ -236,6 +236,10 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherFlywheelState.SUBWOOFER,
       LauncherWristState.SUBWOOFER,
       LauncherHoldState.OFF),
+    TESTING(
+      LauncherFlywheelState.FIELD_BASED_VELOCITY,
+      LauncherWristState.MANUAL,
+      LauncherHoldState.LAUNCHING),
     TRANSITION(
       LauncherFlywheelState.TRANSITION,
       LauncherWristState.TRANSITION,
