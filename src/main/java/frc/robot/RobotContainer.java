@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.drivebase.PathFindToAmp;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.drivebase.TurnToAngle.AngleToTurn;
 import frc.robot.commands.parallel.SetVoltageStates;
@@ -159,7 +160,7 @@ public class RobotContainer {
     autoChooser.setDefaultOption("None", new InstantCommand());
 
     autoChooser.addOption("Amp Sub 1 Mid 2 Wing 1", AutoBuilder.buildAuto("Amp Sub 1 Mid 2 Wing 1"));
-    autoChooser.addOption("Amp Sub 1 Wing 3", AutoBuilder.buildAuto("Amp Sub 1 Wing 3"));
+    // autoChooser.addOption("Amp Sub 1 Wing 3", AutoBuilder.buildAuto("Amp Sub 1 Wing 3"));
     autoChooser.addOption("Amp Sub 1 Wing 1", AutoBuilder.buildAuto("Amp Sub 1 Wing 1"));
 
     autoChooser.addOption("Front Sub 1 Wing 1", AutoBuilder.buildAuto("Front Sub 1 Wing 1"));
@@ -261,6 +262,8 @@ public class RobotContainer {
           DriveConstants.kRegularSpeed,
           true)
       ));
+    
+    m_driverController.circle().onTrue(new PathFindToAmp());
 
     ///// INTAKE /////
     m_operatorController.a().onTrue(m_robotStateManager.setSuperstructureState(RobotState.BEAM_BREAK_INTAKING));
@@ -286,9 +289,9 @@ public class RobotContainer {
     m_operatorController.leftStick().onFalse(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF));
   
     ///// LAUNCH /////
-    m_operatorController.pov(180).onTrue(new SubwooferCommandScheduler());
-    // m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
-    // m_operatorController.pov(180).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
+    // m_operatorController.pov(180).onTrue(new SubwooferCommandScheduler());
+    m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
+    m_operatorController.pov(180).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
 
     m_operatorController.pov(0).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.PASS, AngleToTurn.AMP));
     m_operatorController.pov(0).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));

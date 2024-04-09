@@ -212,12 +212,14 @@ public class SwerveDrive extends SubsystemBase {
     }
 
     if (!m_xWheels) {
-      throttle = throttle * DriveConstants.kMaxMetersPerSecond;
-      strafe = strafe * DriveConstants.kMaxMetersPerSecond;
       if (m_targetNote) {
+        strafe = 0;
+        throttle = Math.abs(throttle * DriveConstants.kMaxMetersPerSecond);
         rotation = -MathUtil.clamp(m_snapToAngleController.calculate(0, LimelightHelpers.getTX("limelight-intake")), -1, 1);
         rotation *= DriveConstants.kMaxRotationRadiansPerSecond;
       } else {
+        throttle = throttle * DriveConstants.kMaxMetersPerSecond;
+        strafe = strafe * DriveConstants.kMaxMetersPerSecond;
         rotation = rotation * DriveConstants.kMaxRotationRadiansPerSecond;
       }
       
@@ -425,20 +427,20 @@ public class SwerveDrive extends SubsystemBase {
     var alliance = DriverStation.getAlliance();
 
     if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-      double hypot = getPose().getTranslation().getDistance(DriveConstants.kRedAmpPosition);
-      double adjacent = getPose().getTranslation().getX() - DriveConstants.kRedAmpPosition.getX();
+      double hypot = getPose().getTranslation().getDistance(DriveConstants.kRedAmpPassPosition);
+      double adjacent = getPose().getTranslation().getX() - DriveConstants.kRedAmpPassPosition.getX();
 
-      if(getPose().getY() > DriveConstants.kRedAmpPosition.getY()){
+      if(getPose().getY() > DriveConstants.kRedAmpPassPosition.getY()){
         return Math.toDegrees(Math.acos(adjacent / hypot));
       }
       else{
         return -Math.toDegrees(Math.acos(adjacent / hypot));
       }
     } else {
-      double hypot = getPose().getTranslation().getDistance(DriveConstants.kBlueAmpPosition);
-      double adjacent = getPose().getTranslation().getX() - DriveConstants.kBlueAmpPosition.getX();
+      double hypot = getPose().getTranslation().getDistance(DriveConstants.kBlueAmpPassPosition);
+      double adjacent = getPose().getTranslation().getX() - DriveConstants.kBlueAmpPassPosition.getX();
 
-      if(getPose().getY() > DriveConstants.kBlueAmpPosition.getY()){
+      if(getPose().getY() > DriveConstants.kBlueAmpPassPosition.getY()){
         return Math.toDegrees(Math.acos(adjacent / hypot));
       }
       else{

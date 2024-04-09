@@ -178,8 +178,8 @@ public static class ElevatorLiftConstants {
     kElevatorLiftConstants.kDefaultSlot = 0; 
 
     // Max velocity and acceleration for trapezoidal motion profile
-    kElevatorLiftConstants.kMaxVelocity = 300; 
-    kElevatorLiftConstants.kMaxAcceleration = 400;
+    kElevatorLiftConstants.kMaxVelocity = 500; 
+    kElevatorLiftConstants.kMaxAcceleration = 600;
 
     // Max/Min positions the subsystem should be able to move
     kElevatorLiftConstants.kMaxPosition = 80;
@@ -189,7 +189,7 @@ public static class ElevatorLiftConstants {
     kElevatorLiftConstants.kManualControlMode = ManualControlMode.TRIGGERS;
 
     // Multiplied by controller inputs
-    kElevatorLiftConstants.kManualMultiplier = 1.5; // 1
+    kElevatorLiftConstants.kManualMultiplier = 2; // 1.5
 
     // Deadband for controller
     kElevatorLiftConstants.kManualDeadBand = .1;

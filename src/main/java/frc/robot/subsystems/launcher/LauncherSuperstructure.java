@@ -111,12 +111,12 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     );
   }
 
-  private void handlePrepareCommand(LauncherSuperstructureState launcherDesiredState, SequentialCommandGroup outputCommand) {
-    outputCommand.addCommands(
-      new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState)
-        .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState))
-    );
-  }
+  // private void handlePrepareCommand(LauncherSuperstructureState launcherDesiredState, SequentialCommandGroup outputCommand) {
+  //   outputCommand.addCommands(
+  //     new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState)
+  //       .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState))
+  //   );
+  // }
 
   private void handleThruIntakeCommand(LauncherSuperstructureState launcherDesiredState, SequentialCommandGroup outputCommand) {
     outputCommand.addCommands(
