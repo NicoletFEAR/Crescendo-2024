@@ -464,19 +464,16 @@ public class SwerveDrive extends SubsystemBase {
     robotRelativeChassisSpeeds = DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
 
     LimelightHelpers.SetRobotOrientation("limelight-launch", getYaw().getDegrees(), 0, 0, 0, 0, 0);
-    m_poseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight_launch");
+    m_poseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-launch");
 
-    if (Math.abs(m_pigeon.getRate()) < 720 && !DriverStation.isAutonomous()) {
+    if (Math.abs(m_pigeon.getRate()) < 720 && !DriverStation.isAutonomous() && m_poseEstimate.pose.getX() != 0) {
       m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.9,.9,9999999));
       m_poseEstimator.addVisionMeasurement(m_poseEstimate.pose, m_poseEstimate.timestampSeconds);
     }
 
     if (Constants.kInfoMode) {
-
-    }
-
-    if (Constants.kInfoMode) {
       m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
+      m_field.getObject("Limelight-Pose").setPose(m_poseEstimate.pose);;
     }
    
   }

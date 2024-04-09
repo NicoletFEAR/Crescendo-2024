@@ -225,7 +225,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherWristState.FIELD_BASED_PITCH,
       LauncherHoldState.LAUNCHING),
     PASS(
-      LauncherFlywheelState.SUBWOOFER,
+      LauncherFlywheelState.PASS,
       LauncherWristState.PASS,
       LauncherHoldState.LAUNCHING),
     SUBWOOFER(

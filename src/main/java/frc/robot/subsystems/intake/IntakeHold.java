@@ -35,7 +35,7 @@ public class IntakeHold extends VoltageSubsystem {
         OFF(0),
         INTAKING(-9),
         LAUNCH_IN(4),
-        INTAKE_TO_LAUNCH(-4),
+        INTAKE_TO_LAUNCH(-2),
         AMP(6),
         EJECTING(6);
         

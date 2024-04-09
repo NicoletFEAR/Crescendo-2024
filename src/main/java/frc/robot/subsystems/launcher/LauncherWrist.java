@@ -146,7 +146,7 @@ public class LauncherWrist extends PositionSubsystem {
             kLauncherWristConstants.kManualMultiplier = .75;
             kLauncherWristConstants.kManualDeadBand = 0.1;
 
-            kLauncherWristConstants.kInitialState = LauncherWristState.UP;
+            kLauncherWristConstants.kInitialState = LauncherWristState.DOWN;
             kLauncherWristConstants.kManualState = LauncherWristState.MANUAL;
             kLauncherWristConstants.kTransitionState = LauncherWristState.TRANSITION;
         }

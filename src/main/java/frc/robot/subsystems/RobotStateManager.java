@@ -6,12 +6,14 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.lib.templates.SuperstructureSubsystem;
 import frc.robot.RobotContainer;
 import frc.robot.commands.superstructure.SetLEDState;
+import frc.robot.commands.superstructure.SetVoltageSubsystemState;
 import frc.robot.commands.waits.WaitForIntakeNote;
 import frc.robot.commands.waits.WaitForLaunchNote;
 import frc.robot.subsystems.LED.LEDState;
 import frc.robot.subsystems.intake.IntakeSuperstructure;
 import frc.robot.subsystems.intake.IntakeSuperstructure.IntakeSuperstructureState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure;
+import frc.robot.subsystems.launcher.LauncherHold.LauncherHoldState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
 public class RobotStateManager extends SuperstructureSubsystem {
@@ -100,6 +102,7 @@ public class RobotStateManager extends SuperstructureSubsystem {
                     m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
                 ),
             new WaitForLaunchNote(),
+            new SetVoltageSubsystemState(RobotContainer.m_launcherHold, LauncherHoldState.OFF),
             new SetLEDState(LEDState.BLUE_FLASHING, 1.0, LEDState.GREEN_STOW),
             m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL)
                 .alongWith(
