@@ -178,7 +178,7 @@ public class RobotStateManager extends SuperstructureSubsystem {
             LauncherSuperstructureState.TRANSITION),
         AUTO_START_SUBWOOFER(
             IntakeSuperstructureState.DOWNOFF,
-            LauncherSuperstructureState.SUBWOOFER),
+            LauncherSuperstructureState.SUBWOOFER_PREPARE),
         AMP(
             IntakeSuperstructureState.AMP_PREPARE,
             LauncherSuperstructureState.STOWED),

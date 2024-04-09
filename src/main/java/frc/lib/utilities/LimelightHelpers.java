@@ -5,6 +5,7 @@ package frc.lib.utilities;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.RobotContainer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -416,6 +417,10 @@ public class LimelightHelpers {
         public double avgTagArea;
         public RawFiducial[] rawFiducials; 
 
+        private boolean isPoseInField;
+        private boolean rotatingTooMuch;
+        private boolean movingTooFast;
+
         public PoseEstimate(Pose2d pose, double timestampSeconds, double latency, 
             int tagCount, double tagSpan, double avgTagDist, 
             double avgTagArea, RawFiducial[] rawFiducials) {
@@ -428,6 +433,14 @@ public class LimelightHelpers {
             this.avgTagDist = avgTagDist;
             this.avgTagArea = avgTagArea;
             this.rawFiducials = rawFiducials;
+        }
+
+        public boolean isPoseTrustworthy() {
+            isPoseInField = pose.getX() > 0 && pose.getX() < 16.51 && pose.getY() > 0 && pose.getY() < 8.17;
+            rotatingTooMuch = RobotContainer.m_drivebase.getPigeon().getRate() < 720;
+            movingTooFast = RobotContainer.m_drivebase.getChassisSpeeds().vxMetersPerSecond < .75 && RobotContainer.m_drivebase.getChassisSpeeds().vyMetersPerSecond < .75;
+
+            return isPoseInField && rotatingTooMuch && movingTooFast;
         }
     }
 

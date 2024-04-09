@@ -92,10 +92,12 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
   private void handleDefaultCommand(IntakeSuperstructureState intakeDesiredState, SequentialCommandGroup outputCommand) {
     outputCommand.addCommands(
-      new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState),
-      new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState),
-      new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState),
-      new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState)
+      new SetVoltageSubsystemState(RobotContainer.m_intakeFlywheel, intakeDesiredState.intakeFlywheelState)
+        .alongWith(
+          new SetVoltageSubsystemState(RobotContainer.m_intakeHold, intakeDesiredState.intakeHoldState),
+          new SetMultiMotorPositionSubsystemState(RobotContainer.m_elevatorLift, intakeDesiredState.elevatorLiftState),
+          new SetPositionSubsystemState(RobotContainer.m_intakeWrist, intakeDesiredState.intakeWristState)
+        )
     );
   }
 

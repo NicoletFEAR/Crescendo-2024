@@ -118,13 +118,14 @@ public class SwerveDrive extends SubsystemBase {
             getModulePositions(),
             new Pose2d(),
             VecBuilder.fill(0.1, 0.1, 0.0),
-            VecBuilder.fill(0.9, 0.9, 100.0));
+            VecBuilder.fill(0.9, 0.9, 9999999));
 
     m_pigeon.setYaw(0);
 
     robotRelativeChassisSpeeds = new ChassisSpeeds(0, 0, 0);
 
     m_snapToAngleController = new PIDController(.02, 0, 0.003);
+    RobotContainer.mainTab.add("Turn To Note Controller", m_snapToAngleController);
 
     if (Constants.kInfoMode) {
       RobotContainer.mainTab.add(m_field).withPosition(2, 0).withSize(8, 5);
@@ -150,7 +151,7 @@ public class SwerveDrive extends SubsystemBase {
             // your Constants class
             DriveConstants.kPathPlannerTranslationPID, // Translation PID constants
             DriveConstants.kPathPlannerRotationPID, // Rotation PID constants
-            5, // Max module speed, in m/s
+            5.5, // Max module speed, in m/s
             DriveConstants
                 .kDriveBaseRadius, // Drive base radius in meters. Distance from robot center to
             // furthest module.
@@ -332,6 +333,10 @@ public class SwerveDrive extends SubsystemBase {
       return Rotation2d.fromDegrees(m_simyaw);
     }
 
+  }
+
+  public Pigeon2 getPigeon() {
+    return m_pigeon;
   }
 
   public double getYawDegrees() {

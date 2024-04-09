@@ -9,13 +9,13 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.swerve.SwerveDrive;
 import frc.lib.utilities.GeometryUtils;
 
 public class TurnToAngle extends Command {
   /** Creates a new TurnToAngle. */
   private PIDController angleController = new PIDController(.02, 0.025, 0.001);
-;
 
   private SwerveDrive m_drivebase;
   private double m_targetAngle = -1;
@@ -55,6 +55,11 @@ public class TurnToAngle extends Command {
     m_drivebase = drivebase;
     m_angleToTurn = angleToTurn;
 
+    if (angleToTurn == AngleToTurn.SPEAKER) {
+      RobotContainer.mainTab.add("Turn To Angle Controller", angleController);
+    }
+    
+
 
     addRequirements(m_drivebase);
   }
@@ -63,6 +68,7 @@ public class TurnToAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
     if (m_angleToTurn == AngleToTurn.SPEAKER) {
       m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
 

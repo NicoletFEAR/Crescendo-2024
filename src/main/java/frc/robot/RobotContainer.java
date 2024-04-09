@@ -28,7 +28,6 @@ import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
-import frc.robot.commands.superstructure.SubwooferCommandScheduler;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.RobotStateManager;
 import frc.robot.subsystems.RobotStateManager.RobotState;
@@ -160,7 +159,7 @@ public class RobotContainer {
     autoChooser.setDefaultOption("None", new InstantCommand());
 
     autoChooser.addOption("Amp Sub 1 Mid 2 Wing 1", AutoBuilder.buildAuto("Amp Sub 1 Mid 2 Wing 1"));
-    // autoChooser.addOption("Amp Sub 1 Wing 3", AutoBuilder.buildAuto("Amp Sub 1 Wing 3"));
+    autoChooser.addOption("Amp Sub 1 Wing 3", AutoBuilder.buildAuto("Amp Sub 1 Wing 3"));
     autoChooser.addOption("Amp Sub 1 Wing 1", AutoBuilder.buildAuto("Amp Sub 1 Wing 1"));
 
     autoChooser.addOption("Front Sub 1 Wing 1", AutoBuilder.buildAuto("Front Sub 1 Wing 1"));

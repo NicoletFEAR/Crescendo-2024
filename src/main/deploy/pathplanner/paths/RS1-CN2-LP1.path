@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 2.8990839963661905,
-        "y": 7.636124821799194
+        "x": 2.8898392931920998,
+        "y": 7.728571853540104
       },
       "prevControl": {
-        "x": 1.2906774667918282,
-        "y": 7.610861892015303
+        "x": 1.2814327636177374,
+        "y": 7.703308923756214
       },
       "nextControl": {
-        "x": 4.664822302617576,
-        "y": 7.6638589313214665
+        "x": 4.655577599443486,
+        "y": 7.756305963062377
       },
       "isLocked": false,
       "linkedName": null
@@ -75,13 +75,30 @@
       "waypointRelativePos": 1.15,
       "rotationDegrees": 0,
       "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.15000000000000002,
+      "rotationDegrees": 55.0,
+      "rotateFast": false
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Launch",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.2,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 0.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 1.35,
       "command": {
         "type": "sequential",
         "data": {
@@ -101,10 +118,27 @@
           ]
         }
       }
+    },
+    {
+      "name": "Subwoofer",
+      "waypointRelativePos": 0.15000000000000002,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "subwooferLaunch"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 6.1,
+    "maxVelocity": 5.5,
     "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
