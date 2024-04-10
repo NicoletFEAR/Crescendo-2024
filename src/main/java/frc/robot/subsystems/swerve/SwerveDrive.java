@@ -124,7 +124,7 @@ public class SwerveDrive extends SubsystemBase {
 
     robotRelativeChassisSpeeds = new ChassisSpeeds(0, 0, 0);
 
-    m_snapToAngleController = new PIDController(.02, 0, 0.003);
+    m_snapToAngleController = new PIDController(.01, 0, 0.0);
     RobotContainer.mainTab.add("Turn To Note Controller", m_snapToAngleController);
 
     if (Constants.kInfoMode) {

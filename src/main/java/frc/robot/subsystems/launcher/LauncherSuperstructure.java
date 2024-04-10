@@ -276,19 +276,36 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
 
     // IN METERS
-    public static final TreeMap<Double, Double> kDistanceRPMMap = new TreeMap<>();
+    public static final TreeMap<Double, Double> kAmpDistanceRPMMap = new TreeMap<>();
     static {
-      kDistanceRPMMap.put(0.0, 1000.0);
-      kDistanceRPMMap.put(1.0, 2000.0);
-      kDistanceRPMMap.put(1.5, 2500.0);
-      kDistanceRPMMap.put(2.0, 3000.0);
-      kDistanceRPMMap.put(2.5, 3500.0);
-      kDistanceRPMMap.put(3.0, 4000.0);
-      kDistanceRPMMap.put(3.5, 4500.0);
-      kDistanceRPMMap.put(4.0, 5000.0);
-      kDistanceRPMMap.put(4.5, 5500.0);
-      kDistanceRPMMap.put(5.0, 6000.0);
-      kDistanceRPMMap.put(5.5, 6500.0);
+      kAmpDistanceRPMMap.put(2.0, 3000.0);
+      kAmpDistanceRPMMap.put(3.0, 3500.0);
+      kAmpDistanceRPMMap.put(4.0, 4000.0);
+      kAmpDistanceRPMMap.put(5.0, 4500.0);
+      kAmpDistanceRPMMap.put(6.0, 5000.0);
+      kAmpDistanceRPMMap.put(7.0, 5500.0);
+      kAmpDistanceRPMMap.put(8.0, 6000.0);
+      kAmpDistanceRPMMap.put(9.0, 6000.0);
+      kAmpDistanceRPMMap.put(10.0, 6000.0);
+      kAmpDistanceRPMMap.put(11.0, 6000.0);
+      kAmpDistanceRPMMap.put(12.0, 6000.0);
+    }
+
+    public static final TreeMap<Double, Double> kAmpDistancePitchMap = new TreeMap<>();
+    static {
+      kAmpDistancePitchMap.put(0.0, 0.0);
+      kAmpDistancePitchMap.put(1.0, 10.0);
+      kAmpDistancePitchMap.put(2.0, 40.0);
+      kAmpDistancePitchMap.put(3.0, 40.0);
+      kAmpDistancePitchMap.put(4.0, 40.0);
+      kAmpDistancePitchMap.put(5.0, 40.0);
+      kAmpDistancePitchMap.put(6.0, 40.0);
+      kAmpDistancePitchMap.put(7.0, 50.0);
+      kAmpDistancePitchMap.put(8.0, 60.0);
+      kAmpDistancePitchMap.put(9.0, 70.0);
+      kAmpDistancePitchMap.put(10.0, 70.0);
+      kAmpDistancePitchMap.put(11.0, 70.0);
+      kAmpDistancePitchMap.put(12.0, 70.0);
     }
 
     // input = theta and r
