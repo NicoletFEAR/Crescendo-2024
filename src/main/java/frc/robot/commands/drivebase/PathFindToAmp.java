@@ -21,7 +21,7 @@ public class PathFindToAmp extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    PathConstraints constraints = new PathConstraints(5.5, 4, Math.PI * 3, Math.PI * 4);
+    PathConstraints constraints = new PathConstraints(1, .5, Math.PI * 3, Math.PI * 4);
 
     AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Blue Amp Path"), constraints).schedule();
   }

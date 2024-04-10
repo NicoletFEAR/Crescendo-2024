@@ -37,6 +37,10 @@ public class LauncherWrist extends PositionSubsystem {
         if (m_currentState == LauncherWristState.FIELD_BASED_PITCH) {
             holdPosition();
         }
+
+        if (LauncherWristState.MANUAL.getPosition() != 0) {
+            LauncherWristState.TESTING.setPosition(LauncherWristState.MANUAL.getPosition());
+        }
     }
 
     @Override
@@ -62,6 +66,7 @@ public class LauncherWrist extends PositionSubsystem {
         PODIUM(68.3, 0), // use when against base of podium
         FIELD_BASED_PITCH(0, 0),
         TRANSITION(0, 0),
+        TESTING(0, 0),
         MANUAL(0, 0);
     
         private double position;

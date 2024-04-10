@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.swerve.SwerveDrive;
@@ -15,7 +16,7 @@ import frc.lib.utilities.GeometryUtils;
 
 public class TurnToAngle extends Command {
   /** Creates a new TurnToAngle. */
-  private PIDController angleController = new PIDController(.02, 0.025, 0.001);
+  private PIDController angleController = new PIDController(.01, 0.025, 0.001);
 
   private SwerveDrive m_drivebase;
   private double m_targetAngle = -1;
@@ -75,9 +76,9 @@ public class TurnToAngle extends Command {
       var alliance = DriverStation.getAlliance();
 
       if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-        m_targetAngle += -5;
+        m_targetAngle += 0;
       } else {
-        m_targetAngle -= 185;
+        m_targetAngle -= 180;
       }
       
       /*
@@ -100,6 +101,20 @@ public class TurnToAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (m_angleToTurn == AngleToTurn.SPEAKER) {
+      m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
+
+      var alliance = DriverStation.getAlliance();
+
+      if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+        m_targetAngle += 0;
+      } else {
+        m_targetAngle -= 180;
+      }
+    }
+
+    SmartDashboard.putNumber("Turn To Angle Current", m_drivebase.getYawDegrees());
+    SmartDashboard.putNumber("Turn To Angle Desired", m_targetAngle);
     double speeds =
         angleController.calculate(
             GeometryUtils.getAdjustedYawDegrees(m_drivebase.getYawDegrees(), m_targetAngle), 180);

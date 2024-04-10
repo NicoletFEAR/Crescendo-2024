@@ -198,6 +198,9 @@
         "Launcher": {
           "open": true
         },
+        "Launcher Wrist": {
+          "open": true
+        },
         "open": true
       }
     }

@@ -217,7 +217,7 @@ public class SwerveDrive extends SubsystemBase {
       if (m_targetNote) {
         strafe = 0;
         throttle = Math.abs(throttle * DriveConstants.kMaxMetersPerSecond);
-        rotation = -MathUtil.clamp(m_snapToAngleController.calculate(0, LimelightHelpers.getTX("limelight-intake")), -1, 1);
+        rotation = MathUtil.clamp(m_snapToAngleController.calculate(LimelightHelpers.getTX("limelight-intake"), 0), -1, 1);
         rotation *= DriveConstants.kMaxRotationRadiansPerSecond;
       } else {
         throttle = throttle * DriveConstants.kMaxMetersPerSecond;
@@ -470,6 +470,8 @@ public class SwerveDrive extends SubsystemBase {
     m_poseEstimator.updateWithTime(Timer.getFPGATimestamp(), getYaw(), getModulePositions());
 
     robotRelativeChassisSpeeds = DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
+
+    SmartDashboard.putNumber("Gyro", getYawDegrees());
 
     LimelightHelpers.SetRobotOrientation("limelight-launch", getYaw().getDegrees(), 0, 0, 0, 0, 0);
     m_poseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-launch");
