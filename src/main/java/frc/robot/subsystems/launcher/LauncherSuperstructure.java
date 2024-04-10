@@ -230,7 +230,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     PASS(
       LauncherFlywheelState.PASS,
       LauncherWristState.PASS,
-      LauncherHoldState.LAUNCHING),
+      LauncherHoldState.PASS),
     SUBWOOFER(
       LauncherFlywheelState.SUBWOOFER,
       LauncherWristState.SUBWOOFER,
@@ -278,6 +278,8 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     // IN METERS
     public static final TreeMap<Double, Double> kAmpDistanceRPMMap = new TreeMap<>();
     static {
+      kAmpDistanceRPMMap.put(0.0, 3000.0);
+      kAmpDistanceRPMMap.put(1.0, 3000.0);
       kAmpDistanceRPMMap.put(2.0, 3000.0);
       kAmpDistanceRPMMap.put(3.0, 3500.0);
       kAmpDistanceRPMMap.put(4.0, 4000.0);
@@ -289,6 +291,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       kAmpDistanceRPMMap.put(10.0, 6000.0);
       kAmpDistanceRPMMap.put(11.0, 6000.0);
       kAmpDistanceRPMMap.put(12.0, 6000.0);
+      kAmpDistanceRPMMap.put(40.0, 6000.0);
     }
 
     public static final TreeMap<Double, Double> kAmpDistancePitchMap = new TreeMap<>();
@@ -306,6 +309,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       kAmpDistancePitchMap.put(10.0, 70.0);
       kAmpDistancePitchMap.put(11.0, 70.0);
       kAmpDistancePitchMap.put(12.0, 70.0);
+      kAmpDistancePitchMap.put(40.0, 70.0);
     }
 
     // input = theta and r

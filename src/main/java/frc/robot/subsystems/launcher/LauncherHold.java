@@ -42,6 +42,7 @@ public class LauncherHold extends VoltageSubsystem {
         ADJUST_NOTE_IN(2.5),
         ADJUST_NOTE_OUT(-2.5),
         THRU_LAUNCHER_INTAKING(6),
+        PASS(-12),
         THRU_INTAKE_INTAKING(-1.5),
         THRU_INTAKE_EJECTING(3);
         

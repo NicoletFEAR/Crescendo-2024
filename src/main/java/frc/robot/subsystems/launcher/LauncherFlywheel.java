@@ -37,7 +37,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
     @Override
     public void subsystemPeriodic() {
-        // LauncherFlywheelState.PASS.setVelocity(new double[] {calculateAmpRPM(), calculateAmpRPM()});
+        LauncherFlywheelState.PASS.setVelocity(new double[] {calculateAmpRPM(), calculateAmpRPM()});
         
         if (m_currentState == LauncherFlywheelState.FIELD_BASED_VELOCITY) {
             for (int i = 0; i < m_pidControllers.length; i++) {
@@ -51,23 +51,23 @@ public class LauncherFlywheel extends VelocitySubsystem {
         
     }
 
-    // public double calculateAmpRPM() {
-    //     double distance;
+    public double calculateAmpRPM() {
+        double distance;
 
-    //     if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
-    //         distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kRedAmpPassPosition);
-    //     } else {
-    //         distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kBlueAmpPassPosition);
-    //     }
+        if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
+            distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kRedAmpPassPosition);
+        } else {
+            distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kBlueAmpPassPosition);
+        }
         
-    //     if (distance > 0 && distance < LauncherConstants.kAmpDistanceRPMMap.lastKey()) {
-    //         double lowerRPM = LauncherConstants.kAmpDistanceRPMMap.get(LauncherConstants.kAmpDistanceRPMMap.floorKey(distance));
-    //         double upperRPM = LauncherConstants.kAmpDistanceRPMMap.get(LauncherConstants.kAmpDistanceRPMMap.ceilingKey(distance));
-    //         return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
-    //     } else {
-    //         return 0;
-    //     }
-    // }
+        if (distance > 0 && distance < LauncherConstants.kAmpDistanceRPMMap.lastKey()) {
+            double lowerRPM = LauncherConstants.kAmpDistanceRPMMap.get(LauncherConstants.kAmpDistanceRPMMap.floorKey(distance));
+            double upperRPM = LauncherConstants.kAmpDistanceRPMMap.get(LauncherConstants.kAmpDistanceRPMMap.ceilingKey(distance));
+            return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
+        } else {
+            return 0;
+        }
+    }
 
     public enum LauncherFlywheelState implements VelocitySubsystemState {
         OFF(new double[] {0, 0}),
