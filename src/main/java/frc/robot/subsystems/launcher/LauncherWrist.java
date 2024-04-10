@@ -41,7 +41,7 @@ public class LauncherWrist extends PositionSubsystem {
             Math.abs(RobotContainer.m_drivebase.calculateAngleToSpeaker()),
             RobotContainer.m_drivebase.calculateDistanceToSpeaker(RobotContainer.m_drivebase.getPose())));
             
-        LauncherWristState.PASS.setPosition(calculateAmpPitch());
+        // LauncherWristState.PASS.setPosition(calculateAmpPitch());
         
         SmartDashboard.putNumber("Field Relative Pitch", GeometryUtils.interpolatePitch(
             Math.abs(RobotContainer.m_drivebase.calculateAngleToSpeaker()),
@@ -56,23 +56,23 @@ public class LauncherWrist extends PositionSubsystem {
         }
     }
 
-    private double calculateAmpPitch() {
-        double distance;
+    // private double calculateAmpPitch() {
+    //     double distance;
 
-        if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
-            distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kRedAmpPassPosition);
-        } else {
-            distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kBlueAmpPassPosition);
-        }
+    //     if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
+    //         distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kRedAmpPassPosition);
+    //     } else {
+    //         distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kBlueAmpPassPosition);
+    //     }
         
-        if (distance > 0 && distance < LauncherConstants.kAmpDistancePitchMap.lastKey()) {
-            double lowerRPM = LauncherConstants.kAmpDistancePitchMap.get(LauncherConstants.kAmpDistancePitchMap.floorKey(distance));
-            double upperRPM = LauncherConstants.kAmpDistancePitchMap.get(LauncherConstants.kAmpDistancePitchMap.ceilingKey(distance));
-            return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
-        } else {
-            return 0;
-        }
-    }
+    //     if (distance > 0 && distance < LauncherConstants.kAmpDistancePitchMap.lastKey()) {
+    //         double lowerRPM = LauncherConstants.kAmpDistancePitchMap.get(LauncherConstants.kAmpDistancePitchMap.floorKey(distance));
+    //         double upperRPM = LauncherConstants.kAmpDistancePitchMap.get(LauncherConstants.kAmpDistancePitchMap.ceilingKey(distance));
+    //         return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
+    //     } else {
+    //         return 0;
+    //     }
+    // }
 
     public void setHold(boolean value) {
         setHold = value;
