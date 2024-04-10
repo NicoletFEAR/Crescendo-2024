@@ -30,10 +30,14 @@ public class FieldRelativeLaunch extends SequentialCommandGroup {
           new SequentialCommandGroup(new TurnToAngle(RobotContainer.m_drivebase, angleToTurn),
             new InstantCommand(RobotContainer.m_drivebase::toggleXWheels))
           .alongWith(new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, desiredState.launcherFlywheelState),
-                      new SetPositionSubsystemState(RobotContainer.m_launcherWrist, desiredState.launcherWristState)),
+                      new SetPositionSubsystemState(RobotContainer.m_launcherWrist, desiredState.launcherWristState)
+                      .andThen(
+                        new InstantCommand(() -> RobotContainer.m_launcherWrist.setHold(true))
+                      )),
 
           // Launch then wait till done launching then go back to zero
           RobotContainer.m_launcherSuperstructure.setSuperstructureState(desiredState),
+          new InstantCommand(() -> RobotContainer.m_launcherWrist.setHold(false)),
           new WaitCommand(.1),
           RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
       )

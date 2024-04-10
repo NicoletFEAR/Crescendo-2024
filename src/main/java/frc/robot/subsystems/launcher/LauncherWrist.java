@@ -3,6 +3,7 @@ package frc.robot.subsystems.launcher;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.templates.PositionSubsystem;
 import frc.lib.templates.SubsystemConstants.ManualControlMode;
 import frc.lib.templates.SubsystemConstants.PositionSubsystemConstants;
@@ -15,6 +16,8 @@ import frc.robot.Constants.MotorConstants;
 public class LauncherWrist extends PositionSubsystem {
 
     private static LauncherWrist m_instance = null;
+
+    private boolean setHold = false;
 
     public LauncherWrist(PositionSubsystemConstants constants) {
         super(constants);
@@ -34,13 +37,21 @@ public class LauncherWrist extends PositionSubsystem {
             Math.abs(RobotContainer.m_drivebase.calculateAngleToSpeaker()),
             RobotContainer.m_drivebase.calculateDistanceToSpeaker(RobotContainer.m_drivebase.getPose())));
         
-        if (m_currentState == LauncherWristState.FIELD_BASED_PITCH) {
+        SmartDashboard.putNumber("Field Relative Pitch", GeometryUtils.interpolatePitch(
+            Math.abs(RobotContainer.m_drivebase.calculateAngleToSpeaker()),
+            RobotContainer.m_drivebase.calculateDistanceToSpeaker(RobotContainer.m_drivebase.getPose())));
+        
+        if (setHold) {
             holdPosition();
         }
 
         if (LauncherWristState.MANUAL.getPosition() != 0) {
             LauncherWristState.TESTING.setPosition(LauncherWristState.MANUAL.getPosition());
         }
+    }
+
+    public void setHold(boolean value) {
+        setHold = value;
     }
 
     @Override

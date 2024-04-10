@@ -86,12 +86,15 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         new WaitCommand(.02),
         new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState)
           .alongWith(
-            new InstantCommand(() -> RobotContainer.m_intakeHold.setState(IntakeHoldState.INTAKE_TO_LAUNCH))
+            new InstantCommand(() -> RobotContainer.m_intakeHold.setState(IntakeHoldState.INTAKING))
           ),
         new WaitForNoLaunchNote(),
         new SetLEDState(LEDState.GREEN_FLASHING, 1.0, LEDState.TEAL_STOW),
+        new InstantCommand(() -> RobotContainer.m_intakeHold.setState(IntakeHoldState.OFF)),
         new WaitCommand(.04)
       );
+      
+      
   }
 
   private void handleStowCommand(LauncherSuperstructureState launcherDesiredState, SequentialCommandGroup outputCommand) {
@@ -290,17 +293,38 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
     // input = theta and r
     // output = angle in degrees
+
+    // HAVE TO PUT IT IN ORDER
+    // GROUPS OF R 
+    // WITH THETA ORDERED LOWEST TO HIGHEST
     public static final HashMap<PolarCoordinate, Double> kDistancePitchMap = new HashMap<>();
     static {
       kDistancePitchMap.put(new PolarCoordinate(0.0, 1.5), 110.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 1.5), 110.0);
+
       kDistancePitchMap.put(new PolarCoordinate(0.0, 1.75), 96.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 1.75), 96.0);
+
       kDistancePitchMap.put(new PolarCoordinate(0.0, 2.0), 86.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 2.0), 86.0);
+
       kDistancePitchMap.put(new PolarCoordinate(0.0, 2.25), 76.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 2.25), 76.0);
+
       kDistancePitchMap.put(new PolarCoordinate(0.0, 2.5), 73.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 2.5), 73.0);
+
       kDistancePitchMap.put(new PolarCoordinate(0.0, 2.75), 68.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 2.75), 68.0);
+
       kDistancePitchMap.put(new PolarCoordinate(0.0, 3.0), 65.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 3.0), 65.0);
+
       kDistancePitchMap.put(new PolarCoordinate(0.0, 3.25), 63.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 3.25), 63.0);
+
       kDistancePitchMap.put(new PolarCoordinate(0.0, 3.5), 62.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 3.5), 62.0);
     }
   }
 }

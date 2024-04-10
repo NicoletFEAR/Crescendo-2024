@@ -38,7 +38,7 @@ public class LauncherHold extends VoltageSubsystem {
 
     public enum LauncherHoldState implements VoltageSubsystemState {
         OFF(0),
-        LAUNCHING(-3),
+        LAUNCHING(-1.5),
         ADJUST_NOTE_IN(2.5),
         ADJUST_NOTE_OUT(-2.5),
         THRU_LAUNCHER_INTAKING(6),
