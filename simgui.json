@@ -37,7 +37,8 @@
       "/Shuffleboard/Main/PIDController[54]": "PIDController",
       "/Shuffleboard/Main/SendableChooser[0]": "String Chooser",
       "/Shuffleboard/Main/Turn To Angle Controller": "PIDController",
-      "/Shuffleboard/Main/Turn To Note Controller": "PIDController"
+      "/Shuffleboard/Main/Turn To Note Controller": "PIDController",
+      "/Shuffleboard/Main/Turn To Speaker While Driving Controller": "PIDController"
     },
     "windows": {
       "/Shuffleboard/Info/Field": {

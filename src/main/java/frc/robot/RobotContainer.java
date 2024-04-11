@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.drivebase.PathFindToAmp;
 import frc.robot.commands.drivebase.TeleopSwerve;
 import frc.robot.commands.drivebase.TurnToAngle.AngleToTurn;
 import frc.robot.commands.parallel.SetVoltageStates;
@@ -262,8 +261,8 @@ public class RobotContainer {
           true)
       ));
     
-    m_driverController.circle().onTrue(new PathFindToAmp());
-    // m_driverController.circle().onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH, AngleToTurn.SPEAKER));
+    m_driverController.circle().onTrue(new InstantCommand(() -> m_drivebase.setSpeakerTracking(true)));
+    m_driverController.circle().onFalse(new InstantCommand(() -> m_drivebase.setSpeakerTracking(false)));
 
     ///// INTAKE /////
     m_operatorController.a().onTrue(m_robotStateManager.setSuperstructureState(RobotState.BEAM_BREAK_INTAKING));

@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.drivebase.TurnToAngle.AngleToTurn;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.Mode;
 import frc.lib.utilities.GeometryUtils;
@@ -48,8 +49,12 @@ public class SwerveDrive extends SubsystemBase {
 
   private boolean m_xWheels = false;
   private boolean m_targetNote = false;
+  private boolean m_trackSpeaker = false;
 
-  private PIDController m_snapToAngleController;
+  private double kff = 0;
+
+  private PIDController m_trackNoteController;
+  private PIDController m_trackSpeakerController;
 
   private double m_simyaw = 0;
 
@@ -124,8 +129,10 @@ public class SwerveDrive extends SubsystemBase {
 
     robotRelativeChassisSpeeds = new ChassisSpeeds(0, 0, 0);
 
-    m_snapToAngleController = new PIDController(.01, 0, 0.0);
-    RobotContainer.mainTab.add("Turn To Note Controller", m_snapToAngleController);
+    m_trackNoteController = new PIDController(.01, 0, 0.0);
+    m_trackSpeakerController = new PIDController(.01, 0.025, 0.001);
+    RobotContainer.mainTab.add("Turn To Note Controller", m_trackNoteController);
+    RobotContainer.mainTab.add("Turn To Speaker While Driving Controller", m_trackSpeakerController);
 
     if (Constants.kInfoMode) {
       RobotContainer.mainTab.add(m_field).withPosition(2, 0).withSize(8, 5);
@@ -219,8 +226,35 @@ public class SwerveDrive extends SubsystemBase {
       if (m_targetNote) {
         strafe = 0;
         throttle = Math.abs(throttle * DriveConstants.kMaxMetersPerSecond);
-        rotation = MathUtil.clamp(m_snapToAngleController.calculate(LimelightHelpers.getTX("limelight-intake"), 0), -1, 1);
+        rotation = MathUtil.clamp(m_trackNoteController.calculate(LimelightHelpers.getTX("limelight-intake"), 0), -1, 1);
         rotation *= DriveConstants.kMaxRotationRadiansPerSecond;
+      } else if (m_trackSpeaker) {
+        throttle = throttle * DriveConstants.kMaxMetersPerSecond;
+        strafe = strafe * DriveConstants.kMaxMetersPerSecond;
+
+        double m_targetAngle;
+
+        m_targetAngle = calculateAngleToSpeaker() < 0 ? calculateAngleToSpeaker() + 180 : calculateAngleToSpeaker() - 180;
+
+        var alliance = DriverStation.getAlliance();
+
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+          m_targetAngle += -5;
+        } else {
+          m_targetAngle -= 185;
+        }
+
+        kff = SmartDashboard.getNumber("Turn To Angle KFF", kff);
+
+        double speeds =
+            m_trackSpeakerController.calculate(
+                GeometryUtils.getAdjustedYawDegrees(getYawDegrees(), m_targetAngle), 180);
+    
+        kff = speeds > 0.0 ? Math.abs(kff) : -Math.abs(kff);
+    
+        speeds = MathUtil.clamp(speeds + kff, -1, 1);
+
+        rotation = speeds * DriveConstants.kMaxRotationRadiansPerSecond;
       } else {
         throttle = throttle * DriveConstants.kMaxMetersPerSecond;
         strafe = strafe * DriveConstants.kMaxMetersPerSecond;
@@ -377,6 +411,10 @@ public class SwerveDrive extends SubsystemBase {
 
   public void setNoteTracking(boolean value) {
     m_targetNote = value;
+  }
+
+  public void setSpeakerTracking(boolean value) {
+    m_trackSpeaker = value;
   }
 
   public boolean getXWheels() {
