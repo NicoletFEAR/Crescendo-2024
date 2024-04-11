@@ -94,7 +94,7 @@ public class IntakeWrist extends PositionSubsystem {
             kIntakeWristLeaderConstants.kMotorType = MotorType.kBrushless;
             kIntakeWristLeaderConstants.kCurrentLimit = 10; //20
             kIntakeWristLeaderConstants.kInverted = true;
-            kIntakeWristLeaderConstants.kKp = 0.14;
+            kIntakeWristLeaderConstants.kKp = 0.17;
             kIntakeWristLeaderConstants.kKi = 0.0;
             kIntakeWristLeaderConstants.kKd = 0.0;
         }

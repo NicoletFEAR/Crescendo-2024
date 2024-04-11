@@ -16,13 +16,13 @@ import frc.lib.utilities.GeometryUtils;
 
 public class TurnToAngle extends Command {
   /** Creates a new TurnToAngle. */
-  private PIDController angleController = new PIDController(.01, 0.025, 0.001);
+  private PIDController angleController = new PIDController(.016, 0.001, 0.0);
 
   private SwerveDrive m_drivebase;
   private double m_targetAngle = -1;
-  private double deadBand = .15;
+  private double deadBand = 1;
 
-  private double kff = 0.0;
+  private double kff = 0.2;
 
   private AngleToTurn m_angleToTurn = AngleToTurn.OTHER;
 
@@ -60,8 +60,10 @@ public class TurnToAngle extends Command {
 
     if (angleToTurn == AngleToTurn.SPEAKER) {
       RobotContainer.mainTab.add("Turn To Angle Controller", angleController);
-      SmartDashboard.putNumber("Turn To Angle KFF", kff);
+      
     }
+
+    // SmartDashboard.putNumber("Turn To Angle KFF", kff);
     
 
 
@@ -72,6 +74,8 @@ public class TurnToAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
+    m_drivebase.drive(0, 0, 0, true, true);
 
     if (m_angleToTurn == AngleToTurn.SPEAKER) {
       m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
@@ -116,7 +120,7 @@ public class TurnToAngle extends Command {
       }
     }
 
-    kff = SmartDashboard.getNumber("Turn To Angle KFF", kff);
+    // kff = .02;
 
 
     double speeds =
