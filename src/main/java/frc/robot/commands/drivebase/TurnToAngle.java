@@ -20,7 +20,9 @@ public class TurnToAngle extends Command {
 
   private SwerveDrive m_drivebase;
   private double m_targetAngle = -1;
-  private double deadBand = .25;
+  private double deadBand = .15;
+
+  private double kff = 0.0;
 
   private AngleToTurn m_angleToTurn = AngleToTurn.OTHER;
 
@@ -57,7 +59,8 @@ public class TurnToAngle extends Command {
     m_angleToTurn = angleToTurn;
 
     if (angleToTurn == AngleToTurn.SPEAKER) {
-      // RobotContainer.mainTab.add("Turn To Angle Controller", angleController);
+      RobotContainer.mainTab.add("Turn To Angle Controller", angleController);
+      SmartDashboard.putNumber("Turn To Angle KFF", kff);
     }
     
 
@@ -113,12 +116,16 @@ public class TurnToAngle extends Command {
       }
     }
 
-    SmartDashboard.putNumber("Turn To Angle Current", m_drivebase.getYawDegrees());
-    SmartDashboard.putNumber("Turn To Angle Desired", m_targetAngle);
+    kff = SmartDashboard.getNumber("Turn To Angle KFF", kff);
+
+
     double speeds =
         angleController.calculate(
             GeometryUtils.getAdjustedYawDegrees(m_drivebase.getYawDegrees(), m_targetAngle), 180);
-    speeds = MathUtil.clamp(speeds, -1, 1);
+
+    kff = speeds > 0.0 ? Math.abs(kff) : -Math.abs(kff);
+
+    speeds = MathUtil.clamp(speeds + kff, -1, 1);
     m_drivebase.drive(0, 0, speeds, true, true);
   }
 

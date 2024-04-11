@@ -209,6 +209,8 @@ public class SwerveDrive extends SubsystemBase {
 
   public void drive(double throttle, double strafe, double rotation, boolean isOpenLoop, boolean fieldRelative) {
 
+    SmartDashboard.putNumber("Inputed Rotation", rotation);
+
     if (throttle + strafe + rotation != 0 && m_xWheels == true) {
       m_xWheels = false; // this ends the x wheels when Ari starts moving
     }
