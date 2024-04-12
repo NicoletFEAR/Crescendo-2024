@@ -37,7 +37,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
 
     @Override
     public void subsystemPeriodic() {
-        LauncherFlywheelState.PASS.setVelocity(new double[] {calculateAmpRPM(), calculateAmpRPM()});
+        // LauncherFlywheelState.PASS.setVelocity(new double[] {calculateAmpRPM(), calculateAmpRPM()});
         
         if (m_currentState == LauncherFlywheelState.FIELD_BASED_VELOCITY) {
             for (int i = 0; i < m_pidControllers.length; i++) {

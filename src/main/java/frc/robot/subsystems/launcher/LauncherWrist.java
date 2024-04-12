@@ -41,7 +41,7 @@ public class LauncherWrist extends PositionSubsystem {
             Math.abs(RobotContainer.m_drivebase.calculateAngleToSpeaker()),
             RobotContainer.m_drivebase.calculateDistanceToSpeaker(RobotContainer.m_drivebase.getPose())));
             
-        LauncherWristState.PASS.setPosition(calculateAmpPitch());
+        // LauncherWristState.PASS.setPosition(calculateAmpPitch());
         
         SmartDashboard.putNumber("Field Relative Pitch", GeometryUtils.interpolatePitch(
             Math.abs(RobotContainer.m_drivebase.calculateAngleToSpeaker()),
@@ -94,7 +94,7 @@ public class LauncherWrist extends PositionSubsystem {
         LAUNCH_POS_1(56.66, 0),
         LAUNCH_POS_2(56.66, 0),
         LAUNCH_POS_3(56.66, 0),
-        PASS(70, 0),
+        PASS(58, 0),
         POOP_POS_1(0, 0),
         POOP_POS_2(0, 0),
         POOP_POS_3(0, 0),

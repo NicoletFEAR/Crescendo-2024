@@ -7,6 +7,7 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -104,7 +105,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("autoStartSubwoofer", m_robotStateManager.setSuperstructureState(RobotState.AUTO_START_SUBWOOFER));
     NamedCommands.registerCommand("travel", m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
-
+    NamedCommands.registerCommand("fieldLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_LAUNCH));
 
 
     NamedCommands.registerCommand("runLaunch", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
@@ -158,10 +159,11 @@ public class RobotContainer {
     autoChooser.setDefaultOption("None", new InstantCommand());
 
     autoChooser.addOption("Amp Sub 1 Mid 2 Wing 1", AutoBuilder.buildAuto("Amp Sub 1 Mid 2 Wing 1"));
-    autoChooser.addOption("Amp Sub 1 Wing 3", AutoBuilder.buildAuto("Amp Sub 1 Wing 3"));
+    // autoChooser.addOption("Amp Sub 1 Wing 3", AutoBuilder.buildAuto("Amp Sub 1 Wing 3"));
     autoChooser.addOption("Amp Sub 1 Wing 1", AutoBuilder.buildAuto("Amp Sub 1 Wing 1"));
 
     autoChooser.addOption("Front Sub 1 Wing 1", AutoBuilder.buildAuto("Front Sub 1 Wing 1"));
+    autoChooser.addOption("Front 4 Note", AutoBuilder.buildAuto("Front 4 Note"));
 
     autoChooser.addOption("Source Sub 1 Wing 1", AutoBuilder.buildAuto("Source Sub 1 Wing 1"));
     autoChooser.addOption("Source Sub 1 Mid 3 Wing 1", AutoBuilder.buildAuto("Source Sub 1 Mid 3 Wing 1"));
@@ -303,8 +305,8 @@ public class RobotContainer {
     // m_operatorController.pov(90).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
     // m_operatorController.pov(270).onTrue(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF));
     // m_operatorController.pov(270).onFalse(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.OFF));
-    // m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.FIELD_BASED_VELOCITY));
-    // m_operatorController.pov(90).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
+    // m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.PASS));
+    // m_operatorController.pov(90).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.PASS));
 
     }
 

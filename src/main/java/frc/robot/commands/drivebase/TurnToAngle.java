@@ -16,13 +16,13 @@ import frc.lib.utilities.GeometryUtils;
 
 public class TurnToAngle extends Command {
   /** Creates a new TurnToAngle. */
-  private PIDController angleController = new PIDController(.016, 0.001, 0.0);
+  private PIDController angleController = new PIDController(.016, 0.003, 0.0);
 
   private SwerveDrive m_drivebase;
   private double m_targetAngle = -1;
-  private double deadBand = 1;
+  private double deadBand = .5;
 
-  private double kff = 0.2;
+  private double kff = 0.0;
 
   private AngleToTurn m_angleToTurn = AngleToTurn.OTHER;
 
@@ -77,6 +77,8 @@ public class TurnToAngle extends Command {
 
     m_drivebase.drive(0, 0, 0, true, true);
 
+    angleController.setIZone(3);
+
     if (m_angleToTurn == AngleToTurn.SPEAKER) {
       m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
 
@@ -98,9 +100,9 @@ public class TurnToAngle extends Command {
       var alliance = DriverStation.getAlliance();
 
       if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-        m_targetAngle += -10;
+        m_targetAngle += 0;
       } else {
-        m_targetAngle -= 190;
+        m_targetAngle -= 180;
       }
     }
   }
