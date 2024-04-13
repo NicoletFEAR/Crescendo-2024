@@ -58,6 +58,8 @@ public class Robot extends TimedRobot {
 
     SignalLogger.enableAutoLogging(false);
 
+    LED.setState(LEDState.RED);
+
 
     // Command disabledCommand = new PathPlannerAuto("Dummy-Auto-Fix-Auto").ignoringDisable(true);
     // disabledCommand.schedule();
