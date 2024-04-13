@@ -320,6 +320,9 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     // WITH THETA ORDERED LOWEST TO HIGHEST
     public static final HashMap<PolarCoordinate, Double> kDistancePitchMap = new HashMap<>();
     static {
+      kDistancePitchMap.put(new PolarCoordinate(0.0, 0.1), 110.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 0.1), 110.0);
+
       kDistancePitchMap.put(new PolarCoordinate(0.0, 1.5), 110.0);
       kDistancePitchMap.put(new PolarCoordinate(90.0, 1.5), 110.0);
 

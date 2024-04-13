@@ -65,13 +65,30 @@
       "waypointRelativePos": 2.0,
       "rotationDegrees": 36.027373385103594,
       "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.15000000000000002,
+      "rotationDegrees": -51.518909114551086,
+      "rotateFast": false
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Launch",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.25,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 1.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 1.2000000000000002,
       "command": {
         "type": "sequential",
         "data": {
@@ -85,7 +102,24 @@
             {
               "type": "named",
               "data": {
-                "name": "launchPos2LaunchPrepare"
+                "name": "fieldPrepare"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Launch",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "fieldLaunch"
               }
             }
           ]
@@ -94,14 +128,14 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 6.1,
+    "maxVelocity": 5.5,
     "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -14.420000000000016,
+    "rotation": -9.129999999999995,
     "rotateFast": false
   },
   "reversed": false,

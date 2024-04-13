@@ -3,8 +3,6 @@ package frc.robot.subsystems.launcher;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.templates.PositionSubsystem;
 import frc.lib.templates.SubsystemConstants.ManualControlMode;
@@ -13,15 +11,11 @@ import frc.lib.templates.SubsystemConstants.RevMotorType;
 import frc.lib.templates.SubsystemConstants.SparkConstants;
 import frc.lib.utilities.GeometryUtils;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherConstants;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.MotorConstants;
 
 public class LauncherWrist extends PositionSubsystem {
 
     private static LauncherWrist m_instance = null;
-
-    private boolean setHold = false;
 
     public LauncherWrist(PositionSubsystemConstants constants) {
         super(constants);
@@ -47,7 +41,7 @@ public class LauncherWrist extends PositionSubsystem {
             Math.abs(RobotContainer.m_drivebase.calculateAngleToSpeaker()),
             RobotContainer.m_drivebase.calculateDistanceToSpeaker(RobotContainer.m_drivebase.getPose())));
         
-        if (setHold) {
+        if ((m_currentState == LauncherWristState.FIELD_BASED_PITCH && m_desiredState == LauncherWristState.FIELD_BASED_PITCH)) {
             holdPosition();
         }
 
@@ -56,27 +50,23 @@ public class LauncherWrist extends PositionSubsystem {
         }
     }
 
-    private double calculateAmpPitch() {
-        double distance;
+    // private double calculateAmpPitch() {
+    //     double distance;
 
-        if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
-            distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kRedAmpPassPosition);
-        } else {
-            distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kBlueAmpPassPosition);
-        }
+    //     if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
+    //         distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kRedAmpPassPosition);
+    //     } else {
+    //         distance = RobotContainer.m_drivebase.getPose().getTranslation().getDistance(DriveConstants.kBlueAmpPassPosition);
+    //     }
         
-        if (distance > 0 && distance < LauncherConstants.kAmpDistancePitchMap.lastKey()) {
-            double lowerRPM = LauncherConstants.kAmpDistancePitchMap.get(LauncherConstants.kAmpDistancePitchMap.floorKey(distance));
-            double upperRPM = LauncherConstants.kAmpDistancePitchMap.get(LauncherConstants.kAmpDistancePitchMap.ceilingKey(distance));
-            return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
-        } else {
-            return 0;
-        }
-    }
-
-    public void setHold(boolean value) {
-        setHold = value;
-    }
+    //     if (distance > 0 && distance < LauncherConstants.kAmpDistancePitchMap.lastKey()) {
+    //         double lowerRPM = LauncherConstants.kAmpDistancePitchMap.get(LauncherConstants.kAmpDistancePitchMap.floorKey(distance));
+    //         double upperRPM = LauncherConstants.kAmpDistancePitchMap.get(LauncherConstants.kAmpDistancePitchMap.ceilingKey(distance));
+    //         return lowerRPM + (distance - Math.floor(distance)) * (upperRPM - lowerRPM);
+    //     } else {
+    //         return 0;
+    //     }
+    // }
 
     @Override
     public void outputTelemetry() {

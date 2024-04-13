@@ -26,37 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RS1-WN1-RS2"
+            "pathName": "RS1-WN1-RS1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "subwooferLaunch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": null
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "subwooferLaunch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "RS2-WN3-RS2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "subwooferLaunch"
+            "name": "fieldLaunch"
           }
         },
         {

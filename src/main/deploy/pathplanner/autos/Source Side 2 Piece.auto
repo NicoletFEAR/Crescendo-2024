@@ -26,49 +26,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RS3-CN4-LP2"
+            "pathName": "RS3-WN3-RS3"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos2Launch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LP2-CN3-LP2"
+            "name": "fieldLaunch"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos2Launch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LP2-CN2-WN3L"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "wingNote3Launch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "WN3L-WN3-WN3L"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "wingNote3Launch"
+            "name": "travel"
           }
         }
       ]

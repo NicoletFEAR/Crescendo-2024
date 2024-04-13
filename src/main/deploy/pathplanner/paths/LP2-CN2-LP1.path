@@ -101,7 +101,7 @@
             {
               "type": "named",
               "data": {
-                "name": "launchPos1LaunchPrepare"
+                "name": "fieldPrepare"
               }
             }
           ]
@@ -123,7 +123,7 @@
   "reversed": false,
   "folder": "Launch Pos 2",
   "previewStartingState": {
-    "rotation": -14.420000000000016,
+    "rotation": -9.129999999999995,
     "velocity": 0
   },
   "useDefaultConstraints": false

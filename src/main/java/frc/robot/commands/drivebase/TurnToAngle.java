@@ -8,9 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.swerve.SwerveDrive;
 import frc.lib.utilities.GeometryUtils;
 
@@ -20,7 +18,7 @@ public class TurnToAngle extends Command {
 
   private SwerveDrive m_drivebase;
   private double m_targetAngle = -1;
-  private double deadBand = .5;
+  private double deadBand = 1;
 
   private double kff = 0.0;
 
@@ -59,7 +57,7 @@ public class TurnToAngle extends Command {
     m_angleToTurn = angleToTurn;
 
     if (angleToTurn == AngleToTurn.SPEAKER) {
-      RobotContainer.mainTab.add("Turn To Angle Controller", angleController);
+      // RobotContainer.mainTab.add("Turn To Angle Controller", angleController);
       
     }
 

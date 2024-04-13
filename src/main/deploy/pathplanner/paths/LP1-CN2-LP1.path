@@ -69,7 +69,7 @@
             {
               "type": "named",
               "data": {
-                "name": "launchPos1LaunchPrepare"
+                "name": "fieldPrepare"
               }
             }
           ]

@@ -130,7 +130,7 @@ public class SwerveDrive extends SubsystemBase {
 
     m_trackNoteController = new PIDController(.01, 0, 0.0);
     m_trackSpeakerController = new PIDController(.016, 0.001, 0.0);
-    RobotContainer.mainTab.add("Turn To Note Controller", m_trackNoteController);
+    // RobotContainer.mainTab.add("Turn To Note Controller", m_trackNoteController);
     // RobotContainer.mainTab.add("Turn To Speaker While Driving Controller", m_trackSpeakerController);
 
     if (Constants.kInfoMode) {
