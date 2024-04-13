@@ -1,0 +1,73 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.75,
+      "y": 4.49
+    },
+    "rotation": -60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "addGyroSourceSide"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoStartSubwoofer"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RS3-CN5-LP2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fieldLaunch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LP2-CN4-LP2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fieldLaunch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LP2-CN3-LP2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "fieldLaunch"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "travel"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Start Pos 3",
+  "choreoAuto": false
+}

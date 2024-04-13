@@ -7,7 +7,6 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -142,6 +141,7 @@ public class RobotContainer {
     autoChooser.addOption("Front Side 1 Piece", AutoBuilder.buildAuto("Front Side 1 Piece"));
 
     autoChooser.addOption("Source Side Amp Shove", AutoBuilder.buildAuto("Source Side Amp Shove"));
+    autoChooser.addOption("Source Side 4 Piece", AutoBuilder.buildAuto("Source Side 4 Piece"));
     autoChooser.addOption("Source Side 3 Piece", AutoBuilder.buildAuto("Source Side 3 Piece"));
     autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
 
