@@ -3,55 +3,66 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.8,
-        "y": 5.55
+        "x": 1.5,
+        "y": 5.54
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.85,
-        "y": 5.55
+        "x": 1.969103355103652,
+        "y": 5.914088281332758
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "subwooferFront"
     },
     {
       "anchor": {
-        "x": 2.3,
-        "y": 4.1
+        "x": 2.7049452297102787,
+        "y": 6.804101536131
       },
       "prevControl": {
-        "x": 1.5999999999999999,
-        "y": 4.1
+        "x": 2.6695898906509514,
+        "y": 6.768746197071673
       },
       "nextControl": {
-        "x": 2.998918971397374,
-        "y": 4.1
+        "x": 2.740300568769606,
+        "y": 6.8394568751903275
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.8,
-        "y": 5.35
+        "x": 1.5,
+        "y": 5.54
       },
       "prevControl": {
-        "x": 2.119481977536236,
-        "y": 3.5381276691032304
+        "x": 1.985346916639779,
+        "y": 5.928277533311824
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "subwooferFront"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.75,
+      "rotationDegrees": 50.5,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1.35,
+      "rotationDegrees": 50.5,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {

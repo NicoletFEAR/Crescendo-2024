@@ -21,8 +21,6 @@ public class LauncherWrist extends PositionSubsystem {
 
     private static LauncherWrist m_instance = null;
 
-    private boolean setHold = false;
-
     public LauncherWrist(PositionSubsystemConstants constants) {
         super(constants);
     }
@@ -47,7 +45,7 @@ public class LauncherWrist extends PositionSubsystem {
             Math.abs(RobotContainer.m_drivebase.calculateAngleToSpeaker()),
             RobotContainer.m_drivebase.calculateDistanceToSpeaker(RobotContainer.m_drivebase.getPose())));
         
-        if (setHold) {
+        if ((m_currentState == LauncherWristState.FIELD_BASED_PITCH && m_desiredState == LauncherWristState.FIELD_BASED_PITCH)) {
             holdPosition();
         }
 
@@ -72,10 +70,6 @@ public class LauncherWrist extends PositionSubsystem {
         } else {
             return 0;
         }
-    }
-
-    public void setHold(boolean value) {
-        setHold = value;
     }
 
     @Override

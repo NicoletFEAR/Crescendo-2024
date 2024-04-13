@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 0.74,
-        "y": 6.618654443414426
+        "x": 1.0593880647220753,
+        "y": 6.6561862853455445
       },
       "prevControl": {
-        "x": 1.0778774710702572,
-        "y": 6.730143910738272
+        "x": 1.3972655357923334,
+        "y": 6.7676757526693905
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "StartPos1"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -90,7 +90,7 @@
             {
               "type": "named",
               "data": {
-                "name": "subwooferLaunch"
+                "name": "fieldLaunch"
               }
             }
           ]
@@ -106,7 +106,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 60.0,
+    "rotation": 52.54942176826323,
     "rotateFast": false
   },
   "reversed": false,

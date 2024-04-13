@@ -36,7 +36,7 @@
         "y": 5.54
       },
       "prevControl": {
-        "x": 1.900656053564359,
+        "x": 1.9006560535643588,
         "y": 6.203195829815082
       },
       "nextControl": null,
@@ -102,7 +102,7 @@
             {
               "type": "named",
               "data": {
-                "name": "subwooferLaunch"
+                "name": "fieldLaunch"
               }
             }
           ]
@@ -111,8 +111,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 4.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

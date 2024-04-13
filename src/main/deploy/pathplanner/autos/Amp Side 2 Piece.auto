@@ -26,37 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RS1-CN2-LP1"
+            "pathName": "RS1-WN1-RS1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos1Launch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LP1-CN3-WN1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "launchPos1Launch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "WN1L-WN1-WN1L"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "wingNote1Launch"
+            "name": "fieldLaunch"
           }
         },
         {

@@ -59,7 +59,7 @@ public class TurnToAngle extends Command {
     m_angleToTurn = angleToTurn;
 
     if (angleToTurn == AngleToTurn.SPEAKER) {
-      RobotContainer.mainTab.add("Turn To Angle Controller", angleController);
+      // RobotContainer.mainTab.add("Turn To Angle Controller", angleController);
       
     }
 

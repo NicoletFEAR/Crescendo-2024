@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.drivebase.TeleopSwerve;
+import frc.robot.commands.drivebase.TurnToAngle;
 import frc.robot.commands.drivebase.TurnToAngle.AngleToTurn;
 import frc.robot.commands.parallel.SetVoltageStates;
 import frc.robot.commands.sequential.FieldRelativeLaunch;
@@ -105,34 +106,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("autoStartSubwoofer", m_robotStateManager.setSuperstructureState(RobotState.AUTO_START_SUBWOOFER));
     NamedCommands.registerCommand("travel", m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
+    NamedCommands.registerCommand("fieldPrepare", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_PREP));
     NamedCommands.registerCommand("fieldLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_LAUNCH));
 
-
-    NamedCommands.registerCommand("runLaunch", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING));
-
-    NamedCommands.registerCommand("wingNote1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_1)));
-    NamedCommands.registerCommand("wingNote1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_1));
-
-    NamedCommands.registerCommand("wingNote2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_2)));
-    NamedCommands.registerCommand("wingNote2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_2));
-
-    NamedCommands.registerCommand("wingNote3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.WING_NOTE_3)));
-    NamedCommands.registerCommand("wingNote3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.WING_NOTE_3));
-
-    NamedCommands.registerCommand("launchPos1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_1)));
-    NamedCommands.registerCommand("launchPos1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_1));
-  
-    NamedCommands.registerCommand("launchPos2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_2)));
-    NamedCommands.registerCommand("launchPos2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_2));
-
-    NamedCommands.registerCommand("launchPos3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.LAUNCH_POS_3)));
-    NamedCommands.registerCommand("launchPos3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_POS_3));
+    NamedCommands.registerCommand("turnToSpeaker", new TurnToAngle(m_drivebase, AngleToTurn.SPEAKER));
 
     NamedCommands.registerCommand("poopPos1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
       .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_1)));
@@ -149,26 +126,24 @@ public class RobotContainer {
     NamedCommands.registerCommand("addGyroAmpSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, true)));
     NamedCommands.registerCommand("addGyroSourceSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, false)));
 
-    NamedCommands.registerCommand("stow", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
-    .andThen(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.TRAVEL)));
-
 
     
     autoChooser = new SendableChooser<>();
 
     autoChooser.setDefaultOption("None", new InstantCommand());
 
-    autoChooser.addOption("Amp Sub 1 Mid 2 Wing 1", AutoBuilder.buildAuto("Amp Sub 1 Mid 2 Wing 1"));
-    // autoChooser.addOption("Amp Sub 1 Wing 3", AutoBuilder.buildAuto("Amp Sub 1 Wing 3"));
-    autoChooser.addOption("Amp Sub 1 Wing 1", AutoBuilder.buildAuto("Amp Sub 1 Wing 1"));
+    autoChooser.addOption("Amp Side Center 4 Piece", AutoBuilder.buildAuto("Amp Side Center 4 Piece"));
+    autoChooser.addOption("Amp Side 2 Piece", AutoBuilder.buildAuto("Amp Side 2 Piece"));
+    autoChooser.addOption("Amp Side 3 Piece Amp Prepare", AutoBuilder.buildAuto("Amp Side 3 Piece Amp Prepare"));
+    autoChooser.addOption("Amp Side 4 Piece", AutoBuilder.buildAuto("Amp Side 4 Piece"));
 
-    autoChooser.addOption("Front Sub 1 Wing 1", AutoBuilder.buildAuto("Front Sub 1 Wing 1"));
-    autoChooser.addOption("Front 4 Note", AutoBuilder.buildAuto("Front 4 Note"));
+    autoChooser.addOption("Front Side 4 Piece Stage Last", AutoBuilder.buildAuto("Front Side 4 Piece Stage Last"));
+    autoChooser.addOption("Front Side 4 Piece Stage First", AutoBuilder.buildAuto("Front Side 4 Piece Stage First"));
+    autoChooser.addOption("Front Side 1 Piece", AutoBuilder.buildAuto("Front Side 1 Piece"));
 
-    autoChooser.addOption("Source Sub 1 Wing 1", AutoBuilder.buildAuto("Source Sub 1 Wing 1"));
-    autoChooser.addOption("Source Sub 1 Mid 3 Wing 1", AutoBuilder.buildAuto("Source Sub 1 Mid 3 Wing 1"));
-    autoChooser.addOption("Source Sub 1 Mid 3", AutoBuilder.buildAuto("Source Sub 1 Mid 3"));
-    autoChooser.addOption("Source Sub 1 Amp 4", AutoBuilder.buildAuto("Source Sub 1 Amp 4"));
+    autoChooser.addOption("Source Side Amp Shove", AutoBuilder.buildAuto("Source Side Amp Shove"));
+    autoChooser.addOption("Source Side 3 Piece", AutoBuilder.buildAuto("Source Side 3 Piece"));
+    autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
 
     mainTab.add(autoChooser).withPosition(0, 0).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
 

@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7216232234266267,
-        "y": 4.91818208861643
+        "x": 1.5,
+        "y": 4.084434735895005
       },
       "isLocked": false,
       "linkedName": "subwooferFront"
@@ -36,8 +36,8 @@
         "y": 5.54
       },
       "prevControl": {
-        "x": 1.7401126297748089,
-        "y": 4.927426791790521
+        "x": 2.0115924916534516,
+        "y": 4.705553915612336
       },
       "nextControl": null,
       "isLocked": false,
@@ -66,8 +66,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 4.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

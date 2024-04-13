@@ -112,7 +112,7 @@
             {
               "type": "named",
               "data": {
-                "name": "launchPos1LaunchPrepare"
+                "name": "fieldPrepare"
               }
             }
           ]
@@ -129,7 +129,7 @@
             {
               "type": "named",
               "data": {
-                "name": "subwooferLaunch"
+                "name": "fieldLaunch"
               }
             }
           ]

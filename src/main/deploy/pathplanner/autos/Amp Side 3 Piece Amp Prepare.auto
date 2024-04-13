@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.75,
-      "y": 4.49
+      "x": 0.74,
+      "y": 6.62
     },
-    "rotation": -60.0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "addGyroSourceSide"
+            "name": "addGyroAmpSide"
           }
         },
         {
@@ -26,42 +26,36 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RS3-CN4-LP2"
+            "pathName": "RS1-CN2-LP1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos2Launch"
+            "name": "fieldLaunch"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LP2-CN3-LP2"
+            "pathName": "LP1-CN3-LP1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launchPos2Launch"
+            "name": "fieldLaunch"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LP2-CN2-LP1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "launchPos1Launch"
+            "pathName": "LP1-WN1-AMP"
           }
         }
       ]
     }
   },
-  "folder": "Start Pos 3",
+  "folder": "Start Pos 1",
   "choreoAuto": false
 }

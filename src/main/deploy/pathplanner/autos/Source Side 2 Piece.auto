@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.74,
-      "y": 6.62
+      "x": 0.75,
+      "y": 4.49
     },
-    "rotation": 60.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "addGyroAmpSide"
+            "name": "addGyroSourceSide"
           }
         },
         {
@@ -26,37 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RS1-WN1-RS2"
+            "pathName": "RS3-WN3-RS3"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "subwooferLaunch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": null
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "subwooferLaunch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "RS2-WN3-RS2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "subwooferLaunch"
+            "name": "fieldLaunch"
           }
         },
         {
@@ -68,6 +44,6 @@
       ]
     }
   },
-  "folder": "Start Pos 1",
+  "folder": "Start Pos 3",
   "choreoAuto": false
 }
