@@ -3,52 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.55,
-        "y": 5.54
+        "x": 0.75,
+        "y": 4.48552998006897
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.55,
-        "y": 5.54
+        "x": 1.2153924307848631,
+        "y": 4.065180438053184
       },
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": "StartPos3"
     },
     {
       "anchor": {
-        "x": 2.5,
-        "y": 5.54
+        "x": 2.537562767433229,
+        "y": 3.0883530997831223
       },
       "prevControl": {
-        "x": 2.45,
-        "y": 5.54
-      },
-      "nextControl": {
-        "x": 2.55,
-        "y": 5.54
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.55,
-        "y": 5.54
-      },
-      "prevControl": {
-        "x": 1.8244276415578113,
-        "y": 5.536973461174857
+        "x": 2.142885055000881,
+        "y": 3.3744944412965725
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": "RS3L"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
+      "name": "Down",
       "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
@@ -57,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "intake"
+                "name": "downOff"
               }
             }
           ]
@@ -73,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -45.80692945510243,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Start Pos 2",
+  "folder": "Start Pos 3",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -60.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

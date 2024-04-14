@@ -119,7 +119,10 @@ public class RobotStateManager extends SuperstructureSubsystem {
                 ),
             new WaitForLaunchNote(),
             new SetLEDState(LEDState.BLUE_FLASHING, 1.0, LEDState.GREEN_STOW),
-            m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE)
+            m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF)
+                .alongWith(
+                    m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.IDLE)
+                )
         );
     }
 
@@ -137,11 +140,11 @@ public class RobotStateManager extends SuperstructureSubsystem {
 
     private void handleAmpCommand(RobotState robotDesiredState, SequentialCommandGroup outputCommand) {
         outputCommand.addCommands(
-            new WaitForIntakeNote()
-            .alongWith(
-              m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.LAUNCH_TO_INTAKE),
-              m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_TO_INTAKE))
-                .unless(() -> m_intakeSuperstructure.getNoteInIntake() || !m_launcherSuperstructure.getNoteInLauncher()),
+            // new WaitForIntakeNote()
+            // .alongWith(
+            //   m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.LAUNCH_TO_INTAKE),
+            //   m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.LAUNCH_TO_INTAKE))
+            //     .unless(() -> m_intakeSuperstructure.getNoteInIntake() || !m_launcherSuperstructure.getNoteInLauncher()),
             m_intakeSuperstructure.setSuperstructureState(robotDesiredState.intakeSuperstructureState).alongWith(
                 m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState),
                 new SetLEDState(LEDState.GREEN_ELEVATOR_LEDS)
@@ -178,7 +181,7 @@ public class RobotStateManager extends SuperstructureSubsystem {
             LauncherSuperstructureState.TRANSITION),
         AUTO_START_SUBWOOFER(
             IntakeSuperstructureState.DOWNOFF,
-            LauncherSuperstructureState.SUBWOOFER_PREPARE),
+            LauncherSuperstructureState.FIELD_BASED_PREP),
         AMP(
             IntakeSuperstructureState.AMP_PREPARE,
             LauncherSuperstructureState.STOWED),

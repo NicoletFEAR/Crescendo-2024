@@ -352,6 +352,6 @@ public class LED extends SubsystemBase {
     
     public class LEDConstants {
         public static final int kLedStripPort = 1;
-        public static final int kLedStripLength = 50;
+        public static final int kLedStripLength = 53;
     }
 }

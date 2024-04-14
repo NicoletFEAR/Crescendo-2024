@@ -75,6 +75,10 @@ public class SwerveDrive extends SubsystemBase {
 
   private PoseEstimate m_poseEstimate;
 
+  private boolean intakeReady;
+
+  private boolean enableAutoVision;
+
   /**
    *
    *
@@ -204,6 +208,10 @@ public class SwerveDrive extends SubsystemBase {
     m_pigeon.setYaw(value);
   }
 
+  public void setAutoVision(boolean value) {
+    enableAutoVision = value;
+  }
+
   public void addGyro(double value) {
     if (Constants.kCurrentMode == Mode.REAL) {
       m_pigeon.setYaw(m_pigeon.getYaw().getValue() + value);
@@ -276,6 +284,14 @@ public class SwerveDrive extends SubsystemBase {
     } else {
       setSwerveModuleStates(DriveConstants.kXWheels, isOpenLoop);
     }
+  }
+
+  public void setIntakeReady(boolean value) {
+    intakeReady = value;
+  }
+
+  public boolean getIntakeReady() {
+    return intakeReady;
   }
 
   public void autoDrive(ChassisSpeeds speeds) {
@@ -516,7 +532,10 @@ public class SwerveDrive extends SubsystemBase {
     m_poseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-launch");
 
     if (Math.abs(m_pigeon.getRate()) < 720 && !DriverStation.isAutonomous() && m_poseEstimate.pose.getX() != 0) {
-      m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.9,.9,9999999));
+      m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.6,.6,9999999));
+      m_poseEstimator.addVisionMeasurement(m_poseEstimate.pose, m_poseEstimate.timestampSeconds);
+    } else if (enableAutoVision && m_poseEstimate.isPoseTrustworthy()) {
+      m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.6,.6,9999999));
       m_poseEstimator.addVisionMeasurement(m_poseEstimate.pose, m_poseEstimate.timestampSeconds);
     }
 

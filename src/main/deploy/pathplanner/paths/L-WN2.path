@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.55,
+        "x": 2.0,
         "y": 5.54
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.55,
+        "x": 2.3399808345752726,
         "y": 5.54
       },
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": "RS2L"
     },
     {
       "anchor": {
@@ -20,51 +20,17 @@
         "y": 5.54
       },
       "prevControl": {
-        "x": 2.45,
+        "x": 2.131528972130809,
         "y": 5.54
-      },
-      "nextControl": {
-        "x": 2.55,
-        "y": 5.54
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.55,
-        "y": 5.54
-      },
-      "prevControl": {
-        "x": 1.8244276415578113,
-        "y": 5.536973461174857
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": "WingNote 2"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,

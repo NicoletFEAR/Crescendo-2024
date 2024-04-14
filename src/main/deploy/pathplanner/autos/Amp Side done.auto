@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RS1-WN1-RS1"
+            "pathName": "RS1-CN2-LP1"
           }
         },
         {
@@ -36,9 +36,21 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "LP1-CN3-LP1"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "travel"
+            "name": "fieldLaunch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LP1-WN1-AMP"
           }
         }
       ]

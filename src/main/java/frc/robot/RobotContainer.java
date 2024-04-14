@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveConstants;
@@ -28,6 +30,7 @@ import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
 import frc.robot.commands.superstructure.SetVoltageSubsystemState;
+import frc.robot.commands.waits.WaitForIntakeReady;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.RobotStateManager;
 import frc.robot.subsystems.RobotStateManager.RobotState;
@@ -107,6 +110,13 @@ public class RobotContainer {
     NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
     NamedCommands.registerCommand("fieldPrepare", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_PREP));
     NamedCommands.registerCommand("fieldLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_LAUNCH));
+    NamedCommands.registerCommand("intakeReady", new InstantCommand(() -> m_drivebase.setIntakeReady(true)));
+
+    NamedCommands.registerCommand("downOff", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF));
+
+    NamedCommands.registerCommand("waitForIntakeReady", new ParallelRaceGroup(new WaitForIntakeReady(), new WaitCommand(3)));
+
+    NamedCommands.registerCommand("turnShoot", new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH, AngleToTurn.SPEAKER));
 
     NamedCommands.registerCommand("turnToSpeaker", new TurnToAngle(m_drivebase, AngleToTurn.SPEAKER));
 
@@ -124,7 +134,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("addGyroAmpSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, true)));
     NamedCommands.registerCommand("addGyroSourceSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, false)));
-
+    NamedCommands.registerCommand("enableAutoVision", new InstantCommand(() -> m_drivebase.setAutoVision(true)));
 
     
     autoChooser = new SendableChooser<>();
@@ -132,16 +142,16 @@ public class RobotContainer {
     autoChooser.setDefaultOption("None", new InstantCommand());
 
     autoChooser.addOption("Amp Side Center 4 Piece", AutoBuilder.buildAuto("Amp Side Center 4 Piece"));
-    autoChooser.addOption("Amp Side 2 Piece", AutoBuilder.buildAuto("Amp Side 2 Piece"));
+    // autoChooser.addOption("Amp Side 2 Piece", AutoBuilder.buildAuto("Amp Side 2 Piece"));
     autoChooser.addOption("Amp Side 3 Piece Amp Prepare", AutoBuilder.buildAuto("Amp Side 3 Piece Amp Prepare"));
     autoChooser.addOption("Amp Side 4 Piece", AutoBuilder.buildAuto("Amp Side 4 Piece"));
 
-    autoChooser.addOption("Front Side 4 Piece Stage Last", AutoBuilder.buildAuto("Front Side 4 Piece Stage Last"));
     autoChooser.addOption("Front Side 4 Piece Stage First", AutoBuilder.buildAuto("Front Side 4 Piece Stage First"));
-    autoChooser.addOption("Front Side 1 Piece", AutoBuilder.buildAuto("Front Side 1 Piece"));
+    autoChooser.addOption("Front Side 3 Piece", AutoBuilder.buildAuto("Front Side 3 Piece"));
+    autoChooser.addOption("Front Side 4 Piece", AutoBuilder.buildAuto("Front Side 4 Piece"));
 
     autoChooser.addOption("Source Side Amp Shove", AutoBuilder.buildAuto("Source Side Amp Shove"));
-    autoChooser.addOption("Source Side 4 Piece", AutoBuilder.buildAuto("Source Side 4 Piece"));
+    autoChooser.addOption("Source Side 3 Piece Pass", AutoBuilder.buildAuto("Source Side 3 Piece Pass"));
     autoChooser.addOption("Source Side 3 Piece", AutoBuilder.buildAuto("Source Side 3 Piece"));
     autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
 
@@ -278,8 +288,8 @@ public class RobotContainer {
     m_operatorController.pov(90).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH, AngleToTurn.SPEAKER));
     // m_operatorController.pov(90).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.TESTING));
     // m_operatorController.pov(90).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
-    // m_operatorController.pov(270).onTrue(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.OFF));
-    // m_operatorController.pov(270).onFalse(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.OFF));
+    m_operatorController.pov(270).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
+    m_operatorController.pov(270).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.FIELD_BASED_VELOCITY));
     // m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.PASS));
     // m_operatorController.pov(90).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.PASS));
 

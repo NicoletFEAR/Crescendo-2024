@@ -3,55 +3,61 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.55,
-        "y": 5.54
+        "x": 2.557296653054846,
+        "y": 6.788456653836385
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.55,
-        "y": 5.54
+        "x": 3.5572966530548458,
+        "y": 6.788456653836385
       },
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": "WingNote"
     },
     {
       "anchor": {
-        "x": 2.5,
-        "y": 5.54
+        "x": 8.043316855864482,
+        "y": 5.8609640296203676
       },
       "prevControl": {
-        "x": 2.45,
-        "y": 5.54
+        "x": 8.043316855864482,
+        "y": 5.910964029620367
       },
       "nextControl": {
-        "x": 2.55,
-        "y": 5.54
+        "x": 8.043316855864482,
+        "y": 5.810964029620368
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.55,
-        "y": 5.54
+        "x": 3.642660362243803,
+        "y": 6.531916140755359
       },
       "prevControl": {
-        "x": 1.8244276415578113,
-        "y": 5.536973461174857
+        "x": 4.47148355835173,
+        "y": 6.561516969187787
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": -46.00508600525428,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "Intake",
       "waypointRelativePos": 0,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
@@ -66,20 +72,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 4.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 14.931417178137526,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Start Pos 2",
+  "folder": "Wing Note 1",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 23.19859051364819,
     "velocity": 0
   },
   "useDefaultConstraints": false

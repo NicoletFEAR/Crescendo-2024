@@ -68,6 +68,9 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       case INTAKE_TO_LAUNCH:
         handleThruIntakeCommand(launcherDesiredState, outputCommand);
         break;
+      case FIELD_BASED_PREP:
+        handleFieldBasedPrep(launcherDesiredState, outputCommand);
+        break;
       default:
         handleDefaultCommand(launcherDesiredState, outputCommand);
         break;
@@ -103,6 +106,14 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
         .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState))
         .alongWith(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState))
         .andThen(new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, LauncherFlywheelState.IDLE).onlyIf(() -> RobotContainer.m_launcherFlywheel.getVelocity()[0] > LauncherFlywheelState.IDLE.getVelocity()[0] && getNoteInLauncher()))
+    );
+  }
+
+  private void handleFieldBasedPrep(LauncherSuperstructureState launcherDesiredState, SequentialCommandGroup outputCommand) {
+    outputCommand.addCommands(
+      new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, launcherDesiredState.launcherFlywheelState)
+        .alongWith(new SetPositionSubsystemState(RobotContainer.m_launcherWrist, launcherDesiredState.launcherWristState))
+        .alongWith(new SetVoltageSubsystemState(RobotContainer.m_launcherHold, launcherDesiredState.launcherHoldState))
     );
   }
 
@@ -349,6 +360,12 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
       kDistancePitchMap.put(new PolarCoordinate(0.0, 3.5), 62.0);
       kDistancePitchMap.put(new PolarCoordinate(90.0, 3.5), 62.0);
+
+      kDistancePitchMap.put(new PolarCoordinate(0.0, 3.75), 52.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 3.75), 52.0);
+
+      kDistancePitchMap.put(new PolarCoordinate(0.0, 15.0), 52.0);
+      kDistancePitchMap.put(new PolarCoordinate(90.0, 15.0), 52.0);
     }
   }
 }

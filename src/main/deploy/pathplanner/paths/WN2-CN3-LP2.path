@@ -3,105 +3,93 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.4157206775952025,
-        "y": 6.512182255133741
+        "x": 2.5,
+        "y": 5.54
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.0790323865609635,
-        "y": 6.553655618260648
+        "x": 3.3170512494871156,
+        "y": 5.416951603133977
       },
       "isLocked": false,
-      "linkedName": "LaunchPos1"
+      "linkedName": "WingNote 2"
     },
     {
       "anchor": {
-        "x": 6.3381135771280555,
-        "y": 6.138482907596446
+        "x": 5.201637326351578,
+        "y": 4.528926750161193
       },
       "prevControl": {
-        "x": 5.293462118455769,
-        "y": 6.757878020260545
+        "x": 4.131014979342434,
+        "y": 4.944702418902607
       },
       "nextControl": {
-        "x": 7.529109242397753,
-        "y": 5.432317336153351
+        "x": 6.217932435864873,
+        "y": 4.134249037728845
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.891223710375348,
-        "y": 4.502170445782333
+        "x": 7.924913542134778,
+        "y": 4.114515152107228
       },
       "prevControl": {
-        "x": 7.870359185965623,
-        "y": 4.456731787998944
+        "x": 7.924913542134778,
+        "y": 4.064515152107228
       },
       "nextControl": {
-        "x": 7.912088234785072,
-        "y": 4.547609103565723
+        "x": 7.924913542134778,
+        "y": 4.164515152107228
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.328868873953963,
-        "y": 6.147727610770538
+        "x": 5.093100955432681,
+        "y": 4.558527578593619
       },
       "prevControl": {
-        "x": 7.077689831055338,
-        "y": 5.63002423302144
+        "x": 5.931791094351422,
+        "y": 4.193450694593698
       },
       "nextControl": {
-        "x": 5.5780428314008885,
-        "y": 6.666817220436861
+        "x": 4.19426465727264,
+        "y": 4.9497857319103415
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.4157206775952025,
-        "y": 6.512182255133741
+        "x": 3.7117289619194636,
+        "y": 5.318282175025889
       },
       "prevControl": {
-        "x": 4.125255902431418,
-        "y": 6.553655618260648
+        "x": 4.274144702135559,
+        "y": 5.130810261620524
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LaunchPos1"
+      "linkedName": "LaunchPos2"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 2.0,
-      "rotationDegrees": -47.72631099390626,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "Intake",
       "waypointRelativePos": 0,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
                 "name": "intake"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "fieldPrepare"
               }
             }
           ]
@@ -110,20 +98,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.5,
-    "maxAcceleration": 4.5,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 14.43,
+    "rotation": -4.666858371439097,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Launch Pos 1",
+  "folder": "Wing Note 2",
   "previewStartingState": {
-    "rotation": 14.43,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": false

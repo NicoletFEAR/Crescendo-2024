@@ -3,52 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.55,
+        "x": 1.3,
         "y": 5.54
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.55,
+        "x": 1.6399808345752724,
         "y": 5.54
       },
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": "startPos2"
     },
     {
       "anchor": {
-        "x": 2.5,
+        "x": 2.0,
         "y": 5.54
       },
       "prevControl": {
-        "x": 2.45,
+        "x": 1.6315289721308086,
         "y": 5.54
-      },
-      "nextControl": {
-        "x": 2.55,
-        "y": 5.54
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.55,
-        "y": 5.54
-      },
-      "prevControl": {
-        "x": 1.8244276415578113,
-        "y": 5.536973461174857
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": "RS2L"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
+      "name": "Down",
       "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
@@ -57,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "intake"
+                "name": "downOff"
               }
             }
           ]
@@ -66,8 +50,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 1.75,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -82,5 +66,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

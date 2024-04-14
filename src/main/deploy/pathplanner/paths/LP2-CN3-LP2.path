@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.285789472479845,
-        "y": 4.890447979094157
+        "x": 3.7117289619194636,
+        "y": 5.318282175025889
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.145546867670311,
-        "y": 4.2710528664300575
+        "x": 4.57148635710993,
+        "y": 4.6988870623617895
       },
       "isLocked": false,
       "linkedName": "LaunchPos2"
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 4.285789472479845,
-        "y": 4.890447979094157
+        "x": 3.7117289619194636,
+        "y": 5.318282175025889
       },
       "prevControl": {
-        "x": 5.154791570844402,
-        "y": 4.280297569604149
+        "x": 4.5807310602840206,
+        "y": 4.708131765535881
       },
       "nextControl": null,
       "isLocked": false,
@@ -78,8 +78,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 6.1,
-    "maxAcceleration": 4.5,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

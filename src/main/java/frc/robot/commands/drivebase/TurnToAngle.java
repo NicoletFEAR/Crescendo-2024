@@ -9,6 +9,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.swerve.SwerveDrive;
 import frc.lib.utilities.GeometryUtils;
 
@@ -18,9 +19,11 @@ public class TurnToAngle extends Command {
 
   private SwerveDrive m_drivebase;
   private double m_targetAngle = -1;
-  private double deadBand = 1;
+  private double deadBand = 2;
 
   private double kff = 0.0;
+
+  private AutoPos autoPosition = AutoPos.NONE;
 
   private AngleToTurn m_angleToTurn = AngleToTurn.OTHER;
 
@@ -73,6 +76,14 @@ public class TurnToAngle extends Command {
   @Override
   public void initialize() {
 
+    if (RobotContainer.m_drivebase.getIsSetGyroRequestPresent()) {
+      if (RobotContainer.m_drivebase.getIsGyroRequestAmpSide()) {
+        autoPosition = AutoPos.AMP;
+      } else {
+        autoPosition = AutoPos.SOURCE;
+      }
+    }
+
     m_drivebase.drive(0, 0, 0, true, true);
 
     angleController.setIZone(3);
@@ -87,6 +98,7 @@ public class TurnToAngle extends Command {
       } else {
         m_targetAngle -= 185;
       }
+      m_targetAngle += autoPosition.getOffset();
       
       /*
        *  this part is here instead of the constructor because the constructor happens on robot init, 
@@ -102,6 +114,7 @@ public class TurnToAngle extends Command {
       } else {
         m_targetAngle -= 180;
       }
+      m_targetAngle += autoPosition.getOffset();
     }
   }
 
@@ -118,6 +131,7 @@ public class TurnToAngle extends Command {
       } else {
         m_targetAngle -= 185;
       }
+      m_targetAngle += autoPosition.getOffset();
     }
 
     // kff = .02;
@@ -154,5 +168,21 @@ public class TurnToAngle extends Command {
     SPEAKER,
     AMP,
     OTHER
+  }
+
+  public enum AutoPos {
+    AMP(-60),
+    SOURCE(60),
+    NONE(0);
+
+    private double offset;
+
+    private AutoPos(double offset) {
+      this.offset = offset;
+    }
+
+    public double getOffset() {
+      return offset;
+    }
   }
 }

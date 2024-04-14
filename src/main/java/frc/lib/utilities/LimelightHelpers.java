@@ -437,8 +437,8 @@ public class LimelightHelpers {
 
         public boolean isPoseTrustworthy() {
             isPoseInField = pose.getX() > 0 && pose.getX() < 16.51 && pose.getY() > 0 && pose.getY() < 8.17;
-            rotatingTooMuch = RobotContainer.m_drivebase.getPigeon().getRate() < 720;
-            movingTooFast = RobotContainer.m_drivebase.getChassisSpeeds().vxMetersPerSecond < .75 && RobotContainer.m_drivebase.getChassisSpeeds().vyMetersPerSecond < .75;
+            rotatingTooMuch = RobotContainer.m_drivebase.getPigeon().getRate() < 180;
+            movingTooFast = RobotContainer.m_drivebase.getChassisSpeeds().vxMetersPerSecond < .6 && RobotContainer.m_drivebase.getChassisSpeeds().vyMetersPerSecond < .6;
 
             return isPoseInField && rotatingTooMuch && movingTooFast;
         }

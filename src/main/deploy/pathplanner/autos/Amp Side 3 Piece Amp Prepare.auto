@@ -18,39 +18,71 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "autoStartSubwoofer"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "RS1-CN2-LP1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "fieldLaunch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LP1-CN3-LP1"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "downOff"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RS1-WN1"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "fieldLaunch"
+            "name": "turnShoot"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "WN1-L"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "turnShoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LP1-WN1-AMP"
+            "pathName": "WN1-CN2-LP1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "turnShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LP1-CN3-AMP"
           }
         }
       ]
