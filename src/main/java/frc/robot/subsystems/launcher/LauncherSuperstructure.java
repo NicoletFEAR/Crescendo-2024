@@ -3,6 +3,7 @@ package frc.robot.subsystems.launcher;
 import java.util.HashMap;
 import java.util.TreeMap;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -31,10 +32,12 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
   private static LauncherSuperstructure m_instance = null;
 
+  private GenericEntry beamBreakEntry;
+
   public LauncherSuperstructure(SuperstructureState initialState, String name) {
     super(initialState, name);
 
-    RobotContainer.mainTab.add("Note In Launcher", m_noteInLauncher).withPosition(1, 1).withSize(1, 4);
+    beamBreakEntry = RobotContainer.mainTab.add("Note In Launcher", m_noteInLauncher).withPosition(1, 1).withSize(1, 4).getEntry();
 
     // SmartDashboard.putBoolean("note in launcher", m_noteInLauncher);
 
@@ -158,6 +161,9 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     }
 
     // m_noteInLauncher = SmartDashboard.getBoolean("note in launcher", m_noteInLauncher);
+
+    beamBreakEntry.setBoolean(m_noteInLauncher);
+    
     if (Constants.kInfoMode) {
       SmartDashboard.putBoolean(m_name + "/" + "launcher beam break", m_launcherBeamBreak.get());
     }

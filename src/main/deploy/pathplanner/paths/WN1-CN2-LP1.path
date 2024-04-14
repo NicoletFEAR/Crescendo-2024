@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 3.642660362243803,
-        "y": 6.531916140755359
+        "x": 3.4157206775952025,
+        "y": 6.512182255133741
       },
       "prevControl": {
-        "x": 4.47148355835173,
-        "y": 6.561516969187787
+        "x": 4.24454387370313,
+        "y": 6.541783083566169
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "LaunchPos1"
     }
   ],
   "rotationTargets": [

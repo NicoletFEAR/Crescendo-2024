@@ -44,7 +44,7 @@ public class IntakeWrist extends PositionSubsystem {
         STOWED(0, 0),
         AMP(1.20, 0),
         NOTE_TO_LAUNCHER(6, 0),
-        TRAVEL(4, 0),
+        TRAVEL(5, 0),
         TRANSITION(0, 0),
         LAUNCHING(6.5, 0),
         MANUAL(0, 0);

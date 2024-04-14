@@ -2,6 +2,7 @@ package frc.robot.subsystems.intake;
 
 import com.playingwithfusion.TimeOfFlight;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -22,10 +23,12 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
 
   private static IntakeSuperstructure m_instance = null;
 
+  private GenericEntry tofEntry;
+
   public IntakeSuperstructure(SuperstructureState initialState, String name) {
     super(initialState, name);
 
-    RobotContainer.mainTab.add("TOF Blocked", getNoteInIntake()).withPosition(0, 1).withSize(1, 4);
+    tofEntry = RobotContainer.mainTab.add("TOF Blocked", getNoteInIntake()).withPosition(0, 1).withSize(1, 4).getEntry();
 
     // SmartDashboard.putBoolean("Is note in intake", false);
   }
@@ -60,6 +63,8 @@ public class IntakeSuperstructure extends SuperstructureSubsystem {
     } if (!isNoteInIntake && getNoteInIntake()){
       isNoteInIntake = true;
     }
+
+    tofEntry.setBoolean(isNoteInIntake);
 
     if (Constants.kInfoMode) {
       SmartDashboard.putNumber(m_name + "/" + "TOF Range", m_intakeTOF.getRange());

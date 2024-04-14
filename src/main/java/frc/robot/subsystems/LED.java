@@ -94,8 +94,10 @@ public class LED extends SubsystemBase {
     
       public static void setState(LEDState desiredState) {
         m_currentState = desiredState;
-        if (desiredState.ledRunnable == null) {
+        System.out.println("Switching State");
+        if (desiredState.ledRunnable == null || desiredState == LEDState.GREEN_STOW || desiredState == LEDState.TEAL_STOW) {
           setRGB(desiredState.red, desiredState.green, desiredState.blue);
+          System.out.println("Setting RGB " + desiredState.red + ", " + desiredState.green + ", " + desiredState.blue);
         } else if (desiredState == LEDState.GREEN_LAUNCHER_LEDS || desiredState == LEDState.RED_LAUNCHER_LEDS) {
           launcherFrozenVel = RobotContainer.m_launcherFlywheel.getVelocity()[0];
         }
@@ -253,7 +255,7 @@ public class LED extends SubsystemBase {
       public static void setLedToLauncherVelocity() {
         if (noteInRobot && m_currentState != LEDState.GREEN_LAUNCHER_LEDS) {
           setState(LEDState.GREEN_LAUNCHER_LEDS);
-        } else if (!noteInRobot && m_currentState != LEDState.RED_LAUNCHER_LEDS && RobotContainer.m_launcherFlywheel.getVelocity()[0] < 2000) {
+        } else if (!noteInRobot && m_currentState != LEDState.RED_LAUNCHER_LEDS && RobotContainer.m_launcherFlywheel.getVelocity()[0] < 3000) {
           setState(LEDState.RED_LAUNCHER_LEDS);
         }
 
@@ -271,15 +273,15 @@ public class LED extends SubsystemBase {
         }
 
         velPercent = MathUtil.clamp(velPercent, 0, 1);
-        double ledAmount = (int) ((LEDConstants.kLedStripLength / 2) * velPercent);
+        double ledAmount = (int) ((26) * velPercent);
 
-        for (int i = 0; i < LEDConstants.kLedStripLength / 2; i++) {
+        for (int i = 2; i < 27; i++) {
           if (i <= ledAmount) {
             m_ledBuffer.setRGB(i, m_currentState.red, m_currentState.green, m_currentState.blue);
-            m_ledBuffer.setRGB(i + LEDConstants.kLedStripLength / 2, m_currentState.red, m_currentState.green, m_currentState.blue);
+            m_ledBuffer.setRGB(i + 26, m_currentState.red, m_currentState.green, m_currentState.blue);
           } else {
             m_ledBuffer.setRGB(i, 0, 0, 0);
-            m_ledBuffer.setRGB(i + LEDConstants.kLedStripLength / 2, 0, 0, 0);
+            m_ledBuffer.setRGB(i + 26, 0, 0, 0);
           }
         }
         
@@ -297,15 +299,15 @@ public class LED extends SubsystemBase {
         double velPercent = RobotContainer.m_elevatorLift.getPosition()[0] / RobotContainer.m_elevatorLift.getDesiredState().getPosition()[0];
 
         velPercent = MathUtil.clamp(velPercent, 0, 1);
-        double ledAmount = (int) ((LEDConstants.kLedStripLength / 2) * velPercent);
+        double ledAmount = (int) ((26) * velPercent);
 
-        for (int i = 0; i < LEDConstants.kLedStripLength / 2; i++) {
+        for (int i = 2; i < 27; i++) {
           if (i <= ledAmount) {
             m_ledBuffer.setRGB(i, m_currentState.red, m_currentState.green, m_currentState.blue);
-            m_ledBuffer.setRGB(i + LEDConstants.kLedStripLength / 2, m_currentState.red, m_currentState.green, m_currentState.blue);
+            m_ledBuffer.setRGB(i + 26, m_currentState.red, m_currentState.green, m_currentState.blue);
           } else {
             m_ledBuffer.setRGB(i, 0, 0, 0);
-            m_ledBuffer.setRGB(i + LEDConstants.kLedStripLength / 2, 0, 0, 0);
+            m_ledBuffer.setRGB(i + 26, 0, 0, 0);
           }
         }
         
@@ -353,5 +355,7 @@ public class LED extends SubsystemBase {
     public class LEDConstants {
         public static final int kLedStripPort = 1;
         public static final int kLedStripLength = 53;
+
+        public static final int kLedDesiredStripLength = 50;
     }
 }

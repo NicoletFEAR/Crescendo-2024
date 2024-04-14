@@ -141,19 +141,14 @@ public class RobotContainer {
 
     autoChooser.setDefaultOption("None", new InstantCommand());
 
-    autoChooser.addOption("Amp Side Center 4 Piece", AutoBuilder.buildAuto("Amp Side Center 4 Piece"));
-    // autoChooser.addOption("Amp Side 2 Piece", AutoBuilder.buildAuto("Amp Side 2 Piece"));
     autoChooser.addOption("Amp Side 3 Piece Amp Prepare", AutoBuilder.buildAuto("Amp Side 3 Piece Amp Prepare"));
-    autoChooser.addOption("Amp Side 4 Piece", AutoBuilder.buildAuto("Amp Side 4 Piece"));
 
     autoChooser.addOption("Front Side 4 Piece Stage First", AutoBuilder.buildAuto("Front Side 4 Piece Stage First"));
     autoChooser.addOption("Front Side 3 Piece", AutoBuilder.buildAuto("Front Side 3 Piece"));
     autoChooser.addOption("Front Side 4 Piece", AutoBuilder.buildAuto("Front Side 4 Piece"));
 
-    autoChooser.addOption("Source Side Amp Shove", AutoBuilder.buildAuto("Source Side Amp Shove"));
     autoChooser.addOption("Source Side 3 Piece Pass", AutoBuilder.buildAuto("Source Side 3 Piece Pass"));
     autoChooser.addOption("Source Side 3 Piece", AutoBuilder.buildAuto("Source Side 3 Piece"));
-    autoChooser.addOption("Source Side 2 Piece", AutoBuilder.buildAuto("Source Side 2 Piece"));
 
     mainTab.add(autoChooser).withPosition(0, 0).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
 
