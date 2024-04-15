@@ -11,8 +11,10 @@ import frc.robot.RobotContainer;
 // import frc.robot.commands.drivebase.ResetPoseWithVision;
 import frc.robot.commands.drivebase.TurnToAngle;
 import frc.robot.commands.drivebase.TurnToAngle.AngleToTurn;
+import frc.robot.commands.superstructure.SetLEDState;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
 import frc.robot.commands.superstructure.SetVelocitySubsystemState;
+import frc.robot.subsystems.LED.LEDState;
 import frc.robot.subsystems.launcher.LauncherSuperstructure.LauncherSuperstructureState;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -30,13 +32,17 @@ public class FieldRelativeLaunch extends SequentialCommandGroup {
           new SequentialCommandGroup(new TurnToAngle(RobotContainer.m_drivebase, angleToTurn),
             new InstantCommand(RobotContainer.m_drivebase::toggleXWheels))
           .alongWith(new SetVelocitySubsystemState(RobotContainer.m_launcherFlywheel, desiredState.launcherFlywheelState),
-                      new SetPositionSubsystemState(RobotContainer.m_launcherWrist, desiredState.launcherWristState)
+                      new SetPositionSubsystemState(RobotContainer.m_launcherWrist, desiredState.launcherWristState),
+                      new SetLEDState(LEDState.GREEN_LAUNCHER_LEDS)
                     ),
 
           // Launch then wait till done launching then go back to zero
           RobotContainer.m_launcherSuperstructure.setSuperstructureState(desiredState),
           new WaitCommand(.1),
           RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.STOWED)
+            .alongWith(
+              new SetLEDState(LEDState.GREEN_FLASHING, 1.0, LEDState.TEAL_STOW)
+            )
       )
     );
   }

@@ -60,6 +60,8 @@ public class LED extends SubsystemBase {
 
       private static double launcherFrozenVel = 0;
 
+      private static double elevatorFrozenPos = 0;
+
       // Robot States
 
 
@@ -94,12 +96,12 @@ public class LED extends SubsystemBase {
     
       public static void setState(LEDState desiredState) {
         m_currentState = desiredState;
-        System.out.println("Switching State");
         if (desiredState.ledRunnable == null || desiredState == LEDState.GREEN_STOW || desiredState == LEDState.TEAL_STOW) {
           setRGB(desiredState.red, desiredState.green, desiredState.blue);
-          System.out.println("Setting RGB " + desiredState.red + ", " + desiredState.green + ", " + desiredState.blue);
         } else if (desiredState == LEDState.GREEN_LAUNCHER_LEDS || desiredState == LEDState.RED_LAUNCHER_LEDS) {
           launcherFrozenVel = RobotContainer.m_launcherFlywheel.getVelocity()[0];
+        } else if (desiredState == LEDState.GREEN_ELEVATOR_LEDS || desiredState == LEDState.TEAL_ELEVATOR_LEDS) {
+          elevatorFrozenPos = RobotContainer.m_elevatorLift.getPosition()[0];
         }
       }
 
@@ -296,10 +298,22 @@ public class LED extends SubsystemBase {
           setState(LEDState.TEAL_ELEVATOR_LEDS);
         }
 
-        double velPercent = RobotContainer.m_elevatorLift.getPosition()[0] / RobotContainer.m_elevatorLift.getDesiredState().getPosition()[0];
+        double posPercent;
 
-        velPercent = MathUtil.clamp(velPercent, 0, 1);
-        double ledAmount = (int) ((26) * velPercent);
+        double currentPos = RobotContainer.m_launcherFlywheel.getVelocity()[0];
+        double intendedPos = RobotContainer.m_launcherFlywheel.getDesiredState().getVelocity()[0];        
+
+        if (currentPos < intendedPos) {
+          posPercent = currentPos / intendedPos;
+        } else {
+          posPercent = (currentPos - intendedPos) / (elevatorFrozenPos - intendedPos);
+        }
+
+        posPercent = MathUtil.clamp(posPercent, 0, 1);
+
+        if (posPercent >= .98) posPercent = 1;
+        
+        double ledAmount = (int) ((26) * posPercent);
 
         for (int i = 2; i < 27; i++) {
           if (i <= ledAmount) {

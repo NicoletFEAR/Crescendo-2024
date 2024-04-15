@@ -42,6 +42,8 @@ public class RobotStateManager extends SuperstructureSubsystem {
             
         SequentialCommandGroup outputCommand = new SequentialCommandGroup();
 
+        outputCommand.addCommands(new SetLEDState(LEDState.TEAL_ELEVATOR_LEDS).onlyIf((() -> m_currentState == RobotState.AMP && robotDesiredState == RobotState.TRAVEL)));
+
         outputCommand.addCommands(new InstantCommand(() -> m_desiredState = robotDesiredState).alongWith(
             new InstantCommand(() -> m_currentState = RobotState.TRANSITION)
         ));
@@ -89,9 +91,9 @@ public class RobotStateManager extends SuperstructureSubsystem {
     private void handleTravelCommand(RobotState robotDesiredState, SequentialCommandGroup outputCommand) {
         outputCommand.addCommands(
             m_intakeSuperstructure.setSuperstructureState(robotDesiredState.intakeSuperstructureState).alongWith(
-                m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState),
-                new SetLEDState(LEDState.TEAL_STOW)
-            )
+                m_launcherSuperstructure.setSuperstructureState(robotDesiredState.launcherSuperstructureState)
+            ),
+            new SetLEDState(LEDState.TEAL_STOW)
         );
     }
 
