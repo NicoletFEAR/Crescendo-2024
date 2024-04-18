@@ -26,13 +26,25 @@
         {
           "type": "path",
           "data": {
+            "pathName": "RS3-RS3L"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferLaunch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "RS3-WN3-RS3"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "fieldLaunch"
+            "name": "subwooferLaunch"
           }
         },
         {

@@ -4,15 +4,15 @@
     {
       "anchor": {
         "x": 1.55,
-        "y": 5.54
+        "y": 5.7
       },
       "prevControl": null,
       "nextControl": {
         "x": 2.019103355103652,
-        "y": 5.914088281332758
+        "y": 6.074088281332759
       },
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": "newSub"
     },
     {
       "anchor": {
@@ -33,15 +33,15 @@
     {
       "anchor": {
         "x": 1.55,
-        "y": 5.54
+        "y": 5.75
       },
       "prevControl": {
         "x": 2.035346916639779,
-        "y": 5.928277533311824
+        "y": 6.138277533311824
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": null
     }
   ],
   "rotationTargets": [

@@ -543,11 +543,23 @@ public class SwerveDrive extends SubsystemBase {
 
   }
 
-  private double correctGyroForLimelight(double value) {
+  public double correctGyroForLimelight(double value) {
     var alliance = DriverStation.getAlliance();
 
     if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-      return value + 180;
+      //System.out.println((value + 180));
+      return (value + 180);
+    }
+
+    return value;
+  }
+
+  public Rotation2d correctGyroForLimelight(Rotation2d value) {
+    var alliance = DriverStation.getAlliance();
+
+    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+      //System.out.println(value.rotateBy(new Rotation2d(Math.PI)));
+      return value.rotateBy(new Rotation2d(Math.PI));
     }
 
     return value;
@@ -619,13 +631,13 @@ public class SwerveDrive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    m_poseEstimator.updateWithTime(Timer.getFPGATimestamp(), getYaw(), getModulePositions());
+    m_poseEstimator.updateWithTime(Timer.getFPGATimestamp(), correctGyroForLimelight(getYaw()), getModulePositions());
 
     robotRelativeChassisSpeeds = DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
 
     SmartDashboard.putNumber("Gyro", getYawDegrees());
 
-    LimelightHelpers.SetRobotOrientation("limelight-launch", correctGyroForLimelight(getYaw().getDegrees()), 0, 0, 0, 0, 0);
+    LimelightHelpers.SetRobotOrientation("limelight-launch", correctGyroForLimelight(getYaw()).getDegrees(), 0, 0, 0, 0, 0);
     m_poseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-launch");
 
     if (Math.abs(m_pigeon.getRate()) < 720 && !DriverStation.isAutonomous() && m_poseEstimate.pose.getX() != 0) {

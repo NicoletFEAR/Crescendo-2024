@@ -116,7 +116,7 @@ public class Robot extends TimedRobot {
     RobotContainer.m_drivebase.resetPoseEstimator(
     new SwerveDrivePoseEstimator(
       DriveConstants.kDriveKinematics,
-      Rotation2d.fromDegrees(RobotContainer.m_drivebase.getYawDegrees()),
+      RobotContainer.m_drivebase.correctGyroForLimelight(RobotContainer.m_drivebase.getYaw()),
       RobotContainer.m_drivebase.getModulePositions(),
       RobotContainer.m_drivebase.getPose(),
       VecBuilder.fill(0.1, 0.1, 0.0),

@@ -12,9 +12,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "turnShoot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "downOff"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "turnShoot"
+                }
+              }
+            ]
           }
         },
         {

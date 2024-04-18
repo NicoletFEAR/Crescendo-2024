@@ -150,6 +150,7 @@ public class RobotContainer {
 
     autoChooser.addOption("Source Side 3 Piece Pass", AutoBuilder.buildAuto("Source Side 3 Piece Pass"));
     autoChooser.addOption("Source Side 3 Piece", AutoBuilder.buildAuto("Source Side 3 Piece"));
+    autoChooser.addOption("Source Side 1 Piece and Intake", AutoBuilder.buildAuto("Source Side 1 Piece and Intake")); 
 
     mainTab.add(autoChooser).withPosition(0, 0).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
 

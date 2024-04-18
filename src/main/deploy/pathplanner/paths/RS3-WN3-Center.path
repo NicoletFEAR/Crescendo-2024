@@ -8,36 +8,52 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8061203609100633,
-        "y": 4.3078010836335165
+        "x": 1.6419230556007463,
+        "y": 3.325877579001948
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.4499707772596704,
-        "y": 4.11050362756931
+        "x": 4.2768612784015865,
+        "y": 1.6512279529551925
       },
       "prevControl": {
-        "x": 2.4499707772596704,
-        "y": 4.16050362756931
+        "x": 2.989224703533216,
+        "y": 1.7843391593416564
       },
       "nextControl": {
-        "x": 2.4499707772596704,
-        "y": 4.06050362756931
+        "x": 5.564497853269957,
+        "y": 1.5181167465687286
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.27,
-        "y": 4.438407050851191
+        "x": 8.000907299960106,
+        "y": 2.3304564726105195
       },
       "prevControl": {
-        "x": 1.8135161234493313,
-        "y": 4.31360389702398
+        "x": 7.813533915227603,
+        "y": 2.1899264340611415
+      },
+      "nextControl": {
+        "x": 8.235124030875737,
+        "y": 2.506119020797242
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.642450260649451,
+        "y": 2.248480616790049
+      },
+      "prevControl": {
+        "x": 7.040618703206023,
+        "y": 2.3070347995189566
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,40 +62,22 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.0,
-      "rotationDegrees": 0,
+      "waypointRelativePos": 2.0,
+      "rotationDegrees": 20.376435213836466,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Launch then Intake",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -45.0,
+    "rotation": 8.97262661489621,
     "rotateFast": false
   },
   "reversed": false,

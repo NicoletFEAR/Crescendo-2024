@@ -18,22 +18,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "downOff"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "RS1-WN1"
-                }
-              }
-            ]
+            "pathName": "RS1-WN1"
           }
         },
         {
