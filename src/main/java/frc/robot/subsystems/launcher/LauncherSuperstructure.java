@@ -74,6 +74,9 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       case FIELD_BASED_PREP:
         handleFieldBasedPrep(launcherDesiredState, outputCommand);
         break;
+      case AMP_PASS_PREP:
+        handleFieldBasedPrep(launcherDesiredState, outputCommand);
+        break;
       default:
         handleDefaultCommand(launcherDesiredState, outputCommand);
         break;
@@ -248,6 +251,10 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherFlywheelState.PASS,
       LauncherWristState.PASS,
       LauncherHoldState.PASS),
+    AMP_PASS_PREP(
+      LauncherFlywheelState.PASS,
+      LauncherWristState.PASS,
+      LauncherHoldState.OFF),
     SUBWOOFER(
       LauncherFlywheelState.SUBWOOFER,
       LauncherWristState.SUBWOOFER,

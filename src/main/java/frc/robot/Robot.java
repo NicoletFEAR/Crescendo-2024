@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.LED;
@@ -76,7 +77,7 @@ public class Robot extends TimedRobot {
   /** This function is called once when autonomous is enabled. */
   @Override
   public void autonomousInit() {
-
+    RobotContainer.m_drivebase.zeroGyroscope();
     m_autonomousCommand = new WaitCommand(0.01).andThen(m_robotContainer.getAutonomousCommand());
 
     // schedule the autonomous command (example)

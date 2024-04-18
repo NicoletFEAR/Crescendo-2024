@@ -49,6 +49,7 @@ public class SwerveDrive extends SubsystemBase {
   private boolean m_xWheels = false;
   private boolean m_targetNote = false;
   private boolean m_trackSpeaker = false;
+  private boolean m_trackAmp = false;
 
   private double kff = 0;
 
@@ -262,7 +263,34 @@ public class SwerveDrive extends SubsystemBase {
         speeds = MathUtil.clamp(speeds + kff, -1, 1);
 
         rotation = speeds * DriveConstants.kMaxRotationRadiansPerSecond;
-      } else {
+      } else if (m_trackAmp) {
+        throttle = throttle * DriveConstants.kMaxMetersPerSecond;
+        strafe = strafe * DriveConstants.kMaxMetersPerSecond;
+
+        double m_targetAngle;
+
+        m_targetAngle = calculateAngleToAmp() < 0 ? calculateAngleToAmp() + 180 : calculateAngleToAmp() - 180;
+
+        var alliance = DriverStation.getAlliance();
+
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+          m_targetAngle += 0;
+        } else {
+          m_targetAngle -= 180;
+        }
+
+        kff = SmartDashboard.getNumber("Turn To Angle KFF", kff);
+
+        double speeds =
+            m_trackSpeakerController.calculate(
+                GeometryUtils.getAdjustedYawDegrees(getYawDegrees(), m_targetAngle), 180);
+    
+        kff = speeds > 0.0 ? Math.abs(kff) : -Math.abs(kff);
+    
+        speeds = MathUtil.clamp(speeds + kff, -1, 1);
+
+        rotation = speeds * DriveConstants.kMaxRotationRadiansPerSecond;
+      }  else {
         throttle = throttle * DriveConstants.kMaxMetersPerSecond;
         strafe = strafe * DriveConstants.kMaxMetersPerSecond;
         rotation = rotation * DriveConstants.kMaxRotationRadiansPerSecond;
@@ -432,6 +460,10 @@ public class SwerveDrive extends SubsystemBase {
     m_trackSpeaker = value;
   }
 
+  public void setAmpTracking(boolean value) {
+    m_trackAmp = value;
+  }
+
   public boolean getXWheels() {
     return m_xWheels;
   }
@@ -462,13 +494,13 @@ public class SwerveDrive extends SubsystemBase {
 
     if (alliance.isPresent() && alliance.get() == Alliance.Red) {
       double hypot = getPose().getTranslation().getDistance(DriveConstants.kRedSpeakerPosition);
-      double adjacent = getPose().getTranslation().getX() - DriveConstants.kRedSpeakerPosition.getX();
+      double adjacent = Math.abs(getPose().getTranslation().getX() - DriveConstants.kRedSpeakerPosition.getX());
 
       if(getPose().getY() > DriveConstants.kRedSpeakerPosition.getY()){
-        return Math.toDegrees(Math.acos(adjacent / hypot));
+        return -Math.toDegrees(Math.acos(adjacent / hypot));
       }
       else{
-        return -Math.toDegrees(Math.acos(adjacent / hypot));
+        return Math.toDegrees(Math.acos(adjacent / hypot));
       }
     } else {
       double hypot = getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
@@ -484,18 +516,28 @@ public class SwerveDrive extends SubsystemBase {
 
   }
 
+  private double correctGyroForLimelight(double value) {
+    var alliance = DriverStation.getAlliance();
+
+    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+      return value + 180;
+    }
+
+    return value;
+  }
+
   public double calculateAngleToAmp() {
     var alliance = DriverStation.getAlliance();
 
     if (alliance.isPresent() && alliance.get() == Alliance.Red) {
       double hypot = getPose().getTranslation().getDistance(DriveConstants.kRedAmpPassPosition);
-      double adjacent = getPose().getTranslation().getX() - DriveConstants.kRedAmpPassPosition.getX();
+      double adjacent = Math.abs(getPose().getTranslation().getX() - DriveConstants.kRedAmpPassPosition.getX());
 
       if(getPose().getY() > DriveConstants.kRedAmpPassPosition.getY()){
-        return Math.toDegrees(Math.acos(adjacent / hypot));
+        return -Math.toDegrees(Math.acos(adjacent / hypot));
       }
       else{
-        return -Math.toDegrees(Math.acos(adjacent / hypot));
+        return Math.toDegrees(Math.acos(adjacent / hypot));
       }
     } else {
       double hypot = getPose().getTranslation().getDistance(DriveConstants.kBlueAmpPassPosition);
@@ -528,7 +570,7 @@ public class SwerveDrive extends SubsystemBase {
 
     SmartDashboard.putNumber("Gyro", getYawDegrees());
 
-    LimelightHelpers.SetRobotOrientation("limelight-launch", getYaw().getDegrees(), 0, 0, 0, 0, 0);
+    LimelightHelpers.SetRobotOrientation("limelight-launch", correctGyroForLimelight(getYaw().getDegrees()), 0, 0, 0, 0, 0);
     m_poseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-launch");
 
     if (Math.abs(m_pigeon.getRate()) < 720 && !DriverStation.isAutonomous() && m_poseEstimate.pose.getX() != 0) {

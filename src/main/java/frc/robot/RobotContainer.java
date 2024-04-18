@@ -25,6 +25,7 @@ import frc.robot.commands.drivebase.TurnToAngle;
 import frc.robot.commands.drivebase.TurnToAngle.AngleToTurn;
 import frc.robot.commands.parallel.SetVoltageStates;
 import frc.robot.commands.sequential.FieldRelativeLaunch;
+import frc.robot.commands.superstructure.AmpPassCommandScheduler;
 import frc.robot.commands.superstructure.ManualMultiMotorPositionSubsystem;
 import frc.robot.commands.superstructure.ManualPositionSubsystem;
 import frc.robot.commands.superstructure.SetPositionSubsystemState;
@@ -246,6 +247,9 @@ public class RobotContainer {
     m_driverController.circle().onTrue(new InstantCommand(() -> m_drivebase.setSpeakerTracking(true)));
     m_driverController.circle().onFalse(new InstantCommand(() -> m_drivebase.setSpeakerTracking(false)));
 
+    m_driverController.triangle().onTrue(new InstantCommand(() -> m_drivebase.setAmpTracking(true)));
+    m_driverController.triangle().onFalse(new InstantCommand(() -> m_drivebase.setAmpTracking(false)));
+
     ///// INTAKE /////
     m_operatorController.a().onTrue(m_robotStateManager.setSuperstructureState(RobotState.BEAM_BREAK_INTAKING));
 
@@ -274,8 +278,10 @@ public class RobotContainer {
     m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
     m_operatorController.pov(180).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
 
-    m_operatorController.pov(0).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.PASS, AngleToTurn.AMP));
-    m_operatorController.pov(0).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
+    m_operatorController.pov(0).onTrue(new AmpPassCommandScheduler());
+
+    // m_operatorController.pov(0).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.PASS, AngleToTurn.AMP));
+    // m_operatorController.pov(0).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
 
     // m_operatorController.pov(270).onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED));
     // m_operatorController.pov(270).onFalse(new FieldRelativeLaunch(LauncherSuperstructureState.PODIUM, AngleToTurn.SPEAKER));
@@ -283,8 +289,8 @@ public class RobotContainer {
     m_operatorController.pov(90).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH, AngleToTurn.SPEAKER));
     // m_operatorController.pov(90).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.TESTING));
     // m_operatorController.pov(90).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
-    m_operatorController.pov(270).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
-    m_operatorController.pov(270).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.FIELD_BASED_VELOCITY));
+    // m_operatorController.pov(270).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));
+    // m_operatorController.pov(270).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.FIELD_BASED_VELOCITY));
     // m_operatorController.pov(90).onTrue(new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.PASS));
     // m_operatorController.pov(90).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.PASS));
 

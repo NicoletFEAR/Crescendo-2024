@@ -166,7 +166,7 @@ public final class Constants {
     public static final Translation2d kBlueSpeakerPosition = new Translation2d(0, 5.56);
     public static final Translation2d kRedSpeakerPosition = new Translation2d(16.53, 5.56);
     public static final Translation2d kBlueAmpPassPosition = new Translation2d(1.32, 7.29);
-    public static final Translation2d kRedAmpPassPosition = new Translation2d(14.72, 5.56);
+    public static final Translation2d kRedAmpPassPosition = new Translation2d(14.72, 7.29);
     public static final Translation2d kBlueAmpPosition = new Translation2d(1.82, 7.69);
     public static final Translation2d kRedAmpPosition = new Translation2d(14.71, 7.69);
   }
