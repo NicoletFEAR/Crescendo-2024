@@ -89,12 +89,12 @@ public class TurnToAngle extends Command {
     angleController.setIZone(3);
 
     if (m_angleToTurn == AngleToTurn.SPEAKER) {
-      m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
+      m_targetAngle = m_drivebase.calculateAngleToTurnSpeaker() < 0 ? m_drivebase.calculateAngleToTurnSpeaker() + 180 : m_drivebase.calculateAngleToTurnSpeaker() - 180;
 
       var alliance = DriverStation.getAlliance();
 
       if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-        m_targetAngle += -5;
+        m_targetAngle += 5;
       } else {
         m_targetAngle -= 185;
       }
@@ -105,7 +105,7 @@ public class TurnToAngle extends Command {
        *    but initialize happens when ari first presses the button
        */
     } else if (m_angleToTurn == AngleToTurn.AMP) {
-      m_targetAngle = m_drivebase.calculateAngleToAmp() < 0 ? m_drivebase.calculateAngleToAmp() + 180 : m_drivebase.calculateAngleToAmp() - 180;
+      m_targetAngle = m_drivebase.calculateAngleToTurnAmp() < 0 ? m_drivebase.calculateAngleToTurnAmp() + 180 : m_drivebase.calculateAngleToTurnAmp() - 180;
 
       var alliance = DriverStation.getAlliance();
 
@@ -122,12 +122,12 @@ public class TurnToAngle extends Command {
   @Override
   public void execute() {
     if (m_angleToTurn == AngleToTurn.SPEAKER) {
-      m_targetAngle = m_drivebase.calculateAngleToSpeaker() < 0 ? m_drivebase.calculateAngleToSpeaker() + 180 : m_drivebase.calculateAngleToSpeaker() - 180;
+      m_targetAngle = m_drivebase.calculateAngleToTurnSpeaker() < 0 ? m_drivebase.calculateAngleToTurnSpeaker() + 180 : m_drivebase.calculateAngleToTurnSpeaker() - 180;
 
       var alliance = DriverStation.getAlliance();
 
       if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-        m_targetAngle += -5;
+        m_targetAngle += 5;
       } else {
         m_targetAngle -= 185;
       }

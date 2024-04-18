@@ -12,6 +12,10 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 public class IntakeFlywheel extends VoltageSubsystem {
 
     private static IntakeFlywheel m_instance = null;
+
+    private boolean ampLimitBreached = false;
+
+    private double ampLimit = 0;
   
 
     protected IntakeFlywheel(VoltageSubsystemConstants constants) {
@@ -26,8 +30,14 @@ public class IntakeFlywheel extends VoltageSubsystem {
         return m_instance;
     }
 
+    public boolean getAmpLimitBreached() {
+        return ampLimitBreached;
+    }
+
     @Override
-    public void subsystemPeriodic() {}
+    public void subsystemPeriodic() {
+        if (m_leader.get)
+    }
 
     @Override
     public void outputTelemetry() {}

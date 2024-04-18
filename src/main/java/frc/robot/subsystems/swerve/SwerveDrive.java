@@ -242,7 +242,7 @@ public class SwerveDrive extends SubsystemBase {
 
         double m_targetAngle;
 
-        m_targetAngle = calculateAngleToSpeaker() < 0 ? calculateAngleToSpeaker() + 180 : calculateAngleToSpeaker() - 180;
+        m_targetAngle = calculateAngleToTurnSpeaker() < 0 ? calculateAngleToTurnSpeaker() + 180 : calculateAngleToTurnSpeaker() - 180;
 
         var alliance = DriverStation.getAlliance();
 
@@ -269,7 +269,7 @@ public class SwerveDrive extends SubsystemBase {
 
         double m_targetAngle;
 
-        m_targetAngle = calculateAngleToAmp() < 0 ? calculateAngleToAmp() + 180 : calculateAngleToAmp() - 180;
+        m_targetAngle = calculateAngleToTurnAmp() < 0 ? calculateAngleToTurnAmp() + 180 : calculateAngleToTurnAmp() - 180;
 
         var alliance = DriverStation.getAlliance();
 
@@ -489,6 +489,33 @@ public class SwerveDrive extends SubsystemBase {
     m_poseEstimator.addVisionMeasurement(estimate, timeStamp);
   }
 
+  public double calculateAngleToTurnSpeaker() {
+    var alliance = DriverStation.getAlliance();
+
+    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+      double hypot = getPose().getTranslation().getDistance(DriveConstants.kRedSpeakerPosition);
+      double adjacent = getPose().getTranslation().getX() - DriveConstants.kRedSpeakerPosition.getX();
+
+      if(getPose().getY() > DriveConstants.kRedSpeakerPosition.getY()){
+        return Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+      else{
+        return -Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+    } else {
+      double hypot = getPose().getTranslation().getDistance(DriveConstants.kBlueSpeakerPosition);
+      double adjacent = getPose().getTranslation().getX() - DriveConstants.kBlueSpeakerPosition.getX();
+
+      if(getPose().getY() > DriveConstants.kBlueSpeakerPosition.getY()){
+        return Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+      else{
+        return -Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+    }
+
+  }  
+
   public double calculateAngleToSpeaker() {
     var alliance = DriverStation.getAlliance();
 
@@ -525,6 +552,34 @@ public class SwerveDrive extends SubsystemBase {
 
     return value;
   }
+
+   public double calculateAngleToTurnAmp() {
+    var alliance = DriverStation.getAlliance();
+
+    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+      double hypot = getPose().getTranslation().getDistance(DriveConstants.kRedAmpPassPosition);
+      double adjacent = getPose().getTranslation().getX() - DriveConstants.kRedAmpPassPosition.getX();
+
+      if(getPose().getY() > DriveConstants.kRedAmpPassPosition.getY()){
+        return Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+      else{
+        return -Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+    } else {
+      double hypot = getPose().getTranslation().getDistance(DriveConstants.kBlueAmpPassPosition);
+      double adjacent = getPose().getTranslation().getX() - DriveConstants.kBlueAmpPassPosition.getX();
+
+      if(getPose().getY() > DriveConstants.kBlueAmpPassPosition.getY()){
+        return Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+      else{
+        return -Math.toDegrees(Math.acos(adjacent / hypot));
+      }
+    }
+
+  }
+ 
 
   public double calculateAngleToAmp() {
     var alliance = DriverStation.getAlliance();
