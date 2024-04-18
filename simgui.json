@@ -196,6 +196,9 @@
         "open": true
       },
       "SmartDashboard": {
+        "LED": {
+          "open": true
+        },
         "Launcher": {
           "open": true
         },

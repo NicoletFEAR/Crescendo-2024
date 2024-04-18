@@ -172,7 +172,7 @@ public static class ElevatorLiftConstants {
     kElevatorLiftConstants.kPositionConversionFactor = 1.0; 
 
     // Tolerance for atSetpoint()
-    kElevatorLiftConstants.kSetpointTolerance = 1.5; 
+    kElevatorLiftConstants.kSetpointTolerance = 5; 
 
     // PID Slot, make more if more than one set of pid constants are used
     kElevatorLiftConstants.kDefaultSlot = 0; 
