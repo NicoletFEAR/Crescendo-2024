@@ -4,22 +4,30 @@ import frc.lib.templates.VoltageSubsystem;
 import frc.lib.templates.SubsystemConstants.RevMotorType;
 import frc.lib.templates.SubsystemConstants.SparkConstants;
 import frc.lib.templates.SubsystemConstants.VoltageSubsystemConstants;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.MotorConstants;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class IntakeFlywheel extends VoltageSubsystem {
 
     private static IntakeFlywheel m_instance = null;
 
+    private GenericEntry ampLimitBreachedEntry;
+
     private boolean ampLimitBreached = false;
 
-    private double ampLimit = 0;
+    private double ampLimit = 10;
   
 
     protected IntakeFlywheel(VoltageSubsystemConstants constants) {
         super(constants);
+
+        ampLimitBreachedEntry = RobotContainer.mainTab.add("Intake Limit Breached", ampLimitBreached).withPosition(0, 3).withSize(2, 1).getEntry();
     }
 
     public static IntakeFlywheel getInstance() {
@@ -36,7 +44,18 @@ public class IntakeFlywheel extends VoltageSubsystem {
 
     @Override
     public void subsystemPeriodic() {
-        if (m_leader.get)
+        SmartDashboard.putNumber("Intake Amperage", m_leader.getOutputCurrent());
+        if (m_leader.getOutputCurrent() > ampLimit) {
+            if (!ampLimitBreached) {
+                ampLimitBreached = true;
+            }
+        } else {
+            if (ampLimitBreached) {
+                ampLimitBreached = false;
+            }
+        }
+
+        ampLimitBreachedEntry.setBoolean(ampLimitBreached);
     }
 
     @Override

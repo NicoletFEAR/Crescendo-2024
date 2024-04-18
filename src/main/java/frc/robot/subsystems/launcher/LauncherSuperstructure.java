@@ -37,7 +37,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
   public LauncherSuperstructure(SuperstructureState initialState, String name) {
     super(initialState, name);
 
-    beamBreakEntry = RobotContainer.mainTab.add("Note In Launcher", m_noteInLauncher).withPosition(1, 1).withSize(1, 4).getEntry();
+    beamBreakEntry = RobotContainer.mainTab.add("Note In Launcher", m_noteInLauncher).withPosition(1, 1).withSize(1, 2).getEntry();
 
     // SmartDashboard.putBoolean("note in launcher", m_noteInLauncher);
 
