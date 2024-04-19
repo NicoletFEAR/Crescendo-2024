@@ -1,0 +1,118 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "enableAutoVision"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoStartSubwoofer"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RS2-RS2L"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "turnShoot4Piece"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RS2L-WN2-RS2-RED"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "turnShoot4Piece"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RS2-WN3-RS2-RED"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "turnShoot4Piece"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RS2-WN1-RS2-RED"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "turnShoot4Piece"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "travel"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Start Pos 2",
+  "choreoAuto": false
+}

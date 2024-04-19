@@ -88,6 +88,7 @@ public class LauncherFlywheel extends VelocitySubsystem {
         PODIUM(new double[] {6200, 6200}), // used for when against the base of the PODIUM
         TRANSITION(new double[] {0, 0}),
         FIELD_BASED_VELOCITY(new double[] {5800, 5800}),
+        FIELD_BASED_VELOCITY_4_PIECE(new double[] {6200, 6200}),
         INTAKING(new double[] {-500, -500}), // used when intaking through launch
         MANUAL(new double[] {0, 0});
 

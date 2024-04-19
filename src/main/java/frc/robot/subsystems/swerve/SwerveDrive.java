@@ -176,10 +176,10 @@ public class SwerveDrive extends SubsystemBase {
   
               var alliance = DriverStation.getAlliance();
               if (alliance.isPresent()) {
-                System.out.println("RED");
+                // System.out.println("RED");
                 return alliance.get() == DriverStation.Alliance.Red;
               }
-              System.out.println("BLUE");
+              // System.out.println("BLUE");
               return false;
           },
         this // Reference to this subsystem to set requirements
@@ -550,6 +550,9 @@ public class SwerveDrive extends SubsystemBase {
 
     if (alliance.isPresent() && alliance.get() == Alliance.Red) {
       //System.out.println((value + 180));
+      if (DriverStation.isAutonomous() && !enableAutoVision) {
+        return value;
+      }
       return (value + 180);
     }
 
@@ -561,6 +564,9 @@ public class SwerveDrive extends SubsystemBase {
 
     if (alliance.isPresent() && alliance.get() == Alliance.Red) {
       //System.out.println(value.rotateBy(new Rotation2d(Math.PI)));
+      if (DriverStation.isAutonomous() && !enableAutoVision) {
+        return value;
+      }
       return value.rotateBy(new Rotation2d(Math.PI));
     }
 

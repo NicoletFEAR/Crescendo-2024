@@ -247,6 +247,10 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherFlywheelState.FIELD_BASED_VELOCITY,
       LauncherWristState.FIELD_BASED_PITCH,
       LauncherHoldState.LAUNCHING),
+    FIELD_BASED_LAUNCH_4_PIECE(
+      LauncherFlywheelState.FIELD_BASED_VELOCITY_4_PIECE,
+      LauncherWristState.FIELD_BASED_PITCH,
+      LauncherHoldState.LAUNCHING_4_PIECE),
     PASS(
       LauncherFlywheelState.PASS,
       LauncherWristState.PASS,

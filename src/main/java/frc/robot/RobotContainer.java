@@ -119,6 +119,8 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("turnShoot", new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH, AngleToTurn.SPEAKER));
 
+    NamedCommands.registerCommand("turnShoot4Piece", new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH_4_PIECE, AngleToTurn.SPEAKER));
+
     NamedCommands.registerCommand("turnToSpeaker", new TurnToAngle(m_drivebase, AngleToTurn.SPEAKER));
 
     NamedCommands.registerCommand("poopPos1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
@@ -147,11 +149,14 @@ public class RobotContainer {
     autoChooser.addOption("Front Side 4 Piece Stage First", AutoBuilder.buildAuto("Front Side 4 Piece Stage First"));
     autoChooser.addOption("Front Side 3 Piece", AutoBuilder.buildAuto("Front Side 3 Piece"));
     autoChooser.addOption("Front Side 4 Piece", AutoBuilder.buildAuto("Front Side 4 Piece"));
+    autoChooser.addOption("Red Front Side 4 Piece Stage First", AutoBuilder.buildAuto("Red Front Side 4 Piece Stage First"));
 
     autoChooser.addOption("Source Side 3 Piece Pass", AutoBuilder.buildAuto("Source Side 3 Piece Pass"));
     autoChooser.addOption("Source Side 3 Piece", AutoBuilder.buildAuto("Source Side 3 Piece"));
     autoChooser.addOption("Source Side 1 Piece and Intake", AutoBuilder.buildAuto("Source Side 1 Piece and Intake"));
     autoChooser.addOption("Amp Side Wait", AutoBuilder.buildAuto("Amp Side Wait"));
+    autoChooser.addOption("Red Amp Side 3 Piece Amp Prepare", AutoBuilder.buildAuto("Red Amp Side 3 Piece Amp Prepare"));
+    autoChooser.addOption("Source Side 3 Piece Barker", AutoBuilder.buildAuto("Source Side 3 Piece Barker"));
  
 
     mainTab.add(autoChooser).withPosition(0, 0).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);

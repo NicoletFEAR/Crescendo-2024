@@ -3,48 +3,54 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9,
-        "y": 5.54
+        "x": 2.6559660811629335,
+        "y": 6.798323596647194
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9,
-        "y": 4.084434735895005
+        "x": 4.017604189054534,
+        "y": 7.0647310525390274
       },
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": "WN1-RED"
     },
     {
       "anchor": {
-        "x": 2.5,
-        "y": 4.086158802948237
+        "x": 7.767042457161838,
+        "y": 5.939899572106838
       },
       "prevControl": {
-        "x": 2.4,
-        "y": 4.086158802948237
+        "x": 7.767042457161838,
+        "y": 5.989899572106838
       },
       "nextControl": {
-        "x": 2.6,
-        "y": 4.086158802948237
+        "x": 7.767042457161838,
+        "y": 5.889899572106838
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.55,
-        "y": 5.7
+        "x": 3.4157206775952025,
+        "y": 6.512182255133741
       },
       "prevControl": {
-        "x": 2.0615924916534514,
-        "y": 4.865553915612336
+        "x": 4.718157128621951,
+        "y": 6.837791367890429
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "newSub"
+      "linkedName": "LaunchPos1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": -16.460014812040036,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -66,20 +72,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 4.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 14.931417178137526,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Start Pos 2",
+  "folder": "Wing Note 1",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 23.19859051364819,
     "velocity": 0
   },
   "useDefaultConstraints": false

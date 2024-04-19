@@ -12,7 +12,7 @@
         "y": 4.084434735895005
       },
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -32,39 +32,21 @@
     },
     {
       "anchor": {
-        "x": 1.55,
-        "y": 5.7
+        "x": 1.9,
+        "y": 5.54
       },
       "prevControl": {
-        "x": 2.0615924916534514,
-        "y": 4.865553915612336
+        "x": 1.8995614596079393,
+        "y": 4.614069599037914
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "newSub"
+      "linkedName": "subwooferFront"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,

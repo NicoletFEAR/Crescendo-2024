@@ -5,6 +5,7 @@
 package frc.robot.commands.superstructure;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.RobotStateManager.RobotState;
 // import frc.robot.subsystems.launcher.LauncherSuperstructure;
@@ -26,6 +27,7 @@ public class AmpPassCommandScheduler extends InstantCommand {
     } else if (RobotContainer.m_launcherSuperstructure.getDesiredState() != LauncherSuperstructureState.PASS) {
       RobotContainer.m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.PASS)
         .andThen(
+          new WaitCommand(.25),
           RobotContainer.m_robotStateManager.setSuperstructureState(RobotState.TRAVEL)
         ).schedule();
     }

@@ -183,14 +183,17 @@
         },
         "open": true
       },
-      "PathPlanner": {
-        "open": true
-      },
       "Shuffleboard": {
         "Drive Tuning": {
           "open": true
         },
         "Main": {
+          "SendableChooser[0]": {
+            "open": true,
+            "string[]##v_/Shuffleboard/Main/SendableChooser[0]/options": {
+              "open": true
+            }
+          },
           "open": true
         },
         "open": true

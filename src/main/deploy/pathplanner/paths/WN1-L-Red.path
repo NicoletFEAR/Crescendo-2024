@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.4521990582442719,
+        "y": 6.4924483695121245
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.5000827056184667,
+        "y": 6.506841295348929
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.6559660811629335,
+        "y": 6.798323596647194
+      },
+      "prevControl": {
+        "x": 2.606067627019752,
+        "y": 6.795138588935927
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "WN1-RED"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 1.75,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 19.44003482817619,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Wing Note 1",
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

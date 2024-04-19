@@ -3,68 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9,
-        "y": 5.54
+        "x": 7.005486193568678,
+        "y": 2.6115165497092763
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9,
-        "y": 4.084434735895005
+        "x": 7.052329539751803,
+        "y": 3.4078534348224188
       },
       "isLocked": false,
-      "linkedName": "subwooferFront"
+      "linkedName": "barker"
     },
     {
       "anchor": {
-        "x": 2.5,
-        "y": 4.086158802948237
+        "x": 5.682161663895367,
+        "y": 4.016816935203058
       },
       "prevControl": {
-        "x": 2.4,
-        "y": 4.086158802948237
+        "x": 6.565519719592767,
+        "y": 3.469757180307387
       },
       "nextControl": {
-        "x": 2.6,
-        "y": 4.086158802948237
+        "x": 4.798803608197967,
+        "y": 4.563876690098727
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.55,
-        "y": 5.7
+        "x": 3.7117289619194636,
+        "y": 5.318282175025889
       },
       "prevControl": {
-        "x": 2.0615924916534514,
-        "y": 4.865553915612336
+        "x": 4.862694507093792,
+        "y": 4.768222336167472
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "newSub"
+      "linkedName": "LaunchPos2"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -73,13 +55,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": -5.856013585428937,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Start Pos 2",
+  "folder": "Start Pos 3",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -8.130102354155936,
     "velocity": 0
   },
   "useDefaultConstraints": false

@@ -8,63 +8,45 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9,
-        "y": 4.084434735895005
-      },
-      "isLocked": false,
-      "linkedName": "subwooferFront"
-    },
-    {
-      "anchor": {
-        "x": 2.5,
-        "y": 4.086158802948237
-      },
-      "prevControl": {
-        "x": 2.4,
-        "y": 4.086158802948237
-      },
-      "nextControl": {
-        "x": 2.6,
-        "y": 4.086158802948237
+        "x": 2.1424945636294312,
+        "y": 5.54
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.55,
-        "y": 5.7
+        "x": 2.640232307492985,
+        "y": 5.54
       },
       "prevControl": {
-        "x": 2.0615924916534514,
-        "y": 4.865553915612336
+        "x": 2.340277998946068,
+        "y": 5.534764278068815
+      },
+      "nextControl": {
+        "x": 2.7402170770086243,
+        "y": 5.541745240643729
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.9,
+        "y": 5.54
+      },
+      "prevControl": {
+        "x": 2.0999999999999996,
+        "y": 5.54
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "newSub"
+      "linkedName": "subwooferFront"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -73,7 +55,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
