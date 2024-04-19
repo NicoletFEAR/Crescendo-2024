@@ -21,7 +21,7 @@ public class IntakeFlywheel extends VoltageSubsystem {
 
     private boolean ampLimitBreached = false;
 
-    private double ampLimit = 10;
+    private double ampLimit = 20;
   
 
     protected IntakeFlywheel(VoltageSubsystemConstants constants) {
