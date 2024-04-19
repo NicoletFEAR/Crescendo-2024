@@ -1,0 +1,55 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.74,
+      "y": 6.62
+    },
+    "rotation": 60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "addGyroAmpSide"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 8.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RS1-WN1-BREAD"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferLaunch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bread-RS1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "travel"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Start Pos 1",
+  "choreoAuto": false
+}

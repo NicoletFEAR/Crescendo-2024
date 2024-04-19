@@ -150,7 +150,9 @@ public class RobotContainer {
 
     autoChooser.addOption("Source Side 3 Piece Pass", AutoBuilder.buildAuto("Source Side 3 Piece Pass"));
     autoChooser.addOption("Source Side 3 Piece", AutoBuilder.buildAuto("Source Side 3 Piece"));
-    autoChooser.addOption("Source Side 1 Piece and Intake", AutoBuilder.buildAuto("Source Side 1 Piece and Intake")); 
+    autoChooser.addOption("Source Side 1 Piece and Intake", AutoBuilder.buildAuto("Source Side 1 Piece and Intake"));
+    autoChooser.addOption("Amp Side Wait", AutoBuilder.buildAuto("Amp Side Wait"));
+ 
 
     mainTab.add(autoChooser).withPosition(0, 0).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
 
@@ -284,7 +286,7 @@ public class RobotContainer {
     // m_operatorController.pov(0).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.PASS, AngleToTurn.AMP));
     // m_operatorController.pov(0).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
 
-    // m_operatorController.pov(270).onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED));
+    // m_opderatorController.pov(270).onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED));
     // m_operatorController.pov(270).onFalse(new FieldRelativeLaunch(LauncherSuperstructureState.PODIUM, AngleToTurn.SPEAKER));
 
     m_operatorController.pov(90).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH, AngleToTurn.SPEAKER));

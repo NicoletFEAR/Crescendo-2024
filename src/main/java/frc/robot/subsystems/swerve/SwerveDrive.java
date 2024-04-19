@@ -176,8 +176,10 @@ public class SwerveDrive extends SubsystemBase {
   
               var alliance = DriverStation.getAlliance();
               if (alliance.isPresent()) {
-                  return alliance.get() == DriverStation.Alliance.Red;
+                System.out.println("RED");
+                return alliance.get() == DriverStation.Alliance.Red;
               }
+              System.out.println("BLUE");
               return false;
           },
         this // Reference to this subsystem to set requirements
