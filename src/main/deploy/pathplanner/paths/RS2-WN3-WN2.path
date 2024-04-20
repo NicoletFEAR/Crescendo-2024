@@ -1,0 +1,74 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.9464048057910655,
+        "y": 5.55
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.8527181134248132,
+        "y": 4.6482655859748245
+      },
+      "isLocked": false,
+      "linkedName": "4PieceShot1"
+    },
+    {
+      "anchor": {
+        "x": 2.45,
+        "y": 4.11050362756931
+      },
+      "prevControl": {
+        "x": 2.25,
+        "y": 4.11050362756931
+      },
+      "nextControl": {
+        "x": 2.5,
+        "y": 4.11050362756931
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.11,
+        "y": 5.55
+      },
+      "prevControl": {
+        "x": 2.016313307633748,
+        "y": 5.035659714686048
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "WN2Prepare4Piece"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Start Pos 2",
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
