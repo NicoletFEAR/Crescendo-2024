@@ -12,6 +12,8 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 public class IntakeFlywheel extends VoltageSubsystem {
 
     private static IntakeFlywheel m_instance = null;
+
+    
   
 
     protected IntakeFlywheel(VoltageSubsystemConstants constants) {
