@@ -288,8 +288,8 @@ public class RobotContainer {
 
     m_operatorController.pov(0).onTrue(new AmpPassCommandScheduler());
 
-    // m_operatorController.pov(0).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.PASS, AngleToTurn.AMP));
-    // m_operatorController.pov(0).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
+     m_operatorController.pov(0).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.PASS, AngleToTurn.AMP));
+     //m_operatorController.pov(0).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
 
     // m_opderatorController.pov(270).onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED));
     // m_operatorController.pov(270).onFalse(new FieldRelativeLaunch(LauncherSuperstructureState.PODIUM, AngleToTurn.SPEAKER));

@@ -254,11 +254,11 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
     PASS(
       LauncherFlywheelState.PASS,
       LauncherWristState.PASS,
-      LauncherHoldState.PASS),
+      LauncherHoldState.LAUNCHING),
     AMP_PASS_PREP(
       LauncherFlywheelState.PASS,
       LauncherWristState.PASS,
-      LauncherHoldState.OFF),
+      LauncherHoldState.LAUNCHING),
     SUBWOOFER(
       LauncherFlywheelState.SUBWOOFER,
       LauncherWristState.SUBWOOFER,
@@ -304,7 +304,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
 
 
     // IN METERS
-    public static final TreeMap<Double, Double> kAmpDistanceRPMMap = new TreeMap<>();
+    public static final TreeMap<Double, Double> kAmpDistanceRPMMap = new TreeMap<>();//CHANGE THESE FOR LAUNCH DISTANCES
     static {
       kAmpDistanceRPMMap.put(0.0, 3000.0);
       kAmpDistanceRPMMap.put(1.0, 3000.0);
@@ -322,7 +322,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       kAmpDistanceRPMMap.put(40.0, 6000.0);
     }
 
-    public static final TreeMap<Double, Double> kAmpDistancePitchMap = new TreeMap<>();
+    public static final TreeMap<Double, Double> kAmpDistancePitchMap = new TreeMap<>();//CHANGE FOR ANGLE MODIFICATIONS
     static {
       kAmpDistancePitchMap.put(0.0, 0.0);
       kAmpDistancePitchMap.put(1.0, 10.0);

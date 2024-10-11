@@ -36,7 +36,7 @@ public class LauncherHold extends VoltageSubsystem {
     @Override
     public void outputTelemetry() {}
 
-    public enum LauncherHoldState implements VoltageSubsystemState {
+    public enum LauncherHoldState implements VoltageSubsystemState {//CHANGE IF HOLD IS NOT WORKING
         OFF(0),
         LAUNCHING(-1.5),
         LAUNCHING_4_PIECE(-9),
