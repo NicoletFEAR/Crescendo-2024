@@ -4,8 +4,8 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
+// import com.pathplanner.lib.auto.AutoBuilder;
+// import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -102,61 +102,61 @@ public class RobotContainer {
 
     // Use for auto
 
-    NamedCommands.registerCommand("intakeDown", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF));
-    NamedCommands.registerCommand("intake", m_robotStateManager.setSuperstructureState(RobotState.AUTO_INTAKING));
-    NamedCommands.registerCommand("tofIntake", m_robotStateManager.setSuperstructureState(RobotState.TOF_INTAKING));
-    NamedCommands.registerCommand("ampPrepare", m_robotStateManager.setSuperstructureState(RobotState.AMP));
-    NamedCommands.registerCommand("autoStartSubwoofer", m_robotStateManager.setSuperstructureState(RobotState.AUTO_START_SUBWOOFER));
-    NamedCommands.registerCommand("travel", m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
-    NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
-    NamedCommands.registerCommand("fieldPrepare", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_PREP));
-    NamedCommands.registerCommand("fieldLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_LAUNCH));
-    NamedCommands.registerCommand("intakeReady", new InstantCommand(() -> m_drivebase.setIntakeReady(true)));
+    // NamedCommands.registerCommand("intakeDown", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF));
+    // NamedCommands.registerCommand("intake", m_robotStateManager.setSuperstructureState(RobotState.AUTO_INTAKING));
+    // NamedCommands.registerCommand("tofIntake", m_robotStateManager.setSuperstructureState(RobotState.TOF_INTAKING));
+    // NamedCommands.registerCommand("ampPrepare", m_robotStateManager.setSuperstructureState(RobotState.AMP));
+    // NamedCommands.registerCommand("autoStartSubwoofer", m_robotStateManager.setSuperstructureState(RobotState.AUTO_START_SUBWOOFER));
+    // NamedCommands.registerCommand("travel", m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
+    // NamedCommands.registerCommand("subwooferLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
+    // NamedCommands.registerCommand("fieldPrepare", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_PREP));
+    // NamedCommands.registerCommand("fieldLaunch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.FIELD_BASED_LAUNCH));
+    // NamedCommands.registerCommand("intakeReady", new InstantCommand(() -> m_drivebase.setIntakeReady(true)));
 
-    NamedCommands.registerCommand("downOff", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF));
+    // NamedCommands.registerCommand("downOff", m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.DOWNOFF));
 
-    NamedCommands.registerCommand("waitForIntakeReady", new ParallelRaceGroup(new WaitForIntakeReady(), new WaitCommand(3)));
+    // NamedCommands.registerCommand("waitForIntakeReady", new ParallelRaceGroup(new WaitForIntakeReady(), new WaitCommand(3)));
 
-    NamedCommands.registerCommand("turnShoot", new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH, AngleToTurn.SPEAKER));
+    // NamedCommands.registerCommand("turnShoot", new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH, AngleToTurn.SPEAKER));
 
-    NamedCommands.registerCommand("turnShoot4Piece", new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH_4_PIECE, AngleToTurn.SPEAKER));
+    // NamedCommands.registerCommand("turnShoot4Piece", new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH_4_PIECE, AngleToTurn.SPEAKER));
 
-    NamedCommands.registerCommand("turnToSpeaker", new TurnToAngle(m_drivebase, AngleToTurn.SPEAKER));
+    // NamedCommands.registerCommand("turnToSpeaker", new TurnToAngle(m_drivebase, AngleToTurn.SPEAKER));
 
-    NamedCommands.registerCommand("poopPos1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_1)));
-    NamedCommands.registerCommand("poopPos1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_1));
+    // NamedCommands.registerCommand("poopPos1LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_1)));
+    // NamedCommands.registerCommand("poopPos1Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_1));
   
-    NamedCommands.registerCommand("poopPos2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_2)));
-    NamedCommands.registerCommand("poopPos2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_2));
+    // NamedCommands.registerCommand("poopPos2LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_2)));
+    // NamedCommands.registerCommand("poopPos2Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_2));
 
-    NamedCommands.registerCommand("poopPos3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
-      .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_3)));
-    NamedCommands.registerCommand("poopPos3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_3));
+    // NamedCommands.registerCommand("poopPos3LaunchPrepare", new SetVelocitySubsystemState(m_launcherFlywheel, LauncherFlywheelState.RUNNING)
+    //   .alongWith(new SetPositionSubsystemState(m_launcherWrist, LauncherWristState.POOP_POS_3)));
+    // NamedCommands.registerCommand("poopPos3Launch", m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.POOP_POS_3));
 
-    NamedCommands.registerCommand("addGyroAmpSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, true)));
-    NamedCommands.registerCommand("addGyroSourceSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, false)));
-    NamedCommands.registerCommand("enableAutoVision", new InstantCommand(() -> m_drivebase.setAutoVision(true)));
+    // NamedCommands.registerCommand("addGyroAmpSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, true)));
+    // NamedCommands.registerCommand("addGyroSourceSide", new InstantCommand(() -> m_drivebase.setGyroRequest(true, false)));
+    // NamedCommands.registerCommand("enableAutoVision", new InstantCommand(() -> m_drivebase.setAutoVision(true)));
 
     
     autoChooser = new SendableChooser<>();
 
     autoChooser.setDefaultOption("None", new InstantCommand());
 
-    autoChooser.addOption("Amp Side 3 Piece Amp Prepare", AutoBuilder.buildAuto("Amp Side 3 Piece Amp Prepare"));
+    // autoChooser.addOption("Amp Side 3 Piece Amp Prepare", AutoBuilder.buildAuto("Amp Side 3 Piece Amp Prepare"));
 
-    autoChooser.addOption("Front Side 4 Piece Stage First", AutoBuilder.buildAuto("Front Side 4 Piece Stage First"));
-    autoChooser.addOption("Front Side 3 Piece", AutoBuilder.buildAuto("Front Side 3 Piece"));
-    autoChooser.addOption("Front Side 4 Piece", AutoBuilder.buildAuto("Front Side 4 Piece"));
-    autoChooser.addOption("Red Front Side 4 Piece Stage First", AutoBuilder.buildAuto("Red Front Side 4 Piece Stage First"));
+    // autoChooser.addOption("Front Side 4 Piece Stage First", AutoBuilder.buildAuto("Front Side 4 Piece Stage First"));
+    // autoChooser.addOption("Front Side 3 Piece", AutoBuilder.buildAuto("Front Side 3 Piece"));
+    // autoChooser.addOption("Front Side 4 Piece", AutoBuilder.buildAuto("Front Side 4 Piece"));
+    // autoChooser.addOption("Red Front Side 4 Piece Stage First", AutoBuilder.buildAuto("Red Front Side 4 Piece Stage First"));
 
-    autoChooser.addOption("Source Side 3 Piece Pass", AutoBuilder.buildAuto("Source Side 3 Piece Pass"));
-    autoChooser.addOption("Source Side 3 Piece", AutoBuilder.buildAuto("Source Side 3 Piece"));
-    autoChooser.addOption("Source Side 1 Piece and Intake", AutoBuilder.buildAuto("Source Side 1 Piece and Intake"));
-    autoChooser.addOption("Amp Side Wait", AutoBuilder.buildAuto("Amp Side Wait"));
-    autoChooser.addOption("Red Amp Side 3 Piece Amp Prepare", AutoBuilder.buildAuto("Red Amp Side 3 Piece Amp Prepare"));
-    autoChooser.addOption("Source Side 3 Piece Barker", AutoBuilder.buildAuto("Source Side 3 Piece Barker"));
+    // autoChooser.addOption("Source Side 3 Piece Pass", AutoBuilder.buildAuto("Source Side 3 Piece Pass"));
+    // autoChooser.addOption("Source Side 3 Piece", AutoBuilder.buildAuto("Source Side 3 Piece"));
+    // autoChooser.addOption("Source Side 1 Piece and Intake", AutoBuilder.buildAuto("Source Side 1 Piece and Intake"));
+    // autoChooser.addOption("Amp Side Wait", AutoBuilder.buildAuto("Amp Side Wait"));
+    // autoChooser.addOption("Red Amp Side 3 Piece Amp Prepare", AutoBuilder.buildAuto("Red Amp Side 3 Piece Amp Prepare"));
+    // autoChooser.addOption("Source Side 3 Piece Barker", AutoBuilder.buildAuto("Source Side 3 Piece Barker"));
  
 
     mainTab.add(autoChooser).withPosition(0, 0).withSize(2, 1).withWidget(BuiltInWidgets.kComboBoxChooser);
@@ -259,9 +259,9 @@ public class RobotContainer {
     m_driverController.triangle().onFalse(new InstantCommand(() -> m_drivebase.setAmpTracking(false)));
 
     ///// INTAKE /////
-    m_operatorController.a().onTrue(m_robotStateManager.setSuperstructureState(RobotState.BEAM_BREAK_INTAKING));
+    //m_operatorController.a().onTrue(m_robotStateManager.setSuperstructureState(RobotState.BEAM_BREAK_INTAKING));
 
-    m_operatorController.rightStick().onTrue(m_robotStateManager.setSuperstructureState(RobotState.TOF_INTAKING));
+  //  m_operatorController.rightStick().onTrue(m_robotStateManager.setSuperstructureState(RobotState.TOF_INTAKING));
 
     m_operatorController.b().onTrue(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
     
@@ -275,8 +275,8 @@ public class RobotContainer {
       
     m_operatorController.start().onFalse(new SetVoltageStates(IntakeFlywheelState.OFF, IntakeHoldState.OFF, LauncherHoldState.OFF));
 
-    m_operatorController.back().onTrue(m_robotStateManager.setSuperstructureState(RobotState.CLIMB_PREPARE));
-    m_operatorController.back().onFalse(m_robotStateManager.setSuperstructureState(RobotState.CHIN_UP));
+    //m_operatorController.back().onTrue(m_robotStateManager.setSuperstructureState(RobotState.CLIMB_PREPARE));
+   // m_operatorController.back().onFalse(m_robotStateManager.setSuperstructureState(RobotState.CHIN_UP));
 
     m_operatorController.leftStick().onTrue(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.INTAKE_TO_LAUNCH));
     m_operatorController.leftStick().onFalse(new SetVoltageSubsystemState(m_intakeHold, IntakeHoldState.OFF));
@@ -286,7 +286,7 @@ public class RobotContainer {
     m_operatorController.pov(180).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.SUBWOOFER));
     m_operatorController.pov(180).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
 
-    m_operatorController.pov(0).onTrue(new AmpPassCommandScheduler());
+  // m_operatorController.pov(0).onTrue(new AmpPassCommandScheduler());
 
     // m_operatorController.pov(0).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.PASS, AngleToTurn.AMP));
     // m_operatorController.pov(0).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
@@ -294,7 +294,7 @@ public class RobotContainer {
     // m_opderatorController.pov(270).onTrue(m_intakeSuperstructure.setSuperstructureState(IntakeSuperstructureState.STOWED));
     // m_operatorController.pov(270).onFalse(new FieldRelativeLaunch(LauncherSuperstructureState.PODIUM, AngleToTurn.SPEAKER));
 
-    m_operatorController.pov(90).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH, AngleToTurn.SPEAKER));
+    //m_operatorController.pov(90).onTrue(new FieldRelativeLaunch(LauncherSuperstructureState.FIELD_BASED_LAUNCH, AngleToTurn.SPEAKER));
     // m_operatorController.pov(90).onTrue(m_launcherSuperstructure.setSuperstructureState(LauncherSuperstructureState.TESTING));
     // m_operatorController.pov(90).onFalse(m_robotStateManager.setSuperstructureState(RobotState.TRAVEL));
     // m_operatorController.pov(270).onFalse(new SetVoltageSubsystemState(m_launcherHold, LauncherHoldState.LAUNCHING));

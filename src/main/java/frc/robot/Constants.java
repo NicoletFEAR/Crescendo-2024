@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.util.PIDConstants;
+// import com.pathplanner.lib.util.PIDConstants;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -153,8 +153,8 @@ public final class Constants {
     public static final SwerveDriveKinematics kDriveKinematics =
         new SwerveDriveKinematics(kModuleTranslations);
 
-    public static final PIDConstants kPathPlannerTranslationPID = new PIDConstants(5.0, 0, 0);
-    public static final PIDConstants kPathPlannerRotationPID = new PIDConstants(5.0, 0, 0);
+    // public static final PIDConstants kPathPlannerTranslationPID = new PIDConstants(5.0, 0, 0);
+    // public static final PIDConstants kPathPlannerRotationPID = new PIDConstants(5.0, 0, 0);
 
     public static final SwerveModuleState[] kXWheels = {
       new SwerveModuleState(0, Rotation2d.fromDegrees(45)),

@@ -13,8 +13,8 @@
 
 package frc.robot;
 
-import com.ctre.phoenix6.SignalLogger;
-import com.pathplanner.lib.commands.FollowPathCommand;
+// import com.ctre.phoenix6.SignalLogger;
+// import com.pathplanner.lib.commands.FollowPathCommand;
 
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
       PortForwarder.add(port, "limelight.local", port);
     }
 
-    SignalLogger.enableAutoLogging(false);
+    // SignalLogger.enableAutoLogging(false);
 
     LED.setState(LEDState.RED);
 
@@ -136,12 +136,12 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     LED.setState(LEDState.RED);
 
-    if (autonInitCommandRun == false) {
-      Command autonInitCommand = FollowPathCommand.warmupCommand();
-      // new PathPlannerAuto("1 Meter Auto").ignoringDisable(true);
-      autonInitCommand.schedule();
-      autonInitCommandRun = true;
-    }
+    // if (autonInitCommandRun == false) {
+    //   // Command autonInitCommand = FollowPathCommand.warmupCommand();
+    //   // new PathPlannerAuto("1 Meter Auto").ignoringDisable(true);
+    //   autonInitCommand.schedule();
+    //   autonInitCommandRun = true;
+    // }
 
   }
 

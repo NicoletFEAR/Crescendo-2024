@@ -1,8 +1,8 @@
 package frc.lib.utilities;
 
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
-import com.pathplanner.lib.path.PathPoint;
+// import com.pathplanner.lib.commands.PathPlannerAuto;
+// import com.pathplanner.lib.path.PathPlannerPath;
+// import com.pathplanner.lib.path.PathPoint;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -117,14 +117,14 @@ public class GeometryUtils {
   }
 
   public static Trajectory PPAutoToTraj(String auto) {
-    List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile(auto);
+    // List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile(auto);
     List<State> states = new ArrayList<>();
 
-    for (PathPlannerPath path : paths) {
-      for (PathPoint point : path.getAllPathPoints()) {
-        states.add(new State(0, 0, 0, new Pose2d(point.position, new Rotation2d(0)), 0));
-      }
-    }
+    // for (PathPlannerPath path : paths) {
+    //   for (PathPoint point : path.getAllPathPoints()) {
+    //     states.add(new State(0, 0, 0, new Pose2d(point.position, new Rotation2d(0)), 0));
+    //   }
+    // }
     return new Trajectory(states);
   }
 

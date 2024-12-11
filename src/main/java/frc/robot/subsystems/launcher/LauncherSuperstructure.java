@@ -203,7 +203,7 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherFlywheelState.PODIUM,
       LauncherWristState.PODIUM,
       LauncherHoldState.LAUNCHING),
-    WING_NOTE_1( 
+    WING_NOTE_1(
       LauncherFlywheelState.WING_NOTE_1,
       LauncherWristState.WING_NOTE_1,
       LauncherHoldState.LAUNCHING),
@@ -216,15 +216,15 @@ public class LauncherSuperstructure extends SuperstructureSubsystem {
       LauncherWristState.WING_NOTE_3,
       LauncherHoldState.LAUNCHING),
     LAUNCH_POS_1(
-      LauncherFlywheelState.LAUNCH_POS_1,
+      LauncherFlywheelState.POOP_POS_1,
       LauncherWristState.LAUNCH_POS_1,
       LauncherHoldState.LAUNCHING),
     LAUNCH_POS_2(
-      LauncherFlywheelState.LAUNCH_POS_2,
+      LauncherFlywheelState.POOP_POS_1,
       LauncherWristState.LAUNCH_POS_2,
       LauncherHoldState.LAUNCHING),
     LAUNCH_POS_3(
-      LauncherFlywheelState.LAUNCH_POS_3,
+      LauncherFlywheelState.POOP_POS_1,
       LauncherWristState.LAUNCH_POS_3,
       LauncherHoldState.LAUNCHING),
     POOP_POS_1( 

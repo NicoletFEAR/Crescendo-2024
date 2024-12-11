@@ -5,9 +5,9 @@
 package frc.robot.subsystems.swerve;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.ReplanningConfig;
+//import com.pathplanner.lib.auto.AutoBuilder;
+///import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+//import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.VecBuilder;
@@ -152,38 +152,38 @@ public class SwerveDrive extends SubsystemBase {
     //       ppPath = activePath;
     //     });
 
-    AutoBuilder.configureHolonomic(
-        this::getPose, // Robot pose supplier
-        this::updateEstimatorWithPose, // Method to reset odometry (will be called if your auto has
-        // a starting pose)
-        this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-        this::autoDrive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
-        new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in
-            // your Constants class
-            DriveConstants.kPathPlannerTranslationPID, // Translation PID constants
-            DriveConstants.kPathPlannerRotationPID, // Rotation PID constants
-            5.5, // Max module speed, in m/s
-            DriveConstants
-                .kDriveBaseRadius, // Drive base radius in meters. Distance from robot center to
-            // furthest module.
-            new ReplanningConfig() // Default path replanning config. See the API for the options
-            // here
-            ),
-            () -> {
-              // Boolean supplier that controls when the path will be mirrored for the red alliance
-              // This will flip the path being followed to the red side of the field.
-              // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+    // AutoBuilder.configureHolonomic(
+    //     this::getPose, // Robot pose supplier
+    //     this::updateEstimatorWithPose, // Method to reset odometry (will be called if your auto has
+    //     // a starting pose)
+    //     this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+    //     this::autoDrive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+    //     new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in
+    //         // your Constants class
+    //         DriveConstants.kPathPlannerTranslationPID, // Translation PID constants
+    //         DriveConstants.kPathPlannerRotationPID, // Rotation PID constants
+    //         5.5, // Max module speed, in m/s
+    //         DriveConstants
+    //             .kDriveBaseRadius, // Drive base radius in meters. Distance from robot center to
+    //         // furthest module.
+    //         new ReplanningConfig() // Default path replanning config. See the API for the options
+    //         // here
+    //         ),
+    //         () -> {
+    //           // Boolean supplier that controls when the path will be mirrored for the red alliance
+    //           // This will flip the path being followed to the red side of the field.
+    //           // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
   
-              var alliance = DriverStation.getAlliance();
-              if (alliance.isPresent()) {
-                // System.out.println("RED");
-                return alliance.get() == DriverStation.Alliance.Red;
-              }
-              // System.out.println("BLUE");
-              return false;
-          },
-        this // Reference to this subsystem to set requirements
-        );
+    //           var alliance = DriverStation.getAlliance();
+    //           if (alliance.isPresent()) {
+    //             // System.out.println("RED");
+    //             return alliance.get() == DriverStation.Alliance.Red;
+    //           }
+    //           // System.out.println("BLUE");
+    //           return false;
+    //       },
+    //     this // Reference to this subsystem to set requirements
+    //     );
   }
 
   public static SwerveDrive getInstance() {
